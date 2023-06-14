@@ -6,5 +6,5 @@ Allow: *.png
 Allow: *.gif
 Disallow: /manager/
 
-Host: https://deafassistant.com
-Sitemap: https://deafassistant.com/sitemap.xml
+Host: https://conferencecaptioning.com
+Sitemap: https://conferencecaptioning.com/sitemap.xml

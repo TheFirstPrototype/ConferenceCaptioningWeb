@@ -3,7 +3,7 @@
   font-size: 1.5em;
   line-height: 1.75;
   margin: auto;
-  max-width: 70ch;
+  max-width: 75%;
   padding: 1em 1em;
 }
 
@@ -80,20 +80,16 @@ input:focus {
 }
 /* --------------Custom CSS Starts Here--- */
 .center {
-  margin: 0;
-  position: relative;
-  left: 50%;
-  -ms-transform: translate(-50%, 0%);
-  transform: translate(-50%, 0%);  
+  margin: auto;
+  text-align: center;
 }
 
 .ios-button{
-  display: inline-flex;
   padding: 13px 27px;
   align-items: center;
   gap: 10px;
   border-radius: 24px;
-  background: #0091FF;
+  background: #1d3b78;
 }
 .ios-button-text{
   color: var(--neutrals-white, #FFF);
@@ -106,6 +102,7 @@ input:focus {
 }
 #live-caption{
 /*     height: 400px; */
+    max-height: 400px;
     overflow-y: scroll;
 }
 #footer {
@@ -118,8 +115,55 @@ input:focus {
   }
 
 .scroller {
-  max-height: 300px;
+  max-height: 50%;
   overflow: auto;
   display: flex;
   flex-direction: column-reverse;
+  margin: auto;
+  text-align: center;
+}
+
+
+
+#header
+{
+	background-color:#1d3b78;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	display:block;
+  width: 100%;
+}
+
+#header h1
+{
+	font-weight:normal;
+	padding-top:20px;
+	margin-left:40px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	margin-top:0;
+	margin-bottom:0;
+  color: white;
+}
+
+
+#header h2
+{
+	font-weight:normal;
+	font-size:14px;
+	padding:5px 0 20px 80px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	margin-top:0;
+	margin-bottom:0;
+  color: white;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: grey;
+}
+
+a.active {
+  pointer-events: none;
+  cursor: default;
+  color: black;
 }

@@ -1,6 +1,6 @@
 $("document").ready(function () {
   // Loads the initial quote - without pressing the button
-  const unusedVariable = setInterval(recurringFunction, 2000);
+  const unusedVariable = setInterval(recurringFunction, 1000);
 
   // Loads quotes as user wishes on clicking the button
   $("#get-live-caption").on("click", buttonTapped);
@@ -49,6 +49,10 @@ function getQuotes() {
       if (a && a.Transcript && a.Transcript != "") {
         var joke = a.Transcript;
         $("#live-caption").html(joke);
+        if (!a.IsActivelyStreaming){
+          buttonTapped()
+        }
+
       }
     }
   );

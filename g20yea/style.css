@@ -3,7 +3,7 @@
   font-size: 1.5em;
   line-height: 1.75;
   margin: auto;
-  padding: 0.5em 0.5em;
+  padding: 1em 1em;
 }
 
 img {
@@ -103,7 +103,7 @@ input:focus {
 /*     height: 400px; */
     max-height: 370px;
     overflow-y: scroll;
-    font-size: 20px;
+    font-size: x-large;
 }
 #footer {
     bottom: 0;
@@ -137,7 +137,7 @@ input:focus {
 {
 	font-weight:normal;
 	padding-top:20px;
-	margin-left:25px;
+	margin-left:30px;
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	margin-top:0;
 	margin-bottom:0;

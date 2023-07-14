@@ -55,7 +55,7 @@ function stopTimer() {
 }
 
 function getQuotes() {
-  var url="https://script.google.com/macros/s/AKfycbzXWAHwPsGW-P-gZYKuRfodDDbAaZzktFYclxTR3SPZHNCm3wgUoaFeuYF9FjBqKpVr/exec?streamName=ConferenceEvent"
+  var url="https://script.google.com/macros/s/AKfycbyn-yIafidHRk8pNQu_uzS4jYwAzDaOEAPdhb6lQx_OcZK7W7iNkNYPZr2S4Li7PjC4/exec?streamName=ConferenceEvent";
   // To avoid using JQuery, you can use this https://stackoverflow.com/questions/3229823/how-can-i-pass-request-headers-with-jquerys-getjson-method
   $.getJSON(
     url,
@@ -71,7 +71,7 @@ function getQuotes() {
         translations.arabic = a.Transcript_AR;
         $("#live-caption").html(transcript);
         if (!a.IsActivelyStreaming){
-          buttonTapped()
+          buttonTapped();
         }
 
       }
@@ -80,9 +80,10 @@ function getQuotes() {
 }
 
 function translate(language){
-  eng.className = ""
+  console.log("H" + language);
+  eng.className = "";
   arabic.className = "";
   french.className = "";
-  document.getElementById(language).className = "active"
+  document.getElementById(language).className = "active";
   $("#live-caption").html(translations[language]);
 }

@@ -167,3 +167,7 @@ a.active {
   cursor: default;
   color: black;
 }
+
+.customPadding{
+  padding:20px;
+}

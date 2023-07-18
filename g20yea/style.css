@@ -104,6 +104,7 @@ input:focus {
     max-height: 370px;
     overflow-y: scroll;
     font-size: large;
+    padding: 10px;
 }
 #footer {
     bottom: 0;

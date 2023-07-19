@@ -5,7 +5,7 @@ $("document").ready(function () {
   // Loads quotes as user wishes on clicking the button
   $("#get-live-caption").on("click", buttonTapped);
   $("#eng").on("click", function() { translate("eng"); });
-  $("#arabic").on("click", function() { translate("arabic"); });
+  //$("#arabic").on("click", function() { translate("arabic"); });
   $("#french").on("click", function() { translate("french"); });
 });
 
@@ -16,7 +16,7 @@ var translations =  {
 };
 
 eng = document.getElementById("eng");
-arabic = document.getElementById("arabic");
+//arabic = document.getElementById("arabic");
 french = document.getElementById("french");
 
 var isStreamingCaptions = false; 
@@ -44,13 +44,13 @@ function recurringFunction() {
 function startTimer() {
   $("#get-live-caption").html("Stop Streaming");
   eng.className = "active";
-  arabic.className = "disabled";
+  //arabic.className = "disabled";
   french.className = "disabled";
 }
 
 function stopTimer() {
   $("#get-live-caption").html("Get Live Captions");
-  arabic.className = "";
+  //arabic.className = "";
   french.className = "";
 }
 
@@ -82,7 +82,7 @@ function getQuotes() {
 function translate(language){
   console.log("H" + language);
   eng.className = "";
-  arabic.className = "";
+  //arabic.className = "";
   french.className = "";
   document.getElementById(language).className = "active";
   $("#live-caption").html(translations[language]);

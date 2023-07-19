@@ -104,6 +104,7 @@ input:focus {
     max-height: 370px;
     overflow-y: scroll;
     font-size: large;
+    padding: 10px;
 }
 #footer {
     bottom: 0;
@@ -137,7 +138,7 @@ input:focus {
 {
 	font-weight:normal;
 	padding-top:20px;
-	margin-left:30px;
+	margin-left:10px;
 	font-family:Verdana, Arial, Helvetica, sans-serif;
 	margin-top:0;
 	margin-bottom:0;

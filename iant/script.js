@@ -49,8 +49,12 @@ function showRightTranscript(){
 
 var localization = ""
 function loadLang(lang){
-  $.getJSON("./"+lang+".json", (text) => {
+  $.getJSON("https://conferencecaptioning.com/iant/"+lang+".json", (text) => {
     localization = text
+    console.log("localization")
+    console.log(localization)
+    console.log("text['caption-header']")
+    console.log(text['caption-header'])
     document.getElementById("caption-header").innerHTML = text['caption-header'];
     document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
     document.getElementById("english-language").innerHTML = text['english-language'];
@@ -122,7 +126,7 @@ function getTranscript() {
   );
 }
 
-var currentLanguage = "eng"
+var currentLanguage = "eng" // "french" is the other choice
 function translate(language){
   currentLanguage = language
   loadLang(language)

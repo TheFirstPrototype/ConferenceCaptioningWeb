@@ -49,13 +49,18 @@ function showRightTranscript(){
 
 var localization = ""
 function loadLang(lang){
-  $.getJSON("./"+lang+".json", (text) => {
+  $.getJSON("https://conferencecaptioning.com/iant/"+lang+".json", (text) => {
     localization = text
     document.getElementById("caption-header").innerHTML = text['caption-header'];
-    document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
-    document.getElementById("english-language").innerHTML = text['english-language'];
-    document.getElementById("french-language").innerHTML = text['french-language'];
+    if(isStreamingCaptions){
+      document.getElementById("get-live-caption").innerHTML = text['get-live-caption-stop'];
+    }
+    else{
+      document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
+    }
     document.getElementById("live-caption-empty").innerHTML = text['live-caption-empty'];
+    document.getElementById("eng").innerHTML = text['english-language'];
+    document.getElementById("french").innerHTML = text['french-language'];
   });
 }
 
@@ -73,7 +78,6 @@ function recurringFunction() {
   if (isStreamingCaptions) {
     if (isTesting) {
       transcript = transcript + transcript;
-      console.log("transcript is being done" + transcript);
       $("#live-caption").html(transcript+counter++);
     } else {
       getTranscript();
@@ -122,7 +126,7 @@ function getTranscript() {
   );
 }
 
-var currentLanguage = "eng"
+var currentLanguage = "eng" // "french" is the other choice
 function translate(language){
   currentLanguage = language
   loadLang(language)

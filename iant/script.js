@@ -52,9 +52,13 @@ function loadLang(lang){
   $.getJSON("https://conferencecaptioning.com/iant/"+lang+".json", (text) => {
     localization = text
     document.getElementById("caption-header").innerHTML = text['caption-header'];
-    document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
+    if(isStreamingCaptions){
+      document.getElementById("get-live-caption").innerHTML = text['get-live-caption-stop'];
+    }
+    else{
+      document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
+    }
     document.getElementById("live-caption-empty").innerHTML = text['live-caption-empty'];
-    console.log(document.getElementById("eng"))
     document.getElementById("eng").innerHTML = text['english-language'];
     document.getElementById("french").innerHTML = text['french-language'];
   });
@@ -74,7 +78,6 @@ function recurringFunction() {
   if (isStreamingCaptions) {
     if (isTesting) {
       transcript = transcript + transcript;
-      console.log("transcript is being done" + transcript);
       $("#live-caption").html(transcript+counter++);
     } else {
       getTranscript();

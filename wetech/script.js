@@ -49,7 +49,7 @@ function showRightTranscript(){
 
 var localization = ""
 function loadLang(lang){
-  $.getJSON("https://conferencecaptioning.com/iant/"+lang+".json", (text) => {
+  $.getJSON("https://conferencecaptioning.com/wetech/"+lang+".json", (text) => {
     localization = text
     document.getElementById("caption-header").innerHTML = text['caption-header'];
     if(isStreamingCaptions){

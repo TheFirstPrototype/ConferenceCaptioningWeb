@@ -1,17 +1,26 @@
-$("document").ready(function () {
-  // Loads the initial quote - without pressing the button
-  const unusedVariable = setInterval(recurringFunction, 1000);
+$(document).ready(function() {
+
+  loadLang("eng")
+  $("#french").click(function () {
+    // console.log("SaamerD!");
+    translate("french");
+  });
+  $("#eng").click(function () {
+    // console.log("SaamerD!");
+    translate("eng");
+  });
 
   // Loads quotes as user wishes on clicking the button
   $("#get-live-caption").on("click", buttonTapped);
-  $("#eng").on("click", function() { translate("eng"); });
   //$("#arabic").on("click", function() { translate("arabic"); });
-  $("#french").on("click", function() { translate("french"); });
+  // Loads the initial quote - without pressing the button
+  const unusedVariable = setInterval(recurringFunction, 1000);  
 });
+
 
 var translations =  {
   eng: "",
-  arabic: "",
+  // arabic: "",
   french: ""
 };
 
@@ -21,57 +30,91 @@ french = document.getElementById("french");
 
 var isStreamingCaptions = false; 
 function buttonTapped() {
-  isStreamingCaptions ? stopTimer() : startTimer();
+  if (isStreamingCaptions){
+    stopTimer() 
+  } else{ 
+    startTimer();
+  }
   isStreamingCaptions = !isStreamingCaptions;
 }
 
+function showRightTranscript(){
+  if (currentLanguage === "eng"){
+    transcript = translations.eng
+  } else {
+    transcript = translations.french
+  }
+  $("#live-caption").html(transcript);
+}
+
+var localization = ""
+function loadLang(lang){
+  $.getJSON("./"+lang+".json", (text) => {
+    localization = text
+    document.getElementById("caption-header").innerHTML = text['caption-header'];
+    document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
+    document.getElementById("english-language").innerHTML = text['english-language'];
+    document.getElementById("french-language").innerHTML = text['french-language'];
+    document.getElementById("live-caption-empty").innerHTML = text['live-caption-empty'];
+  });
+}
+
+var transcript = "";
 var isTesting = false; //TODO: Before publishing, Change this to false
-var transcript = "H ";
-var counter = 0;
+var counter = 0; // Only used for debug
 function recurringFunction() {
+  if (translations.eng == ""){ //if transcript is empty, show/hide the placeholder
+    $('#live-caption-empty').show;
+  }
+  else {
+    $('#live-caption-empty').hide();
+    showRightTranscript()
+  }
   if (isStreamingCaptions) {
-    console.log("Work is being done");
     if (isTesting) {
       transcript = transcript + transcript;
       console.log("transcript is being done" + transcript);
       $("#live-caption").html(transcript+counter++);
     } else {
-      getQuotes();
+      getTranscript();
     }
   }
 }
 
 function startTimer() {
   $("#get-live-caption").html("Stop Streaming");
-  eng.className = "active";
+  $("#get-live-caption").html(localization['get-live-caption-stop']);
+  // eng.className = "active";
   //arabic.className = "disabled";
-  french.className = "disabled";
+  // french.className = "disabled";
 }
 
 function stopTimer() {
   $("#get-live-caption").html("Get Live Captions");
+  $("#get-live-caption").html(localization['get-live-caption']);
   //arabic.className = "";
-  french.className = "";
+  // french.className = "";
 }
 
-function getQuotes() {
-  var url="https://script.google.com/macros/s/AKfycbyn-yIafidHRk8pNQu_uzS4jYwAzDaOEAPdhb6lQx_OcZK7W7iNkNYPZr2S4Li7PjC4/exec?streamName=WeTech";
+function getTranscript() {
+  var url="https://script.google.com/macros/s/AKfycbyjXwiLNAiyQ0myoxcEXW6NkezaI4B9x_PrC2yUhAgUIOC5UX6z0qqitPlY2wlDzCSA/exec?streamName=WeTech";
   // To avoid using JQuery, you can use this https://stackoverflow.com/questions/3229823/how-can-i-pass-request-headers-with-jquerys-getjson-method
   $.getJSON(
     url,
     function (a) {
-      console.log(a);
-      console.log(a.value);
       var json = JSON.stringify(a);
-      console.log(json);
+      // console.log(json)
       if (a && a.Transcript && a.Transcript != "") {
-        var transcript = a.Transcript;
-        translations.eng = a.Transcript;
+        // transcript = a.Transcript;
+        translations.eng = a.Transcript; //english
         translations.french = a.Transcript_FR;
-        translations.arabic = a.Transcript_AR;
-        $("#live-caption").html(transcript);
+        // console.log(translations.eng)
+        // console.log(translations.french)
+
+        // translations.arabic = a.Transcript_AR;
+        // $("#live-caption").html(transcript);
         if (!a.IsActivelyStreaming){
-          buttonTapped();
+          buttonTapped(); // Automatically stop streaming if event is not live
         }
 
       }
@@ -79,8 +122,12 @@ function getQuotes() {
   );
 }
 
+var currentLanguage = "eng"
 function translate(language){
-  console.log("H" + language);
+  currentLanguage = language
+  loadLang(language)
+  // console.log("SaamerE!");
+  // console.log("H" + language);
   eng.className = "";
   //arabic.className = "";
   french.className = "";

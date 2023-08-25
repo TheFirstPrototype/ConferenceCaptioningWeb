@@ -57,8 +57,8 @@ function loadLang(lang){
     console.log(text['caption-header'])
     document.getElementById("caption-header").innerHTML = text['caption-header'];
     document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
-    document.getElementById("english-language").innerHTML = text['english-language'];
-    document.getElementById("french-language").innerHTML = text['french-language'];
+    document.getElementById("eng").innerHTML = text['english-language'];
+    document.getElementById("french").innerHTML = text['french-language'];
     document.getElementById("live-caption-empty").innerHTML = text['live-caption-empty'];
   });
 }

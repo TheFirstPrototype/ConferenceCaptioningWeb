@@ -101,7 +101,7 @@ function stopTimer() {
 }
 
 function getTranscript() {
-  var url="https://script.google.com/macros/s/AKfycbxURIZ7Df4FmaZLC_q7Dgvg9wXAFkZTbzsOpORtyd2DEFxh2l0ZV9d3hE6WFxjCKRPl/exec?streamName=ExpressAcademy";
+  var url="https://script.google.com/macros/s/AKfycbzqOWlC9bT6TtLp1QJLzAkwDZJKTcCZYnoDhN4JIMXTo5lEvtPruYb-3vrILj__yO_A/exec?streamName=ExpressAcademy";
   // To avoid using JQuery, you can use this https://stackoverflow.com/questions/3229823/how-can-i-pass-request-headers-with-jquerys-getjson-method
   $.getJSON(
     url,

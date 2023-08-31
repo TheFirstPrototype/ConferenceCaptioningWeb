@@ -51,16 +51,16 @@ var localization = ""
 function loadLang(lang){
   $.getJSON("https://conferencecaptioning.com/wetech/" + lang + ".json", (text) => {
     localization = text
-    document.getElementById("caption-header").innerHTML = text['caption-header'];
-    if(isStreamingCaptions){
-      document.getElementById("get-live-caption").innerHTML = text['get-live-caption-stop'];
-    }
-    else{
-      document.getElementById("get-live-caption").innerHTML = text['get-live-caption'];
-    }
-    document.getElementById("live-caption-empty").innerHTML = text['live-caption-empty'];
-    document.getElementById("eng").innerHTML = text['english-language'];
-    document.getElementById("french").innerHTML = text['french-language'];
+    document.getElementById("caption-header").html(text['caption-header']);
+    // if(isStreamingCaptions){
+    //   document.getElementById("get-live-caption").html(text['get-live-caption-stop']);
+    // }
+    // else{
+    //   document.getElementById("get-live-caption").html(text['get-live-caption']);
+    // }
+    document.getElementById("live-caption-empty").html(text['live-caption-empty']);
+    document.getElementById("eng").html(text['english-language']);
+    document.getElementById("french").html(text['french-language']);
   });
 }
 
@@ -136,5 +136,5 @@ function translate(language){
   //arabic.className = "";
   french.className = "";
   document.getElementById(language).className = "active";
-  $("#live-caption").html(translations[language]);
+  // $("#live-caption").html(translations[language]);
 }

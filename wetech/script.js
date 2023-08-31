@@ -59,6 +59,7 @@ function loadLang(lang){
     //   document.getElementById("get-live-caption").html(text['get-live-caption']);
     // }
     document.getElementById("live-caption-empty").html(text['live-caption-empty']);
+    document.getElementById("hotmail").html(text['hotmail']);
     document.getElementById("eng").html(text['english-language']);
     document.getElementById("french").html(text['french-language']);
   });

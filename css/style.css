@@ -67,7 +67,7 @@ Primary use: MultiPurpose Template
 30. Improve the readability
 31. Wow animation fix
 32. Morphext
-
+33. Pricing
 
 /*------------------------------------------------------------------
 # [Color codes]
@@ -6522,4 +6522,114 @@ section:hover .small-item-carousel .owl-next{
     display: inline-block;
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
+}
+
+/* ==============================
+   Pricing
+   ============================== */
+
+   .pricing-item{
+    margin: 0 0 30px;
+    position: relative;
+    text-align: center;
+}
+.pricing-item-inner{
+    border: 1px solid #e1e1e1;
+    vertical-align: middle;
+    -webkit-transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+    transition: all 0.27s cubic-bezier(0.000, 0.000, 0.580, 1.000);
+}
+.pricing-item-inner:hover{
+    border-color: #111;
+}
+.main .pricing-item-inner{
+    border-color: #111;
+}
+.pricing-wrap{
+    position: relative;    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;    
+    padding: 30px 20px;
+    text-align: center;
+    overflow: hidden;
+}
+.pricing-icon{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    position: relative;
+    font-size: 32px;
+    z-index: 1;
+}
+.pricing-title{
+    position: relative;
+    margin-bottom: 40px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    z-index: 1;
+}
+.pr-list{
+    margin: 0 -20px 30px;
+    padding: 0;
+    font-size: 16px;
+}
+.pr-list li{
+    padding: 12px 20px;
+    list-style: none;
+    border-bottom: 1px solid #f1f1f1;
+}
+.pr-list li:first-child{
+    border-top: 1px solid #f1f1f1;
+}
+.pricing-num{
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1;
+    
+}
+.pricing-num sup{
+    font-size: 20px;
+    font-weight: 600;
+    position: relative;
+    top: -20px;
+    left: -6px;
+    margin-left: -7px;
+}
+.pr-button{
+    margin: 30px -20px 0;
+    padding-top: 30px;
+    border-top: 1px solid #f1f1f1;
+}
+.pr-per{
+    color: #757575;
+    font-size: 14px;
+}
+
+.light-content .pricing-item{
+    font-weight: 400;
+}
+.light-content .pricing-item-inner{
+    border-color: #383838;
+}
+.light-content .pricing-item-inner:hover{
+    border-color: #fff;
+}
+.light-content .main .pricing-item-inner{
+    border-color: #fff;
+}
+.light-content .pricing-title{
+    font-weight: 400; /*500*/ 
+}
+.light-content .pr-list li{
+    border-color: #282828;
+}
+.light-content .pr-list li:first-child{
+    border-color: #282828;
+}
+.light-content .pr-button{
+    border-color: #282828;
+}
+.light-content .pr-per{
+    color: #bbb;
 }

@@ -5,4 +5,4 @@ This repository contains the code of the Landing Page website for the [BeAware -
 
 The app itself is open-source and is written in SwiftUI. Here's the [code for the app](https://github.com/philparkus/BeAware)
 
-To briefly understand what the app does, you can watch [this video](https://vimeo.com/898930855)
+To briefly understand what the app does, you can watch [this video](https://vimeo.com/950840441)

@@ -6,28 +6,37 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
     <loc>https://conferencecaptioning.com/</loc>
-    <lastmod>2023-12-26T05:55:24+00:00</lastmod>
+    <lastmod>2024-06-06T05:55:24+00:00</lastmod>
     <priority>1.00</priority>
 </url>
 <url>
   <loc>https://conferencecaptioning.com/index.html</loc>
-  <lastmod>2023-12-26T05:55:24+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://conferencecaptioning.com/pricing.html</loc>
-  <lastmod>2023-12-26T05:55:24+00:00</lastmod>
+  <lastmod>2024-06-06T05:55:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://conferencecaptioning.com/app.html</loc>
-  <lastmod>2023-12-26T05:55:24+00:00</lastmod>
+  <lastmod>2024-06-06T05:55:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://conferencecaptioning.com/privacy-policy.html</loc>
+  <lastmod>2024-06-06T05:55:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://conferencecaptioning.com/terms-and-conditions.html</loc>
+  <lastmod>2024-06-06T05:55:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://conferencecaptioning.com/app/index.html</loc>
-  <lastmod>2023-12-26T05:55:24+00:00</lastmod>
+    <lastmod>2024-06-06T05:55:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-
+<url>
+  <loc>https://app.conferencecaptioning.com/</loc>
+    <lastmod>2024-06-06T05:55:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
 </urlset>

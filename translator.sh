@@ -35,15 +35,15 @@ for lang in "${languageCodes[@]}"; do
         sed_commands=""
         while IFS= read -r line; do
             en_value=$(echo "$line" | jq -r '.EN // empty')
-            echo $en_value
+            # echo $en_value #Uncomment to debug
             lang_value=$(echo "$line" | jq -r ".$lang // empty")
-            echo $lang_value
+            # echo $lang_value #Uncomment to debug
 
             if [ -n "$en_value" ] && [ -n "$lang_value" ]; then
                 escaped_en_value=$(escape_sed "$en_value")
                 escaped_lang_value=$(escape_sed "$lang_value")
-                echo $escaped_en_value
-                echo $escaped_lang_value
+                # echo $escaped_en_value #Uncomment to debug
+                # echo $escaped_lang_value #Uncomment to debug
                 # Use different delimiter in sed command to avoid issues with special characters
                 sed_commands+="s#${escaped_en_value}#${escaped_lang_value}#g;"
             fi

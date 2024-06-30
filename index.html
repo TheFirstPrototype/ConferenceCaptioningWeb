@@ -1428,26 +1428,51 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         </script>
         <script type="text/javascript" src="js/analytics.js">
         </script>
-        <!-- <script type="text/javascript">
-                $(document).ready(function () {
-                    var userLang = navigator.language || navigator.userLanguage;
-                    if (userLang.startsWith("fr")) {
-                            window.location.href = 'index-fr.html';
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var userLang = navigator.language || navigator.userLanguage;
+                // Do not navigate if you come from another deaf assistant page
+                if (document.referrer.includes("conferencecaptioning.com")) {
+                    console.log("Internal");
+                } else {
+                    var langMap = {
+                        "fr": "index-fr.html",
+                        "de": "index-de.html",
+                        "es": "index-es.html",
+                        "ar": "index-ar.html",
+                        "nl": "index-nl.html",
+                        "pt": "index-pt.html",
+                        "ru": "index-ru.html",
+                        "uk": "index-uk.html",
+                        "hi": "index-hi.html",
+                        "ur": "index-ur.html",
+                        "yo": "index-yo.html",
+                        "id": "index-id.html",
+                        "it": "index-it.html",
+                        "ja": "index-ja.html",
+                        "sw": "index-sw.html",
+                        "pl": "index-pl.html",
+                        "vi": "index-vi.html",
+                        "ro": "index-ro.html",
+                        "zh-Hant": "index-zh-hant.html",
+                        "zh": "index-zh.html",
+                        "hr": "index-hr.html",
+                        "fa": "index-fa.html",
+                        "ko": "index-ko.html",
+                        "sv": "index-sv.html",
+                        "hu": "index-hu.html",
+                        "sq": "index-sq.html"
+                    };
+
+                    for (var lang in langMap) {
+                        if (userLang.startsWith(lang)) {
+                            window.location.href = langMap[lang];
+                            break;
+                        }
                     }
-                    else if (userLang.startsWith("de")) {
-                            window.location.href = 'index-ge.html';
-                    }
-                    else if (userLang.startsWith("es")) {
-                            window.location.href = 'index-es.html';
-                    }
-                    else if (userLang.startsWith("ar")) {
-                            window.location.href = 'index-ar.html';
-                    }
-                    else if (userLang.startsWith("nl")) {
-                            window.location.href = 'index-nl.html';
-                    }
-                });
-            </script> -->
+                }
+            });
+        </script>
         <script type="application/ld+json">
             {
                     "@context": "https://schema.org",

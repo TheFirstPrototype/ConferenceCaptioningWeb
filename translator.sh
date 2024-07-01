@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # JSON file containing translations
-TRANSLATION_FILE="translations.json"
+TRANSLATION_FILE="languages.json"
 # Define the language codes
 languageCodes=("ES" "FR" "PT" "AR" "RU" "DE" "UK" "HI" "UR" "YO" "ID" "IT" "JA" "SW" "PL" "VI" "RO" "zh-Hant" "ZH" "HR" "FA" "NL" "KO" "SV" "HU" "SQ")
 

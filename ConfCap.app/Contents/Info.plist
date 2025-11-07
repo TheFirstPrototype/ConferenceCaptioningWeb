@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>25A354</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>ConferenceCaptioning</string>
+	<key>CFBundleExecutable</key>
+	<string>ConfCap</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.tfp.beawareconf</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>ConfCap</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.19.4</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.tfp.beawareconf</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>confcap</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>394</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>25A352</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>DTPlatformVersion</key>
+	<string>26.0</string>
+	<key>DTSDKBuild</key>
+	<string>25A352</string>
+	<key>DTSDKName</key>
+	<string>macosx26.0</string>
+	<key>DTXcode</key>
+	<string>2600</string>
+	<key>DTXcodeBuild</key>
+	<string>17A324</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>NSAccentColorName</key>
+	<string>AccentColor</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The app uses the microphone to transcribe the speech from an audio input when you start streaming</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The app uses your device's speech recognition to transcribe the speech from the audio input that gets used when you start streaming</string>
+</dict>
+</plist>

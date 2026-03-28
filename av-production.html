@@ -92,10 +92,10 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         <!-- Meta Pixel Code -->
         <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '210485784445970'); fbq('track', 'PageView');</script><noscript> <img height="1" width="1" src="https://www.facebook.com/tr?id=210485784445970&ev=PageView&noscript=1"/></noscript><!-- End Meta Pixel Code -->
         <!-- Apollo https://app.apollo.io/#/settings/websites -->
-        <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+        <!-- <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
             o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
             o.onload=function(){window.trackingFunctions.onLoad({appId:"66c28a7070be8403f8ec7e13"})},
-            document.head.appendChild(o)}initApollo();</script>
+            document.head.appendChild(o)}initApollo();</script> -->
     </head>
     <body class="appear-animate">    
         <!-- Page Loader -->
@@ -133,30 +133,38 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <div class="inner-nav desktop-nav">
                         <ul class="clearlist scroll-nav local-scroll">
                             <li class="active">
-                                <a href="#home">
+                                <a href="./index.html">
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="#about">
+                                <a href="./index.html#about">
                                     About
                                 </a>
                             </li>
                             <li>
-                                <a href="#features">
+                                <a href="./index.html#features">
                                     Features
                                 </a>
                             </li>
                             <li>
-                                <a href="#pricing">
+                                <a href="./index.html#pricing">
                                     Pricing
                                 </a>
                             </li>
                             <li>
-                                <a href="#contact">
+                                <a href="./index.html#contact">
                                     Contact
                                 </a>
                             </li>
+                            <li>
+                                <a href="#" class="mn-has-sub"><i class="fa-solid fa-earth-americas"></i>Solutions <i class="fa fa-angle-down"></i></a>                                
+                                <ul class="mn-sub">                                    
+                                    <li><a href="./av-production.html">AV Engineers & Broadcasting</a></li>
+                                    <li><a href="./event-organizers.html">Event Planners & Organizers</a></li>
+                                    <li><a href="./churches.html">Churches & Chapels</a></li>                                                                 
+                                </ul>                                
+                            </li>                                
                             <!-- Languages -->
                             <li>
                                 <a href="#" class="mn-has-sub"><i class="fa-solid fa-earth-americas"></i>English <i class="fa fa-angle-down"></i></a>                                
@@ -208,36 +216,62 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
             <main id="main">
     <!-- Hero Section -->
     <div class="home-section relative bg-dark light-content" id="home">
-        <div class="fullwidth-gallery-wrapper">
+        <!-- <div class="fullwidth-gallery-wrapper">
             <div class="fullwidth-gallery">
-                <!-- Using a dark background suitable for a production booth aesthetic -->
                 <div class="home-section bg-scroll bg-dark-alfa-70" data-background="images/full-width-images/section-bg-dark.jpg" style="background-color: #0b0c10;">
                     <div class="min-height-100vh"></div>
                 </div>
             </div>
+        </div> -->
+        <!-- Fullwidth Slider -->
+        <div class="fullwidth-gallery-wrapper">
+            <div class="fullwidth-gallery">
+                <!-- Slide Item -->
+                <div class="home-section bg-scroll bg-dark-alfa-50" data-background="images/full-width-images/section-bg-av-1.jpg">
+                    <div class="min-height-100vh">
+                    </div>
+                </div>
+                <!-- End Slide Item -->
+                <!-- Slide Item -->
+                <div class="home-section bg-scroll bg-dark-alfa-50" data-background="images/full-width-images/section-bg-av-2.jpg">
+                    <div class="min-height-100vh">
+                    </div>
+                </div>
+                <!-- End Slide Item -->
+                <!-- Slide Item -->
+                <div class="home-section bg-scroll bg-dark-alfa-50" data-background="images/full-width-images/section-bg-av-3.jpg">
+                    <div class="min-height-100vh">
+                    </div>
+                </div>
+                <!-- End Slide Item -->
+            </div>
         </div>
+        <!-- End Fullwidth Slider -->
         
         <div class="fullwidth-galley-content">
             <div class="container min-height-100vh d-flex align-items-center pt-100 pb-100">
                 <div class="home-content text-start">
                     <div class="row">
                         <div class="col-md-10 col-lg-9">
-                            <h1 class="hs-line-3 mb-30 mb-xs-20 wow fadeInUpShort" data-wow-delay=".1s" style="color:#66fcf1; font-family: monospace;">
+                            <!-- <h1 class="hs-line-3 mb-30 mb-xs-20 wow fadeInUpShort" data-wow-delay=".1s" style="color:#66fcf1; font-family: monospace;">
                                 > SYSTEM_INIT: AV_ENGINEER_MODE
+                            </h1> -->
+                            <h1 class="hs-line-5 mb-50 mb-xs-40 wow fadeInUpShort" data-wow-delay=".2s" style="font-size: 3.5rem; line-height: 1.2;">
+                                On-Device AI Captioning for Professional AV Engineer Broadcasts.
                             </h1>
-                            <h2 class="hs-line-5 mb-50 mb-xs-40 wow fadeInUpShort" data-wow-delay=".2s" style="font-size: 3.5rem; line-height: 1.2;">
-                                On-Device AI Captioning for Mission-Critical Broadcasts.
-                            </h2>
                             <h3 class="hs-line-6 mb-60 mb-xs-40 wow fadeInUpShort" data-wow-delay=".2s" style="color:#c5c6c7; max-width: 800px;">
-                                Eliminate the cloud bottleneck. Sub-100ms latency, zero internet requirement, and seamless integration into your SDI/NDI signal chain.
+                                Eliminate the cloud bottleneck for Mission-Critical Broascasts. Sub-1000ms latency, zero internet requirement, and seamless integration into your SDI/NDI signal chain.
                             </h3>
                             <div class="local-scroll wow fadeInUpShort" data-wow-delay=".3s">
                                 <a href="https://conferencecaptioning.com/portal" class="btn btn-mod btn-w btn-medium btn-round me-md-1 mb-xs-10" style="background:#45a29e; color:#0b0c10; font-weight:bold; border-color:#45a29e;">
-                                    Request Technical Sandbox Access
+                                    Request Technical Assistance
                                 </a>
-                                <a href="https://conferencecaptioning.com/files/IntegrationWhitepaper.pdf" class="btn btn-mod btn-border-w btn-medium btn-round mb-xs-10" style="color:#66fcf1; border-color:#66fcf1;">
+                                <a href="https://vimeo.com/1064921264" class="btn btn-mod btn-border-w btn-medium btn-round mb-xs-10" style="color:#66fcf1; border-color:#66fcf1;">
+                                    Integration Video Guide
+                                </a>
+                                <!-- <a href="https://conferencecaptioning.com/files/IntegrationWhitepaper.pdf" class="btn btn-mod btn-border-w btn-medium btn-round mb-xs-10" style="color:#66fcf1; border-color:#66fcf1;">
                                     Download Integration Whitepaper (PDF)
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -257,27 +291,37 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
     <!-- Interactive Latency Comparator -->
     <section class="page-section light-content pt-80 pb-80" id="comparator" style="background-color: #0b0c10; border-bottom: 1px solid #1f2833;">
         <div class="container relative text-center">
-            <h2 class="section-title mb-50" style="color:#66fcf1;">The Latency Comparator</h2>
-            
+            <h2 class="section-title mb-50" style="color:#66fcf1;">Latency Comparison Simulator</h2>
+            <p class="section-title-descr" style="color:#c5c6c7;">Select a translation method and tap on Simulate Input Response to visualise the difference between local and cloud-based AI translation speeds.</p>            
             <div class="row">
                 <div class="col-md-8 offset-md-2" style="background: #1f2833; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                     <div class="mb-40">
-                        <button id="btn-cloud" class="btn btn-mod btn-border-w btn-small btn-round me-2 active" style="font-family: monospace;">Cloud-Based AI</button>
-                        <button id="btn-local" class="btn btn-mod btn-border-w btn-small btn-round ms-2" style="font-family: monospace;">Conference Captioning Local AI</button>
+                        <button id="btn-local" class="btn btn-mod btn-border-w btn-small btn-round ms-2 active" style="font-family: monospace;">Conference Captioning On-Device AI</button>
+                        <button id="btn-cloud" class="btn btn-mod btn-border-w btn-small btn-round me-2" style="font-family: monospace;">World's #1 Cloud-Based AI</button>
                     </div>
                     
                     <div id="status-indicator" class="mb-20" style="font-family: monospace; color:#ff6b6b;">
                         <i class="fa fa-spinner fa-spin"></i> Buffer: Waiting on network...
                     </div>
                     
-                    <div style="background: #000; padding: 30px; border-radius: 4px; border: 1px solid #45a29e; min-height: 120px; display:flex; align-items:center; justify-content:center;">
-                        <h3 id="caption-output" style="margin:0; font-family: sans-serif; font-size: 2rem; color: #fff; letter-spacing: 1px;">
+                    <div style="background: #000; padding: 10px; border-radius: 4px; border: 1px solid #45a29e; min-height: 60px; display:flex; align-items:center; justify-content:center;">
+                        <h3 id="caption-output" style="margin:0; font-family: sans-serif; font-size: 1rem; color: #fff; letter-spacing: 1px;">
+                            ...
+                        </h3>
+                    </div>
+                    <div style="background: #000; padding: 10px; border-radius: 4px; border: 1px solid #45a29e; min-height: 60px; display:flex; align-items:center; justify-content:center;">
+                        <h3 id="translation1-output" style="margin:0; font-family: sans-serif; font-size: 1rem; color: #fff; letter-spacing: 1px;">
+                            ...
+                        </h3>
+                    </div>
+                    <div style="background: #000; padding: 10px; border-radius: 4px; border: 1px solid #45a29e; min-height: 60px; display:flex; align-items:center; justify-content:center;">
+                        <h3 id="translation2-output" style="margin:0; font-family: sans-serif; font-size: 1rem; color: #fff; letter-spacing: 1px;">
                             ...
                         </h3>
                     </div>
                     
                     <button id="btn-speak" class="btn btn-mod btn-w btn-medium mt-30" style="background:#45a29e; color:#0b0c10; font-weight:bold; border:none; width: 250px;">
-                        Simulate Speaker Input
+                        Simulate Input Response
                     </button>
                 </div>
             </div>
@@ -289,25 +333,29 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     let btnSpeak = document.getElementById("btn-speak");
                     let statusIndicator = document.getElementById("status-indicator");
                     let captionOutput = document.getElementById("caption-output");
+                    let translation1Output = document.getElementById("translation1-output");
+                    let translation2Output = document.getElementById("translation2-output");
                     
                     let mode = "cloud"; // 'cloud' or 'local'
                     
                     function setMode(newMode) {
                         mode = newMode;
-                        captionOutput.innerHTML = "...";
+                        captionOutput.innerHTML = "Transcript will appear here...";
+                        translation1Output.innerHTML = "Español va aparecer aquí...";
+                        translation2Output.innerHTML = "Français va apparaître ici...";
                         if(mode === "cloud") {
                             btnCloud.style.backgroundColor = "#fff";
                             btnCloud.style.color = "#000";
                             btnLocal.style.backgroundColor = "transparent";
                             btnLocal.style.color = "#fff";
-                            statusIndicator.innerHTML = '<i class="fa fa-cloud"></i> Connected to remote server (Ping: 45ms)';
+                            statusIndicator.innerHTML = '<i class="fa fa-cloud"></i> Using a remote server over conference WiFi or Cellular Data';// (Ping: 45ms)';
                             statusIndicator.style.color = "#f7a800";
                         } else {
                             btnLocal.style.backgroundColor = "#fff";
                             btnLocal.style.color = "#000";
                             btnCloud.style.backgroundColor = "transparent";
                             btnCloud.style.color = "#fff";
-                            statusIndicator.innerHTML = '<i class="fa fa-check-circle"></i> Sync Locked. Local processing active.';
+                            statusIndicator.innerHTML = '<i class="fa fa-laptop"></i> Audio input directly connects to native app from AV sound mixer/mic';
                             statusIndicator.style.color = "#66fcf1";
                         }
                     }
@@ -317,32 +365,38 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     
                     btnSpeak.addEventListener("click", () => {
                         btnSpeak.disabled = true;
-                        captionOutput.innerHTML = "...";
+                        captionOutput.innerHTML = "Transcript will appear here...";
+                        translation1Output.innerHTML = "Español va aparecer aquí...";
+                        translation2Output.innerHTML = "Français va apparaître ici...";
                         
                         if(mode === "cloud") {
-                            statusIndicator.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Buffering cloud chunks...';
+                            statusIndicator.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Sending audio to cloud, Performing AI on crowded servers in data centers to transcribe, Sending transcription for each AI translation, Sending captions & translations then to cloud...';
                             statusIndicator.style.color = "#ff6b6b";
                             
                             setTimeout(() => {
                                 captionOutput.innerHTML = "Testing 1, 2, 3... This is a live demonstration.";
-                                statusIndicator.innerHTML = '<i class="fa fa-cloud"></i> Processing complete (Lag: 3.2s)';
+                                translation1Output.innerHTML = "Probando 1, 2, 3... Esta es una demostración en vivo.";
+                                translation2Output.innerHTML = "Test 1, 2, 3... Ceci est une démonstration en direct.";
+                                statusIndicator.innerHTML = '<i class="fa fa-cloud"></i> Processing complete (Lag: Average 7.5s)';
                                 statusIndicator.style.color = "#f7a800";
                                 btnSpeak.disabled = false;
-                            }, 3200);
+                            }, 7500);
                         } else {
-                            // Local processing simulation (sub 100ms)
-                            statusIndicator.innerHTML = '<i class="fa fa-bolt"></i> Processing on-device...';
+                            // Local processing simulation (sub 1000ms)
+                            statusIndicator.innerHTML = '<i class="fa fa-spinner fa-spin"></i> No internet needed. Processing on-device...';
                             
                             setTimeout(() => {
-                                captionOutput.innerHTML = "Testing 1, 2, 3... This is a live demonstration.";
-                                statusIndicator.innerHTML = '<i class="fa fa-check-circle"></i> Sync Locked. Delivered natively.';
+                                captionOutput.innerHTML = "Testing 1, 2, 3... This is a live demo simulation.";
+                                translation1Output.innerHTML = "Probando 1, 2, 3... Esta es una demostración en vivo.";
+                                translation2Output.innerHTML = "Test 1, 2, 3... Ceci est une démonstration en direct.";
+                                statusIndicator.innerHTML = '<i class="fa fa-check-circle"></i> Instant Synchronization. Delivered natively. (Lag: Average 0.8s)';
                                 statusIndicator.style.color = "#66fcf1";
                                 btnSpeak.disabled = false;
-                            }, 80);
+                            }, 900);
                         }
                     });
                     
-                    setMode("cloud"); // init
+                    setMode("local"); // init
                 });
             </script>
         </div>
@@ -362,7 +416,8 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <div style="background: #1f2833; padding: 30px 20px; border-radius: 8px; border: 1px solid #45a29e;">
                         <i class="fa fa-microphone fa-3x mb-20" style="color:#45a29e;"></i>
                         <h4 style="color:#fff;">Audio In</h4>
-                        <span style="color:#c5c6c7; font-size:0.9rem;">XLR / USB / Dante / Virtual Cable</span>
+                        <span style="color:#c5c6c7; font-size:0.9rem;">XLR / USB / Virtual Sound Card</span>
+                        <!-- Dante? -->
                     </div>
                 </div>
                 
@@ -380,7 +435,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <div style="background: #1f2833; padding: 30px 20px; border-radius: 8px; border: 2px solid #66fcf1; box-shadow: 0 0 15px rgba(102,252,241,0.2);">
                         <i class="fa fa-microchip fa-4x mb-20" style="color:#66fcf1;"></i>
                         <h4 style="color:#fff;">ConferenceCaptioning</h4>
-                        <span style="color:#66fcf1; font-weight:bold; font-size:0.9rem;">Local AI Processing Core</span>
+                        <span style="color:#66fcf1; font-weight:bold; font-size:0.9rem;">Local AI NPU Processing Core</span>
                     </div>
                 </div>
                 
@@ -413,7 +468,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <div class="services-icon mb-20">
                         <i class="fa fa-tachometer-alt fa" style="color:#66fcf1;"></i>
                     </div>
-                    <h3 class="services-title" style="color:#fff;">Latency: Sub-100ms</h3>
+                    <h3 class="services-title" style="color:#fff;">Latency: Sub-1000ms</h3>
                     <div class="services-descr" style="color:#c5c6c7;">Faster than human CART. Processing directly on the GPU/NPU eliminates transfer lag.</div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3 text-center mb-40 wow fadeIn" data-wow-delay=".1s">
@@ -449,7 +504,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                 <div class="col-md-6 mb-sm-50 pr-md-50 pr-sm-15 wow fadeInLeft">
                     <h2 class="section-title mb-30" style="color:#66fcf1; text-align:left;">Integration Power-User</h2>
                     <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.7;">
-                        Built for the sandbox. Our captioning engine natively interfaces with high-end production suites including <strong>vMix, OBS Studio, Wirecast, Tricaster, and Blackmagic Design switchers</strong>. 
+                        Built for the sandbox. Our captioning engine natively interfaces with high-end production suites including <strong>vMix, OBS Studio, ProPresenter, Wirecast, Tricaster, and Blackmagic Design switchers</strong>. 
                     </p>
                     <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.7;">
                         Utilize our <strong>Transparent Overlay</strong> and fully <strong>Custom CSS</strong> options to inject broadcast-ready lower thirds directly into your video mix, perfectly matched to the event's precise branding specs.
@@ -484,10 +539,10 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
             <h2 class="section-title mb-30" style="color:#fff;">Deploy with absolute confidence.</h2>
             <div class="local-scroll mt-40">
                 <a href="https://conferencecaptioning.com/portal" class="btn btn-mod btn-medium btn-round me-md-2 mb-xs-10" style="background:#66fcf1; color:#0b0c10; font-weight:bold; border-color:#66fcf1; font-family: monospace;">
-                    >_ REQUEST_SANDBOX_ACCESS
+                    REQUEST TECHNICAL ASSISTANCE
                 </a>
-                <a href="https://conferencecaptioning.com/files/IntegrationWhitepaper.pdf" class="btn btn-mod btn-border-w btn-medium btn-round mb-xs-10" style="color:#45a29e; border-color:#45a29e; font-family: monospace;">
-                    DOWNLOAD_WHITEPAPER.PDF
+                <a href="https://vimeo.com/1064921264" class="btn btn-mod btn-border-w btn-medium btn-round mb-xs-10" style="color:#45a29e; border-color:#45a29e; font-family: monospace;">
+                    INTEGRATION VIDEO GUIDE
                 </a>
             </div>
         </div>

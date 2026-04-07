@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Transcription | ConferenceCaptioning</title>
+    <title>Live Transcription & Translation | ConferenceCaptioning</title>
     <style>
         :root {
             --bg-color: #193C5D;
@@ -29,149 +29,132 @@
             min-height: 100vh;
         }
 
-        /* Header & Logo */
         header {
             width: 100%;
             padding: 2rem 0;
             text-align: center;
             background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%);
         }
-        header img {
-            max-height: 45px;
-            pointer-events: none;
-        }
+        header img { max-height: 45px; pointer-events: none; }
 
-        /* Main Container */
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 2rem auto;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        /* Glass Panel Styling */
         .glass-panel {
             background: var(--panel-bg);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--panel-border);
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        /* Onboarding / Error Screen */
-        #setup-screen { display: none; }
-        .setup-title { color: #fff; margin-top: 0; font-size: 1.5rem; }
-        .setup-step {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--accent-blue);
-        }
-        code {
-            background: rgba(255,255,255,0.1);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: monospace;
-            color: #90caf9;
-            word-break: break-all;
-        }
-        .reference-link { color: #64b5f6; text-decoration: none; font-weight: bold; }
-        .reference-link:hover { text-decoration: underline; }
-
-        /* Main App Interface */
-        #app-screen { display: none; }
-        
-        .controls {
+        /* Dials Layout */
+        .dials-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
+            justify-content: space-around;
             flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .dial-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Status Indicator */
-        .status-badge {
+        .dial {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            cursor: ns-resize;
+        }
+
+        .dial svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+        .dial-track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 8; }
+        .dial-progress {
+            fill: none; stroke: var(--accent-blue); stroke-width: 8;
+            stroke-linecap: round; transition: stroke-dashoffset 0.1s;
+        }
+        .dial-value {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 1.2rem; font-weight: bold; pointer-events: none;
+        }
+        .dial-label { font-size: 0.85rem; color: var(--text-muted); text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Translation Controls */
+        .translation-toggle {
+            margin-top: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--panel-border);
         }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; }
+        .translation-toggle input { width: 20px; height: 20px; cursor: pointer; }
+
+        #translation-settings { display: none; margin-top: 1.5rem; }
         
-        /* Status Animations */
-        .status-idle .status-dot { background: var(--text-muted); }
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .lang-select-group { display: flex; flex-direction: column; gap: 0.3rem; }
+        .lang-select-group label { font-size: 0.85rem; color: var(--text-muted); }
+        select {
+            background: rgba(0,0,0,0.3); color: #fff;
+            border: 1px solid var(--panel-border); border-radius: 8px;
+            padding: 0.6rem; font-size: 1rem; cursor: pointer; outline: none;
+        }
+
+        #translation-status {
+            margin-top: 1rem; color: var(--accent-blue); font-weight: bold; font-size: 0.9rem;
+        }
+        .error-text { color: var(--accent-red) !important; }
+
+        /* Status & Controls */
+        .controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;}
+        .status-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; background: rgba(255, 255, 255, 0.1); }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; }
         .status-listening .status-dot { background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); animation: pulse 1.5s infinite; }
         .status-processing .status-dot { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); animation: spinPulse 1s infinite; }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
-        }
-        @keyframes spinPulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.5; }
-        }
+        @keyframes pulse { 0%, 100% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } }
+        @keyframes spinPulse { 0%, 100% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } }
 
-        /* Buttons */
-        .btn-group { display: flex; gap: 1rem; }
-        button {
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: #fff;
-        }
-        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-        #startBtn { background: var(--accent-green); box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
-        #startBtn:hover:not(:disabled) { background: #27ae60; transform: translateY(-2px); }
-        #stopBtn { background: var(--accent-red); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3); }
-        #stopBtn:hover:not(:disabled) { background: #c0392b; transform: translateY(-2px); }
+        button { border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; color: #fff; transition: all 0.2s; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #startBtn { background: var(--accent-green); }
+        #startBtn:hover:not(:disabled) { background: #27ae60; }
+        #stopBtn { background: var(--accent-red); }
+        #stopBtn:hover:not(:disabled) { background: #c0392b; }
 
         /* Output Area */
-        #output {
-            height: 400px;
-            overflow-y: auto;
-            font-size: 1.4rem;
-            line-height: 1.6;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.15);
-            border: inset 1px rgba(255,255,255,0.05);
-        }
+        #output { height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.15); border-radius: 8px; border: inset 1px rgba(255,255,255,0.05); }
         
-        /* Smooth fade-in for new text */
-        .new-word {
-            animation: fadeInWord 0.4s ease-out forwards;
-            opacity: 0;
-            display: inline-block;
-        }
-        @keyframes fadeInWord {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .utterance { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; animation: fadeIn 0.4s ease-out forwards; }
+        .text-en { font-size: 1.3rem; color: #fff; margin-bottom: 0.5rem; }
+        .text-tl { font-size: 1.1rem; color: #90caf9; margin-top: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .lang-tag { background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; color: var(--text-muted); }
 
-        /* Custom Scrollbar */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
-
     </style>
 </head>
 <body>
@@ -181,130 +164,304 @@
     </header>
 
     <div class="container">
-        <!-- ONBOARDING / SETUP SCREEN -->
-        <div id="setup-screen" class="glass-panel">
-            <h2 class="setup-title">⚠️ AI Features Not Detected</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem;">
-                This application requires Chrome's built-in on-device AI. Follow these steps to enable it:
-            </p>
-
-            <div id="not-chrome-warning" style="display: none;" class="setup-step">
-                <strong>Step 1:</strong> You must use <a href="https://www.google.com/chrome/" target="_blank" class="reference-link">Google Chrome</a> (preferably Dev or Canary builds) to use this feature.
-            </div>
-
-            <div class="setup-step">
-                <strong>Step 1:</strong> Copy and paste this into your URL bar:<br>
-                <code>chrome://flags/#optimization-guide-on-device-model</code><br>
-                Set it to <strong>Enabled BypassPrefRequirement</strong>.
-            </div>
+        
+        <!-- SETTINGS PANEL -->
+        <div class="glass-panel">
+            <h3 style="margin-top: 0; color: var(--text-muted);">Voice Activity Detection (VAD) Controls</h3>
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 1.5rem;">Click and drag up/down on the dials to adjust.</p>
             
-            <div class="setup-step">
-                <strong>Step 2:</strong> Copy and paste this into your URL bar:<br>
-                <code>chrome://flags/#prompt-api-for-gemini-nano-multimodal-input</code><br>
-                Set it to <strong>Enabled</strong>.
+            <div class="dials-row">
+                <!-- Dials will be injected here by JS -->
+                <div id="dial-vol" class="dial-container"></div>
+                <div id="dial-silence" class="dial-container"></div>
+                <div id="dial-speech" class="dial-container"></div>
             </div>
 
-            <div class="setup-step">
-                <strong>Step 3:</strong> <strong>Relaunch Chrome</strong> using the button at the bottom of the flags page.
+            <!-- Translation Section -->
+            <label class="translation-toggle">
+                <input type="checkbox" id="enable-translation"> Enable Live Translations
+            </label>
+            
+            <div id="translation-settings">
+                <div class="dials-row" style="justify-content: flex-start; margin-bottom: 1rem;">
+                    <div id="dial-langs" class="dial-container"></div>
+                </div>
+                <div id="languages-container" class="languages-grid"></div>
+                <div id="translation-status"></div>
             </div>
-
-            <div class="setup-step">
-                <strong>Step 4:</strong> Go to <code>chrome://components/</code><br>
-                Find <strong>Optimization Guide On Device Model</strong> and click <strong>"Check for update"</strong>. Wait for it to download.
-            </div>
-
-            <p style="margin-top: 2rem; font-size: 0.9rem;">
-                <em>Once completed, refresh this page. For more details, visit the <a href="https://developer.chrome.com/docs/ai/prompt-api" target="_blank" class="reference-link">Official Chrome AI Docs</a>.</em>
-            </p>
         </div>
 
-        <!-- MAIN APPLICATION SCREEN -->
-        <div id="app-screen" class="glass-panel">
+        <!-- MAIN APP PANEL -->
+        <div class="glass-panel">
             <div class="controls">
-                <div class="btn-group">
+                <div style="display: flex; gap: 1rem;">
                     <button id="startBtn">Start Captioning</button>
                     <button id="stopBtn" disabled>Stop</button>
                 </div>
                 <div id="status" class="status-badge status-idle">
                     <div class="status-dot"></div>
-                    <span id="status-text">Ready to start</span>
+                    <span id="status-text">Ready</span>
                 </div>
             </div>
-        </div>
-
-        <!-- OUTPUT AREA (Inside app screen visually) -->
-        <div id="output-container" class="glass-panel" style="display: none; margin-top: 0;">
             <div id="output"></div>
         </div>
     </div>
 
     <script>
-        // --- 1. FEATURE DETECTION ---
-        document.addEventListener("DOMContentLoaded", () => {
-            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-            // Check for the AI prompt API (Checks both the old `LanguageModel` spec and the new `window.ai` spec)
-            const isAIAvailable = typeof LanguageModel !== 'undefined' || (window.ai && window.ai.languageModel);
+        // --- DATA DICTIONARIES ---
+        const LANGUAGES = {
+            'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'cs': 'Czech', 'da': 'Danish', 'de': 'German',
+            'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'fi': 'Finnish', 'fr': 'French', 'hi': 'Hindi',
+            'hr': 'Croatian', 'hu': 'Hungarian', 'id': 'Indonesian', 'it': 'Italian', 'iw': 'Hebrew',
+            'ja': 'Japanese', 'kn': 'Kannada', 'ko': 'Korean', 'lt': 'Lithuanian', 'mr': 'Marathi', 'nl': 'Dutch',
+            'no': 'Norwegian', 'pl': 'Polish', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'sk': 'Slovak',
+            'sl': 'Slovenian', 'sv': 'Swedish', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tr': 'Turkish',
+            'uk': 'Ukrainian', 'vi': 'Vietnamese', 'zh': 'Simplified Chinese', 'zh-Hant': 'Traditional Chinese'
+        };
 
-            const setupScreen = document.getElementById('setup-screen');
-            const appScreen = document.getElementById('app-screen');
-            const outputContainer = document.getElementById('output-container');
-            
-            if (!isChrome || !isAIAvailable) {
-                setupScreen.style.display = 'block';
-                if (!isChrome) {
-                    document.getElementById('not-chrome-warning').style.display = 'block';
-                }
-            } else {
-                appScreen.style.display = 'block';
-                outputContainer.style.display = 'block';
-            }
-        });
-
-        // --- 2. VAD & TRANSCRIPTION LOGIC ---
-        let aiSession, stream, audioContext, mediaRecorder;
+        // --- GLOBAL SETTINGS ---
+        let vadConfig = {
+            volume: 0.02,
+            silence: 1200,
+            speech: 500
+        };
+        let translationConfig = {
+            enabled: false,
+            numLangs: 1,
+            targets: ['es', 'fr', 'de', 'it'] // defaults
+        };
+        
+        let aiSession = null;
+        let activeTranslators = []; // Holds instantiated translators
+        let stream, audioContext, mediaRecorder;
         let isRecording = false;
         let silenceTimer = null;
         let chunks = [];
         let startTime = 0;
 
-        // VAD Configuration Tweaks
-        const VOLUME_THRESHOLD = 0.05; 
-        const SILENCE_DURATION = 500; 
-        const MIN_SPEECH_DURATION = 200; 
+        // --- DIAL COMPONENT SYSTEM ---
+        function createDial(containerId, label, min, max, step, initial, isFloat, formatLabel, onChange) {
+            const container = document.getElementById(containerId);
+            const radius = 40;
+            const circumference = 2 * Math.PI * radius;
 
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const output = document.getElementById('output');
-        const statusBadge = document.getElementById('status');
-        const statusText = document.getElementById('status-text');
+            container.innerHTML = `
+                <div class="dial">
+                    <svg viewBox="0 0 100 100">
+                        <circle class="dial-track" cx="50" cy="50" r="${radius}"></circle>
+                        <circle class="dial-progress" cx="50" cy="50" r="${radius}" stroke-dasharray="${circumference}" stroke-dashoffset="${circumference}"></circle>
+                    </svg>
+                    <div class="dial-value"></div>
+                </div>
+                <div class="dial-label">${label}</div>
+            `;
 
-        async function initAI() {
-            // Uses the globally available LanguageModel from the Chrome flags
-            return await LanguageModel.create({
-                expectedInputs: [{ type: "audio" }, { type: "text" }],
-                expectedOutputs: [{ type: "text", languages: ["en"] }]
+            const dialArea = container.querySelector('.dial');
+            const progressCircle = container.querySelector('.dial-progress');
+            const valueText = container.querySelector('.dial-value');
+            
+            let currentValue = initial;
+
+            function updateUI() {
+                const percentage = (currentValue - min) / (max - min);
+                const offset = circumference - (percentage * circumference);
+                progressCircle.style.strokeDashoffset = offset;
+                valueText.innerText = formatLabel ? formatLabel(currentValue) : currentValue;
+                onChange(currentValue);
+            }
+
+            let isDragging = false;
+            let startY = 0;
+            let startVal = 0;
+
+            dialArea.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startY = e.clientY;
+                startVal = currentValue;
+                document.body.style.userSelect = 'none';
             });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaY = startY - e.clientY; // up is positive
+                const stepsMoved = Math.floor(deltaY / 5); // 5px per step
+                
+                let newVal = startVal + (stepsMoved * step);
+                if(newVal > max) newVal = max;
+                if(newVal < min) newVal = min;
+                
+                // Fix floating point math issues
+                currentValue = isFloat ? parseFloat(newVal.toFixed(3)) : newVal; 
+                updateUI();
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                document.body.style.userSelect = 'auto';
+            });
+
+            updateUI(); // Init
         }
 
-        function updateStatus(text, className) {
+        // Initialize Dials
+        createDial('dial-vol', 'Volume Threshold', 0.01, 0.10, 0.005, vadConfig.volume, true, v => v.toFixed(3), v => vadConfig.volume = v);
+        createDial('dial-silence', 'Silence (ms)', 500, 3000, 100, vadConfig.silence, false, v => v + 'ms', v => vadConfig.silence = v);
+        createDial('dial-speech', 'Min Speech (ms)', 200, 1500, 100, vadConfig.speech, false, v => v + 'ms', v => vadConfig.speech = v);
+        createDial('dial-langs', 'Simultaneous Languages', 1, 4, 1, translationConfig.numLangs, false, v => v, v => updateLanguageDropdowns(v));
+
+        // --- TRANSLATION UI LOGIC ---
+        const transToggle = document.getElementById('enable-translation');
+        const transSettings = document.getElementById('translation-settings');
+        const langsContainer = document.getElementById('languages-container');
+        const transStatusText = document.getElementById('translation-status');
+
+        transToggle.addEventListener('change', (e) => {
+            translationConfig.enabled = e.target.checked;
+            transSettings.style.display = translationConfig.enabled ? 'block' : 'none';
+        });
+
+        function updateLanguageDropdowns(num) {
+            translationConfig.numLangs = num;
+            langsContainer.innerHTML = '';
+            
+            for (let i = 0; i < num; i++) {
+                const group = document.createElement('div');
+                group.className = 'lang-select-group';
+                
+                const label = document.createElement('label');
+                label.innerText = `Language ${i + 1}`;
+                
+                const select = document.createElement('select');
+                select.id = `lang-sel-${i}`;
+                
+                Object.entries(LANGUAGES).forEach(([code, name]) => {
+                    const option = document.createElement('option');
+                    option.value = code;
+                    option.innerText = `${name} (${code})`;
+                    // Default selections
+                    if (code === translationConfig.targets[i]) option.selected = true;
+                    select.appendChild(option);
+                });
+
+                select.addEventListener('change', (e) => {
+                    translationConfig.targets[i] = e.target.value;
+                });
+
+                group.appendChild(label);
+                group.appendChild(select);
+                langsContainer.appendChild(group);
+            }
+        }
+        updateLanguageDropdowns(1); // Init with 1
+
+        // --- CORE APPLICATION LOGIC ---
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const statusBadge = document.getElementById('status');
+        const statusText = document.getElementById('status-text');
+        const output = document.getElementById('output');
+
+        function setStatus(text, type) {
             statusText.innerText = text;
-            statusBadge.className = `status-badge ${className}`;
+            statusBadge.className = `status-badge ${type}`;
+        }
+
+        async function verifyAndLoadTranslators() {
+            // Check if API exists (supports either window.Translator or window.translation)
+            const TranslatorAPI = window.Translator || window.translation;
+
+            if (!TranslatorAPI) {
+                transStatusText.innerHTML = '<span class="error-text">❌ Unsupported browser, translations unavailable. Ensure Chrome Flags are enabled.</span>';
+                return false;
+            }
+
+            activeTranslators = [];
+            const targets = translationConfig.targets.slice(0, translationConfig.numLangs);
+
+            for (let targetLang of targets) {
+                if (targetLang === 'en') continue; // Skip English to English
+                
+                transStatusText.innerText = `Checking availability for ${LANGUAGES[targetLang]}...`;
+                
+                try {
+                    // Normalize API differences
+                    const checkFn = TranslatorAPI.availability || TranslatorAPI.canTranslate;
+                    const capability = await checkFn.call(TranslatorAPI, { sourceLanguage: 'en', targetLanguage: targetLang });
+                    
+                    // Allowable statuses across different Chrome beta implementations
+                    const allowed = ['available', 'downloadable', 'readily', 'after-download'];
+
+                    if (!allowed.includes(capability)) {
+                        transStatusText.innerHTML = `<span class="error-text">❌ Language ${LANGUAGES[targetLang]} is unavailable (${capability}).</span>`;
+                        return false;
+                    }
+
+                    transStatusText.innerText = capability.includes('download') ? `Downloading ${LANGUAGES[targetLang]} model...` : `Loading ${LANGUAGES[targetLang]}...`;
+
+                    const translator = await TranslatorAPI.create({
+                        sourceLanguage: 'en',
+                        targetLanguage: targetLang,
+                        monitor(m) {
+                            m.addEventListener('downloadprogress', (e) => {
+                                const percent = Math.round((e.loaded / e.total) * 100) || Math.round(e.loaded * 100); // Handle varying spec formats
+                                transStatusText.innerText = `Downloading ${LANGUAGES[targetLang]}: ${percent}%`;
+                            });
+                        }
+                    });
+
+                    activeTranslators.push({ code: targetLang, instance: translator });
+
+                } catch (e) {
+                    console.error("Translation Init Error:", e);
+                    transStatusText.innerHTML = `<span class="error-text">❌ Error initializing ${LANGUAGES[targetLang]}.</span>`;
+                    return false;
+                }
+            }
+            transStatusText.innerHTML = '<span style="color:var(--accent-green)">✔ Translations Ready</span>';
+            return true;
         }
 
         startBtn.onclick = async () => {
             try {
-                updateStatus("Initializing AI...", "status-idle");
+                // Lock UI
                 startBtn.disabled = true;
+                transToggle.disabled = true;
                 
-                aiSession = await initAI();
+                // Check Transcription AI
+                const LMApi = window.LanguageModel || (window.ai && window.ai.languageModel);
+                if (!LMApi) {
+                    alert("Chrome AI Language Model not detected. Please ensure flags are enabled.");
+                    startBtn.disabled = false;
+                    return;
+                }
+
+                setStatus("Initializing AI...", "status-idle");
+
+                // Initialize Translations if enabled
+                if (translationConfig.enabled) {
+                    const transReady = await verifyAndLoadTranslators();
+                    if (!transReady) {
+                        startBtn.disabled = false;
+                        setStatus("Translation Error", "status-idle");
+                        return;
+                    }
+                }
+
+                // Initialize Audio & Captioning
+                aiSession = await LMApi.create({
+                    expectedInputs: [{ type: "audio" }, { type: "text" }],
+                    expectedOutputs: [{ type: "text", languages: ["en"] }]
+                });
+
                 stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                
                 stopBtn.disabled = false;
+                
                 setupVAD(stream);
-                updateStatus("Listening for speech...", "status-idle");
+                setStatus("Listening for speech...", "status-idle");
+
             } catch (err) {
-                console.error("Initialization failed:", err);
-                updateStatus("Error initializing mic/AI", "status-idle");
+                console.error(err);
+                setStatus("Error starting system", "status-idle");
                 startBtn.disabled = false;
             }
         };
@@ -315,82 +472,70 @@
             const analyser = audioContext.createAnalyser();
             analyser.fftSize = 512;
             source.connect(analyser);
-
             const dataArray = new Float32Array(analyser.fftSize);
 
             function checkAudioLevel() {
                 if (!aiSession) return; 
 
                 analyser.getFloatTimeDomainData(dataArray);
-                
                 let sumSquares = 0;
-                for (let i = 0; i < dataArray.length; i++) {
-                    sumSquares += dataArray[i] * dataArray[i];
-                }
+                for (let i = 0; i < dataArray.length; i++) sumSquares += dataArray[i] * dataArray[i];
                 const rms = Math.sqrt(sumSquares / dataArray.length);
 
-                if (rms > VOLUME_THRESHOLD) {
-                    if (silenceTimer) {
-                        clearTimeout(silenceTimer);
-                        silenceTimer = null;
-                    }
-                    if (!isRecording) {
-                        startRecording();
-                    }
+                // Use the DYNAMIC values from the dials
+                if (rms > vadConfig.volume) {
+                    if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
+                    if (!isRecording) startRecording();
                 } else {
                     if (isRecording && !silenceTimer) {
                         silenceTimer = setTimeout(() => {
                             stopRecordingAndTranscribe();
                             silenceTimer = null;
-                        }, SILENCE_DURATION);
+                        }, vadConfig.silence); // Dynamic silence duration
                     }
                 }
-
                 requestAnimationFrame(checkAudioLevel);
             }
-
             checkAudioLevel();
         }
 
         function startRecording() {
             isRecording = true;
-            updateStatus("Capturing speech...", "status-listening");
+            setStatus("Capturing speech...", "status-listening");
             chunks = [];
             startTime = Date.now();
             mediaRecorder = new MediaRecorder(stream);
-            
             mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
             mediaRecorder.onstop = processAudioChunk;
-            
             mediaRecorder.start();
         }
 
         function stopRecordingAndTranscribe() {
             if (!isRecording || mediaRecorder.state === "inactive") return;
             isRecording = false;
-            updateStatus("Processing with AI...", "status-processing");
+            setStatus("Processing AI...", "status-processing");
             mediaRecorder.stop();
         }
 
         async function processAudioChunk() {
-            const speechDuration = Date.now() - startTime - SILENCE_DURATION;
+            const speechDuration = Date.now() - startTime - vadConfig.silence;
             
-            if (speechDuration < MIN_SPEECH_DURATION) {
-                updateStatus("Listening for speech...", "status-idle");
+            // Dynamic min speech check
+            if (speechDuration < vadConfig.speech) {
+                setStatus("Listening for speech...", "status-idle");
                 return; 
             }
 
             const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
             await transcribe(blob);
             
-            if (!isRecording) {
-                updateStatus("Listening for speech...", "status-idle");
-            }
+            if (!isRecording) setStatus("Listening for speech...", "status-idle");
         }
 
         async function transcribe(blob) {
             const arrayBuffer = await blob.arrayBuffer();
             try {
+                // 1. Get Base Transcription
                 const response = await aiSession.prompt([
                     {
                         role: "user",
@@ -401,19 +546,40 @@
                     }
                 ]);
 
-                if (response.trim()) {
-                    // Injecting the new text with an animation class
-                    const span = document.createElement("span");
-                    span.className = "new-word";
-                    span.innerText = response.trim() + " ";
-                    output.appendChild(span);
+                const englishText = response.trim();
+                if (!englishText) return;
+
+                // 2. Prepare UI block
+                const utteranceBlock = document.createElement("div");
+                utteranceBlock.className = "utterance";
+                
+                const enDiv = document.createElement("div");
+                enDiv.className = "text-en";
+                enDiv.innerText = englishText;
+                utteranceBlock.appendChild(enDiv);
+                
+                output.appendChild(utteranceBlock);
+                output.scrollTop = output.scrollHeight;
+
+                // 3. Perform Live Translations (if enabled)
+                if (translationConfig.enabled && activeTranslators.length > 0) {
                     
-                    // Auto-scroll to bottom smoothly
-                    output.scrollTo({
-                        top: output.scrollHeight,
-                        behavior: 'smooth'
-                    });
+                    for (let t of activeTranslators) {
+                        try {
+                            const translatedText = await t.instance.translate(englishText);
+                            
+                            const tlDiv = document.createElement("div");
+                            tlDiv.className = "text-tl";
+                            tlDiv.innerHTML = `<span class="lang-tag">${t.code}</span> <span>${translatedText}</span>`;
+                            
+                            utteranceBlock.appendChild(tlDiv);
+                        } catch (err) {
+                            console.error(`Error translating to ${t.code}`, err);
+                        }
+                    }
+                    output.scrollTop = output.scrollHeight; // Scroll again after translations append
                 }
+
             } catch (e) {
                 console.error("Transcription error:", e);
             }
@@ -421,13 +587,8 @@
 
         stopBtn.onclick = () => {
             if (audioContext) audioContext.close();
-            if (aiSession) {
-                aiSession.destroy();
-                aiSession = null;
-            }
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
+            if (aiSession) aiSession.destroy();
+            if (stream) stream.getTracks().forEach(track => track.stop());
             location.reload(); 
         };
     </script>

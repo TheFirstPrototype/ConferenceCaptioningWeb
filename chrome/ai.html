@@ -1,0 +1,183 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Real-Time AI Transcription with VAD</title>
+    <style>
+        body { font-family: system-ui; padding: 2rem; max-width: 800px; margin: auto; }
+        #output { border: 1px solid #ddd; padding: 1rem; height: 300px; overflow-y: auto; background: #fafafa; border-radius: 8px; line-height: 1.5; }
+        .status { font-weight: bold; margin-bottom: 1rem; padding: 0.5rem; border-radius: 4px; }
+        .idle { background: #eee; }
+        .listening { background: #d4edda; color: #155724; }
+        .processing { background: #cce5ff; color: #004085; }
+    </style>
+</head>
+<body>
+    <h1>Real-Time AI Transcription</h1>
+    <div id="status" class="status idle">Click Start to begin</div>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn" disabled>Stop</button>
+    <div id="output"></div>
+
+    <script>
+        let aiSession, stream, audioContext, mediaRecorder;
+        let isRecording = false;
+        let silenceTimer = null;
+        let chunks = [];
+        let startTime = 0;
+
+        // VAD Configuration Tweaks
+        const VOLUME_THRESHOLD = 0.08; // Adjust this based on mic sensitivity (0.01 to 0.05 is typical)
+        const SILENCE_DURATION = 600; // Milliseconds of silence to wait before ending a sentence
+        const MIN_SPEECH_DURATION = 400; // Ignore tiny noises shorter than 500ms
+
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const output = document.getElementById('output');
+        const status = document.getElementById('status');
+
+        async function initAI() {
+            return await LanguageModel.create({
+                expectedInputs: [{ type: "audio" }, { type: "text" }],
+                expectedOutputs: [{ type: "text", languages: ["en"] }]
+            });
+        }
+
+        function updateStatus(text, className) {
+            status.innerText = text;
+            status.className = `status ${className}`;
+        }
+
+        startBtn.onclick = async () => {
+            updateStatus("Initializing AI...", "idle");
+            aiSession = await initAI();
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            
+            setupVAD(stream);
+            updateStatus("Waiting for speech...", "idle");
+        };
+
+        function setupVAD(stream) {
+            audioContext = new AudioContext();
+            const source = audioContext.createMediaStreamSource(stream);
+            const analyser = audioContext.createAnalyser();
+            analyser.fftSize = 512;
+            source.connect(analyser);
+
+            const dataArray = new Float32Array(analyser.fftSize);
+
+            function checkAudioLevel() {
+                if (!aiSession) return; // Stop loop if destroyed
+
+                analyser.getFloatTimeDomainData(dataArray);
+                
+                // Calculate RMS (Root Mean Square) to get accurate volume level
+                let sumSquares = 0;
+                for (let i = 0; i < dataArray.length; i++) {
+                    sumSquares += dataArray[i] * dataArray[i];
+                }
+                const rms = Math.sqrt(sumSquares / dataArray.length);
+
+                if (rms > VOLUME_THRESHOLD) {
+                    // We hear something!
+                    if (silenceTimer) {
+                        clearTimeout(silenceTimer); // Cancel the silence timer
+                        silenceTimer = null;
+                    }
+
+                    if (!isRecording) {
+                        startRecording();
+                    }
+                } else {
+                    // It is quiet
+                    if (isRecording && !silenceTimer) {
+                        // Start a countdown to stop recording
+                        silenceTimer = setTimeout(() => {
+                            stopRecordingAndTranscribe();
+                            silenceTimer = null;
+                        }, SILENCE_DURATION);
+                    }
+                }
+
+                // Loop continuously
+                requestAnimationFrame(checkAudioLevel);
+            }
+
+            checkAudioLevel();
+        }
+
+        function startRecording() {
+            isRecording = true;
+            updateStatus("Listening...", "listening");
+            chunks = [];
+            startTime = Date.now();
+            mediaRecorder = new MediaRecorder(stream);
+            
+            mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+            mediaRecorder.onstop = processAudioChunk;
+            
+            mediaRecorder.start();
+        }
+
+        function stopRecordingAndTranscribe() {
+            if (!isRecording || mediaRecorder.state === "inactive") return;
+            isRecording = false;
+            updateStatus("Processing...", "processing");
+            mediaRecorder.stop();
+        }
+
+        async function processAudioChunk() {
+            const speechDuration = Date.now() - startTime - SILENCE_DURATION;
+            
+            // Ignore random clicks, coughs, or mic bumps
+            if (speechDuration < MIN_SPEECH_DURATION) {
+                updateStatus("Waiting for speech...", "idle");
+                return; 
+            }
+
+            const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
+            await transcribe(blob);
+            
+            // If the user hasn't started talking again during processing, reset status
+            if (!isRecording) {
+                updateStatus("Waiting for speech...", "idle");
+            }
+        }
+
+        async function transcribe(blob) {
+            const arrayBuffer = await blob.arrayBuffer();
+            try {
+                const response = await aiSession.prompt([
+                    {
+                        role: "user",
+                        content: [
+                            // Slightly modified prompt to encourage punctuation
+                            { type: "text", value: "Transcribe this audio exactly. Format it as a complete sentence with punctuation if applicable. Just the text." },
+                            { type: "audio", value: arrayBuffer }
+                        ]
+                    }
+                ]);
+
+                if (response.trim()) {
+                    // Append with a space so sentences flow naturally
+                    output.innerHTML += response.trim() + " ";
+                    output.scrollTop = output.scrollHeight;
+                }
+            } catch (e) {
+                console.error("Transcription error:", e);
+            }
+        }
+
+        stopBtn.onclick = () => {
+            if (audioContext) audioContext.close();
+            if (aiSession) {
+                aiSession.destroy();
+                aiSession = null;
+            }
+            location.reload(); // Quick reset
+        };
+    </script>
+</body>
+</html>

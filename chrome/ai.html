@@ -206,7 +206,6 @@
             <div id="output"></div>
         </div>
     </div>
-
     <script>
         // --- DATA DICTIONARIES ---
         const LANGUAGES = {
@@ -221,23 +220,68 @@
 
         // --- GLOBAL SETTINGS ---
         let vadConfig = {
-            volume: 0.02,
-            silence: 1200,
-            speech: 500
+            volume: 0.05,
+            silence: 800,
+            speech: 400
         };
         let translationConfig = {
             enabled: false,
             numLangs: 1,
-            targets: ['es', 'fr', 'de', 'it'] // defaults
+            targets:['es', 'fr', 'de', 'it'] // defaults
         };
         
         let aiSession = null;
-        let activeTranslators = []; // Holds instantiated translators
+        let activeTranslators =[]; 
         let stream, audioContext, mediaRecorder;
         let isRecording = false;
         let silenceTimer = null;
-        let chunks = [];
+        let chunks =[];
         let startTime = 0;
+
+        // --- TRANSLATION UI LOGIC & DOM ELEMENTS ---
+        // Moved up so they exist before the dials try to use them!
+        const transToggle = document.getElementById('enable-translation');
+        const transSettings = document.getElementById('translation-settings');
+        const langsContainer = document.getElementById('languages-container');
+        const transStatusText = document.getElementById('translation-status');
+
+        transToggle.addEventListener('change', (e) => {
+            translationConfig.enabled = e.target.checked;
+            transSettings.style.display = translationConfig.enabled ? 'block' : 'none';
+        });
+
+        function updateLanguageDropdowns(num) {
+            translationConfig.numLangs = num;
+            langsContainer.innerHTML = ''; // This will no longer throw an error
+            
+            for (let i = 0; i < num; i++) {
+                const group = document.createElement('div');
+                group.className = 'lang-select-group';
+                
+                const label = document.createElement('label');
+                label.innerText = `Language ${i + 1}`;
+                
+                const select = document.createElement('select');
+                select.id = `lang-sel-${i}`;
+                
+                Object.entries(LANGUAGES).forEach(([code, name]) => {
+                    const option = document.createElement('option');
+                    option.value = code;
+                    option.innerText = `${name} (${code})`;
+                    // Default selections
+                    if (code === translationConfig.targets[i]) option.selected = true;
+                    select.appendChild(option);
+                });
+
+                select.addEventListener('change', (e) => {
+                    translationConfig.targets[i] = e.target.value;
+                });
+
+                group.appendChild(label);
+                group.appendChild(select);
+                langsContainer.appendChild(group);
+            }
+        }
 
         // --- DIAL COMPONENT SYSTEM ---
         function createDial(containerId, label, min, max, step, initial, isFloat, formatLabel, onChange) {
@@ -290,7 +334,6 @@
                 if(newVal > max) newVal = max;
                 if(newVal < min) newVal = min;
                 
-                // Fix floating point math issues
                 currentValue = isFloat ? parseFloat(newVal.toFixed(3)) : newVal; 
                 updateUI();
             });
@@ -300,59 +343,15 @@
                 document.body.style.userSelect = 'auto';
             });
 
-            updateUI(); // Init
+            updateUI(); // This fires immediately upon creation
         }
 
-        // Initialize Dials
+        // Initialize Dials AFTER the translation functions are defined
         createDial('dial-vol', 'Volume Threshold', 0.01, 0.10, 0.005, vadConfig.volume, true, v => v.toFixed(3), v => vadConfig.volume = v);
         createDial('dial-silence', 'Silence (ms)', 500, 3000, 100, vadConfig.silence, false, v => v + 'ms', v => vadConfig.silence = v);
         createDial('dial-speech', 'Min Speech (ms)', 200, 1500, 100, vadConfig.speech, false, v => v + 'ms', v => vadConfig.speech = v);
         createDial('dial-langs', 'Simultaneous Languages', 1, 4, 1, translationConfig.numLangs, false, v => v, v => updateLanguageDropdowns(v));
 
-        // --- TRANSLATION UI LOGIC ---
-        const transToggle = document.getElementById('enable-translation');
-        const transSettings = document.getElementById('translation-settings');
-        const langsContainer = document.getElementById('languages-container');
-        const transStatusText = document.getElementById('translation-status');
-
-        transToggle.addEventListener('change', (e) => {
-            translationConfig.enabled = e.target.checked;
-            transSettings.style.display = translationConfig.enabled ? 'block' : 'none';
-        });
-
-        function updateLanguageDropdowns(num) {
-            translationConfig.numLangs = num;
-            langsContainer.innerHTML = '';
-            
-            for (let i = 0; i < num; i++) {
-                const group = document.createElement('div');
-                group.className = 'lang-select-group';
-                
-                const label = document.createElement('label');
-                label.innerText = `Language ${i + 1}`;
-                
-                const select = document.createElement('select');
-                select.id = `lang-sel-${i}`;
-                
-                Object.entries(LANGUAGES).forEach(([code, name]) => {
-                    const option = document.createElement('option');
-                    option.value = code;
-                    option.innerText = `${name} (${code})`;
-                    // Default selections
-                    if (code === translationConfig.targets[i]) option.selected = true;
-                    select.appendChild(option);
-                });
-
-                select.addEventListener('change', (e) => {
-                    translationConfig.targets[i] = e.target.value;
-                });
-
-                group.appendChild(label);
-                group.appendChild(select);
-                langsContainer.appendChild(group);
-            }
-        }
-        updateLanguageDropdowns(1); // Init with 1
 
         // --- CORE APPLICATION LOGIC ---
         const startBtn = document.getElementById('startBtn');
@@ -367,7 +366,6 @@
         }
 
         async function verifyAndLoadTranslators() {
-            // Check if API exists (supports either window.Translator or window.translation)
             const TranslatorAPI = window.Translator || window.translation;
 
             if (!TranslatorAPI) {
@@ -375,21 +373,19 @@
                 return false;
             }
 
-            activeTranslators = [];
+            activeTranslators =[];
             const targets = translationConfig.targets.slice(0, translationConfig.numLangs);
 
             for (let targetLang of targets) {
-                if (targetLang === 'en') continue; // Skip English to English
+                if (targetLang === 'en') continue; 
                 
                 transStatusText.innerText = `Checking availability for ${LANGUAGES[targetLang]}...`;
                 
                 try {
-                    // Normalize API differences
                     const checkFn = TranslatorAPI.availability || TranslatorAPI.canTranslate;
                     const capability = await checkFn.call(TranslatorAPI, { sourceLanguage: 'en', targetLanguage: targetLang });
                     
-                    // Allowable statuses across different Chrome beta implementations
-                    const allowed = ['available', 'downloadable', 'readily', 'after-download'];
+                    const allowed =['available', 'downloadable', 'readily', 'after-download'];
 
                     if (!allowed.includes(capability)) {
                         transStatusText.innerHTML = `<span class="error-text">❌ Language ${LANGUAGES[targetLang]} is unavailable (${capability}).</span>`;
@@ -403,7 +399,7 @@
                         targetLanguage: targetLang,
                         monitor(m) {
                             m.addEventListener('downloadprogress', (e) => {
-                                const percent = Math.round((e.loaded / e.total) * 100) || Math.round(e.loaded * 100); // Handle varying spec formats
+                                const percent = Math.round((e.loaded / e.total) * 100) || Math.round(e.loaded * 100); 
                                 transStatusText.innerText = `Downloading ${LANGUAGES[targetLang]}: ${percent}%`;
                             });
                         }
@@ -423,11 +419,9 @@
 
         startBtn.onclick = async () => {
             try {
-                // Lock UI
                 startBtn.disabled = true;
                 transToggle.disabled = true;
                 
-                // Check Transcription AI
                 const LMApi = window.LanguageModel || (window.ai && window.ai.languageModel);
                 if (!LMApi) {
                     alert("Chrome AI Language Model not detected. Please ensure flags are enabled.");
@@ -437,7 +431,6 @@
 
                 setStatus("Initializing AI...", "status-idle");
 
-                // Initialize Translations if enabled
                 if (translationConfig.enabled) {
                     const transReady = await verifyAndLoadTranslators();
                     if (!transReady) {
@@ -447,10 +440,9 @@
                     }
                 }
 
-                // Initialize Audio & Captioning
                 aiSession = await LMApi.create({
-                    expectedInputs: [{ type: "audio" }, { type: "text" }],
-                    expectedOutputs: [{ type: "text", languages: ["en"] }]
+                    expectedInputs:[{ type: "audio" }, { type: "text" }],
+                    expectedOutputs: [{ type: "text", languages:["en"] }]
                 });
 
                 stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -482,7 +474,6 @@
                 for (let i = 0; i < dataArray.length; i++) sumSquares += dataArray[i] * dataArray[i];
                 const rms = Math.sqrt(sumSquares / dataArray.length);
 
-                // Use the DYNAMIC values from the dials
                 if (rms > vadConfig.volume) {
                     if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
                     if (!isRecording) startRecording();
@@ -491,7 +482,7 @@
                         silenceTimer = setTimeout(() => {
                             stopRecordingAndTranscribe();
                             silenceTimer = null;
-                        }, vadConfig.silence); // Dynamic silence duration
+                        }, vadConfig.silence); 
                     }
                 }
                 requestAnimationFrame(checkAudioLevel);
@@ -502,7 +493,7 @@
         function startRecording() {
             isRecording = true;
             setStatus("Capturing speech...", "status-listening");
-            chunks = [];
+            chunks =[];
             startTime = Date.now();
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
@@ -520,7 +511,6 @@
         async function processAudioChunk() {
             const speechDuration = Date.now() - startTime - vadConfig.silence;
             
-            // Dynamic min speech check
             if (speechDuration < vadConfig.speech) {
                 setStatus("Listening for speech...", "status-idle");
                 return; 
@@ -535,11 +525,10 @@
         async function transcribe(blob) {
             const arrayBuffer = await blob.arrayBuffer();
             try {
-                // 1. Get Base Transcription
                 const response = await aiSession.prompt([
                     {
                         role: "user",
-                        content: [
+                        content:[
                             { type: "text", value: "Transcribe this audio exactly. Format it as a complete sentence with punctuation if applicable. Just the text." },
                             { type: "audio", value: arrayBuffer }
                         ]
@@ -549,7 +538,6 @@
                 const englishText = response.trim();
                 if (!englishText) return;
 
-                // 2. Prepare UI block
                 const utteranceBlock = document.createElement("div");
                 utteranceBlock.className = "utterance";
                 
@@ -561,7 +549,6 @@
                 output.appendChild(utteranceBlock);
                 output.scrollTop = output.scrollHeight;
 
-                // 3. Perform Live Translations (if enabled)
                 if (translationConfig.enabled && activeTranslators.length > 0) {
                     
                     for (let t of activeTranslators) {
@@ -577,7 +564,7 @@
                             console.error(`Error translating to ${t.code}`, err);
                         }
                     }
-                    output.scrollTop = output.scrollHeight; // Scroll again after translations append
+                    output.scrollTop = output.scrollHeight; 
                 }
 
             } catch (e) {

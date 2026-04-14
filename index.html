@@ -69,7 +69,9 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
 
         <!-- Favicons -->
         <link rel="shortcut icon" href="images/favicon.png">
-        
+        <!-- Preconnects -->
+        <link rel="preconnect" href="https://api.deafassistant.com">
+        <link rel="preconnect" href="https://ipinfo.io">
         <!-- CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
@@ -1474,8 +1476,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         </script>
         <script src="js/splitting.min.js">
         </script>
-        <script type="text/javascript" src="js/analyticsLite.js">
-        </script>
+        <script defer src="js/analyticsLite.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 var userLang = navigator.language || navigator.userLanguage;

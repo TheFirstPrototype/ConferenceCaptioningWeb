@@ -1481,7 +1481,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         </script>
         <script defer type="text/javascript" src="js/analyticsLite.js"></script>
         <script defer type="text/javascript">
-            $(document).ready(function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 var userLang = navigator.language || navigator.userLanguage;
                 // Do not navigate if you come from another deaf assistant page
                 if (document.referrer.includes("conferencecaptioning.com")) {

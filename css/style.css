@@ -143,10 +143,6 @@ html{
     overflow-y: scroll;
     -ms-overflow-style: scrollbar;
 }
-html[dir="rtl"]{
-    direction: rtl;
-    text-align: right;
-}
 html, body{
     height: 100%;
     -webkit-font-smoothing: antialiased;

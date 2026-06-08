@@ -1,0 +1,18 @@
+# Conference Captioning
+
+> Meeting live translation & transcription app providing the world's fastest ADA, ACA, and EAA-compliant live transcription and multilingual translation powered by On-Device AI.
+
+This is a comprehensive resource guide for Conference Captioning (conferencecaptioning.com), a native app built by the creators of the award-winning BeAware Deaf Assistant app. It offers the lowest-latency (sub-1000ms), secure, and customizable captioning and translation solutions for live events, AV professionals, church ministries, and conference planners.
+
+## Core Pages
+- [Home Page](https://conferencecaptioning.com/index.html): The main entry point showcasing general features, step-by-step instructions (Generate QR code, Scan to view), pricing, and testimonials.
+- [Caption URL Generator](https://conferencecaptioning.com/caption-url-generator.html): A utility to customize live caption overlays for video/broadcasting tools during events. Configure stream names, text/background colors, chroma keys, translation streams, and scroll speeds.
+
+## Audience-Specific Solutions
+- [AV Engineers & Production](https://conferencecaptioning.com/av-production.html): Technical details on Dante/NDI/RTMP support, sub-1000ms latency, signal flows, air-gapped secure on-device AI configurations, and integration examples (OBS, ProPresenter, vMix, etc.).
+- [Event Planners & Organizers](https://conferencecaptioning.com/event-organizers.html): ROI advantages, compliance standards (ADA/ACA/EAA), 3-tap setup details, automatic post-event transcripts, and a human-CART vs AI-captioning cost calculator.
+- [Churches & Non-Profits](https://conferencecaptioning.com/church-live-translation-transcription.html): Sermon live translation solutions, volunteer-proof setup guide, platform integrations (Church Online Platform, Resi, YouTube Live), and non-profit pricing discounts.
+
+## Legal & Policies
+- [Privacy Policy](https://conferencecaptioning.com/privacy-policy.html): Privacy practices, local-first data processing details, and compliance.
+- [Terms & Conditions](https://conferencecaptioning.com/terms-and-conditions.html): Service agreement, subscription terms, and usage limitations.

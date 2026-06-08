@@ -1,0 +1,174 @@
+# Conference Captioning - Full Context
+
+> Meeting live translation & transcription app providing the world's fastest ADA, ACA, and EAA-compliant live transcription and multilingual translation powered by On-Device AI.
+
+This document compiles the complete contents, guides, technical specifications, and resources of Conference Captioning (conferencecaptioning.com).
+
+---
+
+## Table of Contents
+1. [General Overview](#1-general-overview)
+2. [Pricing and Packages](#2-pricing-and-packages)
+3. [AV & Production Engineering Solution](#3-av-production-engineering-solution)
+4. [Event Organizers & Planners Solution](#4-event-organizers-planners-solution)
+5. [Churches & Non-Profits Solution](#5-churches-non-profits-solution)
+6. [Caption URL Generator & Query Parameters](#6-caption-url-generator-query-parameters)
+7. [Privacy & Terms Summary](#7-privacy-terms-summary)
+
+---
+
+## 1. General Overview
+
+Conference Captioning is the fastest live translation and transcription software designed for events, seminars, and church services. 
+
+### Key Capabilities
+- **On-Device AI Power**: Employs locally downloadable AI models that process audio in real-time, removing dependencies on unstable event Wi-Fi and providing air-gapped security.
+- **Effortless Compliance**: Ensures fully ADA (Americans with Disabilities Act), ACA (Accessible Canada Act), and EAA (European Accessibility Act) compliant communication.
+- **Bring Your Own Device (BYOD)**: Attendees scan a custom QR code at the venue and read live captions or translations directly in their standard web browser. No app download is required.
+- **Ultra-Low Latency & High Accuracy**: Employs cutting-edge speech models to achieve sub-1000ms latency and high accuracy with punctuation.
+- **Multilingual Support**: Supports simultaneous translation to up to 5 languages with a pool of 50+ languages to choose from.
+
+### Simple 3-Step Flow
+1. **Step 1 (Setup)**: Organizers use the application to generate a QR code and tap a single button to start capturing audio from their sound board or mic.
+2. **Step 2 (View)**: Attendees scan the QR code and tap "Get Live Captions" to view live, scrolling captions or translations on their mobile web browser.
+3. **Step 3 (Relax)**: No hardware rentals, no expensive receiver headsets, and no extra tech overhead.
+
+---
+
+## 2. Pricing and Packages
+
+We are the only solution that offer's fixed pricing for unlimited usage. Our tiered pricing issuited for one-time events, monthly subscriptions, and enterprise configurations.
+
+### Starter Plan (FREE)
+*   **Best for**: Trying the service or small meetups.
+*   **Features**:
+    *   Live transcription for events.
+    *   Attendee & Organizer access.
+    *   16 freely available streams.
+    *   15-minute streaming limit per session.
+    *   Supports 20+ languages.
+    *   15-second 3-tap setup and use.
+
+### Standard Plan
+*   **Price**: $100 per day / $400 per month.
+*   **Best for**: Regular conferences, summits, and recurring monthly events.
+*   **Features**:
+    *   Premium streaming servers.
+    *   Provide a unique, custom event name.
+    *   No streaming time-limits.
+    *   Customized branding and logos.
+    *   Obscene text filtering.
+    *   Discount available for non-profits.
+    *   3-day (daily) or 7-day (monthly) free trial with full technical support.
+
+### Enterprise Plan
+*   **Price**: Contact Sales (`hi@deafassistant.com`).
+*   **Best for**: Large corporate events, government organizations, and platforms requiring API integrations.
+*   **Features**:
+    *   Ability to make events secret, secure, and private.
+    *   Complete usage reports at the end of each event.
+    *   Simultaneous live translations.
+    *   Direct API access.
+    *   Additional white-labeled customizations.
+    *   Dedicated in-person or live virtual customer support.
+
+---
+
+## 3. AV & Production Engineering Solution
+
+Specifically built for Audio-Visual professionals, broadcasters, and event engineers requiring low-latency and absolute reliability.
+
+### Core Features
+- **Low Latency**: Sub-1000ms delay from microphone input to viewer screen.
+- **On-Device AI Mode**: Captions are generated on-device, allowing the system to run on local networks or in a fully air-gapped environment.
+- **Broadcasting & Overlay Compatibility**: Captions can be easily overlaid on live screens, projectors, and streams using standard broadcasting software such as:
+    *   OBS Studio
+    *   vMix
+    *   ProPresenter
+    *   H2R Graphics
+
+### Signal Flow Architecture
+```mermaid
+graph TD
+    A[Audio Sources: Mics / Sound Board / Audio Interfaces] --> B[Host Computer / Tablet running App]
+    B -->|Local On-Device AI Inference| C[Generated Transcript & Translations]
+    C --> D[Attendee Web Browser via QR Code / local network URL]
+    C --> E[Broadcasting Software: OBS / ProPresenter / vMix]
+    E --> F[In-Sanctuary Projectors / Live Streaming Outputs]
+```
+
+### Power-User Integration
+AV teams can leverage the **Caption URL Generator** to customize overlay screens. By setting custom text colors, background colors, and scroll speeds, teams can pull the caption feed into OBS or vMix via a standard browser source input. Using a chroma key background (e.g., green screen) enables transparent overlays on top of live video feeds.
+
+---
+
+## 4. Event Organizers & Planners Solution
+
+Meeting accessibility requirements doesn't have to be complex or expensive.
+
+### ROI Advantage (CART vs. Conference Captioning)
+Traditional Communication Access Real-Time Translation (CART) requires hiring a human captioner at hourly rates (often ranging from $150 to $300/hour) with booking minimums and travel expenses. Conference Captioning provides a fixed-cost alternative that is available 24/7.
+*   **Human CART**: High hourly cost, requires booking weeks in advance, and lacks multi-language capabilities.
+*   **Conference Captioning**: Low fixed daily/monthly cost, instant setup, simultaneous translation in multiple languages, and automatic transcript generation.
+
+### Key Benefits
+- **Compliance Ready**: Instantly satisfies ADA, ACA, and EAA event compliance needs.
+- **Instant Transcripts**: At the end of the event, organizers can instantly download full text transcripts for minutes, SEO, or distribution.
+- **Engagement Tools**: Integrated networking and audience question submission options to keep attendees interactive.
+
+---
+
+## 5. Churches & Non-Profits Solution
+
+Make every sermon and service inclusive to hard of hearing members and diverse language demographics.
+
+### The "Volunteer-Proof" Promise
+Church AV booths are often run by volunteers. The interface is optimized to require zero training:
+1.  **Open the App & Plug in**: Connect the soundboard output to the laptop/tablet.
+2.  **Display the QR Code**: Project the QR code on the church screens or print it in the sermon bulletin.
+3.  **Serve the Community**: Congregants scan it to read in their preferred language.
+
+### Integration Ready
+Designed to work alongside major church streaming platforms:
+*   **Church Online Platform**
+*   **Resi**
+*   **YouTube Live & Meta/Facebook Live**
+*   **In-Sanctuary Projectors / Screens**
+
+### Non-Profit Packages
+Special discounts are automatically applied for registered 501(c)(3) churches and non-profit organizations. Includes the **Sunday Morning Guarantee** ensuring direct tech support is available during Sunday service times.
+
+---
+
+## 6. Caption URL Generator & Query Parameters
+
+The Caption URL Generator (`caption-url-generator.html`) allows developers and AV engineers to generate custom URLs pointing to `deafassistant.com` or local servers. These URLs support several query parameters for customizing the display look and behavior of the captions:
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `forVideo` | Boolean | `false` | Must be `true` to format the page specifically as an overlay layout. |
+| `autoRetrieve` | Boolean | `false` | When set to `true`, the caption stream starts immediately on page load. |
+| `advancedOverlay` | Boolean | `false` | Enables alternative subtitle looks and advanced styling configuration. |
+| `videoTextColor` | String | `white` | Customizes text color. Options: `white` (white text on black background) or `black` (black text on white background). |
+| `subtitleBottom` | Integer | `5` | Height distance (in %) of the captions from the bottom of the viewport. Supports range: `0` to `1000`. |
+| `scrollSpeed` | Integer | `499` | Text scroll/animation speed in milliseconds. Range: `100` to `2000`. |
+| `translationNumber` | Integer | `1` | Selects a specific translation feed index (from 1 to 5) instead of the default caption stream. |
+| `chroma` | Hex String | None | Applies a solid background color (excluding `#`) for chroma-keying in broadcasting apps (e.g. `chroma=00ff00` for green screen). |
+
+### Example URLs
+*   **Attendee Link**: `https://deafassistant.com/your-stream-name`
+*   **OBS Studio Chrome Key Overlay**: `https://deafassistant.com/your-stream-name?forVideo=true&autoRetrieve=true&advancedOverlay=true&chroma=00ff00`
+
+---
+
+## 7. Privacy & Terms Summary
+
+### Privacy First
+- **No Audio Storage**: Audio is processed in real-time. If using the "On-Device AI" model, no audio data ever leaves the local device.
+- **Local Transcripts**: Transcripts are stored locally and are only uploaded if the organizer explicitly opts to save them to the cloud portal.
+- **No Attendee Tracking**: Attendees do not need to create accounts, input emails, or share locations to view captions.
+
+### Terms of Service
+- Services are billed on a subscription (monthly) or per-use (daily) basis.
+- Subscriptions can be canceled at any time.
+- Users are responsible for obtaining appropriate consent from speakers when capturing audio for live transcription.

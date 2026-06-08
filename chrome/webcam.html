@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On-Device Vision AI Streamer</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select, button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    #stopBtn {
+      background-color: #dc3545;
+    }
+    .video-container {
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      max-width: 480px;
+    }
+    video {
+      width: 100%;
+      display: block;
+    }
+    #logs {
+      background: #1e1e1e;
+      color: #a9ffb4;
+      padding: 15px;
+      border-radius: 8px;
+      height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+    }
+    .status {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>On-Device Vision Describer (Chrome AI)</h2>
+  <p>Streams your camera to Chrome's local multimodal model every 10 seconds.</p>
+
+  <div class="controls">
+    <label for="cameraSelect">Select Camera:</label>
+    <select id="cameraSelect"><option value="">Loading cameras...</option></select>
+    <button id="startBtn">Start Streaming</button>
+    <button id="stopBtn" disabled>Stop</button>
+  </div>
+
+  <div class="status" id="statusText">Status: Initializing...</div>
+
+  <div class="video-container">
+    <video id="video" autoplay playsinline muted></video>
+  </div>
+
+  <canvas id="captureCanvas" style="display: none;"></canvas>
+
+  <h3>AI Output Log:</h3>
+  <div id="logs"></div>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('captureCanvas');
+    const cameraSelect = document.getElementById('cameraSelect');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const logs = document.getElementById('logs');
+    const statusText = document.getElementById('statusText');
+
+    let currentStream = null;
+    let intervalId = null;
+    let aiSession = null;
+
+    // Helper to log text to our UI terminal
+    function logMessage(text) {
+      const timestamp = new Date().toLocaleTimeString();
+      logs.textContent = `[${timestamp}] ${text}\n\n` + logs.textContent;
+    }
+
+    // 1. Setup the built-in Chrome AI Language Model
+    async function initAI() {
+      try {
+        // Handle variations of the experimental global API namespace
+        const aiProvider = window.ai?.languageModel || window.LanguageModel;
+        
+        if (!aiProvider) {
+          throw new Error("Chrome Built-in AI (LanguageModel) not detected. Ensure flags are enabled.");
+        }
+
+        statusText.textContent = "Status: Initializing Local AI Model...";
+        
+        // Initialize a multimodal session expecting image inputs
+        aiSession = await aiProvider.create({
+          expectedInputs: [{ type: "image" }],
+        });
+
+        statusText.textContent = "Status: AI Ready. Select camera and click Start.";
+        logMessage("System: Local multimodal AI session established successfully.");
+      } catch (error) {
+        statusText.textContent = "Status: AI Initialization Failed.";
+        logMessage(`Error initializing AI: ${error.message}. Make sure you are running a compatible Chrome version with 'Experimental Content Extraction' or 'Billion-parameter model' flags active.`);
+        startBtn.disabled = true;
+      }
+    }
+
+    // 2. Enumerate and populate video input devices
+    async function setupCameras() {
+      try {
+        // Request initial permission to unlock device labels
+        await navigator.mediaDevices.getUserMedia({ video: true });
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+        cameraSelect.innerHTML = '';
+        videoDevices.forEach((device, index) => {
+          const option = document.createElement('option');
+          option.value = device.deviceId;
+          option.text = device.label || `Camera ${index + 1}`;
+          cameraSelect.appendChild(option);
+        });
+
+        if (videoDevices.length === 0) {
+          cameraSelect.innerHTML = '<option>No cameras found</option>';
+          startBtn.disabled = true;
+        }
+      } catch (error) {
+        logMessage(`Error accessing camera devices: ${error.message}`);
+        statusText.textContent = "Status: Camera Access Denied.";
+      }
+    }
+
+    // 3. Capture a single frame from video stream and analyze it
+    async function captureAndAnalyze() {
+      if (!aiSession) return;
+
+      // Match canvas dimensions to the active video resolution
+      if (video.videoWidth > 0) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        logMessage("AI: Analyzing new frame...");
+
+        try {
+          const prompt = "Describe what is seen in this image clearly and concisely. If there is a person, describe their environment or actions.";
+          
+          // Pass the canvas element directly inside the user content array
+          const stream = aiSession.promptStreaming([
+            {
+              role: "user",
+              content: [
+                { type: "text", value: prompt },
+                { type: "image", value: canvas }
+              ]
+            }
+          ]);
+
+          // Create a placeholder block in logs for incoming stream chunks
+          let outputBlock = "AI Response: ";
+          for await (const chunk of stream) {
+            outputBlock += chunk;
+          }
+          logMessage(outputBlock);
+
+        } catch (error) {
+          logMessage(`AI Inference Error: ${error.message}`);
+        }
+      }
+    }
+
+    // 4. Start standard MediaStream using selected device ID
+    async function startStreaming() {
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+
+      const deviceId = cameraSelect.value;
+      const constraints = {
+        video: deviceId ? { deviceId: { exact: deviceId } } : true
+      };
+
+      try {
+        currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = currentStream;
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        cameraSelect.disabled = true;
+        statusText.textContent = "Status: Streaming live. Analyzing every 10s.";
+
+        // Run immediately on start, then loop every 10 seconds (10000ms)
+        captureAndAnalyze();
+        intervalId = setInterval(captureAndAnalyze, 10000);
+      } catch (error) {
+        logMessage(`Error starting camera stream: ${error.message}`);
+      }
+    }
+
+    // 5. Stop streaming and clear intervals
+    function stopStreaming() {
+      if (intervalId) clearInterval(intervalId);
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+      video.srcObject = null;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      cameraSelect.disabled = false;
+      statusText.textContent = "Status: Stopped.";
+      logMessage("System: Stream stopped by user.");
+    }
+
+    // Event listeners and Initialization
+    startBtn.addEventListener('click', startStreaming);
+    stopBtn.addEventListener('click', stopStreaming);
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await setupCameras();
+      await initAI();
+    });
+  </script>
+</body>
+</html>

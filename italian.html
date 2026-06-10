@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Conference Captioning - Italian Live Transcription Evaluation</title>
+
+  <style>
+
+    @font-face {
+      font-family: 'HK Grotesk';
+      src: local('HK Grotesk');
+    }
+
+    :root{
+      --bg:#193C5D;
+      --card:#23496d;
+      --card2:#17324d;
+      --text:#ffffff;
+      --muted:#d8e4ef;
+      --accent:#7dd3fc;
+      --border:rgba(255,255,255,0.08);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'HK Grotesk', Arial, sans-serif;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .hero{
+      padding:80px 24px 70px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:700px;
+      height:700px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.03);
+      top:-300px;
+      right:-220px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .logo{
+      width:280px;
+      margin-bottom:40px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      margin-bottom:24px;
+      font-size:14px;
+      letter-spacing:0.5px;
+    }
+
+    h1{
+      font-size:64px;
+      line-height:1.08;
+      margin:0 0 26px;
+      max-width:900px;
+      letter-spacing:-2px;
+    }
+
+    .subtitle{
+      font-size:22px;
+      color:var(--muted);
+      max-width:900px;
+    }
+
+    .cta-row{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-top:40px;
+    }
+
+    .btn{
+      padding:16px 28px;
+      border-radius:14px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      transition:0.25s ease;
+      font-size:16px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .btn-primary{
+      background:white;
+      color:#193C5D;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.15);
+      color:white;
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.06);
+    }
+
+    section{
+      padding:20px 24px 80px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:26px;
+      padding:30px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.2);
+    }
+
+    .metric{
+      font-size:52px;
+      font-weight:800;
+      margin-bottom:10px;
+      letter-spacing:-2px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .divider{
+      height:1px;
+      background:rgba(255,255,255,0.08);
+      margin:70px 0;
+    }
+
+    .comparison{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin-top:30px;
+    }
+
+    .transcript{
+      background:var(--card2);
+      border-radius:24px;
+      padding:28px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .transcript h3{
+      margin-top:0;
+      font-size:22px;
+    }
+
+    .transcript-text{
+      font-size:20px;
+      line-height:2;
+      color:#fff;
+    }
+
+    ul{
+      padding-left:22px;
+    }
+
+    li{
+      margin-bottom:12px;
+    }
+
+    .pill-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .pill{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:10px 18px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .footer{
+      text-align:center;
+      padding:40px 24px 80px;
+      color:#dbe7f1;
+    }
+
+    .footer-logo{
+      width:180px;
+      margin-bottom:20px;
+    }
+
+    .youtube-link{
+      color:#8ed4ff;
+      text-decoration:none;
+      word-break:break-word;
+    }
+
+    @media(max-width:900px){
+
+      h1{
+        font-size:44px;
+      }
+
+      .comparison{
+        grid-template-columns:1fr;
+      }
+
+      .subtitle{
+        font-size:19px;
+      }
+
+      .transcript-text{
+        font-size:17px;
+      }
+    }
+
+    @media print{
+
+      body{
+        background:white !important;
+        color:black !important;
+      }
+
+      .card,
+      .transcript{
+        background:white !important;
+        color:black !important;
+        border:1px solid #ccc;
+      }
+
+      .transcript-text{
+        color:black !important;
+      }
+
+      .btn{
+        display:none;
+      }
+
+      .hero::before{
+        display:none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+
+    <div class="container">
+
+      <img
+        class="logo"
+        src="https://conferencecaptioning.com/images/logo-white.svg"
+        alt="Conference Captioning Logo"
+      >
+
+      <div class="badge">
+        Italian Live ASR Evaluation
+      </div>
+
+      <h1>
+        Real-Time Italian Transcription With Near Human-Level Readability
+      </h1>
+
+      <p class="subtitle">
+        Conference Captioning was evaluated against YouTube automatic captions
+        using a dramatic Italian speech sample featuring emotional pacing,
+        rhetorical phrasing, and long-form narration. The results demonstrate
+        exceptional semantic preservation and highly readable live captions.
+      </p>
+
+      <div class="cta-row">
+
+        <button class="btn btn-primary" onclick="downloadPDF()">
+          Download PDF Evaluation
+        </button>
+
+        <a
+          class="btn btn-secondary"
+          href="https://www.youtube.com/watch?v=D3RlxUbG8-0"
+          target="_blank"
+        >
+          View Original Video
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <section>
+
+    <div class="container">
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="metric">96–99%</div>
+
+          <h3>Estimated Word Accuracy</h3>
+
+          <p class="muted">
+            The transcription maintained extremely high alignment with the
+            YouTube-generated transcript while preserving sentence continuity
+            and readability throughout the speech.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="metric">99%</div>
+
+          <h3>Semantic Preservation</h3>
+
+          <p class="muted">
+            Conference Captioning retained the emotional tone, narrative flow,
+            and motivational structure of the original speech with minimal
+            semantic deviation.
+          </p>
+
+        </div>
+
+        <div class="card">
+
+          <div class="metric">Live</div>
+
+          <h3>Low-Latency Accessibility</h3>
+
+          <p class="muted">
+            Unlike delayed subtitle generation systems, Conference Captioning
+            performs transcription in real time for conferences, events,
+            presentations, and multilingual accessibility.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="grid">
+
+        <div class="card">
+
+          <h3>Evaluation Methodology</h3>
+
+          <p class="muted">
+            The evaluation compared Conference Captioning's live Italian
+            transcription output against YouTube's autogenerated captions
+            using the following criteria:
+          </p>
+
+          <ul>
+            <li>Sentence continuity</li>
+            <li>Semantic preservation</li>
+            <li>Readability under live conditions</li>
+            <li>Narrative and emotional retention</li>
+            <li>Long-form speech stability</li>
+            <li>Caption usability for accessibility</li>
+          </ul>
+
+          <div class="pill-row">
+            <div class="pill">Italian ASR</div>
+            <div class="pill">Live Captioning</div>
+            <div class="pill">Conference Accessibility</div>
+            <div class="pill">Semantic Accuracy</div>
+            <div class="pill">Real-Time Transcription</div>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <h3>Source Audio</h3>
+
+          <p class="muted">
+            The evaluation sample originated from the following Italian
+            motivational speech video on YouTube:
+          </p>
+
+          <p>
+            <a
+              class="youtube-link"
+              href="https://www.youtube.com/watch?v=D3RlxUbG8-0"
+              target="_blank"
+            >
+              https://www.youtube.com/watch?v=D3RlxUbG8-0
+            </a>
+          </p>
+
+          <p class="muted">
+            The selected audio contains emotionally expressive speech,
+            changing pacing, long-form narration, and rhetorical phrasing —
+            all of which are challenging scenarios for live ASR systems.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 style="font-size:42px; margin-bottom:28px;">
+        Transcript Comparison
+      </h2>
+
+      <div class="comparison">
+
+        <div class="transcript">
+
+          <h3>Conference Captioning</h3>
+
+          <div class="transcript-text">
+            Non so cosa dirmi davvero tre minuti alla nostra più difficile sfida professionale tutto si decide oggi. Ora noi o risorgiamo come squadra o cederemo 1 cm alla volta uno schema dopo l'altro fino alla disfatta. Siamo all'inferno adesso, signori miei Credetemi. E possiamo rimanerci, farci prendere a schiaffi oppure aprirci la strada lottando verso la luce. Possiamo scalare le pareti dell'inferno 1 cm alla volta. Io però non posso farlo per voi. Sono troppo vecchio. Mi guardo intorno, vedo i vostri giovani volti e penso certo che ho commesso tutti gli errori che un uomo di mezza età possa fare. Sì, perché io ho sperperato tutti i miei soldi che ci crediate o no. Ho cacciato via tutti quelli che mi volevano bene. E da qualche anno mi dà anche fastidio la faccia che vedo nello specchio. Sapete col tempo con l'età, tante cose ci vengono tolte, ma questo fa parte della vita. Però tu lo impari solo quando quelle cose le cominci a perdere. E scopri che la vita è un gioco di centimetri. E così è il football. Perché in entrambi questi giochi la vita e il football
+          </div>
+
+        </div>
+
+        <div class="transcript">
+
+          <h3>YouTube Auto Captions</h3>
+
+          <div class="transcript-text">
+            Non so cosa dirvi davvero 3 minuti alla nostra più difficile sfida professionale tutto si decide oggi Ora noi o risorgiamo come squadra o cederemo un centimetro alla volta uno schema dopo l'altro fino alla disfatta siamo all'inferno adesso signori miei Credetemi e possiamo rimanerci farci prendere a schiaffi oppure aprirci la strada lottando verso la luce ha ragione possiamo scalare le pareti dell'inferno 1 centimetro alla volta facciamolo Io però non posso farlo per voi sono troppo vecchio mi guardo intorno vedo i vostri giovani volti e penso Certo che ho commesso tutti gli errori che un uomo di mezza età possa fare Sì perché io ho sperperato tutti i miei soldi che ci crediate o no Ho cacciato via tutti quelli che mi volevano bene e da qualche anno mi dà anche fastidio la faccia che vedo nello specchio sapete col tempo con l'età tante cose ci vengono tolte ma questo fa fa parte della vita però tu lo impari solo quando quelle cose le cominci a perdere e scopri che la vita è un gioco di centimetri è così è il football
+          </div>
+
+        </div>
+
+      </div>
+
+      <div style="margin-top:50px;" class="card">
+
+        <h3>Key Findings</h3>
+
+        <ul>
+
+          <li>
+            Conference Captioning preserved sentence continuity across long
+            emotional speech sequences with minimal drift.
+          </li>
+
+          <li>
+            The transcription remained highly readable and semantically stable
+            throughout the evaluated sample.
+          </li>
+
+          <li>
+            Numerical compression such as “1 cm” improved live readability
+            while maintaining meaning.
+          </li>
+
+          <li>
+            Punctuation and phrase segmentation significantly improved
+            accessibility and cognitive readability during live playback.
+          </li>
+
+          <li>
+            The system demonstrated production-grade multilingual live ASR
+            capabilities suitable for conferences and live events.
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="footer">
+
+    <img
+      class="footer-logo"
+      src="https://conferencecaptioning.com/images/logo-white.svg"
+      alt="Conference Captioning"
+    >
+
+    <div>
+      Real-Time Captions & Translations for Conferences, Events, and Accessibility
+    </div>
+
+  </div>
+
+  <script>
+
+    function downloadPDF(){
+
+      window.print();
+
+    }
+
+  </script>
+
+</body>
+</html>

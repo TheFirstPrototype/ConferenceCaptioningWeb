@@ -1,437 +1,63 @@
 <!DOCTYPE html>
+<!-- Change the value of lang="en" attribute if your website's language is not English.
+You can find the code of your language here - https://www.w3schools.com/tags/ref_language_codes.asp -->
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConferenceCaptioning | The AI Infrastructure Layer for Live Communication</title>
-<meta name="description" content="ConferenceCaptioning transforms any Mac, iPad, or iPhone into a private AI server delivering real-time captions and translations with industry-leading speed, reliability, and privacy.">
-<meta property="og:title" content="ConferenceCaptioning">
-<meta property="og:description" content="The AI Infrastructure Layer for Live Communication">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://conferencecaptioning.com/vc.html">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
-    --primary:#193C5D;
-    --primary-dark:#102c47;
-    --accent:#3a8dff;
-    --text:#1f2937;
-    --muted:#6b7280;
-    --bg:#f8fafc;
-    --white:#ffffff;
-    --border:#e5e7eb;
-}
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-html{
-    scroll-behavior:smooth;
-}
-body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.7;
-}
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:0 24px;
-}
-.hero{
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:white;
-    padding:100px 0;
-}
-.logo{
-    width:280px;
-    margin-bottom:40px;
-}
-.hero h1{
-    font-size:clamp(3rem,6vw,5rem);
-    line-height:1.05;
-    font-weight:900;
-    max-width:1000px;
-}
-.hero h2{
-    margin-top:20px;
-    font-size:1.5rem;
-    font-weight:500;
-    color:rgba(255,255,255,.9);
-    max-width:850px;
-}
-.hero p{
-    margin-top:30px;
-    font-size:1.15rem;
-    max-width:850px;
-    color:rgba(255,255,255,.85);
-}
-.metrics{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    margin-top:50px;
-}
-.metric{
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:16px;
-    padding:25px;
-}
-.metric-number{
-    font-size:2rem;
-    font-weight:800;
-}
-.metric-label{
-    opacity:.85;
-}
-section{
-    padding:80px 0;
-}
-.section-title{
-    font-size:2.5rem;
-    font-weight:800;
-    color:var(--primary);
-    margin-bottom:15px;
-}
-.section-subtitle{
-    max-width:900px;
-    color:var(--muted);
-    margin-bottom:40px;
-}
-.card-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:24px;
-}
-.card{
-    background:white;
-    border-radius:18px;
-    padding:28px;
-    border:1px solid var(--border);
-    box-shadow:0 10px 30px rgba(0,0,0,.04);
-}
-.card h3{
-    color:var(--primary);
-    margin-bottom:12px;
-}
-.card ul{
-    margin-left:18px;
-}
-.revenue-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-.revenue-box{
-    background:white;
-    border-radius:18px;
-    padding:30px;
-    text-align:center;
-    border:1px solid var(--border);
-}
-.revenue-box .amount{
-    font-size:2rem;
-    font-weight:800;
-    color:var(--primary);
-}
-.revenue-box .month{
-    color:var(--muted);
-}
-.logos{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:30px;
-    align-items:center;
-    padding:30px;
-}
-.logos img{
-    width:100%;
-    max-height:80px;
-    object-fit:contain;
-    filter:grayscale(100%);
-    opacity:.8;
-}
-.quote{
-    background:var(--primary);
-    color:white;
-    text-align:center;
-    padding:90px 30px;
-}
-.quote h2{
-    max-width:1000px;
-    margin:auto;
-    font-size:2rem;
-    line-height:1.4;
-}
-.apple{
-    background:white;
-}
-.apple-box{
-    background:#f9fafb;
-    border-radius:20px;
-    padding:35px;
-    border:1px solid var(--border);
-}
-.pipeline{
-    background:white;
-}
-.cta{
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:white;
-    text-align:center;
-    padding:100px 20px;
-}
-.cta h2{
-    font-size:3rem;
-    margin-bottom:20px;
-}
-.cta p{
-    max-width:700px;
-    margin:auto;
-}
-.cta-button{
-    display:inline-block;
-    margin-top:35px;
-    background:white;
-    color:var(--primary);
-    padding:18px 34px;
-    border-radius:999px;
-    text-decoration:none;
-    font-weight:700;
-    font-size:1.1rem;
-}
-.email{
-    margin-top:20px;
-    opacity:.85;
-}
-a{
-    color:var(--accent);
-}
-@media(max-width:768px){
-    .hero{
-        padding:70px 0;
-    }
-    .cta h2{
-        font-size:2rem;
-    }
-}
-</style>
-</head>
-<body>
-<header class="hero">
-<div class="container">
-<img class="logo"
-src="https://conferencecaptioning.com/images/logo-white.svg"
-alt="ConferenceCaptioning">
-<h1>
-The Fastest & Most Reliable Real-Time Captioning and Translation Platform for Live Events
-</h1>
-<h2>
-Transform any Mac, iPad, or iPhone into a private AI server that delivers real-time captions and multilingual translations with sub-second latency—even without internet access.
-</h2>
-<p>
-ConferenceCaptioning combines on-device AI, enterprise-grade reliability, and event-specific workflows to power accessible communication at conferences, corporate events, universities, healthcare organizations, and public venues worldwide.
-</p>
-<div class="metrics">
-<div class="metric">
-<div class="metric-number">&lt;1s</div>
-<div class="metric-label">Typical Latency</div>
-</div>
-<div class="metric">
-<div class="metric-number">25+</div>
-<div class="metric-label">Languages</div>
-</div>
-<div class="metric">
-<div class="metric-number">100%</div>
-<div class="metric-label">Offline Capable</div>
-</div>
-<div class="metric">
-<div class="metric-number">0</div>
-<div class="metric-label">Apps Required</div>
-</div>
-</div>
-</div>
-</header>
-<section>
-<div class="container">
-<h2 class="section-title">Early Commercial Traction</h2>
-<p class="section-subtitle">
-Revenue has grown through direct customer acquisition, referrals, repeat usage, and partnerships without a dedicated sales team.
-</p>
-<div class="revenue-grid">
-<div class="revenue-box">
-<div class="amount">$1,950</div>
-<div class="month">April 2026</div>
-</div>
-<div class="revenue-box">
-<div class="amount">$5,200</div>
-<div class="month">May 2026</div>
-</div>
-<div class="revenue-box">
-<div class="amount">$800+</div>
-<div class="month">June 2026 (mid-month)</div>
-</div>
-</div>
-</div>
-</section>
-<section class="pipeline">
-<div class="container">
-<h2 class="section-title">Growth Momentum</h2>
-<div class="card-grid">
-<div class="card">
-<h3>Customer Reach</h3>
-<ul>
-<li>7 paying customers</li>
-<li>7 cities</li>
-<li>3 continents</li>
-<li>Multiple repeat engagements</li>
-</ul>
-</div>
-<div class="card">
-<h3>Qualified Pipeline</h3>
-<ul>
-<li>$100,000+ pipeline</li>
-<li>Active enterprise discussions</li>
-<li>Growing AV partnerships</li>
-<li>Accessibility-driven demand</li>
-</ul>
-</div>
-<div class="card">
-<h3>Major Opportunity</h3>
-<p>
-Currently in discussions with a major event producer responsible for more than 350,000 live events annually.
-</p>
-</div>
-</div>
-</div>
-</section>
-<section>
-<div class="container">
-<h2 class="section-title">Why ConferenceCaptioning Exists</h2>
-<p class="section-subtitle">
-Most AI transcription companies send audio to the cloud. ConferenceCaptioning brings AI directly to the event.
-</p>
-<div class="card-grid">
-<div class="card">
-<h3>On-Device AI Infrastructure</h3>
-<p>
-Transforms local hardware into a private AI server that performs transcription and translation on-site.
-</p>
-</div>
-<div class="card">
-<h3>Mission-Critical Reliability</h3>
-<p>
-Automatic failover redundancy instantly switches to a backup AI server if hardware fails during an event.
-</p>
-</div>
-<div class="card">
-<h3>Purpose-Built For AV</h3>
-<p>
-Supports multi-screen displays, multilingual outputs, AV workflows, and venue-specific deployment requirements.
-</p>
-</div>
-</div>
-</div>
-</section>
-<section>
-<div class="container">
-<h2 class="section-title">Built-In Distribution Engine</h2>
-<p class="section-subtitle">
-Every successful deployment exposes ConferenceCaptioning to four independent customer groups.
-</p>
-<div class="card-grid">
-<div class="card">
-<h3>Event Organizers</h3>
-<p>Frequently reuse ConferenceCaptioning for future events.</p>
-</div>
-<div class="card">
-<h3>AV Companies</h3>
-<p>Often adopt the platform after seeing it succeed at client events.</p>
-</div>
-<div class="card">
-<h3>Organizations</h3>
-<p>Deploy across additional conferences, meetings, and internal events.</p>
-</div>
-<div class="card">
-<h3>Attendees</h3>
-<p>Every QR-code experience displays ConferenceCaptioning branding and website visibility.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="quote">
-<div class="container">
-<h2>Trusted By Organizations Across North America</h2>
-<div class="logos">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-2.png" alt="Sundance Film Festival">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-3.png" alt="Michigan State University">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-6.png" alt="TechTown Detroit">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-11.png" alt="Canadian Chiropractic Association">
-<img src="https://conferencecaptioning.com/images/slider/unnamed.png" alt="American Arab Chamber">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-12.png" alt="TravelAbility">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-10.png" alt="FiveStar AV">
-<img src="https://conferencecaptioning.com/images/slider/unnamed-9.png" alt="WeTech Alliance">
-</div>
-</div>
-</section>
-<section class="apple">
-<div class="container">
-<h2 class="section-title">Recognized by Apple</h2>
-<div class="apple-box">
-<p>
-ConferenceCaptioning founder Saamer Mansoor was featured by Apple in 2026 as part of a story highlighting entrepreneurs supported by the Apple Developer Academy in Detroit.
-</p>
-<br>
-<p>
-The platform leverages Apple's ecosystem and on-device AI capabilities to deliver industry-leading speed, reliability, and privacy for live communication.
-</p>
-<br>
-<p>
-<a href="https://www.apple.com/newsroom/2026/05/detroits-rising-developers-are-supported-by-the-apple-developer-academy/" target="_blank">
-Read the Apple Newsroom feature →
-</a>
-</p>
-</div>
-</div>
-</section>
-<section class="quote">
-<h2>
-“We are building the infrastructure layer that makes live spoken communication accessible and multilingual anywhere.”
-</h2>
-</section>
-<section>
-<div class="container">
-<h2 class="section-title">Beyond Events</h2>
-<p class="section-subtitle">
-Events are our entry point. The long-term opportunity is every spoken interaction.
-</p>
-<div class="card">
-<p style="font-size:1.15rem;">
-ConferenceCaptioning aims to become the operating layer for accessible and multilingual communication across conferences, universities, healthcare systems, government agencies, corporate communications, houses of worship, and public venues.
-</p>
-<br>
-<p style="font-size:1.15rem;">
-Every spoken interaction becomes searchable, translatable, and accessible in real time.
-</p>
-</div>
-</div>
-</section>
-<section class="cta">
-<h2>Interested in Learning More?</h2>
-<p>
-ConferenceCaptioning is actively expanding partnerships, customer deployments, and investor relationships.
-</p>
-<a class="cta-button" href="mailto:hello@conferencecaptioning.com">
-Request Investor Deck
-</a>
-<p class="email">
-hello@conferencecaptioning.com
-</p>
-</section>
-</body>
-</html>
+    <head>
+        <meta http-equiv="refresh" content="0; URL='https://conferencecaptioning.com/overview/index.html'" />
+        <title>Conference Live Captioning App Portal, by BeAware</title>
+        <meta name="description" content="Conference Live Captioning for the Deaf by BeAware">    
+        <meta charset="utf-8">
+        <meta name="author" content="Saamer Mansoor">
+        <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta name="keywords" content="Deaf, HoH, HardofHearing, Hard, Hearing, Assistant, Android, iPhone, iOS, App, Website" />
+        <link rel="canonical" href="https://conferencecaptioning.com/portal">  
+        <meta property="og:site_name" content="Conference Live Captioning for the Deaf by BeAware">
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Conference Live Captioning By BeAware">
+        <meta name="twitter:description" content="Native Conference Live Captioning apps for serving Deaf & Hard of Hearing attendees">
+        <meta name="twitter:image" content="https://conferencecaptioning.com/images/author.png">
+        <!-- Google / Search Engine Tags -->
+        <meta itemprop="name" content="Conference Live Captioning By BeAware">
+        <meta itemprop="description" content="Native Conference Live Captioning apps for serving Deaf & Hard of Hearing attendees">
+        <meta itemprop="image" content="https://conferencecaptioning.com/images/author.png">
+        <!-- Facebook Open Graph -->
+        <meta property="og:url" content="https://conferencecaptioning.com">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Conference Live Captioning for the Deaf by BeAware">
+        <meta property="og:description" content="Native Conference Live Captioning apps for serving Deaf & Hard of Hearing attendees">
+        <meta property="og:image" content="https://conferencecaptioning.com/images/author.png">
+        <meta name="robots" content="noodp,noydir">
+          <!-- Facebook Open Graph end -->
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="https://conferencecaptioning.com/images/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="https://conferencecaptioning.com/images/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="https://conferencecaptioning.com/images/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://conferencecaptioning.com/images/favicon.png">
+        <!-- <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png"> Need this low-->
+        <link rel="manifest" href="https://conferencecaptioning.com/favicon/site.webmanifest">
+
+        <meta name="author" content="Saamer Mansoor">
+
+        <!-- Favicons -->
+        <link rel="shortcut icon" href="https://conferencecaptioning.com/images/favicon.png">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-632LHDVZTW">
+        </script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-632LHDVZTW');
+        </script>
+        <!-- Meta Pixel Code -->
+        <!-- <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '210485784445970'); fbq('track', 'PageView');</script><noscript> <img height="1" width="1" src="https://www.facebook.com/tr?id=210485784445970&ev=PageView&noscript=1"/></noscript> -->
+        <!-- End Meta Pixel Code -->
+        <script src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/analyticsLite.js"></script>
+    </head>
+ </html>

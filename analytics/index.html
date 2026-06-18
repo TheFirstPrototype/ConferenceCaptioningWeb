@@ -227,9 +227,12 @@ async function loadAnalyticsData() {
 
         function renderTimelineChart(data) {
             const timeMap = data.reduce((acc, row) => {
+                // Use 'Date Time' for API data, fall back to 'Time' for CSV data
+                console.log(row)
+                const timeValue = row['Date Time'] || row.Time;
                 // Shorten time string for label visibility
-                const timeLabel = row.Time.split(' ')[0].substring(5) + ' ' + row.Time.split(' ')[1].substring(0, 5);
-                acc[timeLabel] = (acc[timeLabel] || 0) + row.Users;
+                const timeLabel = timeValue.split(' ')[0].substring(5) + ' ' + timeValue.split(' ')[1].substring(0, 5);
+                acc[timeLabel] = (acc[timeLabel] || 0) + row.Count;
                 return acc;
             }, {});
 
@@ -302,13 +305,12 @@ async function loadAnalyticsData() {
             const tbody = document.getElementById('dataTableBody');
             tbody.innerHTML = data.map(row => `
                 <tr class="hover:bg-white/5 transition-colors">
-                    <td class="p-4 text-sm">${row.Location}</td>
-                    <td class="p-4 text-sm text-blue-200 opacity-70">${row.Time}</td>
-                    <td class="p-4 text-sm font-bold text-right text-emerald-400">${row.Users}</td>
+                    <td class="p-4 text-sm">${row.Location || row['City, State, Country']}</td>
+                    <td class="p-4 text-sm text-blue-200 opacity-70">${row.Time || row['Date Time']}</td>
+                    <td class="p-4 text-sm font-bold text-right text-emerald-400">${row.Users || row.Count}</td>
                 </tr>
             `).join('');
         }
-
         function setupSearch(fullData) {
             const searchInput = document.getElementById('citySearch');
             searchInput.addEventListener('input', (e) => {

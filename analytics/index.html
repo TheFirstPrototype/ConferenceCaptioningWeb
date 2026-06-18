@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard | ConferenceCaptioning.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #193C5D;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+        <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="Logo" class="h-12">
+        <div class="text-center md:text-right">
+            <h1 class="text-2xl font-bold tracking-tight">Fivemoon13 Event Analytics</h1>
+            <p class="text-blue-200 opacity-80">Privacy-Safe IP Address Traffic Report: deafassistant.com/fivemoon13</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- KPI Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <span class="text-blue-300 text-sm uppercase font-semibold tracking-wider">Total Visitors</span>
+                <span id="stat-total-users" class="text-5xl font-bold mt-2">0</span>
+            </div>
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <span class="text-blue-300 text-sm uppercase font-semibold tracking-wider">Top Location</span>
+                <span id="stat-top-city" class="text-2xl font-bold mt-2 leading-tight">---</span>
+            </div>
+            <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+                <span class="text-blue-300 text-sm uppercase font-semibold tracking-wider">Unique Cities</span>
+                <span id="stat-unique-cities" class="text-5xl font-bold mt-2">0</span>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Timeline Chart -->
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4 flex justify-between items-center">
+                    Traffic Timeline
+                    <span class="text-xs font-normal text-blue-200 bg-blue-900 px-2 py-1 rounded">Hourly Aggregation</span>
+                </h3>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- City Chart -->
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4">Users by City</h3>
+                <div class="chart-container">
+                    <canvas id="cityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Table Section -->
+        <div class="glass-card overflow-hidden">
+            <div class="p-6 border-b border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <h3 class="text-lg font-semibold">Detailed Log</h3>
+                <input type="text" id="citySearch" placeholder="Filter by City or State..." 
+                    class="bg-white/10 border border-white/20 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 w-full md:w-64 transition-all">
+            </div>
+            <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 bg-[#1e4870]">
+                        <tr>
+                            <th class="p-4 text-sm font-semibold text-blue-200">Location</th>
+                            <th class="p-4 text-sm font-semibold text-blue-200">Time (CDT)</th>
+                            <th class="p-4 text-sm font-semibold text-blue-200 text-right">Users</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="divide-y divide-white/5">
+                        <!-- Data injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-10 pb-10 text-center text-blue-300/50 text-sm">
+        &copy; 2026 ConferenceCaptioning.com | Internal Analytics Dashboard
+    </footer>
+
+    <script>
+// Add this at the beginning of your script section (before existing code)
+function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+async function fetchWebsiteAnalytics(websiteUrl) {
+    try {
+        const apiUrl = `https://api.deafassistant.com/analytics/GetWebsiteAnalytics?website=${encodeURIComponent(websiteUrl)}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching analytics:', error);
+        return [];
+    }
+}
+
+function transformApiData(data) {
+    // Transform API JSON format to match CSV format
+    return data.map(item => ({
+        'City, State, Country': item.cityStateCountry,
+        'Date Time': item.dateTime,
+        'Count': item.count
+    }));
+}
+
+function processAnalyticsData(data) {
+    updateDashboard(data);
+    setupSearch(data);
+}
+
+async function loadAnalyticsData() {
+    const websiteParam = getQueryParameter('website');
+    
+    if (websiteParam) {
+        // Fetch from API
+        const apiData = await fetchWebsiteAnalytics(websiteParam);
+        const transformedData = transformApiData(apiData);
+        processAnalyticsData(transformedData);
+    } else {
+        // Load from CSV (your existing logic)
+        const parsed = Papa.parse(csvData, { header: true, dynamicTyping: true });
+        const data = parsed.data.filter(row => row.Location); // Filter empty rows
+        processAnalyticsData(data);
+    }
+} 
+        // Raw CSV Data
+        const csvData = `Location,Time,Users
+"Wichita, Kansas, US",2026-04-13 00:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 01:00:00-05:00,7
+"Wichita, Kansas, US",2026-04-13 01:00:00-05:00,2
+"Sterling Heights, Michigan, US",2026-04-13 01:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 02:00:00-05:00,7
+"Oklahoma City, Oklahoma, US",2026-04-13 03:00:00-05:00,14
+"Oklahoma City, Oklahoma, US",2026-04-13 04:00:00-05:00,4
+"Wichita, Kansas, US",2026-04-13 04:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 05:00:00-05:00,2
+"Oklahoma City, Oklahoma, US",2026-04-13 06:00:00-05:00,2
+"Wichita, Kansas, US",2026-04-13 06:00:00-05:00,2
+"Allen, Texas, US",2026-04-13 06:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 07:00:00-05:00,3
+"Wichita, Kansas, US",2026-04-13 07:00:00-05:00,1
+"Ashburn, Virginia, US",2026-04-13 09:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 09:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 10:00:00-05:00,6
+"Ashburn, Virginia, US",2026-04-13 11:00:00-05:00,1
+"Ashburn, Virginia, US",2026-04-13 16:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 16:00:00-05:00,1
+"Ashburn, Virginia, US",2026-04-13 18:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-13 18:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-14 01:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-14 02:00:00-05:00,2
+"Ashburn, Virginia, US",2026-04-14 02:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-14 03:00:00-05:00,1
+"Sterling Heights, Michigan, US",2026-04-14 03:00:00-05:00,1
+"Oklahoma City, Oklahoma, US",2026-04-14 04:00:00-05:00,1`;
+
+        // Global Chart instances
+        let timelineChart, cityChart;
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAnalyticsData();
+        });
+
+        function updateDashboard(data) {
+            // Stats Calculations
+            const totalUsers = data.reduce((sum, row) => sum + row.Users, 0);
+            const cities = [...new Set(data.map(row => row.Location))];
+            
+            const cityCounts = data.reduce((acc, row) => {
+                acc[row.Location] = (acc[row.Location] || 0) + row.Users;
+                return acc;
+            }, {});
+            
+            const topCity = Object.entries(cityCounts).sort((a,b) => b[1] - a[1])[0];
+
+            // Update KPI DOM
+            document.getElementById('stat-total-users').innerText = totalUsers.toLocaleString();
+            document.getElementById('stat-unique-cities').innerText = cities.length;
+            document.getElementById('stat-top-city').innerText = topCity[0].split(',')[0];
+
+            renderTimelineChart(data);
+            renderCityChart(cityCounts);
+            renderTable(data);
+        }
+
+        function renderTimelineChart(data) {
+            const timeMap = data.reduce((acc, row) => {
+                // Shorten time string for label visibility
+                const timeLabel = row.Time.split(' ')[0].substring(5) + ' ' + row.Time.split(' ')[1].substring(0, 5);
+                acc[timeLabel] = (acc[timeLabel] || 0) + row.Users;
+                return acc;
+            }, {});
+
+            const ctx = document.getElementById('timelineChart').getContext('2d');
+            if (timelineChart) timelineChart.destroy();
+
+            timelineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Object.keys(timeMap),
+                    datasets: [{
+                        label: 'Users',
+                        data: Object.values(timeMap),
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.2)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        }
+
+        function renderCityChart(cityCounts) {
+            const sortedCities = Object.entries(cityCounts)
+                .sort((a,b) => b[1] - a[1])
+                .slice(0, 8);
+
+            const ctx = document.getElementById('cityChart').getContext('2d');
+            if (cityChart) cityChart.destroy();
+
+            cityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedCities.map(c => c[0].split(',')[0]),
+                    datasets: [{
+                        label: 'Total Users',
+                        data: sortedCities.map(c => c[1]),
+                        backgroundColor: '#34d399',
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                        y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = data.map(row => `
+                <tr class="hover:bg-white/5 transition-colors">
+                    <td class="p-4 text-sm">${row.Location}</td>
+                    <td class="p-4 text-sm text-blue-200 opacity-70">${row.Time}</td>
+                    <td class="p-4 text-sm font-bold text-right text-emerald-400">${row.Users}</td>
+                </tr>
+            `).join('');
+        }
+
+        function setupSearch(fullData) {
+            const searchInput = document.getElementById('citySearch');
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = fullData.filter(row => 
+                    row.Location.toLowerCase().includes(term)
+                );
+                renderTable(filtered);
+            });
+        }
+    </script>
+</body>
+</html>

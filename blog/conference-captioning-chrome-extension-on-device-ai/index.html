@@ -205,18 +205,6 @@
                   href="https://conferencecaptioning.com/blog/fr/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
                   >Français</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/pt/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Português</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/de/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Deutsch</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/ja/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >日本語</a
                 >
               </div>
             </div>
@@ -487,7 +475,7 @@
                 over any Keynote, PowerPoint, or Google Slides presentation.
               </p></a
             ><a
-              href="/blog/how-to-set-a-static-local-ip-address-on-mac-av/"
+              href="/blog/zero-downtime-live-captions-hot-failover-redundancy/"
               class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
               ><div class="flex items-center gap-2 mb-1">
                 <span
@@ -498,12 +486,12 @@
               <h3
                 class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
               >
-                How to Set a Static Local IP Address on Mac for AV Production
-                Networks
+                Zero-Downtime Live Captions: How to Setup Hot-Failover
+                Redundancy for Live Events
               </h3>
               <p class="text-slate-600 text-sm line-clamp-2">
-                Lock down your AV network by assigning a static local IP address
-                to your Mac, crucial for Dante, NDI, and local API servers.
+                Ensure your captions never go down during critical live
+                broadcasts with our robust hot-failover redundancy architecture.
               </p></a
             >
           </div>
@@ -697,5 +685,34 @@
         </div>
       </div>
     </footer>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
   </body>
 </html>

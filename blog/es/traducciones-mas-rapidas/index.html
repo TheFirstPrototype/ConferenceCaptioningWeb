@@ -212,18 +212,6 @@
                   href="https://conferencecaptioning.com/blog/fr/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
                   >Français</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/pt/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Português</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/de/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Deutsch</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/ja/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >日本語</a
                 >
               </div>
             </div>
@@ -475,5 +463,34 @@
         </div>
       </div>
     </footer>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
   </body>
 </html>

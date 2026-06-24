@@ -203,18 +203,6 @@
                   href="https://conferencecaptioning.com/blog/fr/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
                   >Français</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/pt/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Português</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/de/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Deutsch</a
-                ><a
-                  href="https://conferencecaptioning.com/blog/ja/"
-                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >日本語</a
                 >
               </div>
             </div>
@@ -465,7 +453,7 @@
                 on-device AI Chrome Extension.
               </p></a
             ><a
-              href="/blog/zero-downtime-live-captions-hot-failover-redundancy/"
+              href="/blog/how-to-build-a-local-translation-server-on-mac-mini/"
               class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
               ><div class="flex items-center gap-2 mb-1">
                 <span
@@ -476,12 +464,13 @@
               <h3
                 class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
               >
-                Zero-Downtime Live Captions: How to Setup Hot-Failover
-                Redundancy for Live Events
+                How to Build a Local Translation Server on Mac Mini | Real-Time
+                On-Device AI
               </h3>
               <p class="text-slate-600 text-sm line-clamp-2">
-                Ensure your captions never go down during critical live
-                broadcasts with our robust hot-failover redundancy architecture.
+                Everything you need to know about setting up a dedicated Mac
+                Mini to act as your local, zero-latency event translation
+                server.
               </p></a
             >
           </div>
@@ -675,5 +664,34 @@
         </div>
       </div>
     </footer>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
   </body>
 </html>

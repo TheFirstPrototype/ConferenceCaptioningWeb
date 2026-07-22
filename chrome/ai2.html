@@ -417,6 +417,8 @@
                 const transKey = idx === 0 ? "translation" : `translation${idx + 1}`;
                 payload[langKey] = code;
                 payload[transKey] = translationsMap[code] || "";
+                const cleanTranslation = translationsMap[code].replaceAll(code.toUpperCase() + "\n", "").trim() || "";
+                payload[transKey] = cleanTranslation;
             });
         
             try {

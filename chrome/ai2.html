@@ -194,10 +194,14 @@
         <!-- MAIN APP PANEL -->
         <div class="glass-panel">
             <div class="controls">
-                <div style="display: flex; gap: 1rem;">
-                    <button id="startBtn">Start Captioning</button>
-                    <button id="stopBtn" disabled>Stop</button>
+                <div style=display:flex;gap:1rem;flex-wrap:wrap;align-items:center>
+                    <button id=startBtn>Start Captioning</button>
+                    <button id=pauseBtn style="display:none">Pause</button>
+                    <button id=stopBtn disabled>Stop</button>
+                    <button id=resetBtn style="background:#555">Reset to Defaults</button>
                 </div>
+                <div id=init-notice style="font-size:0.85rem;color:var(--accent-yellow, #f39c12);margin-top:0.5rem;display:none;"></div>
+                <div id=tip-notice style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem;display:none;"></div>
                 <div id="status" class="status-badge status-idle">
                     <div class="status-dot"></div>
                     <span id="status-text">Ready</span>
@@ -207,324 +211,332 @@
         </div>
     </div>
     <script>
-        const LANGUAGES = {
-            ar: "Arabic",
-            bg: "Bulgarian",
-            bn: "Bengali",
-            cs: "Czech",
-            da: "Danish",
-            de: "German",
-            el: "Greek",
-            en: "English",
-            es: "Spanish",
-            fi: "Finnish",
-            fr: "French",
-            hi: "Hindi",
-            hr: "Croatian",
-            hu: "Hungarian",
-            id: "Indonesian",
-            it: "Italian",
-            iw: "Hebrew",
-            ja: "Japanese",
-            kn: "Kannada",
-            ko: "Korean",
-            lt: "Lithuanian",
-            mr: "Marathi",
-            nl: "Dutch",
-            no: "Norwegian",
-            pl: "Polish",
-            pt: "Portuguese",
-            ro: "Romanian",
-            ru: "Russian",
-            sk: "Slovak",
-            sl: "Slovenian",
-            sv: "Swedish",
-            ta: "Tamil",
-            te: "Telugu",
-            th: "Thai",
-            tr: "Turkish",
-            uk: "Ukrainian",
-            vi: "Vietnamese",
-            zh: "Simplified Chinese",
-            "zh-Hant": "Traditional Chinese"
+        const LANGUAGES={ar:"Arabic",bg:"Bulgarian",bn:"Bengali",cs:"Czech",da:"Danish",de:"German",el:"Greek",en:"English",es:"Spanish",fi:"Finnish",fr:"French",hi:"Hindi",hr:"Croatian",hu:"Hungarian",id:"Indonesian",it:"Italian",iw:"Hebrew",ja:"Japanese",kn:"Kannada",ko:"Korean",lt:"Lithuanian",mr:"Marathi",nl:"Dutch",no:"Norwegian",pl:"Polish",pt:"Portuguese",ro:"Romanian",ru:"Russian",sk:"Slovak",sl:"Slovenian",sv:"Swedish",ta:"Tamil",te:"Telugu",th:"Thai",tr:"Turkish",uk:"Ukrainian",vi:"Vietnamese",zh:"Simplified Chinese","zh-Hant":"Traditional Chinese"};
+        
+        // LocalStorage helpers & Defaults
+        const DEFAULT_CONFIG = {
+            vadConfig: { volume: 0.05, silence: 800, speech: 400 },
+            translationConfig: { enabled: false, numLangs: 1, targets: ["es", "fr", "de", "it"] }
         };
-        let vadConfig = {
-                volume: .05,
-                silence: 800,
-                speech: 400
-            },
-            translationConfig = {
-                enabled: !1,
-                numLangs: 1,
-                targets: ["es", "fr", "de", "it"]
-            },
-            aiSession = null,
-            activeTranslators = [],
-            stream, audioContext, mediaRecorder, isRecording = !1,
-            silenceTimer = null,
-            chunks = [],
-            startTime = 0;
-        const transToggle = document.getElementById("enable-translation"),
-            transSettings = document.getElementById("translation-settings"),
-            langsContainer = document.getElementById("languages-container"),
-            transStatusText = document.getElementById("translation-status");
-
-        function updateLanguageDropdowns(e) {
-            translationConfig.numLangs = e, langsContainer.innerHTML = "";
-            for (let n = 0; n < e; n++) {
-                const t = document.createElement("div");
-                t.className = "lang-select-group";
-                const a = document.createElement("label");
-                a.innerText = `Language ${n+1}`;
-                const s = document.createElement("select");
-                s.id = `lang-sel-${n}`, Object.entries(LANGUAGES).forEach(([e, t]) => {
-                    const a = document.createElement("option");
-                    a.value = e, a.innerText = `${t} (${e})`, e === translationConfig.targets[n] && (a.selected = !0), s.appendChild(a)
-                }), s.addEventListener("change", e => {
-                    translationConfig.targets[n] = e.target.value
-                }), t.appendChild(a), t.appendChild(s), langsContainer.appendChild(t)
-            }
+        
+        function loadSettings() {
+            const savedVAD = localStorage.getItem("cc_vadConfig");
+            const savedTrans = localStorage.getItem("cc_translationConfig");
+            if (savedVAD) try { vadConfig = JSON.parse(savedVAD); } catch(e){}
+            if (savedTrans) try { translationConfig = JSON.parse(savedTrans); } catch(e){}
         }
-
-        function createDial(e, t, a, n, s, i, r, o, l) {
-            const d = document.getElementById(e);
-            const c = 2 * Math.PI * 40;
-            d.innerHTML = `
-                        <div class="dial">
-                            <svg viewBox="0 0 100 100">
-                                <circle class="dial-track" cx="50" cy="50" r="40"></circle>
-                                <circle class="dial-progress" cx="50" cy="50" r="40" stroke-dasharray="${c}" stroke-dashoffset="${c}"></circle>
-                            </svg>
-                            <div class="dial-value"></div>
-                        </div>
-                        <div class="dial-label">${t}</div>
-                    `;
-            const u = d.querySelector(".dial"),
-                g = d.querySelector(".dial-progress"),
-                m = d.querySelector(".dial-value");
-            let p = i;
-
-            function h() {
-                var e = (p - a) / (n - a),
-                    e = c - e * c;
-                g.style.strokeDashoffset = e, m.innerText = o ? o(p) : p, l(p)
+        
+        function saveSettings() {
+            localStorage.setItem("cc_vadConfig", JSON.stringify(vadConfig));
+            localStorage.setItem("cc_translationConfig", JSON.stringify(translationConfig));
+        }
+        
+        let vadConfig = { ...DEFAULT_CONFIG.vadConfig };
+        let translationConfig = { ...DEFAULT_CONFIG.translationConfig };
+        loadSettings();
+        
+        let aiSession=null, activeTranslators=[], stream, audioContext, mediaRecorder, isRecording=!1, isPaused=!1, silenceTimer=null, chunks=[], startTime=0, noCaptionTimer=null;
+        
+        const transToggle=document.getElementById("enable-translation"),
+              transSettings=document.getElementById("translation-settings"),
+              langsContainer=document.getElementById("languages-container"),
+              transStatusText=document.getElementById("translation-status"),
+              initNotice=document.getElementById("init-notice"),
+              tipNotice=document.getElementById("tip-notice");
+        
+        transToggle.checked = translationConfig.enabled;
+        transSettings.style.display = translationConfig.enabled ? "block" : "none";
+        
+        // Get RoomName from Query String or default
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomName = urlParams.get("roomName") || "expressacademy";
+        
+        function updateLanguageDropdowns(e){
+            translationConfig.numLangs=e;
+            langsContainer.innerHTML="";
+            for(let n=0;n<e;n++){
+                const t=document.createElement("div");
+                t.className="lang-select-group";
+                const a=document.createElement("label");
+                a.innerText=`Language ${n+1}`;
+                const s=document.createElement("select");
+                s.id=`lang-sel-${n}`;
+                Object.entries(LANGUAGES).forEach(([code, name])=>{
+                    const opt=document.createElement("option");
+                    opt.value=code;
+                    opt.innerText=`${name} (${code})`;
+                    if(code===translationConfig.targets[n]) opt.selected=!0;
+                    s.appendChild(opt);
+                });
+                s.addEventListener("change",e=>{
+                    translationConfig.targets[n]=e.target.value;
+                    saveSettings();
+                });
+                t.appendChild(a);
+                t.appendChild(s);
+                langsContainer.appendChild(t);
             }
-            let f = !1,
-                v = 0,
-                T = 0;
-            u.addEventListener("mousedown", e => {
-                f = !0, v = e.clientY, T = p, document.body.style.userSelect = "none"
-            }), window.addEventListener("mousemove", t => {
-                if (f) {
-                    t = v - t.clientY, t = Math.floor(t / 5);
-                    let e = T + t * s;
-                    e > n && (e = n), e < a && (e = a), p = r ? parseFloat(e.toFixed(3)) : e, h()
+            saveSettings();
+        }
+        
+        function createDial(e,t,a,n,s,i,r,o,l){
+            const d=document.getElementById(e);
+            const c=2*Math.PI*40;
+            d.innerHTML=`<div class="dial"><svg viewBox="0 0 100 100"><circle class="dial-track" cx="50" cy="50" r="40"></circle><circle class="dial-progress" cx="50" cy="50" r="40" stroke-dasharray="${c}" stroke-dashoffset="${c}"></circle></svg><div class="dial-value"></div></div><div class="dial-label">${t}</div>`;
+            const u=d.querySelector(".dial"),g=d.querySelector(".dial-progress"),m=d.querySelector(".dial-value");
+            let p=i;
+            function h(){
+                var e=(p-a)/(n-a),e=c-e*c;
+                g.style.strokeDashoffset=e;
+                m.innerText=o?o(p):p;
+                l(p);
+            }
+            let f=!1,v=0,T=0;
+            u.addEventListener("mousedown",e=>{f=!0,v=e.clientY,T=p,document.body.style.userSelect="none"});
+            window.addEventListener("mousemove",t=>{
+                if(f){
+                    t=v-t.clientY;t=Math.floor(t/5);let e=T+t*s;
+                    if(e>n)e=n;if(e<a)e=a;
+                    p=r?parseFloat(e.toFixed(3)):e;
+                    h();
+                    saveSettings();
                 }
-            }), window.addEventListener("mouseup", () => {
-                f = !1, document.body.style.userSelect = "auto"
-            }), h()
+            });
+            window.addEventListener("mouseup",()=>{f=!1,document.body.style.userSelect="auto"});
+            h();
         }
-        transToggle.addEventListener("change", e => {
-            translationConfig.enabled = e.target.checked, transSettings.style.display = translationConfig.enabled ? "block" : "none"
-        }), createDial("dial-vol", "Volume Threshold", .01, .1, .005, vadConfig.volume, !0, e => e.toFixed(3), e => vadConfig.volume = e), createDial("dial-silence", "Silence (ms)", 500, 3e3, 100, vadConfig.silence, !1, e => e + "ms", e => vadConfig.silence = e), createDial("dial-speech", "Min Speech (ms)", 200, 1500, 100, vadConfig.speech, !1, e => e + "ms", e => vadConfig.speech = e), createDial("dial-langs", "Simultaneous Languages", 1, 4, 1, translationConfig.numLangs, !1, e => e, e => updateLanguageDropdowns(e));
-        const startBtn = document.getElementById("startBtn"),
-            stopBtn = document.getElementById("stopBtn"),
-            statusBadge = document.getElementById("status"),
-            statusText = document.getElementById("status-text"),
-            output = document.getElementById("output");
-
-        function setStatus(e, t) {
-            statusText.innerText = e, statusBadge.className = `status-badge ${t}`
+        
+        transToggle.addEventListener("change",e=>{
+            translationConfig.enabled=e.target.checked;
+            transSettings.style.display=translationConfig.enabled?"block":"none";
+            saveSettings();
+        });
+        
+        createDial("dial-vol","Volume Threshold",.01,.1,.005,vadConfig.volume,!0,e=>e.toFixed(3),e=>vadConfig.volume=e);
+        createDial("dial-silence","Silence (ms)",500,3e3,100,vadConfig.silence,!1,e=>e+"ms",e=>vadConfig.silence=e);
+        createDial("dial-speech","Min Speech (ms)",200,1500,100,vadConfig.speech,!1,e=>e+"ms",e=>vadConfig.speech=e);
+        createDial("dial-langs","Simultaneous Languages",1,4,1,translationConfig.numLangs,!1,e=>e,e=>updateLanguageDropdowns(e));
+        
+        const startBtn=document.getElementById("startBtn"),
+              pauseBtn=document.getElementById("pauseBtn"),
+              stopBtn=document.getElementById("stopBtn"),
+              resetBtn=document.getElementById("resetBtn"),
+              statusBadge=document.getElementById("status"),
+              statusText=document.getElementById("status-text"),
+              output=document.getElementById("output");
+        
+        resetBtn.onclick = () => {
+            localStorage.clear();
+            location.reload();
+        };
+        
+        function setStatus(e,t){statusText.innerText=e,statusBadge.className=`status-badge ${t}`}
+        
+        async function verifyAndLoadTranslators(){
+            const e=window.Translator||window.translation;
+            if(!e)return!(transStatusText.innerHTML='<span class="error-text">❌ Unsupported browser, translations unavailable.</span>');
+            activeTranslators=[];
+            for(let t of translationConfig.targets.slice(0,translationConfig.numLangs)){
+                if("en"!==t){
+                    transStatusText.innerText=`Checking availability for ${LANGUAGES[t]}...`;
+                    try{
+                        const n=e.availability||e.canTranslate,s=await n.call(e,{sourceLanguage:"en",targetLanguage:t});
+                        const i=["available","downloadable","readily","after-download"];
+                        if(!i.includes(s))return transStatusText.innerHTML=`<span class="error-text">❌ Language ${LANGUAGES[t]} is unavailable.</span>`,!1;
+                        transStatusText.innerText=`Loading ${LANGUAGES[t]}...`;
+                        var a=await e.create({sourceLanguage:"en",targetLanguage:t});
+                        activeTranslators.push({code:t,instance:a});
+                    }catch(e){return transStatusText.innerHTML=`<span class="error-text">❌ Error initializing ${LANGUAGES[t]}.</span>`,!1}
+                }
+            }
+            transStatusText.innerHTML='<span style="color:var(--accent-green)">✔ Translations Ready</span>';
+            return!0;
         }
-        async function verifyAndLoadTranslators() {
-            const e = window.Translator || window.translation;
-            if (!e) return !(transStatusText.innerHTML = '<span class="error-text">❌ Unsupported browser, translations unavailable. Ensure Chrome Flags are enabled.</span>');
-            activeTranslators = [];
-            for (let t of translationConfig.targets.slice(0, translationConfig.numLangs))
-                if ("en" !== t) {
-                    transStatusText.innerText = `Checking availability for ${LANGUAGES[t]}...`;
-                    try {
-                        const n = e.availability || e.canTranslate,
-                            s = await n.call(e, {
-                                sourceLanguage: "en",
-                                targetLanguage: t
-                            }),
-                            i = ["available", "downloadable", "readily", "after-download"];
-                        if (!i.includes(s)) return transStatusText.innerHTML = `<span class="error-text">❌ Language ${LANGUAGES[t]} is unavailable (${s}).</span>`, !1;
-                        transStatusText.innerText = s.includes("download") ? `Downloading ${LANGUAGES[t]} model...` : `Loading ${LANGUAGES[t]}...`;
-                        var a = await e.create({
-                            sourceLanguage: "en",
-                            targetLanguage: t,
-                            monitor(e) {
-                                e.addEventListener("downloadprogress", e => {
-                                    e = Math.round(e.loaded / e.total * 100) || Math.round(100 * e.loaded);
-                                    transStatusText.innerText = `Downloading ${LANGUAGES[t]}: ${e}%`
-                                })
-                            }
-                        });
-                        activeTranslators.push({
-                            code: t,
-                            instance: a
-                        })
-                    } catch (e) {
-                        return console.error("Translation Init Error:", e), transStatusText.innerHTML = `<span class="error-text">❌ Error initializing ${LANGUAGES[t]}.</span>`, !1
+        
+        function setupVAD(e){
+            audioContext=new AudioContext;
+            const t=audioContext.createMediaStreamSource(e),a=audioContext.createAnalyser();
+            a.fftSize=512;t.connect(a);
+            const n=new Float32Array(a.fftSize);
+            !function e(){
+                if(aiSession && !isPaused){
+                    a.getFloatTimeDomainData(n);let t=0;
+                    for(let e=0;e<n.length;e++)t+=n[e]*n[e];
+                    Math.sqrt(t/n.length)>vadConfig.volume?(silenceTimer&&(clearTimeout(silenceTimer),silenceTimer=null),isRecording||startRecording()):isRecording&&!silenceTimer&&(silenceTimer=setTimeout(()=>{stopRecordingAndTranscribe(),silenceTimer=null},vadConfig.silence));
+                }
+                if(!isPaused) requestAnimationFrame(e);
+            }();
+        }
+        
+        function startRecording(){
+            if(isPaused) return;
+            isRecording=!0,setStatus("Capturing speech...","status-listening"),chunks=[],startTime=Date.now(),mediaRecorder=new MediaRecorder(stream),mediaRecorder.ondataavailable=e=>chunks.push(e.data),mediaRecorder.onstop=processAudioChunk,mediaRecorder.start();
+        }
+        
+        function stopRecordingAndTranscribe(){
+            if(isRecording&&"inactive"!==mediaRecorder.state&&(isRecording=!1,setStatus("Processing AI...","status-processing"),mediaRecorder.stop(),!noCaptionTimer)){
+                // Setup 5s No-caption timer check
+                noCaptionTimer = setTimeout(()=>{
+                    if(output.children.length === 0){
+                        tipNotice.style.display = "block";
+                        tipNotice.innerText = "💡 Tip: No captions received yet. Try reducing the 'Silence (ms)' dial down to 500ms.";
                     }
-                } return transStatusText.innerHTML = '<span style="color:var(--accent-green)">✔ Translations Ready</span>', !0
+                }, 5000);
+            }
         }
-
-        function setupVAD(e) {
-            audioContext = new AudioContext;
-            const t = audioContext.createMediaStreamSource(e),
-                a = audioContext.createAnalyser();
-            a.fftSize = 512, t.connect(a);
-            const n = new Float32Array(a.fftSize);
-            ! function e() {
-                if (aiSession) {
-                    a.getFloatTimeDomainData(n);
-                    let t = 0;
-                    for (let e = 0; e < n.length; e++) t += n[e] * n[e];
-                    Math.sqrt(t / n.length) > vadConfig.volume ? (silenceTimer && (clearTimeout(silenceTimer), silenceTimer = null), isRecording || startRecording()) : isRecording && !silenceTimer && (silenceTimer = setTimeout(() => {
-                        stopRecordingAndTranscribe(), silenceTimer = null
-                    }, vadConfig.silence)), requestAnimationFrame(e)
-                }
-            }()
+        
+        async function processAudioChunk(){
+            Date.now()-startTime-vadConfig.silence<vadConfig.speech?setStatus("Listening for speech...","status-idle"):(await transcribe(new Blob(chunks,{type:mediaRecorder.mimeType})),isRecording||setStatus("Listening for speech...","status-idle"))
         }
-
-        function startRecording() {
-            isRecording = !0, setStatus("Capturing speech...", "status-listening"), chunks = [], startTime = Date.now(), mediaRecorder = new MediaRecorder(stream), mediaRecorder.ondataavailable = e => chunks.push(e.data), mediaRecorder.onstop = processAudioChunk, mediaRecorder.start()
-        }
-
-        function stopRecordingAndTranscribe() {
-            isRecording && "inactive" !== mediaRecorder.state && (isRecording = !1, setStatus("Processing AI...", "status-processing"), mediaRecorder.stop())
-        }
-        async function processAudioChunk() {
-            Date.now() - startTime - vadConfig.silence < vadConfig.speech ? setStatus("Listening for speech...", "status-idle") : (await transcribe(new Blob(chunks, {
-                type: mediaRecorder.mimeType
-            })), isRecording || setStatus("Listening for speech...", "status-idle"))
-        }
+        
         async function sendApiPayload(fullTranscript, translationsMap) {
             const payload = {
-                timestamp: new Date().toISOString(),
-                roomName: "techtown",
-                description: "techtown Accessibility Stream",
+                roomName: roomName,
+                description: `${roomName} Accessibility Stream`,
                 transcript: fullTranscript,
-                isActivelyStreaming: true,
-                translation: translationsMap["outputLanguage"] || "",
+                isActivelyStreaming: !isPaused,
                 inputLanguage: "en",
-                isPremiumCustomer: true
+                outputLanguage: "",
+                outputLanguage2: "",
+                outputLanguage3: "",
+                outputLanguage4: "",
+                translation: "",
+                translation2: "",
+                translation3: "",
+                translation4: "",
+                isPremiumCustomer: false,
+                blockStorage: false,
+                uid: "12345",
+                isProximityEnabled: true,
+                customQuestionPrompt: "Ask a question"
             };
-
-            // Dynamically append outputLanguage2, outputLanguage3, etc. if they exist
-            for (const [key, value] of Object.entries(translationsMap)) {
-                if (key !== "outputLanguage") {
-                    payload[key] = value;
-                }
-            }
-
+        
+            // Map targets to outputLanguage / translation properties dynamically
+            translationConfig.targets.slice(0, translationConfig.numLangs).forEach((code, idx) => {
+                const langKey = idx === 0 ? "outputLanguage" : `outputLanguage${idx + 1}`;
+                const transKey = idx === 0 ? "translation" : `translation${idx + 1}`;
+                payload[langKey] = code;
+                payload[transKey] = translationsMap[code] || "";
+            });
+        
             try {
                 await fetch("https://api.deafassistant.com/stream/LiteSmartAdd", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
             } catch (err) {
                 console.error("API transmission error:", err);
             }
         }
-
-        async function transcribe(e) {
-            e = await e.arrayBuffer();
-            try {
-                const s = await aiSession.prompt([{
-                    role: "user",
-                    content: [{
-                        type: "text",
-                        value: "Transcribe this audio exactly. Format it as the beginning or continuation of a sentence with punctuation if applicable. Just the text."
-                    }, {
-                        type: "audio",
-                        value: e
-                    }]
-                }]);
-                var t = s.trim();
-                if (!t) return;
-                const i = document.createElement("div");
-                i.className = "utterance";
-                const r = document.createElement("div");
-                if (r.className = "text-en", r.innerText = t, i.appendChild(r), output.appendChild(i), output.scrollTop = output.scrollHeight, translationConfig.enabled && 0 < activeTranslators.length) {
-
-                    // Process translations in parallel using Promise.allSettled
-                    const translationPromises = activeTranslators.map(async (a, index) => {
+        
+        async function transcribe(e){
+            e=await e.arrayBuffer();
+            try{
+                if(output.children.length === 0) {
+                    initNotice.style.display = "block";
+                    initNotice.innerText = "⏳ Initializing first caption (this can take a moment, subsequent captions will be faster)...";
+                }
+        
+                const s=await aiSession.prompt([{role:"user",content:[{type:"text",value:"Transcribe this audio precisely. Keep capitalization and punctuation exact (e.g., lowercase mid-sentence, proper caps after periods/question marks/exclamations). Just the text."},{type:"audio",value:e}]}]);
+                var t=s.trim();
+                if(!t)return;
+        
+                if(noCaptionTimer) { clearTimeout(noCaptionTimer); noCaptionTimer = null; }
+                initNotice.style.display = "none";
+                tipNotice.style.display = "none";
+        
+                const i=document.createElement("div");
+                i.className="utterance";
+                const r=document.createElement("div");
+                r.className="text-en";
+                r.innerText=t;
+                i.appendChild(r);
+                output.appendChild(i);
+                output.scrollTop=output.scrollHeight;
+        
+                var translationsMap = {};
+                if(translationConfig.enabled&&0<activeTranslators.length){
+                    const translationPromises = activeTranslators.map(async (a) => {
                         const translatedText = await a.instance.translate(t);
-                        const langKey = index === 0 ? "outputLanguage" : `outputLanguage${index + 1}`;
-                        return {
-                            code: a.code,
-                            text: translatedText,
-                            key: langKey
-                        };
+                        return { code: a.code, text: translatedText };
                     });
-
+        
                     const results = await Promise.allSettled(translationPromises);
-                    var translationsMap = {};
-
                     results.forEach(res => {
                         if (res.status === "fulfilled") {
-                            const {
-                                code,
-                                text,
-                                key
-                            } = res.value;
-                            translationsMap[key] = text;
+                            const { code, text } = res.value;
+                            translationsMap[code] = text;
                             const o = document.createElement("div");
                             o.className = "text-tl";
                             o.innerHTML = `<span class="lang-tag">${code}</span> <span>${text}</span>`;
                             i.appendChild(o);
                         }
                     });
-                    output.scrollTop = output.scrollHeight;
-
-                    // Collect all transcribed text elements to form the complete spaced transcript string
-                    const allTextNodes = output.querySelectorAll('.text-en');
-                    const fullTranscript = Array.from(allTextNodes).map(node => node.innerText).join(" ");
-
-                    // Send API call asynchronously
-                    sendApiPayload(fullTranscript, translationsMap);
-                } else {
-                    const allTextNodes = output.querySelectorAll('.text-en');
-                    const fullTranscript = Array.from(allTextNodes).map(node => node.innerText).join(" ");
-                    sendApiPayload(fullTranscript, {});
+                    output.scrollTop=output.scrollHeight;
                 }
-            } catch (e) {
-                console.error("Transcription error:", e)
-            }
+        
+                // Gather up to last 10 sentences for transcript and each translation stream
+                const allTextNodes = output.querySelectorAll('.text-en');
+                const recentTextNodes = Array.from(allTextNodes).slice(-10);
+                const fullTranscript = recentTextNodes.map(node => node.innerText).join(" ");
+        
+                let aggregatedTranslations = {};
+                translationConfig.targets.slice(0, translationConfig.numLangs).forEach(code => {
+                    const langUtterances = output.querySelectorAll(`.utterance`);
+                    const recentTranslations = Array.from(langUtterances).slice(-10).map(utt => {
+                        const tlNode = Array.from(utt.querySelectorAll('.text-tl')).find(el => el.innerHTML.includes(code));
+                        return tlNode ? tlNode.innerText.replace(code, "").trim() : "";
+                    }).filter(Boolean);
+                    aggregatedTranslations[code] = recentTranslations.join(" ");
+                });
+        
+                sendApiPayload(fullTranscript, aggregatedTranslations);
+        
+            }catch(e){console.error("Transcription error:",e); initNotice.style.display="none";}
         }
-        startBtn.onclick = async () => {
-            try {
-                startBtn.disabled = !0, transToggle.disabled = !0;
-                const e = window.LanguageModel || window.ai && window.ai.languageModel;
-                if (!e) return alert("Chrome AI Language Model not detected. Please ensure flags are enabled."), void(startBtn.disabled = !1);
-                if (setStatus("Initializing AI...", "status-idle"), translationConfig.enabled)
-                    if (!await verifyAndLoadTranslators()) return startBtn.disabled = !1, void setStatus("Translation Error", "status-idle");
-                aiSession = await e.create({
-                    expectedInputs: [{
-                        type: "audio"
-                    }, {
-                        type: "text"
-                    }],
-                    expectedOutputs: [{
-                        type: "text",
-                        languages: ["en"]
-                    }]
-                }), stream = await navigator.mediaDevices.getUserMedia({
-                    audio: !0
-                }), stopBtn.disabled = !1, setupVAD(stream), setStatus("Listening for speech...", "status-idle")
-            } catch (e) {
-                console.error(e), setStatus("Error starting system", "status-idle"), startBtn.disabled = !1
+        
+        startBtn.onclick=async()=>{
+            try{
+                startBtn.disabled=!0;
+                transToggle.disabled=!0;
+                const e=window.LanguageModel||window.ai&&window.ai.languageModel;
+                if(!e)return alert("Chrome AI Language Model not detected."),void(startBtn.disabled=!1);
+                
+                setStatus("Initializing AI...","status-idle");
+                if(translationConfig.enabled)if(!await verifyAndLoadTranslators())return startBtn.disabled=!1,void setStatus("Translation Error","status-idle");
+                
+                aiSession=await e.create({expectedInputs:[{type:"audio"},{type:"text"}],expectedOutputs:[{type:"text",languages:["en"]}]});
+                stream=await navigator.mediaDevices.getUserMedia({audio:!0});
+                
+                stopBtn.disabled=!1;
+                startBtn.style.display="none";
+                pauseBtn.style.display="inline-block";
+                isPaused = false;
+                
+                setupVAD(stream);
+                setStatus("Listening for speech...","status-idle");
+            }catch(e){console.error(e),setStatus("Error starting system","status-idle"),startBtn.disabled=!1}
+        };
+        
+        pauseBtn.onclick = () => {
+            isPaused = !isPaused;
+            if(isPaused) {
+                pauseBtn.innerText = "Resume";
+                setStatus("Paused","status-idle");
+                if(mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
+            } else {
+                pauseBtn.innerText = "Pause";
+                setStatus("Listening for speech...","status-idle");
             }
-        }, stopBtn.onclick = () => {
-            audioContext && audioContext.close(), aiSession && aiSession.destroy(), stream && stream.getTracks().forEach(e => e.stop()), location.reload()
-        }        
+        };
+        
+        stopBtn.onclick=()=>{
+            audioContext&&audioContext.close();
+            aiSession&&aiSession.destroy();
+            stream&&stream.getTracks().forEach(e=>e.stop());
+            location.reload();
+        };
     </script>
 </body>
 </html>

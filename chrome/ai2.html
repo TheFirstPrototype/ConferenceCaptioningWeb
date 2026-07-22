@@ -466,13 +466,18 @@
                     results.forEach(res => {
                         if (res.status === "fulfilled") {
                             const { code, text } = res.value;
-                            translationsMap[code] = text;
+                            
+                            // Strip unwanted language code prefixes like "KO\n" or "FR\n" if returned by Chrome AI
+                            const cleanText = text.replace(/^[A-Z]{2}\n/, "").trim();
+                            
+                            translationsMap[code] = cleanText;
                             const o = document.createElement("div");
                             o.className = "text-tl";
-                            o.innerHTML = `<span class="lang-tag">${code}</span> <span>${text}</span>`;
+                            o.innerHTML = `<span class="lang-tag">${code}</span> <span>${cleanText}</span>`;
                             i.appendChild(o);
                         }
                     });
+
                     output.scrollTop=output.scrollHeight;
                 }
         

@@ -195,6 +195,7 @@
                 <div id="dial-vol" class="dial-container"></div>
                 <div id="dial-silence" class="dial-container"></div>
                 <div id="dial-speech" class="dial-container"></div>
+                <div id="dial-maxspeech" class="dial-container"></div>
             </div>
 
             <!-- Translation Section -->
@@ -243,14 +244,14 @@
         
         // LocalStorage helpers & Defaults
         const DEFAULT_CONFIG = {
-            vadConfig: { volume: 0.05, silence: 800, speech: 400 },
+            vadConfig: { volume: 0.05, silence: 800, speech: 400, maxSpeech: 6000 },
             translationConfig: { enabled: false, numLangs: 1, targets: ["es", "fr", "de", "it"] }
         };
         
         function loadSettings() {
             const savedVAD = localStorage.getItem("cc_vadConfig");
             const savedTrans = localStorage.getItem("cc_translationConfig");
-            if (savedVAD) try { vadConfig = JSON.parse(savedVAD); } catch(e){}
+            if (savedVAD) try { vadConfig = { ...DEFAULT_CONFIG.vadConfig, ...JSON.parse(savedVAD) }; } catch(e){}
             if (savedTrans) try { translationConfig = JSON.parse(savedTrans); } catch(e){}
         }
         
@@ -347,6 +348,7 @@
         createDial("dial-vol","Volume Threshold",.01,.1,.005,vadConfig.volume,!0,e=>e.toFixed(3),e=>vadConfig.volume=e);
         createDial("dial-silence","Silence (ms)",500,3e3,100,vadConfig.silence,!1,e=>e+"ms",e=>vadConfig.silence=e);
         createDial("dial-speech","Min Speech (ms)",200,1500,100,vadConfig.speech,!1,e=>e+"ms",e=>vadConfig.speech=e);
+        createDial("dial-maxspeech","Max Chunk (s)",3,15,1,(vadConfig.maxSpeech||6000)/1000,!1,e=>e+"s",e=>vadConfig.maxSpeech=e*1000);
         createDial("dial-langs","Simultaneous Languages",1,4,1,translationConfig.numLangs,!1,e=>e,e=>updateLanguageDropdowns(e));
         
         const startBtn=document.getElementById("startBtn"),
@@ -435,7 +437,20 @@
                 if(aiSession && !isPaused){
                     a.getFloatTimeDomainData(n);let t=0;
                     for(let e=0;e<n.length;e++)t+=n[e]*n[e];
-                    Math.sqrt(t/n.length)>vadConfig.volume?(silenceTimer&&(clearTimeout(silenceTimer),silenceTimer=null),isRecording||startRecording()):isRecording&&!silenceTimer&&(silenceTimer=setTimeout(()=>{stopRecordingAndTranscribe(),silenceTimer=null},vadConfig.silence));
+                    const isVoiceActive = Math.sqrt(t/n.length) > vadConfig.volume;
+                    if (isVoiceActive) {
+                        if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
+                        if (!isRecording) {
+                            startRecording();
+                        } else if (Date.now() - startTime >= (vadConfig.maxSpeech || 6000)) {
+                            stopRecordingAndTranscribe();
+                        }
+                    } else if (isRecording && !silenceTimer) {
+                        silenceTimer = setTimeout(() => {
+                            stopRecordingAndTranscribe();
+                            silenceTimer = null;
+                        }, vadConfig.silence);
+                    }
                 }
                 if(!isPaused) requestAnimationFrame(e);
             }();

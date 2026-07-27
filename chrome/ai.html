@@ -530,9 +530,9 @@
                 output.appendChild(i);
                 output.scrollTop=output.scrollHeight;
         
-                // Gather last 4+ English utterances for contextual translation
+                // Gather last 10+ English utterances for contextual translation
                 const allTextNodes = output.querySelectorAll('.text-en');
-                const recentUtterances = Array.from(allTextNodes).slice(-4).map(node => node.innerText);
+                const recentUtterances = Array.from(allTextNodes).slice(-10).map(node => node.innerText);
                 const contextToTranslate = recentUtterances.join(" ");
 
                 var translationsMap = {};

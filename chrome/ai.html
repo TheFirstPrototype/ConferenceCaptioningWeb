@@ -143,12 +143,32 @@
         #stopBtn:hover:not(:disabled) { background: #c0392b; }
 
         /* Output Area */
-        #output { height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.15); border-radius: 8px; border: inset 1px rgba(255,255,255,0.05); }
+        #output { height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.15); border-radius: 8px; border: inset 1px rgba(255,255,255,0.05); }
         
         .utterance { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; animation: fadeIn 0.4s ease-out forwards; }
-        .text-en { font-size: 1.3rem; color: #fff; margin-bottom: 0.5rem; }
+        .text-en { font-size: 1.3rem; color: #fff; margin-bottom: 0.25rem; }
         .text-tl { font-size: 1.1rem; color: #90caf9; margin-top: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem; }
         .lang-tag { background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; color: var(--text-muted); }
+
+        /* Bottom Translation Panel */
+        .translation-box {
+            background: rgba(144, 202, 249, 0.08);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        .translation-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.35rem;
+        }
+        .translation-body {
+            font-size: 1.15rem;
+            color: #90caf9;
+            line-height: 1.45;
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -208,6 +228,14 @@
                 </div>
             </div>
             <div id="output"></div>
+
+            <!-- SEPARATE LIVE TRANSLATION PANEL AT BOTTOM -->
+            <div id="translation-output-container" style="display: none; margin-top: 1.5rem; border-top: 1px solid var(--panel-border); padding-top: 1.25rem;">
+                <h4 style="margin: 0 0 0.85rem 0; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+                    🌐 Live Translation Context <span style="font-size: 0.8rem; font-weight: normal; color: rgba(255,255,255,0.5);">(Translating last 4+ sentences for context)</span>
+                </h4>
+                <div id="translation-output" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -242,10 +270,13 @@
               langsContainer=document.getElementById("languages-container"),
               transStatusText=document.getElementById("translation-status"),
               initNotice=document.getElementById("init-notice"),
-              tipNotice=document.getElementById("tip-notice");
+              tipNotice=document.getElementById("tip-notice"),
+              transOutputContainer=document.getElementById("translation-output-container"),
+              transOutput=document.getElementById("translation-output");
         
         transToggle.checked = translationConfig.enabled;
         transSettings.style.display = translationConfig.enabled ? "block" : "none";
+        transOutputContainer.style.display = translationConfig.enabled ? "block" : "none";
         
         // Get RoomName from Query String or default
         const urlParams = new URLSearchParams(window.location.search);
@@ -309,6 +340,7 @@
         transToggle.addEventListener("change",e=>{
             translationConfig.enabled=e.target.checked;
             transSettings.style.display=translationConfig.enabled?"block":"none";
+            transOutputContainer.style.display=translationConfig.enabled?"block":"none";
             saveSettings();
         });
         
@@ -332,25 +364,66 @@
         
         function setStatus(e,t){statusText.innerText=e,statusBadge.className=`status-badge ${t}`}
         
+        let loadedTranslatorsCache = {};
+
         async function verifyAndLoadTranslators(){
             const e=window.Translator||window.translation;
             if(!e)return!(transStatusText.innerHTML='<span class="error-text">❌ Unsupported browser, translations unavailable.</span>');
-            activeTranslators=[];
-            for(let t of translationConfig.targets.slice(0,translationConfig.numLangs)){
-                if("en"!==t){
-                    transStatusText.innerText=`Checking availability for ${LANGUAGES[t]}...`;
-                    try{
-                        const n=e.availability||e.canTranslate,s=await n.call(e,{sourceLanguage:"en",targetLanguage:t});
-                        const i=["available","downloadable","readily","after-download"];
-                        if(!i.includes(s))return transStatusText.innerHTML=`<span class="error-text">❌ Language ${LANGUAGES[t]} is unavailable.</span>`,!1;
-                        transStatusText.innerText=`Loading ${LANGUAGES[t]}...`;
-                        var a=await e.create({sourceLanguage:"en",targetLanguage:t});
-                        activeTranslators.push({code:t,instance:a});
-                    }catch(e){return transStatusText.innerHTML=`<span class="error-text">❌ Error initializing ${LANGUAGES[t]}.</span>`,!1}
+            
+            const selectedTargets = translationConfig.targets.slice(0, translationConfig.numLangs).filter(t => t !== "en");
+            if(selectedTargets.length === 0) return true;
+
+            activeTranslators = [];
+
+            for (let i = 0; i < selectedTargets.length; i++) {
+                const t = selectedTargets[i];
+                
+                // Reuse translator instance if already initialized in this session
+                if (loadedTranslatorsCache[t]) {
+                    activeTranslators.push({ code: t, instance: loadedTranslatorsCache[t] });
+                    continue;
+                }
+
+                transStatusText.innerText = `Preparing ${LANGUAGES[t] || t}...`;
+                
+                try {
+                    const instance = await e.create({
+                        sourceLanguage: "en",
+                        targetLanguage: t,
+                        monitor(m) {
+                            if (m && m.addEventListener) {
+                                m.addEventListener("downloadprogress", (ev) => {
+                                    const pct = ev.total ? Math.round((ev.loaded / ev.total) * 100) : 0;
+                                    transStatusText.innerText = `Downloading ${LANGUAGES[t] || t} (${pct}%)...`;
+                                });
+                            }
+                        }
+                    });
+                    
+                    loadedTranslatorsCache[t] = instance;
+                    activeTranslators.push({ code: t, instance });
+                } catch(err) {
+                    console.log(`Translation init error for ${t}:`, err);
+                    
+                    const readyCount = activeTranslators.length;
+                    const remainingLang = LANGUAGES[t] || t;
+                    
+                    if (err.name === "NotAllowedError" || (err.message && err.message.includes("user gesture"))) {
+                        if (readyCount > 0) {
+                            const readyLangs = activeTranslators.map(a => LANGUAGES[a.code] || a.code).join(", ");
+                            transStatusText.innerHTML = `<span style="color:var(--accent-yellow, #f39c12)">✔ ${readyLangs} ready! Click <strong>"Start Captioning"</strong> again to download ${remainingLang}.</span>`;
+                        } else {
+                            transStatusText.innerHTML = `<span class="error-text">❌ Model download requires user gesture. Click <strong>"Start Captioning"</strong> to download ${remainingLang}.</span>`;
+                        }
+                    } else {
+                        transStatusText.innerHTML = `<span class="error-text">❌ Error initializing ${remainingLang}: ${err.message || err}</span>`;
+                    }
+                    return false;
                 }
             }
-            transStatusText.innerHTML='<span style="color:var(--accent-green)">✔ Translations Ready</span>';
-            return!0;
+
+            transStatusText.innerHTML = '<span style="color:var(--accent-green)">✔ Translations Ready</span>';
+            return true;
         }
         
         function setupVAD(e){
@@ -417,7 +490,7 @@
                 const transKey = idx === 0 ? "translation" : `translation${idx + 1}`;
                 payload[langKey] = code;
                 payload[transKey] = translationsMap[code] || "";
-                const cleanTranslation = translationsMap[code].replaceAll(code.toUpperCase() + "\n", "").trim() || "";
+                const cleanTranslation = (translationsMap[code] || "").replaceAll(code.toUpperCase() + "\n", "").trim() || "";
                 payload[transKey] = cleanTranslation;
             });
         
@@ -457,48 +530,48 @@
                 output.appendChild(i);
                 output.scrollTop=output.scrollHeight;
         
+                // Gather last 4+ English utterances for contextual translation
+                const allTextNodes = output.querySelectorAll('.text-en');
+                const recentUtterances = Array.from(allTextNodes).slice(-4).map(node => node.innerText);
+                const contextToTranslate = recentUtterances.join(" ");
+
                 var translationsMap = {};
-                if(translationConfig.enabled&&0<activeTranslators.length){
+                if(translationConfig.enabled && 0 < activeTranslators.length){
+                    transOutputContainer.style.display = "block";
                     const translationPromises = activeTranslators.map(async (a) => {
-                        const translatedText = await a.instance.translate(t);
+                        const translatedText = await a.instance.translate(contextToTranslate);
                         return { code: a.code, text: translatedText };
                     });
         
                     const results = await Promise.allSettled(translationPromises);
+                    transOutput.innerHTML = "";
                     results.forEach(res => {
                         if (res.status === "fulfilled") {
                             const { code, text } = res.value;
                             
                             // Strip unwanted language code prefixes like "KO\n" or "FR\n" if returned by Chrome AI
                             const cleanText = text.replace(/^[A-Z]{2}\n/, "").trim();
-                            
                             translationsMap[code] = cleanText;
-                            const o = document.createElement("div");
-                            o.className = "text-tl";
-                            o.innerHTML = `<span class="lang-tag">${code}</span> <span>${cleanText}</span>`;
-                            i.appendChild(o);
+                            
+                            const box = document.createElement("div");
+                            box.className = "translation-box";
+                            box.innerHTML = `
+                                <div class="translation-header">
+                                    <span class="lang-tag">${code}</span>
+                                    <span style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">${LANGUAGES[code] || code}</span>
+                                </div>
+                                <div class="translation-body">${cleanText}</div>
+                            `;
+                            transOutput.appendChild(box);
                         }
                     });
-
-                    output.scrollTop=output.scrollHeight;
                 }
         
-                // Gather up to last 10 sentences for transcript and each translation stream
-                const allTextNodes = output.querySelectorAll('.text-en');
+                // Gather up to last 10 sentences for full transcript payload
                 const recentTextNodes = Array.from(allTextNodes).slice(-10);
                 const fullTranscript = recentTextNodes.map(node => node.innerText).join(" ");
         
-                let aggregatedTranslations = {};
-                translationConfig.targets.slice(0, translationConfig.numLangs).forEach(code => {
-                    const langUtterances = output.querySelectorAll(`.utterance`);
-                    const recentTranslations = Array.from(langUtterances).slice(-10).map(utt => {
-                        const tlNode = Array.from(utt.querySelectorAll('.text-tl')).find(el => el.innerHTML.includes(code));
-                        return tlNode ? tlNode.innerText.replace(code, "").trim() : "";
-                    }).filter(Boolean);
-                    aggregatedTranslations[code] = recentTranslations.join(" ");
-                });
-        
-                sendApiPayload(fullTranscript, aggregatedTranslations);
+                sendApiPayload(fullTranscript, translationsMap);
         
             }catch(e){console.error("Transcription error:",e); initNotice.style.display="none";}
         }
@@ -511,7 +584,14 @@
                 if(!e)return alert("Chrome AI Language Model not detected."),void(startBtn.disabled=!1);
                 
                 setStatus("Initializing AI...","status-idle");
-                if(translationConfig.enabled)if(!await verifyAndLoadTranslators())return startBtn.disabled=!1,void setStatus("Translation Error","status-idle");
+                if(translationConfig.enabled) {
+                    if(!await verifyAndLoadTranslators()) {
+                        startBtn.disabled = !1;
+                        transToggle.disabled = !1;
+                        setStatus("Action Needed","status-idle");
+                        return;
+                    }
+                }
                 
                 aiSession=await e.create({expectedInputs:[{type:"audio"},{type:"text"}],expectedOutputs:[{type:"text",languages:["en"]}]});
                 stream=await navigator.mediaDevices.getUserMedia({audio:!0});

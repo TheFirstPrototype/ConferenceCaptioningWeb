@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live AI Translation Accuracy Report - ConferenceCaptioning.com</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#294C6D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(51, 65, 85, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-primary selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-2xl">
+        <div class="flex items-center space-x-3">
+            <a href="https://conferencecaptioning.com" target="_blank">
+                <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning.com Logo" class="h-8 md:h-10 w-auto">
+            </a>
+            <span class="text-xs uppercase tracking-widest px-2.5 py-1 bg-primary/30 text-primary-300 rounded-md border border-primary/40 font-semibold hidden sm:inline-block">Accuracy Benchmark</span>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk?pli=1" target="_blank" class="bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center space-x-2">
+                <span>Get Chrome Extension</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-16 lg:py-24 px-4 sm:px-6">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-slate-950/0 to-slate-950 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10 animate-fade-in">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-xs font-semibold uppercase tracking-wider mb-6">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Chrome Extension Benchmarked</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                Real-Time AI Transcription & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">Korean Live Translation</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
+                See how our on-device Chrome extension accurately captures complex technical discourse (Quantum Physics) in real-time, delivering professional-grade Korean translations on the fly.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="glass-panel px-6 py-3 rounded-2xl flex items-center space-x-3">
+                    <span class="text-2xl font-bold text-white">9.4 / 10</span>
+                    <span class="text-xs text-slate-400 text-left">Academic Domain<br>Accuracy Score</span>
+                </div>
+                <div class="glass-panel px-6 py-3 rounded-2xl flex items-center space-x-3">
+                    <span class="text-2xl font-bold text-white">On-Device</span>
+                    <span class="text-xs text-slate-400 text-left">Lightning Fast<br>Chrome Extension</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Benchmark Section -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 pb-20 space-y-12">
+
+        <!-- Video Source Banner -->
+        <div class="glass-panel rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl animate-fade-in">
+            <div class="space-y-2 text-center md:text-left">
+                <span class="text-xs uppercase tracking-widest text-primary-300 font-semibold">Test Sample Source</span>
+                <h3 class="text-xl font-bold text-white">Quantum Physics for Dummies</h3>
+                <p class="text-sm text-slate-400">Tested live using the ConferenceCaptioning Chrome Extension during playback.</p>
+            </div>
+            <a href="https://www.youtube.com/watch?v=p9pPjASnnxw" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white font-medium px-5 py-3 rounded-xl border border-slate-700 transition-all flex items-center space-x-2 shrink-0 shadow-md">
+                <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>Watch Source Video on YouTube</span>
+            </a>
+        </div>
+
+        <!-- Side-by-Side Comparison Grid -->
+        <div class="space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Live Transcription vs. Korean Translation Benchmark</h2>
+                <span class="text-xs text-slate-400 font-mono">Sample Block #1</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- English Input Card -->
+                <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-4 pb-3 border-b border-slate-800">
+                            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                            <span>English Transcription (Chrome Extension)</span>
+                        </div>
+                        <p class="text-slate-200 text-base leading-relaxed font-normal">
+                            In our world, things are usually straightforward and logical. A car is either at rest or moving, the stereo is either on or off. A cat is either a dead or alive, one state or the other. There is no middle ground or a combination of states. However, the same can't be said about the world on the most fundamental level on the scale of most basic particles were made of. On that scale, a particle doesn't exist in one state or the other, but in a number of states all at once. Like, Schrödinger explained a cat of the fundamental world would not be either dead or alive. It would exist between the two states, both dead and alive. This, he called superposition. Where a particle exists in a combination of states...
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500 font-mono">
+                        <span>Source Engine: ASR Live Stream</span>
+                        <span>EN</span>
+                    </div>
+                </div>
+
+                <!-- Korean Output Card -->
+                <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between shadow-xl border-primary/40">
+                    <div>
+                        <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-purple-400 mb-4 pb-3 border-b border-slate-800">
+                            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                            <span>Korean Live Translation Output</span>
+                        </div>
+                        <p class="text-slate-100 text-base leading-relaxed font-normal">
+                            우리 세계에서는 일반적으로 사물이 간단하고 논리적입니다. 쉬고 있거나 움직이고 있습니다. 스테레오가 켜져 있거나 꺼져 있습니다. 고양이는 죽거나 살아 있습니다. 한 상태 또는 다른 상태. 중간 지점이나 국가의 조합이 없습니다. 그러나 우리가 만들어지는 가장 기본적인 입자의 규모에서 가장 근본적인 수준에서 세계에 대해 말할 수는 없습니다. 그 규모에서 입자는 한 상태 또는 다른 상태에 존재하지 않고 한 번에 여러 상태에 존재합니다. 슈뢰딩거가 설명했듯이, 근본적인 세계의 고양이는 죽거나 살아 있지 않을 것이며, 죽은 사람과 살아 있는 두 국가 사이에 존재할 것입니다. 이것을 중첩(superposition)이라고 하며...
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-500 font-mono">
+                        <span>Target Language: Korean (KO)</span>
+                        <span class="text-primary-300">Accuracy: 9.4 / 10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action & Getting Started Box -->
+        <div class="relative overflow-hidden bg-gradient-to-br from-primary/40 via-slate-900 to-slate-900 border border-primary/50 rounded-3xl p-8 md:p-12 shadow-2xl text-center space-y-6">
+            <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Experience Real-Time Translation Today</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+                Ready to empower your conferences, webinars, and streams with state-of-the-art live captioning and translation? Get started with our tools below.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4 pt-2">
+                <a href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk?pli=1" target="_blank" class="bg-white hover:bg-slate-100 text-slate-950 font-bold px-8 py-4 rounded-2xl shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    <span>Install Chrome Extension</span>
+                </a>
+                <a href="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/" target="_blank" class="bg-slate-800/80 hover:bg-slate-800 text-white font-semibold px-8 py-4 rounded-2xl border border-slate-700 shadow-xl transition-all flex items-center space-x-3">
+                    <span>Read Step-by-Step Tutorial</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+            <!-- Version Notice Box -->
+            <div class="mt-8 max-w-xl mx-auto bg-slate-950/60 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-400">
+                <span class="text-amber-400 font-semibold">Important Note:</span> Please reach out to us directly via email or live chat to make sure you have the exact correct version needed for your specific streaming or enterprise requirements.
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-8 text-center text-xs text-slate-500 border-t border-slate-800/80 bg-slate-950">
+        <p>&copy; <span id="current-year"></span> <a href="https://conferencecaptioning.com" target="_blank" class="text-slate-400 hover:underline">ConferenceCaptioning.com</a>. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

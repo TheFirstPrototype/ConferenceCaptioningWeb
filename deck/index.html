@@ -590,6 +590,41 @@
       margin-top: 0.8vh;
     }
 
+    /* Slide 6: Failover System */
+    .failover-split {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.8vw;
+      align-items: center;
+      margin: 1.2vh 0;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .failover-media {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.2vh 1vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .failover-media img {
+      width: 100%;
+      height: 100%;
+      max-height: 48vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
     .signal-flow {
       display: flex;
       align-items: center;
@@ -1145,9 +1180,59 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 6: RELIABILITY + PRIVACY (With section-bg-18.jpg)
+         SLIDE 6: AUTOMATED DUAL-COMPUTER FAILOVER SYSTEM
          ========================================== -->
-    <section class="slide slide-bg-18" data-slide="6">
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="header-content">
+          <div class="slide-eyebrow">High Availability & Redundancy</div>
+          <h2 class="slide-title">Dual-computer automated failover protection.</h2>
+          <p class="slide-subtitle">Zero-downtime architecture ensures attendee feeds continue seamlessly even if a primary laptop or connection drops.</p>
+        </div>
+        <div class="slide-logo-badge">
+          <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <div class="failover-split">
+        <div class="failover-media">
+          <div class="media-overlay-badge" style="top: 12px; left: 14px;">
+            <span class="live-indicator"></span> AUTOMATED FAILOVER &amp; EMAIL NOTIFICATION
+          </div>
+          <img src="https://conferencecaptioning.com/deck/failover.png" alt="ConferenceCaptioning Failover Architecture System" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.2vh;">
+          <div class="glass-card" style="border-left: 3px solid var(--brand-accent);">
+            <div style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--brand-accent); font-weight: 700; margin-bottom: 0.2vh;">STEP 1 · PRIMARY HOST</div>
+            <h3 class="card-title">💻 Primary Computer App</h3>
+            <p class="card-text">Main machine receives live mixer audio, processes AI transcription locally, and streams live captions to attendees.</p>
+          </div>
+
+          <div class="glass-card" style="border-left: 3px solid #10b981;">
+            <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #10b981; font-weight: 700; margin-bottom: 0.2vh;">STEP 2 · BACKUP HOST</div>
+            <h3 class="card-title">🔄 Secondary Failover App</h3>
+            <p class="card-text">Backup machine continuously monitors stream heartbeat. If primary drops out, stream automatically migrates to secondary laptop.</p>
+          </div>
+
+          <div class="glass-card" style="border-left: 3px solid #f59e0b;">
+            <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #f59e0b; font-weight: 700; margin-bottom: 0.2vh;">AUTOMATED ALERT</div>
+            <h3 class="card-title">📧 Instant Email Notification</h3>
+            <p class="card-text">When stream failover takes place, automated email notifications are immediately dispatched to alert the production team.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-statement">
+        <span><strong>Enterprise peace of mind for high-stakes live keynotes.</strong></span>
+        <span>Automatic stream migration with instant email alerts</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: RELIABILITY + PRIVACY (With section-bg-18.jpg)
+         ========================================== -->
+    <section class="slide slide-bg-18" data-slide="7">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">Enterprise Reliability & Governance</div>
@@ -1210,9 +1295,9 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 7: ORGANIZER VALUE (With multilingual.gif)
+         SLIDE 8: ORGANIZER VALUE (With multilingual.gif)
          ========================================== -->
-    <section class="slide" data-slide="7">
+    <section class="slide" data-slide="8">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">Multilingual Scale & Audience Impact</div>
@@ -1257,9 +1342,9 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 8: AV BUSINESS OPPORTUNITY
+         SLIDE 9: AV BUSINESS OPPORTUNITY
          ========================================== -->
-    <section class="slide" data-slide="8">
+    <section class="slide" data-slide="9">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">AV Commercial Opportunity</div>
@@ -1321,9 +1406,9 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 9: CALL TO ACTION (With section-bg-15.jpg)
+         SLIDE 10: CALL TO ACTION (With section-bg-15.jpg)
          ========================================== -->
-    <section class="slide slide-bg-15" data-slide="9">
+    <section class="slide slide-bg-15" data-slide="10">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">Next Steps</div>

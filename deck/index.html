@@ -430,13 +430,77 @@
       margin-bottom: 1vh;
     }
 
-    /* Slide 3: Workflow */
+    /* Slide 3: Workflow & Promo Gallery */
     .workflow-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.8vw;
-      margin: 3vh 0;
+      margin: 1.5vh 0 1.8vh 0;
+    }
+
+    .promo-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr 1fr;
+      gap: 1.2vw;
+      margin-bottom: 1.8vh;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .promo-card {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-focus);
+      box-shadow: 0 12px 32px rgba(56, 189, 248, 0.2);
+    }
+
+    .promo-card img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .promo-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .promo-card-overlay {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(10, 23, 38, 0) 0%, rgba(10, 23, 38, 0.9) 100%);
+      padding: 1.2vh 1vw;
+    }
+
+    .promo-card-title {
+      font-size: clamp(0.75rem, 0.88vw, 0.95rem);
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .promo-card-sub {
+      font-size: clamp(0.65rem, 0.75vw, 0.8rem);
+      color: var(--text-muted);
+      margin-top: 0.2vh;
     }
 
     .workflow-step {
@@ -900,8 +964,40 @@
         </div>
       </div>
 
-      <div class="glass-card" style="text-align: center; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.3);">
-        <div style="font-size: 1.1rem; font-weight: 600; color: #fff;">
+      <div class="promo-gallery">
+        <div class="promo-card">
+          <img src="https://conferencecaptioning.com/images/promo-3.png" alt="iPhone app displaying shareable QR code">
+          <div class="promo-card-overlay">
+            <div class="promo-card-title">
+              <span style="color: var(--brand-accent);">📱</span> iPhone Host App
+            </div>
+            <div class="promo-card-sub">Shareable QR code display</div>
+          </div>
+        </div>
+
+        <div class="promo-card">
+          <img src="https://conferencecaptioning.com/images/promo-4.jpg" alt="Venue TV displaying QR code in hall">
+          <div class="promo-card-overlay">
+            <div class="promo-card-title">
+              <span style="color: var(--brand-accent);">📺</span> Hall & Stage TV Display
+            </div>
+            <div class="promo-card-sub">Large venue QR screen for attendees</div>
+          </div>
+        </div>
+
+        <div class="promo-card">
+          <img src="https://conferencecaptioning.com/images/promo-5.jpg" alt="Person seeing live translations on phone browser">
+          <div class="promo-card-overlay">
+            <div class="promo-card-title">
+              <span style="color: var(--brand-emerald);">🌐</span> Live Translation View
+            </div>
+            <div class="promo-card-sub">Browser captions on attendee phone</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="text-align: center; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.3); padding: 1vh 1.6vw;">
+        <div style="font-size: 1.05rem; font-weight: 600; color: #fff;">
           No app download. No attendee account. No complicated setup.
         </div>
       </div>

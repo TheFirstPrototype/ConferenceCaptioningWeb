@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Slides - Fullscreen Dark Mode</title>
+  <style>
+    /* Reset default spaces and enforce a black background */
+        /* Reset screen spaces and lock the viewport */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      overflow: hidden;
+    }
+
+    /* Container hides everything that overflows the screen boundaries */
+    .slide-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Stretch iframe edge-to-edge, but push the bottom 30px off-screen 
+       to seamlessly hide the Google control bar */
+    .slide-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 40px); /* Makes iframe taller than the screen */
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+    <iframe 
+      src="https://docs.google.com/presentation/d/e/2PACX-1vRFU488SWeo4-az9XfQ4Yp01fYt4QKrePrR3kyr0RopZtjvPo1iM9dK7MGWpWBMLg/pubembed?start=true&loop=false&delayms=60000" 
+      frameborder="0" 
+      allowfullscreen="true" 
+      mozallowfullscreen="true" 
+      webkitallowfullscreen="true">
+    </iframe>
+  </div>
+  <script defer src="https://conferencecaptioning.com/js/jquery.min.js"></script>
+  <script defer src="https://conferencecaptioning.com/js/analyticsLite.js"></script>
+</body>
+</html>

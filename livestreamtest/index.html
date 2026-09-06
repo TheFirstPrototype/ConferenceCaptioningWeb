@@ -89,7 +89,7 @@
     </p>
   </fieldset>
 
-  <fieldset>
+  <fieldset hidden>
     <legend>File upload transcription</legend>
     <input type="file" id="file-input" accept=".wav,audio/wav" />
     <label>
@@ -114,6 +114,22 @@
 
   <fieldset>
     <legend>Live captioning (this tab's microphone)</legend>
+    <label>
+      ASR engine
+      <select id="live-engine-select">
+        <option value="whisper" selected>Whisper (whisper.cpp)</option>
+        <option value="parakeet">Parakeet (parakeet-mlx)</option>
+        <option value="qwen">Qwen3-ASR (mlx-audio, slower)</option>
+        <option value="moss_diarize">Whisper + speaker diarization (MOSS)</option>
+      </select>
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Applies when you click Start (can't be changed mid-session).
+      "Whisper + speaker diarization" labels each caption with a speaker
+      (e.g. [S01]) - note that on live audio, that label is only
+      guaranteed consistent within one caption, not across separate
+      captions (each is transcribed independently).
+    </p>
     <div class="controls">
       <button id="start">Start</button>
       <button id="stop" disabled>Stop</button>
@@ -249,9 +265,13 @@
       const line = document.createElement("div");
       line.className = "caption-line";
       const time = new Date().toLocaleTimeString();
+      // payload.speaker is only present with engine=moss_diarize - see
+      // the note next to the engine dropdown above about cross-caption
+      // consistency.
+      const speakerLabel = payload.speaker ? `[${escapeHtml(payload.speaker)}] ` : "";
       line.innerHTML =
         `<span class="caption-meta">[${time}] ${payload.start_s.toFixed(2)}s-${payload.end_s.toFixed(2)}s ` +
-        `(${payload.transcribe_ms}ms)</span> ${escapeHtml(payload.text)}`;
+        `(${payload.transcribe_ms}ms)</span> ${speakerLabel}${escapeHtml(payload.text)}`;
       captionsEl.prepend(line);
     }
 
@@ -267,7 +287,8 @@
 
     function connectWebSocket() {
       const key = encodeURIComponent(apiKeyInput.value);
-      const url = `wss://${API_HOST}/live/ws?key=${key}`;
+      const engine = encodeURIComponent(document.getElementById("live-engine-select").value);
+      const url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}`;
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
 
@@ -333,6 +354,7 @@
       }
       startBtn.disabled = false;
       stopBtn.disabled = true;
+      document.getElementById("live-engine-select").disabled = false;
       setSpeaking(false);
     }
 
@@ -343,6 +365,7 @@
       }
       startBtn.disabled = true;
       stopBtn.disabled = false;
+      document.getElementById("live-engine-select").disabled = true;
       setSpeaking(false);
       try {
         await startCapture();

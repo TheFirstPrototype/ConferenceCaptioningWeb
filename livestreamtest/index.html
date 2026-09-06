@@ -69,6 +69,15 @@
     .caption-line { padding: 4px 0; border-bottom: 1px solid #eee; }
     .caption-meta { color: #888; font-size: 0.75rem; margin-right: 0.5rem; }
 
+    #translation-status { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
+    .lang-badge { font-size: 0.78rem; padding: 3px 10px; border-radius: 12px; background: #999; color: white; }
+    .lang-badge.ready { background: #2e7d32; }
+    .lang-badge.unsupported, .lang-badge.error, .lang-badge.companion_offline { background: #b91c1c; }
+
+    #translation-feeds { display: grid; gap: 1rem; margin-top: 1rem; }
+    .translation-feed { border: 1px solid #ddd; border-radius: 6px; padding: 0.6rem 0.9rem; max-height: 40vh; overflow-y: auto; font-size: 0.9rem; }
+    .translation-feed h4 { margin: 0 0 0.4rem; font-size: 0.78rem; color: #777; text-transform: uppercase; }
+
     .note { margin-top: 2rem; font-size: 0.8rem; color: #777; }
   </style>
 </head>
@@ -158,13 +167,21 @@
       it reprocesses, and don't expect labels to stay stable across a
       very long silence.
     </p>
+    <label>
+      Live translation (up to 4 languages)
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - runs on a Chrome tab open on the server (Chrome's on-device Translator), not this browser</span>
+      <select id="live-langs-select" multiple size="8" style="height:auto"></select>
+    </label>
+    <p id="langs-limit-note" style="font-size:0.8rem;color:#777;margin:0.4rem 0 0"></p>
     <div class="controls">
       <button id="start">Start</button>
       <button id="stop" disabled>Stop</button>
       <span id="vad-indicator" class="silence">Silence</span>
     </div>
     <p id="status">idle</p>
+    <div id="translation-status"></div>
     <div id="captions"></div>
+    <div id="translation-feeds"></div>
   </fieldset>
 
   <p class="note">
@@ -257,6 +274,85 @@
     liveEngineSelect.addEventListener("change", refreshModelOptions);
     refreshModelOptions();
 
+    // -- Live translation (Chrome on-device, via a companion tab on the
+    // server - see backend/static/translate.html and README "Live
+    // translation") --------------------------------------------------------
+    // From https://developer.chrome.com/docs/ai/translator-api - must match
+    // live/translation_companion.py's SUPPORTED_LANGUAGES exactly (English
+    // excluded, it's always the source language here).
+    const TRANSLATOR_LANGUAGES = {
+      ar: "Arabic", bg: "Bulgarian", bn: "Bengali", cs: "Czech", da: "Danish",
+      de: "German", el: "Greek", es: "Spanish", fi: "Finnish", fr: "French",
+      he: "Hebrew", hi: "Hindi", hr: "Croatian", hu: "Hungarian", id: "Indonesian",
+      it: "Italian", ja: "Japanese", kn: "Kannada", ko: "Korean", lt: "Lithuanian",
+      mr: "Marathi", nl: "Dutch", no: "Norwegian", pl: "Polish", pt: "Portuguese",
+      ro: "Romanian", ru: "Russian", sk: "Slovak", sl: "Slovenian", sv: "Swedish",
+      ta: "Tamil", te: "Telugu", th: "Thai", tr: "Turkish", uk: "Ukrainian",
+      vi: "Vietnamese", zh: "Chinese", "zh-Hant": "Chinese (Traditional)",
+    };
+    const MAX_LANGS = 4;
+
+    const liveLangsSelect = document.getElementById("live-langs-select");
+    const langsLimitNote = document.getElementById("langs-limit-note");
+    const translationStatusEl = document.getElementById("translation-status");
+    const translationFeedsEl = document.getElementById("translation-feeds");
+
+    liveLangsSelect.innerHTML = Object.entries(TRANSLATOR_LANGUAGES)
+      .map(([code, name]) => `<option value="${code}">${name} (${code})</option>`)
+      .join("");
+
+    function selectedLangs() {
+      return Array.from(liveLangsSelect.selectedOptions).map((o) => o.value);
+    }
+
+    function updateLangsLimitNote() {
+      const n = selectedLangs().length;
+      langsLimitNote.textContent = n > MAX_LANGS
+        ? `Only the first ${MAX_LANGS} selected languages will be used (${n} selected).`
+        : `${n}/${MAX_LANGS} selected.`;
+    }
+    liveLangsSelect.addEventListener("change", updateLangsLimitNote);
+    updateLangsLimitNote();
+
+    const translationFeedEls = {}; // lang -> element
+
+    function setupTranslationUI(langs) {
+      translationStatusEl.innerHTML = langs
+        .map((lang) => `<span class="lang-badge" id="lang-badge-${lang}">${TRANSLATOR_LANGUAGES[lang] || lang}: checking...</span>`)
+        .join("");
+      translationFeedsEl.innerHTML = "";
+      langs.forEach((lang) => {
+        const feed = document.createElement("div");
+        feed.className = "translation-feed";
+        feed.innerHTML = `<h4>${TRANSLATOR_LANGUAGES[lang] || lang}</h4>`;
+        translationFeedsEl.appendChild(feed);
+        translationFeedEls[lang] = feed;
+      });
+    }
+
+    function updateTranslationStatus(lang, status, percent) {
+      const badge = document.getElementById(`lang-badge-${lang}`);
+      if (!badge) return;
+      badge.className = `lang-badge ${status || ""}`;
+      const label = TRANSLATOR_LANGUAGES[lang] || lang;
+      const statusText = {
+        ready: "ready", downloading: `downloading ${percent ?? 0}%`, unsupported: "unsupported",
+        error: "error", companion_offline: "no companion connected on the server",
+      }[status] || status || "checking...";
+      badge.textContent = `${label}: ${statusText}`;
+    }
+
+    function addTranslationLine(lang, text, meta) {
+      const feed = translationFeedEls[lang];
+      if (!feed) return;
+      const line = document.createElement("div");
+      line.className = "caption-line";
+      const time = new Date().toLocaleTimeString();
+      line.innerHTML = `<span class="caption-meta">[${time}]${meta ? " " + meta : ""}</span> ${escapeHtml(text)}`;
+      feed.appendChild(line);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
     // Inlined so this stays a single self-contained file - see
     // backend/static/capture-worklet.js in the ConferenceCaptioningBackend
     // repo for the (identical) canonical copy with full comments.
@@ -335,6 +431,12 @@
         setSpeaking(payload.speaking);
       } else if (payload.type === "segment") {
         addCaption(payload);
+      } else if (payload.type === "translation_status") {
+        updateTranslationStatus(payload.lang, payload.status, payload.percent);
+      } else if (payload.type === "translation") {
+        for (const [lang, text] of Object.entries(payload.translations || {})) {
+          addTranslationLine(lang, text, `${payload.start_s.toFixed(2)}s-${payload.end_s.toFixed(2)}s`);
+        }
       } else if (payload.error) {
         setStatus(`error: ${payload.error}`);
       }
@@ -347,6 +449,8 @@
       let url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}&model=${model}`;
       const hotwords = document.getElementById("live-hotwords-input").value.trim();
       if (hotwords) url += `&hotwords=${encodeURIComponent(hotwords)}`;
+      const langs = selectedLangs().slice(0, MAX_LANGS);
+      if (langs.length) url += `&langs=${encodeURIComponent(langs.join(","))}`;
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
 
@@ -415,6 +519,7 @@
       liveEngineSelect.disabled = false;
       liveModelSelect.disabled = false;
       document.getElementById("live-hotwords-input").disabled = false;
+      liveLangsSelect.disabled = false;
       setSpeaking(false);
     }
 
@@ -428,6 +533,8 @@
       liveEngineSelect.disabled = true;
       liveModelSelect.disabled = true;
       document.getElementById("live-hotwords-input").disabled = true;
+      liveLangsSelect.disabled = true;
+      setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);
       try {
         await startCapture();

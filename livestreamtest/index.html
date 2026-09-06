@@ -98,12 +98,13 @@
         <option value="whisper" selected>Whisper (whisper.cpp)</option>
         <option value="parakeet">Parakeet (parakeet-mlx)</option>
         <option value="qwen">Qwen3-ASR (mlx-audio)</option>
-        <option value="moss_diarize">Whisper + speaker diarization (MOSS)</option>
+        <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
       </select>
     </label>
     <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
-      "Whisper + speaker diarization" labels each part of the transcript
-      with a speaker (e.g. [S01], [S02]) - only really meaningful for a
+      "MOSS" is a separate model (not layered on Whisper) that labels
+      each part of the transcript with a speaker (e.g. [S01], [S02]) -
+      only really meaningful for a
       multi-speaker file, not this tab's own microphone.
     </p>
     <div class="controls">
@@ -120,15 +121,27 @@
         <option value="whisper" selected>Whisper (whisper.cpp)</option>
         <option value="parakeet">Parakeet (parakeet-mlx)</option>
         <option value="qwen">Qwen3-ASR (mlx-audio, slower)</option>
-        <option value="moss_diarize">Whisper + speaker diarization (MOSS)</option>
+        <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
       </select>
     </label>
+    <label>
+      Model
+      <select id="live-model-select"></select>
+    </label>
+    <label style="display:flex;align-items:center;gap:0.4rem;margin-top:0.6rem">
+      <input type="checkbox" id="show-model-checkbox" style="width:auto;margin:0" />
+      Show engine/model on each caption (for comparing performance)
+    </label>
     <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
-      Applies when you click Start (can't be changed mid-session).
-      "Whisper + speaker diarization" labels each caption with a speaker
-      (e.g. [S01]) - note that on live audio, that label is only
-      guaranteed consistent within one caption, not across separate
-      captions (each is transcribed independently).
+      Engine/model apply when you click Start (can't be changed
+      mid-session). "MOSS" is a separate model, not layered on top of
+      Whisper/Parakeet/Qwen - it does its own transcription AND labels
+      each caption with a speaker (e.g. [S01]). It re-processes the last
+      ~60s of audio on every caption so it can keep the same label for
+      the same speaker across a conversation - if it's been quiet a
+      while and someone new starts talking, expect a short delay while
+      it reprocesses, and don't expect labels to stay stable across a
+      very long silence.
     </p>
     <div class="controls">
       <button id="start">Start</button>
@@ -204,6 +217,28 @@
     const statusEl = document.getElementById("status");
     const indicatorEl = document.getElementById("vad-indicator");
     const captionsEl = document.getElementById("captions");
+    const liveEngineSelect = document.getElementById("live-engine-select");
+    const liveModelSelect = document.getElementById("live-model-select");
+    const showModelCheckbox = document.getElementById("show-model-checkbox");
+
+    // Known downloaded models per engine on the backend - see
+    // README.md "Additional ASR engines" for how to download more.
+    // Keep in sync with what's actually been downloaded on the server;
+    // an unrecognized model name just fails the connection with a
+    // clear "model not found" reason.
+    const MODELS_BY_ENGINE = {
+      whisper: ["base.en"],
+      parakeet: ["parakeet-tdt_ctc-110m", "parakeet-tdt-0.6b-v2", "parakeet-tdt-0.6b-v3"],
+      qwen: ["Qwen3-ASR-1.7B-8bit"],
+      moss_diarize: ["mlx-MOSS-Transcribe-Diarize-4bit"],
+    };
+
+    function refreshModelOptions() {
+      const models = MODELS_BY_ENGINE[liveEngineSelect.value] || [];
+      liveModelSelect.innerHTML = models.map((m) => `<option value="${m}">${m}</option>`).join("");
+    }
+    liveEngineSelect.addEventListener("change", refreshModelOptions);
+    refreshModelOptions();
 
     // Inlined so this stays a single self-contained file - see
     // backend/static/capture-worklet.js in the ConferenceCaptioningBackend
@@ -269,9 +304,12 @@
       // the note next to the engine dropdown above about cross-caption
       // consistency.
       const speakerLabel = payload.speaker ? `[${escapeHtml(payload.speaker)}] ` : "";
+      const modelLabel = showModelCheckbox.checked
+        ? `<span class="caption-meta">(${escapeHtml(payload.engine)}/${escapeHtml(payload.model)})</span> `
+        : "";
       line.innerHTML =
         `<span class="caption-meta">[${time}] ${payload.start_s.toFixed(2)}s-${payload.end_s.toFixed(2)}s ` +
-        `(${payload.transcribe_ms}ms)</span> ${speakerLabel}${escapeHtml(payload.text)}`;
+        `(${payload.transcribe_ms}ms)</span> ${modelLabel}${speakerLabel}${escapeHtml(payload.text)}`;
       captionsEl.prepend(line);
     }
 
@@ -287,8 +325,9 @@
 
     function connectWebSocket() {
       const key = encodeURIComponent(apiKeyInput.value);
-      const engine = encodeURIComponent(document.getElementById("live-engine-select").value);
-      const url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}`;
+      const engine = encodeURIComponent(liveEngineSelect.value);
+      const model = encodeURIComponent(liveModelSelect.value);
+      const url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}&model=${model}`;
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
 
@@ -354,7 +393,8 @@
       }
       startBtn.disabled = false;
       stopBtn.disabled = true;
-      document.getElementById("live-engine-select").disabled = false;
+      liveEngineSelect.disabled = false;
+      liveModelSelect.disabled = false;
       setSpeaking(false);
     }
 
@@ -365,7 +405,8 @@
       }
       startBtn.disabled = true;
       stopBtn.disabled = false;
-      document.getElementById("live-engine-select").disabled = true;
+      liveEngineSelect.disabled = true;
+      liveModelSelect.disabled = true;
       setSpeaking(false);
       try {
         await startCapture();

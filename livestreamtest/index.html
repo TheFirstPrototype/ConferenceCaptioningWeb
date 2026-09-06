@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Conference Captioning - Live Test</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.5;
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+    .subtitle { color: #777; margin-top: 0; font-size: 0.9rem; }
+
+    fieldset { border: 1px solid #ccc; border-radius: 6px; margin: 1rem 0; padding: 0.75rem 1rem; }
+    legend { font-weight: 600; font-size: 0.85rem; padding: 0 0.4rem; }
+    label { display: block; margin: 0.4rem 0; }
+
+    input[type="text"], input[type="password"], input[type="file"] {
+      font-size: 0.95rem;
+      padding: 0.4rem 0.6rem;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 0.25rem;
+    }
+
+    .controls { display: flex; align-items: center; gap: 0.75rem; margin: 1rem 0; flex-wrap: wrap; }
+    button {
+      font-size: 1rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      border: 1px solid #888;
+      cursor: pointer;
+      background: #f5f5f5;
+      color: #111;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #vad-indicator {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #ddd;
+      color: #333;
+    }
+    #vad-indicator.speaking { background: #2e7d32; color: white; }
+    #vad-indicator.silence { background: #9e9e9e; color: white; }
+
+    #status { font-size: 0.85rem; color: #666; margin: 0.5rem 0; }
+
+    #captions, #upload-result {
+      margin-top: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      min-height: 60px;
+      max-height: 50vh;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
+    .caption-line { padding: 4px 0; border-bottom: 1px solid #eee; }
+    .caption-meta { color: #888; font-size: 0.75rem; margin-right: 0.5rem; }
+
+    .note { margin-top: 2rem; font-size: 0.8rem; color: #777; }
+  </style>
+</head>
+<body>
+  <h1>Conference Captioning - Live Test</h1>
+  <p class="subtitle">Talks to stream.conferencecaptioning.com over HTTPS/WSS.</p>
+
+  <fieldset>
+    <legend>API key</legend>
+    <label>
+      Key (from the person who runs the backend)
+      <input type="password" id="api-key" placeholder="paste your API key" autocomplete="off" />
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Stored only in this browser's localStorage - never sent anywhere
+      except as the X-API-Key header / WebSocket query param to
+      stream.conferencecaptioning.com.
+    </p>
+  </fieldset>
+
+  <fieldset>
+    <legend>File upload transcription</legend>
+    <input type="file" id="file-input" accept=".wav,audio/wav" />
+    <div class="controls">
+      <button id="upload-btn">Transcribe file</button>
+    </div>
+    <div id="upload-result"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Live captioning (this tab's microphone)</legend>
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="stop" disabled>Stop</button>
+      <span id="vad-indicator" class="silence">Silence</span>
+    </div>
+    <p id="status">idle</p>
+    <div id="captions"></div>
+  </fieldset>
+
+  <p class="note">
+    This page only ever uses this browser tab's own microphone (Web
+    Audio API) - it never touches any microphone on the server. Nothing
+    is recorded or stored server-side beyond the seconds needed to
+    transcribe each speech segment.
+  </p>
+
+  <script>
+    const API_HOST = "stream.conferencecaptioning.com";
+    const apiKeyInput = document.getElementById("api-key");
+    apiKeyInput.value = localStorage.getItem("cc_api_key") || "";
+    apiKeyInput.addEventListener("input", () => {
+      localStorage.setItem("cc_api_key", apiKeyInput.value);
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // -- File upload -----------------------------------------------------
+    const uploadResultEl = document.getElementById("upload-result");
+    document.getElementById("upload-btn").addEventListener("click", async () => {
+      const fileInput = document.getElementById("file-input");
+      const file = fileInput.files[0];
+      if (!file) {
+        uploadResultEl.textContent = "Choose a .wav file first.";
+        return;
+      }
+      uploadResultEl.textContent = "Transcribing...";
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch(`https://${API_HOST}/transcribe`, {
+          method: "POST",
+          headers: { "X-API-Key": apiKeyInput.value },
+          body: formData,
+        });
+        const payload = await response.json();
+        if (!response.ok) {
+          uploadResultEl.textContent = `Error ${response.status}: ${payload.detail || payload.error || "unknown error"}`;
+          return;
+        }
+        uploadResultEl.textContent = `"${payload.text}"\n(${payload.duration_ms}ms, model: ${payload.model})`;
+      } catch (err) {
+        uploadResultEl.textContent = `Request failed: ${err.message}`;
+      }
+    });
+
+    // -- Live captioning (browser mic over WebSocket) ---------------------
+    const startBtn = document.getElementById("start");
+    const stopBtn = document.getElementById("stop");
+    const statusEl = document.getElementById("status");
+    const indicatorEl = document.getElementById("vad-indicator");
+    const captionsEl = document.getElementById("captions");
+
+    // Inlined so this stays a single self-contained file - see
+    // backend/static/capture-worklet.js in the ConferenceCaptioningBackend
+    // repo for the (identical) canonical copy with full comments.
+    const WORKLET_SOURCE = `
+      class CaptureProcessor extends AudioWorkletProcessor {
+        constructor() {
+          super();
+          this.buffer = [];
+          this.bufferedSamples = 0;
+          this.targetSamplesPerChunk = Math.round(sampleRate * 0.1);
+        }
+        process(inputs) {
+          const input = inputs[0];
+          if (input.length > 0) {
+            const channelData = input[0];
+            this.buffer.push(channelData.slice());
+            this.bufferedSamples += channelData.length;
+            if (this.bufferedSamples >= this.targetSamplesPerChunk) {
+              const merged = new Float32Array(this.bufferedSamples);
+              let offset = 0;
+              for (const block of this.buffer) {
+                merged.set(block, offset);
+                offset += block.length;
+              }
+              const pcm16 = new Int16Array(merged.length);
+              for (let i = 0; i < merged.length; i++) {
+                const clamped = Math.max(-1, Math.min(1, merged[i]));
+                pcm16[i] = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff;
+              }
+              this.port.postMessage(pcm16.buffer, [pcm16.buffer]);
+              this.buffer = [];
+              this.bufferedSamples = 0;
+            }
+          }
+          return true;
+        }
+      }
+      registerProcessor("capture-processor", CaptureProcessor);
+    `;
+
+    let audioContext = null;
+    let mediaStream = null;
+    let ws = null;
+    let reconnectAttempts = 0;
+    const MAX_RECONNECT_DELAY_MS = 5000;
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+    }
+
+    function setSpeaking(speaking) {
+      indicatorEl.classList.toggle("speaking", speaking);
+      indicatorEl.classList.toggle("silence", !speaking);
+      indicatorEl.textContent = speaking ? "Speech" : "Silence";
+    }
+
+    function addCaption(payload) {
+      const line = document.createElement("div");
+      line.className = "caption-line";
+      const time = new Date().toLocaleTimeString();
+      line.innerHTML =
+        `<span class="caption-meta">[${time}] ${payload.start_s.toFixed(2)}s-${payload.end_s.toFixed(2)}s ` +
+        `(${payload.transcribe_ms}ms)</span> ${escapeHtml(payload.text)}`;
+      captionsEl.prepend(line);
+    }
+
+    function handleServerPayload(payload) {
+      if (payload.type === "vad_state") {
+        setSpeaking(payload.speaking);
+      } else if (payload.type === "segment") {
+        addCaption(payload);
+      } else if (payload.error) {
+        setStatus(`error: ${payload.error}`);
+      }
+    }
+
+    function connectWebSocket() {
+      const key = encodeURIComponent(apiKeyInput.value);
+      const url = `wss://${API_HOST}/live/ws?key=${key}`;
+      ws = new WebSocket(url);
+      ws.binaryType = "arraybuffer";
+
+      ws.onopen = () => {
+        reconnectAttempts = 0;
+        setStatus("connected");
+      };
+
+      ws.onmessage = (event) => handleServerPayload(JSON.parse(event.data));
+
+      ws.onclose = (event) => {
+        if (event.code === 4401) {
+          setStatus("connection closed: invalid API key");
+          stopCapture();
+          return;
+        }
+        if (mediaStream) {
+          const delay = Math.min(1000 * 2 ** reconnectAttempts, MAX_RECONNECT_DELAY_MS);
+          reconnectAttempts += 1;
+          setStatus(`reconnecting in ${Math.round(delay / 1000)}s...`);
+          setTimeout(() => {
+            if (mediaStream) connectWebSocket();
+          }, delay);
+        }
+      };
+
+      ws.onerror = () => setStatus("WebSocket error");
+    }
+
+    async function startCapture() {
+      audioContext = new AudioContext({ sampleRate: 16000 });
+      const workletBlob = new Blob([WORKLET_SOURCE], { type: "application/javascript" });
+      await audioContext.audioWorklet.addModule(URL.createObjectURL(workletBlob));
+
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: { channelCount: 1, sampleRate: 16000, echoCancellation: true },
+      });
+
+      const source = audioContext.createMediaStreamSource(mediaStream);
+      const worklet = new AudioWorkletNode(audioContext, "capture-processor");
+      worklet.port.onmessage = (event) => {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.send(event.data);
+        }
+      };
+      source.connect(worklet);
+
+      connectWebSocket();
+    }
+
+    function stopCapture() {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach((t) => t.stop());
+        mediaStream = null; // also tells ws.onclose not to auto-reconnect
+      }
+      if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+      }
+      if (ws) {
+        ws.close();
+        ws = null;
+      }
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      setSpeaking(false);
+    }
+
+    startBtn.addEventListener("click", async () => {
+      if (!apiKeyInput.value) {
+        setStatus("error: enter an API key first");
+        return;
+      }
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      setSpeaking(false);
+      try {
+        await startCapture();
+      } catch (err) {
+        setStatus(`error: ${err.message}`);
+        stopCapture();
+      }
+    });
+
+    stopBtn.addEventListener("click", () => {
+      stopCapture();
+      setStatus("stopped");
+    });
+  </script>
+</body>
+</html>

@@ -101,11 +101,16 @@
         <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
       </select>
     </label>
+    <label>
+      Custom vocabulary (comma-separated, e.g. names)
+      <input type="text" id="hotwords-input" placeholder="Saamer, Conference Captioning" />
+    </label>
     <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
       "MOSS" is a separate model (not layered on Whisper) that labels
       each part of the transcript with a speaker (e.g. [S01], [S02]) -
       only really meaningful for a
-      multi-speaker file, not this tab's own microphone.
+      multi-speaker file, not this tab's own microphone. Custom
+      vocabulary works for Whisper/Qwen/MOSS, not Parakeet.
     </p>
     <div class="controls">
       <button id="upload-btn">Transcribe file</button>
@@ -128,6 +133,16 @@
       Model
       <select id="live-model-select"></select>
     </label>
+    <label>
+      Custom vocabulary (comma-separated, e.g. names)
+      <input type="text" id="live-hotwords-input" placeholder="Saamer, Conference Captioning" />
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Real, working support for Whisper/Qwen/MOSS (a soft hint, not a
+      hard guarantee - it biases the model, doesn't force an exact
+      spelling). Parakeet has no such mechanism - this is silently
+      ignored (logged server-side) when Parakeet is selected.
+    </p>
     <label style="display:flex;align-items:center;gap:0.4rem;margin-top:0.6rem">
       <input type="checkbox" id="show-model-checkbox" style="width:auto;margin:0" />
       Show engine/model on each caption (for comparing performance)
@@ -187,6 +202,8 @@
       const formData = new FormData();
       formData.append("file", file);
       formData.append("engine", document.getElementById("engine-select").value);
+      const uploadHotwords = document.getElementById("hotwords-input").value.trim();
+      if (uploadHotwords) formData.append("hotwords", uploadHotwords);
 
       try {
         const response = await fetch(`https://${API_HOST}/transcribe`, {
@@ -327,7 +344,9 @@
       const key = encodeURIComponent(apiKeyInput.value);
       const engine = encodeURIComponent(liveEngineSelect.value);
       const model = encodeURIComponent(liveModelSelect.value);
-      const url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}&model=${model}`;
+      let url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}&model=${model}`;
+      const hotwords = document.getElementById("live-hotwords-input").value.trim();
+      if (hotwords) url += `&hotwords=${encodeURIComponent(hotwords)}`;
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
 
@@ -395,6 +414,7 @@
       stopBtn.disabled = true;
       liveEngineSelect.disabled = false;
       liveModelSelect.disabled = false;
+      document.getElementById("live-hotwords-input").disabled = false;
       setSpeaking(false);
     }
 
@@ -407,6 +427,7 @@
       stopBtn.disabled = false;
       liveEngineSelect.disabled = true;
       liveModelSelect.disabled = true;
+      document.getElementById("live-hotwords-input").disabled = true;
       setSpeaking(false);
       try {
         await startCapture();

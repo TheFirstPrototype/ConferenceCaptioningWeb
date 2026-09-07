@@ -102,6 +102,29 @@
     }
     #lang-picker button.active { background: #f2f2f2; color: #111; border-color: #f2f2f2; }
 
+    #audio-picker {
+      max-width: 46rem;
+      width: 100%;
+      margin-top: 1.6rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #2a2a2e;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    #audio-picker .label { font-size: 0.8rem; color: #888; }
+    #audio-picker button {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #3a3a3f;
+      background: transparent;
+      color: #ccc;
+      cursor: pointer;
+    }
+    #audio-picker button.active { background: #3ecf6e; color: #07220f; border-color: #3ecf6e; }
+
     #stream-form {
       display: flex;
       flex-direction: column;
@@ -152,6 +175,7 @@
       <div style="width:100%;display:flex;flex-direction:column;align-items:center">
         <div id="captions"><span id="placeholder">Waiting for the presenter to start speaking...</span></div>
         <div id="translations"></div>
+        <div id="audio-picker"></div>
       </div>
     </main>
   </div>
@@ -262,7 +286,104 @@
       statusEl.textContent = text;
     }
 
+    // -- Live translated-audio stream (live/tts_stream.py) -------------------
+    // Same real, confirmed-working language set as index.html's
+    // TTS_LANGUAGES (Kokoro voices actually verified, not Chrome's
+    // broader Translator list). Only one language is listened to at a
+    // time - playing several languages' audio simultaneously would just
+    // be noise, not a real use case, so picking a new one stops the
+    // previous one first (like changing a radio station).
+    const AUDIO_LANGUAGES = { en: "English", es: "Spanish", fr: "French", it: "Italian", pt: "Portuguese" };
+    const audioPickerEl = document.getElementById("audio-picker");
+    let currentStreamName = null;
+    let audioCtx = null;
+    let listenSocket = null;
+    let listenLang = null;
+    let nextStartTime = 0;
+
+    function renderAudioPicker() {
+      audioPickerEl.innerHTML =
+        `<span class="label">Listen:</span>` +
+        Object.entries(AUDIO_LANGUAGES)
+          .map(([code, name]) => `<button data-lang="${code}" class="${code === listenLang ? "active" : ""}">${name}</button>`)
+          .join("");
+      audioPickerEl.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const lang = btn.getAttribute("data-lang");
+          if (lang === listenLang) {
+            stopListening();
+          } else {
+            startListening(lang);
+          }
+        });
+      });
+    }
+
+    function stopListening() {
+      if (listenSocket) {
+        listenSocket.onclose = null; // avoid re-triggering cleanup below
+        listenSocket.close();
+        listenSocket = null;
+      }
+      listenLang = null;
+      nextStartTime = 0;
+      renderAudioPicker();
+    }
+
+    function startListening(lang) {
+      stopListening();
+      if (!currentStreamName) return;
+      listenLang = lang;
+      renderAudioPicker();
+
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      // Chrome/Safari suspend a fresh AudioContext until a user gesture
+      // resumes it - this call happens inside this click handler, which
+      // counts as one, but resume() is cheap to call even if it's
+      // already running.
+      audioCtx.resume().catch(() => {});
+      nextStartTime = audioCtx.currentTime;
+
+      const ws = new WebSocket(`wss://${API_HOST}/live/listen/${encodeURIComponent(currentStreamName)}/${encodeURIComponent(lang)}`);
+      ws.binaryType = "arraybuffer";
+      ws.onmessage = async (event) => {
+        // Each message is one complete, independently-decodable WAV
+        // file (one committed sentence/clause - see
+        // live/tts_stream.py's SpeechCommitBuffer) - decode it and
+        // schedule it to start exactly when the previous chunk ends,
+        // giving gapless playback without needing MediaSource
+        // Extensions (which doesn't reliably support raw WAV anyway).
+        try {
+          const audioBuffer = await audioCtx.decodeAudioData(event.data);
+          const source = audioCtx.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(audioCtx.destination);
+          const startAt = Math.max(nextStartTime, audioCtx.currentTime);
+          source.start(startAt);
+          nextStartTime = startAt + audioBuffer.duration;
+        } catch (err) {
+          console.error("Failed to decode/play an audio chunk:", err);
+        }
+      };
+      ws.onclose = () => {
+        // The server closes this cleanly once the presenter's session
+        // ends (or the connection just dropped) - either way, reflect
+        // that this language stopped rather than silently going quiet
+        // with the button still showing "active".
+        if (listenLang === lang) {
+          listenLang = null;
+          nextStartTime = 0;
+          renderAudioPicker();
+        }
+      };
+      listenSocket = ws;
+    }
+
     function connect(streamName) {
+      currentStreamName = streamName;
+      renderAudioPicker();
       streamForm.style.display = "none";
       watchView.style.display = "block";
       setStatus(null, "connecting...");
@@ -283,9 +404,11 @@
         } else if (payload.type === "session_ended") {
           setStatus(false, "session ended");
           source.close();
+          stopListening(); // the /live/listen/... socket also closes itself, this just resets the UI immediately
         } else if (payload.type === "error") {
           setStatus(false, payload.message || "error");
           source.close();
+          stopListening();
         }
         // vad_state is intentionally ignored here - a "speaking/silent"
         // indicator is a presenter debugging aid (see the main test

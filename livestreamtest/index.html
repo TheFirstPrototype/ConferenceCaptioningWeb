@@ -198,6 +198,12 @@
     </label>
     <p id="langs-limit-note" style="font-size:0.8rem;color:#777;margin:0.4rem 0 0"></p>
     <label>
+      Live translated-audio stream (up to 4 languages)
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - a separate spoken-audio feed attendees can listen to (not the on-screen captions above). Requires a stream name below. See README "Live translated audio stream".</span>
+      <select id="tts-langs-select" multiple size="5" style="height:auto"></select>
+    </label>
+    <p id="tts-langs-limit-note" style="font-size:0.8rem;color:#777;margin:0.4rem 0 0"></p>
+    <label>
       Event description (optional)
       <span style="font-weight:normal;font-size:0.8rem;color:#777"> - background context passed to the summary, e.g. "Quarterly engineering all-hands, focused on Q3 roadmap"</span>
       <input type="text" id="event-description-input" placeholder="What is this event about?" />
@@ -409,6 +415,29 @@
     liveLangsSelect.addEventListener("change", updateLangsLimitNote);
     updateLangsLimitNote();
 
+    // Live translated-audio stream (live/tts_stream.py) - a real,
+    // narrower language set than TRANSLATOR_LANGUAGES above (Kokoro TTS
+    // voices actually confirmed working, not Chrome's full Translator
+    // list - see README "Live translated audio stream").
+    const TTS_LANGUAGES = { en: "English", es: "Spanish", fr: "French", it: "Italian", pt: "Portuguese" };
+    const MAX_TTS_LANGS = 4;
+    const ttsLangsSelect = document.getElementById("tts-langs-select");
+    const ttsLangsLimitNote = document.getElementById("tts-langs-limit-note");
+    ttsLangsSelect.innerHTML = Object.entries(TTS_LANGUAGES)
+      .map(([code, name]) => `<option value="${code}">${name} (${code})</option>`)
+      .join("");
+    function selectedTtsLangs() {
+      return Array.from(ttsLangsSelect.selectedOptions).map((o) => o.value);
+    }
+    function updateTtsLangsLimitNote() {
+      const n = selectedTtsLangs().length;
+      ttsLangsLimitNote.textContent = n > MAX_TTS_LANGS
+        ? `Only the first ${MAX_TTS_LANGS} selected languages will be used (${n} selected).`
+        : `${n}/${MAX_TTS_LANGS} selected.`;
+    }
+    ttsLangsSelect.addEventListener("change", updateTtsLangsLimitNote);
+    updateTtsLangsLimitNote();
+
     const translationFeedEls = {}; // lang -> element
 
     function setupTranslationUI(langs) {
@@ -577,6 +606,10 @@
         url += `&stream=${encodeURIComponent(streamName)}`;
         const title = broadcastTitleInput.value.trim();
         if (title) url += `&title=${encodeURIComponent(title)}`;
+        // Requires a stream name (see live/tts_stream.py) - there's no
+        // other identifier a listener could use to find the audio.
+        const ttsLangs = selectedTtsLangs().filter((l) => l !== language).slice(0, MAX_TTS_LANGS);
+        if (ttsLangs.length) url += `&tts_langs=${encodeURIComponent(ttsLangs.join(","))}`;
       }
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
@@ -666,6 +699,7 @@
       liveLangsSelect.disabled = false;
       streamNameInput.disabled = false;
       broadcastTitleInput.disabled = false;
+      ttsLangsSelect.disabled = false;
       broadcastLinkEl.style.display = "none";
       setSpeaking(false);
     }
@@ -683,6 +717,7 @@
       liveLangsSelect.disabled = true;
       streamNameInput.disabled = true;
       broadcastTitleInput.disabled = true;
+      ttsLangsSelect.disabled = true;
       setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);
       try {

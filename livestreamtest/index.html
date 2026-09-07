@@ -108,6 +108,7 @@
         <option value="parakeet">Parakeet (parakeet-mlx)</option>
         <option value="qwen">Qwen3-ASR (mlx-audio)</option>
         <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
+        <option value="apple_speech">Apple SpeechTranscriber (on-device, English only)</option>
       </select>
     </label>
     <label>
@@ -146,6 +147,7 @@
         <option value="parakeet">Parakeet (parakeet-mlx)</option>
         <option value="qwen">Qwen3-ASR (mlx-audio, slower)</option>
         <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
+        <option value="apple_speech">Apple SpeechTranscriber (on-device, English only)</option>
       </select>
     </label>
     <label>
@@ -330,6 +332,7 @@
       parakeet: ["parakeet-tdt_ctc-110m", "parakeet-tdt-0.6b-v2", "parakeet-tdt-0.6b-v3"],
       qwen: ["Qwen3-ASR-1.7B-8bit"],
       moss_diarize: ["mlx-MOSS-Transcribe-Diarize-4bit"],
+      apple_speech: ["speech-transcriber"],
     };
 
     function refreshModelOptions() {

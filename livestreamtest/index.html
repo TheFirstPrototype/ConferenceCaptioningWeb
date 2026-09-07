@@ -111,6 +111,16 @@
       </select>
     </label>
     <label>
+      Spoken language
+      <select id="language-select"></select>
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Only forces the language for Whisper/Qwen - Parakeet and MOSS
+      always auto-detect regardless of this setting (see README
+      "Non-English transcription &amp; translation"). "Auto-detect"
+      works for every engine.
+    </p>
+    <label>
       Custom vocabulary (comma-separated, e.g. names)
       <input type="text" id="hotwords-input" placeholder="Saamer, Conference Captioning" />
     </label>
@@ -142,6 +152,16 @@
       Model
       <select id="live-model-select"></select>
     </label>
+    <label>
+      Spoken language
+      <select id="live-language-select"></select>
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Forced for Whisper/Qwen; Parakeet/MOSS always auto-detect
+      regardless (see README "Non-English transcription &amp;
+      translation"). This is also what gets sent to live translation
+      below as the source language - previously always assumed English.
+    </p>
     <label>
       Custom vocabulary (comma-separated, e.g. names)
       <input type="text" id="live-hotwords-input" placeholder="Saamer, Conference Captioning" />
@@ -205,6 +225,27 @@
       return div.innerHTML;
     }
 
+    // -- Spoken (source) language ------------------------------------------
+    // Must match backend/app/asr/languages.py's SOURCE_LANGUAGES exactly -
+    // see that module's docstring for exactly what each engine does with
+    // this (Whisper/Qwen force it for real; Parakeet/MOSS always
+    // auto-detect regardless and silently ignore it).
+    const SOURCE_LANGUAGES = {
+      auto: "Auto-detect", en: "English", zh: "Chinese", yue: "Cantonese",
+      ar: "Arabic", de: "German", fr: "French", es: "Spanish", pt: "Portuguese",
+      id: "Indonesian", it: "Italian", ko: "Korean", ru: "Russian", th: "Thai",
+      vi: "Vietnamese", ja: "Japanese", tr: "Turkish", hi: "Hindi", ms: "Malay",
+      nl: "Dutch", sv: "Swedish", da: "Danish", fi: "Finnish", pl: "Polish",
+      cs: "Czech", fil: "Filipino", fa: "Persian", el: "Greek", ro: "Romanian",
+      hu: "Hungarian", mk: "Macedonian", uk: "Ukrainian", bg: "Bulgarian",
+      hr: "Croatian", sk: "Slovak", sl: "Slovenian", nb: "Norwegian", he: "Hebrew",
+    };
+    const languageOptionsHtml = Object.entries(SOURCE_LANGUAGES)
+      .map(([code, name]) => `<option value="${code}"${code === "en" ? " selected" : ""}>${name}</option>`)
+      .join("");
+    document.getElementById("language-select").innerHTML = languageOptionsHtml;
+    document.getElementById("live-language-select").innerHTML = languageOptionsHtml;
+
     // -- File upload -----------------------------------------------------
     const uploadResultEl = document.getElementById("upload-result");
     document.getElementById("upload-btn").addEventListener("click", async () => {
@@ -221,6 +262,8 @@
       formData.append("engine", document.getElementById("engine-select").value);
       const uploadHotwords = document.getElementById("hotwords-input").value.trim();
       if (uploadHotwords) formData.append("hotwords", uploadHotwords);
+      const uploadLanguage = document.getElementById("language-select").value;
+      if (uploadLanguage && uploadLanguage !== "auto") formData.append("language", uploadLanguage);
 
       try {
         const response = await fetch(`https://${API_HOST}/transcribe`, {
@@ -239,7 +282,8 @@
         } else {
           resultText = `"${payload.text}"`;
         }
-        uploadResultEl.textContent = `${resultText}\n(${payload.duration_ms}ms, engine: ${payload.engine}, model: ${payload.model})`;
+        const detectedLang = payload.language ? `, detected language: ${payload.language}` : "";
+        uploadResultEl.textContent = `${resultText}\n(${payload.duration_ms}ms, engine: ${payload.engine}, model: ${payload.model}${detectedLang})`;
       } catch (err) {
         uploadResultEl.textContent = `Request failed: ${err.message}`;
       }
@@ -261,7 +305,10 @@
     // an unrecognized model name just fails the connection with a
     // clear "model not found" reason.
     const MODELS_BY_ENGINE = {
-      whisper: ["base.en"],
+      whisper: [
+        "base.en", "tiny.en", "tiny.en-q5_1", "base.en-q5_1", "small.en", "small.en-q5_1",
+        "medium.en", "medium.en-q5_0", "large-v3-turbo", "large-v3-turbo-q5_0",
+      ],
       parakeet: ["parakeet-tdt_ctc-110m", "parakeet-tdt-0.6b-v2", "parakeet-tdt-0.6b-v3"],
       qwen: ["Qwen3-ASR-1.7B-8bit"],
       moss_diarize: ["mlx-MOSS-Transcribe-Diarize-4bit"],
@@ -449,7 +496,13 @@
       let url = `wss://${API_HOST}/live/ws?key=${key}&engine=${engine}&model=${model}`;
       const hotwords = document.getElementById("live-hotwords-input").value.trim();
       if (hotwords) url += `&hotwords=${encodeURIComponent(hotwords)}`;
-      const langs = selectedLangs().slice(0, MAX_LANGS);
+      const language = document.getElementById("live-language-select").value;
+      if (language) url += `&language=${encodeURIComponent(language)}`;
+      // Also the source language declared to live translation below -
+      // the backend forwards it as-is (see live/router.py's live_ws) so
+      // dropping a target equal to the source is just as important here
+      // as it is server-side.
+      const langs = selectedLangs().filter((l) => l !== language).slice(0, MAX_LANGS);
       if (langs.length) url += `&langs=${encodeURIComponent(langs.join(","))}`;
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";

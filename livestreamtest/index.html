@@ -202,10 +202,31 @@
       <span style="font-weight:normal;font-size:0.8rem;color:#777"> - background context passed to the summary, e.g. "Quarterly engineering all-hands, focused on Q3 roadmap"</span>
       <input type="text" id="event-description-input" placeholder="What is this event about?" />
     </label>
+    <label style="display:flex;align-items:center;gap:0.4rem;margin-top:0.6rem">
+      <input type="checkbox" id="broadcast-checkbox" style="width:auto;margin:0" />
+      Broadcast to attendees
+    </label>
+    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
+      Lets attendees view these captions on their own phone/laptop
+      without needing mic access or running their own transcription -
+      see README "Broadcasting captions to attendees". A shareable link
+      appears below once you click Start.
+    </p>
+    <label>
+      Session title (optional, shown to attendees)
+      <input type="text" id="broadcast-title-input" placeholder="Quarterly All-Hands" />
+    </label>
     <div class="controls">
       <button id="start">Start</button>
       <button id="stop" disabled>Stop</button>
       <span id="vad-indicator" class="silence">Silence</span>
+    </div>
+    <div id="broadcast-link" style="display:none;margin:0.6rem 0;padding:0.6rem 0.8rem;border:1px solid #ccc;border-radius:6px">
+      <strong>Share this with attendees:</strong>
+      <div style="display:flex;gap:0.4rem;margin-top:0.4rem">
+        <input type="text" id="broadcast-link-input" readonly style="flex:1" />
+        <button id="broadcast-copy-btn" type="button">Copy</button>
+      </div>
     </div>
     <p id="status">idle</p>
     <div id="translation-status"></div>
@@ -317,6 +338,14 @@
     const summarizeBtn = document.getElementById("summarize-btn");
     const summaryResultEl = document.getElementById("summary-result");
     const eventDescriptionInput = document.getElementById("event-description-input");
+    const broadcastCheckbox = document.getElementById("broadcast-checkbox");
+    const broadcastTitleInput = document.getElementById("broadcast-title-input");
+    const broadcastLinkEl = document.getElementById("broadcast-link");
+    const broadcastLinkInput = document.getElementById("broadcast-link-input");
+    document.getElementById("broadcast-copy-btn").addEventListener("click", () => {
+      broadcastLinkInput.select();
+      navigator.clipboard?.writeText(broadcastLinkInput.value).catch(() => {});
+    });
     const liveEngineSelect = document.getElementById("live-engine-select");
     const liveModelSelect = document.getElementById("live-model-select");
     const showModelCheckbox = document.getElementById("show-model-checkbox");
@@ -514,7 +543,11 @@
     }
 
     function handleServerPayload(payload) {
-      if (payload.type === "vad_state") {
+      if (payload.type === "broadcast_code") {
+        const base = `${window.location.origin}${window.location.pathname.replace(/index\.html$/, "")}`;
+        broadcastLinkInput.value = `${base}watch.html?code=${payload.code}`;
+        broadcastLinkEl.style.display = "block";
+      } else if (payload.type === "vad_state") {
         setSpeaking(payload.speaking);
       } else if (payload.type === "segment") {
         addCaption(payload);
@@ -544,6 +577,11 @@
       // as it is server-side.
       const langs = selectedLangs().filter((l) => l !== language).slice(0, MAX_LANGS);
       if (langs.length) url += `&langs=${encodeURIComponent(langs.join(","))}`;
+      if (broadcastCheckbox.checked) {
+        url += "&broadcast=1";
+        const title = broadcastTitleInput.value.trim();
+        if (title) url += `&title=${encodeURIComponent(title)}`;
+      }
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
 
@@ -621,6 +659,9 @@
       liveModelSelect.disabled = false;
       document.getElementById("live-hotwords-input").disabled = false;
       liveLangsSelect.disabled = false;
+      broadcastCheckbox.disabled = false;
+      broadcastTitleInput.disabled = false;
+      broadcastLinkEl.style.display = "none";
       setSpeaking(false);
     }
 
@@ -635,6 +676,8 @@
       liveModelSelect.disabled = true;
       document.getElementById("live-hotwords-input").disabled = true;
       liveLangsSelect.disabled = true;
+      broadcastCheckbox.disabled = true;
+      broadcastTitleInput.disabled = true;
       setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);
       try {

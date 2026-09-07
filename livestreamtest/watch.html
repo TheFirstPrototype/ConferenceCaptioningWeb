@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Captions</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #0b0b0d;
+      color: #f2f2f2;
+    }
+    header {
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid #2a2a2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      color: #aaa;
+    }
+    h1 .title { color: #f2f2f2; }
+    .dot {
+      display: inline-block;
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      background: #666;
+    }
+    .dot.live { background: #3ecf6e; box-shadow: 0 0 6px #3ecf6e; }
+    .dot.ended { background: #d9534f; }
+    #status { font-size: 0.85rem; color: #999; white-space: nowrap; }
+
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem 1.2rem 3rem;
+      display: flex;
+      justify-content: center;
+    }
+    #captions {
+      max-width: 46rem;
+      width: 100%;
+      font-size: clamp(1.3rem, 3.4vw, 2.1rem);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+    #captions .stale { color: #6b6b70; }
+    #captions .fresh { color: #f2f2f2; }
+    #placeholder { color: #777; font-size: 1.1rem; font-weight: 400; }
+
+    #translations {
+      max-width: 46rem;
+      width: 100%;
+      margin-top: 1.6rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #2a2a2e;
+    }
+    #translations:empty { display: none; }
+    .translation-block { margin-bottom: 1rem; }
+    .translation-block h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin: 0 0 0.3rem;
+      font-weight: 600;
+    }
+    .translation-block p {
+      font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+      line-height: 1.5;
+      margin: 0;
+      color: #d8d8dc;
+    }
+
+    #lang-picker {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    #lang-picker button {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #3a3a3f;
+      background: transparent;
+      color: #ccc;
+      cursor: pointer;
+    }
+    #lang-picker button.active { background: #f2f2f2; color: #111; border-color: #f2f2f2; }
+
+    #code-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 0.8rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    #code-form input {
+      font-size: 1.1rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid #3a3a3f;
+      background: #1a1a1d;
+      color: #f2f2f2;
+      text-align: center;
+      letter-spacing: 0.05em;
+      width: 14rem;
+    }
+    #code-form button {
+      font-size: 1rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      background: #f2f2f2;
+      color: #111;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div id="code-form">
+    <p style="color:#999">Enter the code your presenter shared with you.</p>
+    <input type="text" id="code-input" placeholder="e.g. AB12CD34EF" maxlength="10" autocapitalize="characters" />
+    <button id="code-submit">Watch</button>
+  </div>
+
+  <div id="watch-view" style="display:none">
+    <header>
+      <h1><span id="conn-dot" class="dot"></span><span class="title" id="session-title">Live Captions</span></h1>
+      <div id="lang-picker"></div>
+      <span id="status">connecting...</span>
+    </header>
+    <main>
+      <div style="width:100%;display:flex;flex-direction:column;align-items:center">
+        <div id="captions"><span id="placeholder">Waiting for the presenter to start speaking...</span></div>
+        <div id="translations"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Read-only attendee caption viewer - see live/broadcast.py and
+    // GET /live/watch/{code}. Deliberately keeps very little history in
+    // memory (see KEPT_SENTENCES below): this page is meant to be read
+    // live, glanced at, not scrolled back through - a presenter's
+    // hour-long session has no reason to keep accumulating DOM nodes or
+    // JS state for text nobody's going to scroll up to re-read.
+    const API_HOST = "stream.conferencecaptioning.com";
+    const KEPT_SENTENCES = 6; // how many recent captions stay visible - older ones are dropped, not just dimmed
+    const FRESH_COUNT = 2; // how many of the most recent are shown at full brightness vs. dimmed "stale"
+
+    const codeForm = document.getElementById("code-form");
+    const codeInput = document.getElementById("code-input");
+    const watchView = document.getElementById("watch-view");
+    const connDot = document.getElementById("conn-dot");
+    const statusEl = document.getElementById("status");
+    const sessionTitleEl = document.getElementById("session-title");
+    const captionsEl = document.getElementById("captions");
+    const translationsEl = document.getElementById("translations");
+    const langPickerEl = document.getElementById("lang-picker");
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getCodeFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return (params.get("code") || "").trim().toUpperCase();
+    }
+
+    let captionHistory = []; // recent caption text only - see KEPT_SENTENCES
+    function renderCaptions() {
+      if (captionHistory.length === 0) {
+        captionsEl.innerHTML = `<span id="placeholder">Waiting for the presenter to start speaking...</span>`;
+        return;
+      }
+      const staleCount = Math.max(0, captionHistory.length - FRESH_COUNT);
+      captionsEl.innerHTML = captionHistory
+        .map((text, i) => `<span class="${i < staleCount ? "stale" : "fresh"}">${escapeHtml(text)} </span>`)
+        .join("");
+      captionsEl.scrollIntoView({ block: "end" });
+    }
+
+    function addCaption(text) {
+      if (!text) return;
+      captionHistory.push(text);
+      if (captionHistory.length > KEPT_SENTENCES) {
+        captionHistory = captionHistory.slice(-KEPT_SENTENCES);
+      }
+      renderCaptions();
+    }
+
+    // Translations: only the latest text per language is kept (no
+    // history at all, per this page's whole "just show what's current"
+    // design) - a language tab strip lets an attendee pick which one to
+    // read if the presenter's session has more than one target language.
+    const latestTranslations = {}; // lang -> text
+    let activeLang = null;
+    function renderLangPicker() {
+      const langs = Object.keys(latestTranslations);
+      if (langs.length <= 1) {
+        langPickerEl.innerHTML = "";
+        return;
+      }
+      langPickerEl.innerHTML = langs
+        .map((lang) => `<button data-lang="${lang}" class="${lang === activeLang ? "active" : ""}">${lang}</button>`)
+        .join("");
+      langPickerEl.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeLang = btn.getAttribute("data-lang");
+          renderLangPicker();
+          renderTranslation();
+        });
+      });
+    }
+    function renderTranslation() {
+      if (!activeLang || !latestTranslations[activeLang]) {
+        translationsEl.innerHTML = "";
+        return;
+      }
+      translationsEl.innerHTML = `
+        <div class="translation-block">
+          <h2>${escapeHtml(activeLang)}</h2>
+          <p>${escapeHtml(latestTranslations[activeLang])}</p>
+        </div>`;
+    }
+    function addTranslations(translations) {
+      let changed = false;
+      for (const [lang, text] of Object.entries(translations || {})) {
+        latestTranslations[lang] = text;
+        if (!activeLang) activeLang = lang;
+        changed = true;
+      }
+      if (changed) {
+        renderLangPicker();
+        renderTranslation();
+      }
+    }
+
+    function setStatus(connected, text) {
+      connDot.className = `dot ${connected === true ? "live" : connected === false ? "ended" : ""}`;
+      statusEl.textContent = text;
+    }
+
+    function connect(code) {
+      codeForm.style.display = "none";
+      watchView.style.display = "block";
+      setStatus(null, "connecting...");
+
+      const source = new EventSource(`https://${API_HOST}/live/watch/${encodeURIComponent(code)}`);
+
+      source.onopen = () => setStatus(true, "live");
+
+      source.onmessage = (event) => {
+        const payload = JSON.parse(event.data);
+        if (payload.type === "watch_connected") {
+          setStatus(true, "live");
+          if (payload.title) sessionTitleEl.textContent = payload.title;
+        } else if (payload.type === "segment") {
+          addCaption(payload.text);
+        } else if (payload.type === "translation") {
+          addTranslations(payload.translations);
+        } else if (payload.type === "session_ended") {
+          setStatus(false, "session ended");
+          source.close();
+        } else if (payload.type === "error") {
+          setStatus(false, payload.message || "error");
+          source.close();
+        }
+        // vad_state is intentionally ignored here - a "speaking/silent"
+        // indicator is a presenter debugging aid (see the main test
+        // page), not something an attendee reading captions needs.
+      };
+
+      source.onerror = () => {
+        setStatus(false, "connection lost - reconnecting...");
+        // EventSource auto-reconnects on its own; if the session truly
+        // ended, the next attempt gets a 404 and this stays "reconnecting"
+        // rather than falsely claiming "live" - acceptable for a
+        // read-only viewer with no action to take either way.
+      };
+    }
+
+    const urlCode = getCodeFromUrl();
+    if (urlCode) {
+      connect(urlCode);
+    }
+    document.getElementById("code-submit").addEventListener("click", () => {
+      const code = codeInput.value.trim().toUpperCase();
+      if (code) connect(code);
+    });
+    codeInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("code-submit").click();
+    });
+  </script>
+</body>
+</html>

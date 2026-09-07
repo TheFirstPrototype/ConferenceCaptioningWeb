@@ -204,6 +204,14 @@
     </label>
     <p id="tts-langs-limit-note" style="font-size:0.8rem;color:#777;margin:0.4rem 0 0"></p>
     <label>
+      Translated-audio TTS backend
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - "MLX" runs entirely on this backend (Kokoro). "Chrome" uses the real Web Speech API through the companion tab + a BlackHole audio-loopback capture - see README "Live translated audio stream - Chrome backend" for the one-time setup this needs.</span>
+      <select id="tts-backend-select">
+        <option value="mlx" selected>MLX (Kokoro, on-device)</option>
+        <option value="chrome">Chrome (Web Speech API)</option>
+      </select>
+    </label>
+    <label>
       Event description (optional)
       <span style="font-weight:normal;font-size:0.8rem;color:#777"> - background context passed to the summary, e.g. "Quarterly engineering all-hands, focused on Q3 roadmap"</span>
       <input type="text" id="event-description-input" placeholder="What is this event about?" />
@@ -609,7 +617,11 @@
         // Requires a stream name (see live/tts_stream.py) - there's no
         // other identifier a listener could use to find the audio.
         const ttsLangs = selectedTtsLangs().filter((l) => l !== language).slice(0, MAX_TTS_LANGS);
-        if (ttsLangs.length) url += `&tts_langs=${encodeURIComponent(ttsLangs.join(","))}`;
+        if (ttsLangs.length) {
+          url += `&tts_langs=${encodeURIComponent(ttsLangs.join(","))}`;
+          const ttsBackend = document.getElementById("tts-backend-select").value;
+          if (ttsBackend !== "mlx") url += `&tts_backend=${encodeURIComponent(ttsBackend)}`;
+        }
       }
       ws = new WebSocket(url);
       ws.binaryType = "arraybuffer";
@@ -700,6 +712,7 @@
       streamNameInput.disabled = false;
       broadcastTitleInput.disabled = false;
       ttsLangsSelect.disabled = false;
+      document.getElementById("tts-backend-select").disabled = false;
       broadcastLinkEl.style.display = "none";
       setSpeaking(false);
     }
@@ -718,6 +731,7 @@
       streamNameInput.disabled = true;
       broadcastTitleInput.disabled = true;
       ttsLangsSelect.disabled = true;
+      document.getElementById("tts-backend-select").disabled = true;
       setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);
       try {

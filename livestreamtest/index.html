@@ -202,16 +202,11 @@
       <span style="font-weight:normal;font-size:0.8rem;color:#777"> - background context passed to the summary, e.g. "Quarterly engineering all-hands, focused on Q3 roadmap"</span>
       <input type="text" id="event-description-input" placeholder="What is this event about?" />
     </label>
-    <label style="display:flex;align-items:center;gap:0.4rem;margin-top:0.6rem">
-      <input type="checkbox" id="broadcast-checkbox" style="width:auto;margin:0" />
-      Broadcast to attendees
+    <label>
+      Stream name (optional - leave blank to not broadcast)
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - e.g. "arl". Lowercase letters/digits/hyphens only. Lets attendees view these captions on their own phone/laptop with no mic access or transcription of their own - see README "Broadcasting captions to attendees".</span>
+      <input type="text" id="stream-name-input" placeholder="arl" />
     </label>
-    <p style="font-size:0.8rem;color:#777;margin:0.4rem 0 0">
-      Lets attendees view these captions on their own phone/laptop
-      without needing mic access or running their own transcription -
-      see README "Broadcasting captions to attendees". A shareable link
-      appears below once you click Start.
-    </p>
     <label>
       Session title (optional, shown to attendees)
       <input type="text" id="broadcast-title-input" placeholder="Quarterly All-Hands" />
@@ -338,7 +333,7 @@
     const summarizeBtn = document.getElementById("summarize-btn");
     const summaryResultEl = document.getElementById("summary-result");
     const eventDescriptionInput = document.getElementById("event-description-input");
-    const broadcastCheckbox = document.getElementById("broadcast-checkbox");
+    const streamNameInput = document.getElementById("stream-name-input");
     const broadcastTitleInput = document.getElementById("broadcast-title-input");
     const broadcastLinkEl = document.getElementById("broadcast-link");
     const broadcastLinkInput = document.getElementById("broadcast-link-input");
@@ -543,9 +538,9 @@
     }
 
     function handleServerPayload(payload) {
-      if (payload.type === "broadcast_code") {
+      if (payload.type === "broadcast_started") {
         const base = `${window.location.origin}${window.location.pathname.replace(/index\.html$/, "")}`;
-        broadcastLinkInput.value = `${base}watch.html?code=${payload.code}`;
+        broadcastLinkInput.value = `${base}watch.html?stream=${payload.stream}`;
         broadcastLinkEl.style.display = "block";
       } else if (payload.type === "vad_state") {
         setSpeaking(payload.speaking);
@@ -577,8 +572,9 @@
       // as it is server-side.
       const langs = selectedLangs().filter((l) => l !== language).slice(0, MAX_LANGS);
       if (langs.length) url += `&langs=${encodeURIComponent(langs.join(","))}`;
-      if (broadcastCheckbox.checked) {
-        url += "&broadcast=1";
+      const streamName = streamNameInput.value.trim().toLowerCase();
+      if (streamName) {
+        url += `&stream=${encodeURIComponent(streamName)}`;
         const title = broadcastTitleInput.value.trim();
         if (title) url += `&title=${encodeURIComponent(title)}`;
       }
@@ -595,6 +591,15 @@
       ws.onclose = (event) => {
         if (event.code === 4401) {
           setStatus("connection closed: invalid API key");
+          stopCapture();
+          return;
+        }
+        if (event.code === 1011) {
+          // Server rejected the handshake before accept() - e.g. an
+          // unknown engine, or (see live/broadcast.py) a stream name
+          // that's invalid or already taken by another active session.
+          // Reconnecting would just hit the same rejection again.
+          setStatus(`connection rejected: ${event.reason || "server error"}`);
           stopCapture();
           return;
         }
@@ -659,7 +664,7 @@
       liveModelSelect.disabled = false;
       document.getElementById("live-hotwords-input").disabled = false;
       liveLangsSelect.disabled = false;
-      broadcastCheckbox.disabled = false;
+      streamNameInput.disabled = false;
       broadcastTitleInput.disabled = false;
       broadcastLinkEl.style.display = "none";
       setSpeaking(false);
@@ -676,7 +681,7 @@
       liveModelSelect.disabled = true;
       document.getElementById("live-hotwords-input").disabled = true;
       liveLangsSelect.disabled = true;
-      broadcastCheckbox.disabled = true;
+      streamNameInput.disabled = true;
       broadcastTitleInput.disabled = true;
       setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);

@@ -102,7 +102,7 @@
     }
     #lang-picker button.active { background: #f2f2f2; color: #111; border-color: #f2f2f2; }
 
-    #code-form {
+    #stream-form {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -112,7 +112,7 @@
       padding: 1.5rem;
       text-align: center;
     }
-    #code-form input {
+    #stream-form input {
       font-size: 1.1rem;
       padding: 0.6rem 0.9rem;
       border-radius: 6px;
@@ -123,7 +123,7 @@
       letter-spacing: 0.05em;
       width: 14rem;
     }
-    #code-form button {
+    #stream-form button {
       font-size: 1rem;
       padding: 0.55rem 1.2rem;
       border-radius: 6px;
@@ -136,10 +136,10 @@
   </style>
 </head>
 <body>
-  <div id="code-form">
-    <p style="color:#999">Enter the code your presenter shared with you.</p>
-    <input type="text" id="code-input" placeholder="e.g. AB12CD34EF" maxlength="10" autocapitalize="characters" />
-    <button id="code-submit">Watch</button>
+  <div id="stream-form">
+    <p style="color:#999">Enter the stream name your presenter shared with you.</p>
+    <input type="text" id="stream-input" placeholder="e.g. arl" maxlength="40" autocapitalize="none" />
+    <button id="stream-submit">Watch</button>
   </div>
 
   <div id="watch-view" style="display:none">
@@ -158,7 +158,7 @@
 
   <script>
     // Read-only attendee caption viewer - see live/broadcast.py and
-    // GET /live/watch/{code}. Deliberately keeps very little history in
+    // GET /live/watch/{stream_name}. Deliberately keeps very little history in
     // memory (see KEPT_SENTENCES below): this page is meant to be read
     // live, glanced at, not scrolled back through - a presenter's
     // hour-long session has no reason to keep accumulating DOM nodes or
@@ -167,8 +167,8 @@
     const KEPT_SENTENCES = 6; // how many recent captions stay visible - older ones are dropped, not just dimmed
     const FRESH_COUNT = 2; // how many of the most recent are shown at full brightness vs. dimmed "stale"
 
-    const codeForm = document.getElementById("code-form");
-    const codeInput = document.getElementById("code-input");
+    const streamForm = document.getElementById("stream-form");
+    const streamInput = document.getElementById("stream-input");
     const watchView = document.getElementById("watch-view");
     const connDot = document.getElementById("conn-dot");
     const statusEl = document.getElementById("status");
@@ -183,9 +183,9 @@
       return div.innerHTML;
     }
 
-    function getCodeFromUrl() {
+    function getStreamFromUrl() {
       const params = new URLSearchParams(window.location.search);
-      return (params.get("code") || "").trim().toUpperCase();
+      return (params.get("stream") || "").trim().toLowerCase();
     }
 
     let captionHistory = []; // recent caption text only - see KEPT_SENTENCES
@@ -262,12 +262,12 @@
       statusEl.textContent = text;
     }
 
-    function connect(code) {
-      codeForm.style.display = "none";
+    function connect(streamName) {
+      streamForm.style.display = "none";
       watchView.style.display = "block";
       setStatus(null, "connecting...");
 
-      const source = new EventSource(`https://${API_HOST}/live/watch/${encodeURIComponent(code)}`);
+      const source = new EventSource(`https://${API_HOST}/live/watch/${encodeURIComponent(streamName)}`);
 
       source.onopen = () => setStatus(true, "live");
 
@@ -301,16 +301,16 @@
       };
     }
 
-    const urlCode = getCodeFromUrl();
-    if (urlCode) {
-      connect(urlCode);
+    const urlStream = getStreamFromUrl();
+    if (urlStream) {
+      connect(urlStream);
     }
-    document.getElementById("code-submit").addEventListener("click", () => {
-      const code = codeInput.value.trim().toUpperCase();
-      if (code) connect(code);
+    document.getElementById("stream-submit").addEventListener("click", () => {
+      const streamName = streamInput.value.trim().toLowerCase();
+      if (streamName) connect(streamName);
     });
-    codeInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") document.getElementById("code-submit").click();
+    streamInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("stream-submit").click();
     });
   </script>
 </body>

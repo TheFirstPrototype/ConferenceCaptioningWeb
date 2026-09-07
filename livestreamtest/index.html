@@ -109,6 +109,7 @@
         <option value="qwen">Qwen3-ASR (mlx-audio)</option>
         <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
         <option value="apple_speech">Apple SpeechTranscriber (on-device, English only)</option>
+        <option value="dictation_transcriber">Apple DictationTranscriber (on-device, broad language support)</option>
       </select>
     </label>
     <label>
@@ -148,6 +149,7 @@
         <option value="qwen">Qwen3-ASR (mlx-audio, slower)</option>
         <option value="moss_diarize">MOSS (transcription + speaker diarization)</option>
         <option value="apple_speech">Apple SpeechTranscriber (on-device, English only)</option>
+        <option value="dictation_transcriber">Apple DictationTranscriber (on-device, broad language support)</option>
       </select>
     </label>
     <label>
@@ -333,6 +335,7 @@
       qwen: ["Qwen3-ASR-1.7B-8bit"],
       moss_diarize: ["mlx-MOSS-Transcribe-Diarize-4bit"],
       apple_speech: ["speech-transcriber"],
+      dictation_transcriber: ["dictation-transcriber"],
     };
 
     function refreshModelOptions() {

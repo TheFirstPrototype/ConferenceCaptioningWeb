@@ -205,10 +205,11 @@
     <p id="tts-langs-limit-note" style="font-size:0.8rem;color:#777;margin:0.4rem 0 0"></p>
     <label>
       Translated-audio TTS backend
-      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - "MLX" runs entirely on this backend (Kokoro). "Chrome" uses the real Web Speech API through the companion tab + a BlackHole audio-loopback capture - see README "Live translated audio stream - Chrome backend" for the one-time setup this needs.</span>
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - "MLX" runs entirely on this backend (Kokoro). "Chrome (tab capture)" uses the real Web Speech API through the companion tab, captured via getDisplayMedia - the one that actually works, see README. "Chrome (BlackHole)" is kept for reference but confirmed NOT to capture speechSynthesis audio.</span>
       <select id="tts-backend-select">
         <option value="mlx" selected>MLX (Kokoro, on-device)</option>
-        <option value="chrome">Chrome (Web Speech API)</option>
+        <option value="chrome_tabcapture">Chrome (tab capture, Web Speech API)</option>
+        <option value="chrome">Chrome (BlackHole loopback - doesn't work, reference only)</option>
       </select>
     </label>
     <label>

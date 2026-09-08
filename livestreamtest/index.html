@@ -290,11 +290,49 @@
       hu: "Hungarian", mk: "Macedonian", uk: "Ukrainian", bg: "Bulgarian",
       hr: "Croatian", sk: "Slovak", sl: "Slovenian", nb: "Norwegian", he: "Hebrew",
     };
-    const languageOptionsHtml = Object.entries(SOURCE_LANGUAGES)
-      .map(([code, name]) => `<option value="${code}"${code === "en" ? " selected" : ""}>${name}</option>`)
-      .join("");
-    document.getElementById("language-select").innerHTML = languageOptionsHtml;
-    document.getElementById("live-language-select").innerHTML = languageOptionsHtml;
+    // Must match backend/app/asr/languages.py's ENGINE_LANGUAGE_SUPPORT
+    // exactly - `null` means the engine can't force a language at all
+    // (Parakeet/MOSS always auto-detect), so only "Auto-detect" is offered.
+    const ENGINE_LANGUAGE_SUPPORT = {
+      whisper: Object.keys(SOURCE_LANGUAGES).filter((c) => c !== "auto" && c !== "fil" && c !== "nb"),
+      qwen: [
+        "zh", "en", "yue", "ar", "de", "fr", "es", "pt", "id", "it", "ko", "ru",
+        "th", "vi", "ja", "tr", "hi", "ms", "nl", "sv", "da", "fi", "pl", "cs",
+        "fil", "fa", "el", "ro", "hu", "mk",
+      ],
+      moss_diarize: null,
+      parakeet: null,
+      apple_speech: ["en", "fr", "de", "it", "es", "pt", "ja", "ko", "zh", "yue"],
+      dictation_transcriber: [
+        "en", "fr", "de", "it", "es", "pt", "ja", "ko", "zh", "yue", "ar", "ru", "nl",
+        "sv", "da", "fi", "pl", "cs", "el", "ro", "hu", "uk", "vi", "th", "id", "ms",
+        "hi", "tr", "he", "hr", "sk", "nb",
+      ],
+    };
+
+    function languageOptionsHtmlFor(engine) {
+      const allowed = ENGINE_LANGUAGE_SUPPORT[engine];
+      const codes = allowed === undefined
+        ? Object.keys(SOURCE_LANGUAGES)
+        : allowed === null
+          ? ["auto"]
+          : ["auto", ...allowed];
+      return codes
+        .map((code) => `<option value="${code}"${code === "en" && codes.includes("en") ? " selected" : ""}>${SOURCE_LANGUAGES[code]}</option>`)
+        .join("");
+    }
+
+    function refreshLanguageOptions(engineSelectEl, languageSelectEl) {
+      const previous = languageSelectEl.value;
+      languageSelectEl.innerHTML = languageOptionsHtmlFor(engineSelectEl.value);
+      const stillValid = Array.from(languageSelectEl.options).some((opt) => opt.value === previous);
+      languageSelectEl.value = stillValid ? previous : "auto";
+    }
+
+    const engineSelectEl = document.getElementById("engine-select");
+    const languageSelectEl = document.getElementById("language-select");
+    refreshLanguageOptions(engineSelectEl, languageSelectEl);
+    engineSelectEl.addEventListener("change", () => refreshLanguageOptions(engineSelectEl, languageSelectEl));
 
     // -- File upload -----------------------------------------------------
     const uploadResultEl = document.getElementById("upload-result");
@@ -383,6 +421,10 @@
     }
     liveEngineSelect.addEventListener("change", refreshModelOptions);
     refreshModelOptions();
+
+    const liveLanguageSelect = document.getElementById("live-language-select");
+    refreshLanguageOptions(liveEngineSelect, liveLanguageSelect);
+    liveEngineSelect.addEventListener("change", () => refreshLanguageOptions(liveEngineSelect, liveLanguageSelect));
 
     // -- Live translation (Chrome on-device, via a companion tab on the
     // server - see backend/static/translate.html and README "Live

@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ConferenceCaptioning Executive Summary | Real-Time AI Captioning & Translation</title>
+  <meta name="description" content="ConferenceCaptioning provides real-time captions and multilingual translation for conferences and live events using on-device AI, offline-capable technology, and AV-ready workflows.">
+  <link rel="canonical" href="https://conferencecaptioning.com/executive-summary/">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://conferencecaptioning.com/executive-summary/">
+  <meta property="og:title" content="ConferenceCaptioning Executive Summary | Real-Time AI Captioning & Translation">
+  <meta property="og:description" content="On-device AI real-time captioning and multilingual translation for live events, conferences, and broadcast environments.">
+  <meta property="og:image" content="https://conferencecaptioning.com/deck/multilingual.gif">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ConferenceCaptioning",
+    "operatingSystem": "macOS",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Real-time captions and multilingual translation for live events powered by on-device AI."
+  }
+  </script>
+
+  <!-- Analytics Script -->
+  <script src="/js/analyticsLite.js" defer></script>
+
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & RESET
+       ========================================================================== */
+    :root {
+      --brand-primary: #193C5D;
+      --brand-dark: #0B2238;
+      --brand-surface: #102B45;
+      --brand-surface-elevated: rgba(255, 255, 255, 0.04);
+      --brand-surface-hover: rgba(255, 255, 255, 0.08);
+      --brand-border: rgba(255, 255, 255, 0.12);
+      --brand-border-active: rgba(56, 189, 248, 0.4);
+      --accent-cyan: #38BDF8;
+      --accent-teal: #2DD4BF;
+      --text-white: #FFFFFF;
+      --text-soft: #F4F7FA;
+      --text-muted: #AABCCC;
+      --text-dim: #71879c;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --container-max: 1320px;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      background-color: var(--brand-dark);
+      color: var(--text-soft);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: var(--brand-dark);
+      min-height: 100vh;
+    }
+
+    /* Accessibility focus state */
+    :focus-visible {
+      outline: 2px solid var(--accent-cyan);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      background: var(--accent-cyan);
+      color: var(--brand-dark);
+      padding: 0.75rem 1.5rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      z-index: 9999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    /* Typography clamp utilities */
+    h1, h2, h3, h4 {
+      color: var(--text-white);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: clamp(2.3rem, 4.5vw, 3.75rem); }
+    h2 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); }
+    h3 { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+    p { font-size: clamp(1rem, 1.1vw, 1.125rem); color: var(--text-muted); }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-cyan);
+      display: inline-block;
+      margin-bottom: 0.875rem;
+      font-weight: 600;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .section-spacing {
+      padding: clamp(4.5rem, 7vw, 7.5rem) 0;
+      position: relative;
+    }
+
+    /* Rich background treatments */
+    .bg-hero {
+      background: linear-gradient(180deg, rgba(11, 34, 56, 0.78) 0%, rgba(11, 34, 56, 0.15) 100%),
+                  url('https://conferencecaptioning.com/images/full-width-images/section-bg-15.jpg') center/cover no-repeat;
+    }
+
+    .bg-events {
+      background: linear-gradient(180deg, rgba(11, 34, 56, 0.9) 0%, rgba(16, 43, 69, 0.18) 50%, rgba(11, 34, 56, 0.95) 100%),
+                  url('https://conferencecaptioning.com/images/full-width-images/section-bg-18.jpg') center/cover no-repeat fixed;
+    }
+
+    .bg-vision {
+      background: linear-gradient(180deg, rgba(11, 34, 56, 0.92) 0%, rgba(11, 34, 56, 0.15) 50%, rgba(6, 20, 33, 0.96) 100%),
+                  url('https://conferencecaptioning.com/images/full-width-images/section-bg-22.jpg') center/cover no-repeat;
+    }
+
+    .border-b {
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    /* ==========================================================================
+       BUTTONS & CALL-TO-ACTIONS
+       ========================================================================== */
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.625rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-cyan);
+      color: #031726;
+      border: 1px solid var(--accent-cyan);
+    }
+    .btn-primary:hover {
+      background-color: #67e8f9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.06);
+      color: var(--text-white);
+      border: 1px solid var(--brand-border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(11, 34, 56, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--text-white);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+    }
+
+    .hero-headline {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subheadline {
+      font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+      color: var(--text-soft);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.25rem 0;
+    }
+
+    .tag-chip {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: var(--accent-cyan);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-trust {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--brand-border);
+      padding-top: 0.875rem;
+    }
+
+    .media-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #081726;
+      border: 1px solid var(--brand-border);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(56, 189, 248, 0.18);
+    }
+
+    .media-card img,
+    .media-card video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .media-caption {
+      padding: 0.875rem 1.25rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      background: rgba(11, 34, 56, 0.96);
+      border-top: 1px solid var(--brand-border);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22C55E;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #22C55E;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       CLIENT LOGO STRIP (DARK MODE)
+       ========================================================================== */
+    .client-strip {
+      padding: 2.5rem 0;
+      background: rgba(6, 20, 33, 0.75);
+      border-top: 1px solid var(--brand-border);
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    .client-strip-title {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    .client-logo-item {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.75;
+      transition: var(--transition-smooth);
+      filter: brightness(0) invert(1);
+    }
+
+    .client-logo-item:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .client-logo-item img {
+      max-height: 100%;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+    }
+
+    /* ==========================================================================
+       METRICS: AT A GLANCE
+       ========================================================================== */
+    .metrics-bar {
+      background: rgba(16, 43, 69, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(2rem, 3.5vw, 3rem);
+    }
+
+    .metrics-header {
+      margin-bottom: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--brand-border);
+      padding-bottom: 1rem;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 2rem;
+    }
+
+    .metric-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .metric-value {
+      font-size: clamp(2.25rem, 3.5vw, 3.25rem);
+      font-weight: 800;
+      color: var(--accent-cyan);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-family: var(--font-sans);
+    }
+
+    .metric-label {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-white);
+      line-height: 1.3;
+    }
+
+    .metric-detail {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    /* ==========================================================================
+       LIVE SPEED & VIDEO DEMO SECTION
+       ========================================================================== */
+    .video-showcase-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .video-embed-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--brand-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.2);
+    }
+
+    .video-embed-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ==========================================================================
+       15-SECOND 3-STEP SETUP WORKFLOW
+       ========================================================================== */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      margin-top: 3rem;
+    }
+
+    .step-card {
+      background: var(--brand-surface);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+
+    .step-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+    }
+
+    .step-img-wrap {
+      background: #081726;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    .step-img-wrap img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    }
+
+    .step-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex-grow: 1;
+    }
+
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      align-self: flex-start;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       THE PROBLEM & COMPARISON
+       ========================================================================== */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 4vw, 4rem);
+      margin-top: 3rem;
+    }
+
+    .problem-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .problem-point-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--brand-surface-elevated);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+    }
+
+    .point-number {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .comparison-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .comp-col {
+      padding: 1.75rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .comp-old {
+      background: rgba(239, 68, 68, 0.04);
+      border: 1px solid rgba(239, 68, 68, 0.18);
+    }
+
+    .comp-new {
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .comp-header {
+      font-size: 0.8125rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .comp-old .comp-header { color: #FCA5A5; }
+    .comp-new .comp-header { color: var(--accent-cyan); }
+
+    .comp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .comp-old li { color: #CBD5E1; }
+    .comp-new li { color: var(--text-white); font-weight: 500; }
+
+    /* ==========================================================================
+       TECHNOLOGY ARCHITECTURE & FAILOVER
+       ========================================================================== */
+    .arch-diagram {
+      margin-top: 3.5rem;
+      background: #081726;
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(2rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .arch-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .arch-node {
+      padding: 1rem 1.75rem;
+      background: var(--brand-surface);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .arch-engine {
+      width: 100%;
+      max-width: 650px;
+      background: linear-gradient(180deg, rgba(25, 60, 93, 0.9) 0%, rgba(16, 43, 69, 0.9) 100%);
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+    }
+
+    .arch-engine-title {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .arch-engine-features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .arch-engine-pill {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8125rem;
+      color: var(--text-soft);
+    }
+
+    .arch-connector {
+      color: var(--accent-cyan);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .arch-outputs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    .output-card {
+      background: var(--brand-surface-elevated);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .output-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .output-card p {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    .failover-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3.5rem;
+    }
+
+    /* ==========================================================================
+       PRODUCT EXPERIENCE: STAGE, ATTENDEE, BROADCAST
+       ========================================================================== */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .experience-card {
+      background: var(--brand-surface-elevated);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .experience-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex-grow: 1;
+    }
+
+    .experience-media {
+      height: 250px;
+      background: #06121E;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    .experience-media video,
+    .experience-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .experience-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: auto;
+      padding-top: 1rem;
+    }
+
+    .exp-pill {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       MULTILINGUAL & LANGUAGE CHIPS
+       ========================================================================== */
+    .languages-wrapper {
+      margin-top: 3rem;
+      background: rgba(16, 43, 69, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      padding: clamp(2rem, 3vw, 3rem);
+    }
+
+    .lang-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+
+    .lang-chip {
+      background: var(--brand-surface);
+      border: 1px solid var(--brand-border);
+      padding: 0.6rem 1.25rem;
+      border-radius: 30px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .lang-chip:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    .lang-code {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    /* ==========================================================================
+       TARGET AUDIENCES & 4-PILLARS
+       ========================================================================== */
+    .cards-4grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      background: var(--brand-surface-elevated);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+      transition: var(--transition-smooth);
+    }
+
+    .info-card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      background: var(--brand-surface-hover);
+      transform: translateY(-3px);
+    }
+
+    .info-card-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ==========================================================================
+       TRACTION & QUOTES
+       ========================================================================== */
+    .traction-container {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .traction-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .traction-stat-box {
+      background: #081726;
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .traction-stat-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      font-family: var(--font-sans);
+    }
+
+    .traction-stat-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    .quotes-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial-card {
+      background: var(--brand-surface-elevated);
+      border: 1px solid var(--brand-border);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: var(--radius-sm);
+      padding: 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .testimonial-text {
+      font-size: 1.0625rem;
+      color: var(--text-soft);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .testimonial-author {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-name {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--text-white);
+    }
+
+    .author-title {
+      font-size: 0.8125rem;
+      color: var(--text-dim);
+    }
+
+    /* ==========================================================================
+       COMPETITIVE DIFFERENTIATION TABLE
+       ========================================================================== */
+    .table-container {
+      margin-top: 3rem;
+      overflow-x: auto;
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      background: #081726;
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    .comp-table th, 
+    .comp-table td {
+      padding: 1.125rem 1.5rem;
+      border-bottom: 1px solid var(--brand-border);
+    }
+
+    .comp-table th {
+      background: var(--brand-surface);
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .comp-table th.col-highlight {
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.08);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    .comp-table td.col-highlight {
+      background: rgba(56, 189, 248, 0.03);
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    .check-yes {
+      color: #4ADE80;
+      font-weight: 700;
+      font-family: var(--font-mono);
+    }
+
+    .check-no {
+      color: #64748B;
+      font-weight: 400;
+      font-family: var(--font-mono);
+    }
+
+    /* ==========================================================================
+       SEGMENTED EXECUTIVE CTAS & FINAL CALLOUT
+       ========================================================================== */
+    .audience-cta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .audience-cta-card {
+      background: var(--brand-surface);
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-md);
+      padding: 2.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .final-cta-section {
+      padding: 6rem 0;
+      text-align: center;
+      border-top: 1px solid var(--brand-border);
+    }
+
+    .final-cta-content {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: #061421;
+      padding: 4rem 0 2rem 0;
+      border-top: 1px solid var(--brand-border);
+      font-size: 0.875rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: flex-end;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-dim);
+      font-size: 0.8125rem;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE RULES
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .video-showcase-grid,
+      .problem-grid,
+      .failover-showcase,
+      .traction-container,
+      .experience-grid,
+      .workflow-grid,
+      .audience-cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .arch-outputs {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background: var(--brand-dark);
+        flex-direction: column;
+        padding: 2rem;
+        border-bottom: 1px solid var(--brand-border);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .comparison-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .traction-stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="https://conferencecaptioning.com" class="brand-logo" aria-label="ConferenceCaptioning Home">
+        <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo">
+      </a>
+
+      <button class="mobile-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle Navigation Menu">
+        ☰
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#overview">Executive Brief</a></li>
+        <li><a href="#demo">Live Demo</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#traction">Traction</a></li>
+        <li><a href="#differentiation">Comparison</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary btn-sm">Request Demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ==========================================================================
+         HERO SECTION (With subtle 1600x900 background tint)
+         ========================================================================== -->
+    <section class="hero section-spacing bg-hero border-b" id="overview">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div>
+              <span class="eyebrow">Executive Summary</span>
+              <h1 class="hero-headline">Making Every Conference Understandable.</h1>
+            </div>
+
+            <p class="hero-subheadline">
+              Real-time captions and multilingual translation for live events — powered by on-device AI.
+            </p>
+
+            <p>
+              ConferenceCaptioning gives conference organizers and AV production teams a reliable, low-latency way to make spoken presentations fully accessible to Deaf and hard-of-hearing attendees while simultaneously reaching global audiences across languages.
+            </p>
+
+            <div class="hero-tags" aria-label="Key Platform Capabilities">
+              <span class="tag-chip">ON-DEVICE AI</span>
+              <span class="tag-chip">OFFLINE CAPABLE</span>
+              <span class="tag-chip">REAL-TIME CAPTIONS</span>
+              <span class="tag-chip">MULTILINGUAL TRANSLATION</span>
+              <span class="tag-chip">AV-READY</span>
+            </div>
+
+            <div class="btn-group">
+              <a href="#contact" class="btn btn-primary">Request an Executive Demo</a>
+              <a href="#demo" class="btn btn-secondary">Watch Speed Demo (1 Min)</a>
+            </div>
+
+            <p class="hero-trust">
+              Built for conferences, live events, AV production, institutions, houses of worship, and enterprise environments.
+            </p>
+          </div>
+
+          <div class="hero-media-wrapper">
+            <div class="media-card">
+              <img 
+                src="https://conferencecaptioning.com/deck/multilingual.gif" 
+                alt="Stage presentation showing four screens with simultaneous offline translations in Chinese, Bahasa Indonesia, English, and Thai"
+                loading="eager"
+              >
+              <div class="media-caption">
+                <span class="live-dot" aria-hidden="true"></span>
+                <span>One speaker. Multiple languages. Running locally.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CLIENT LOGOS TICKER / DARK MODE STRIP
+         ========================================================================== -->
+    <section class="client-strip" aria-label="Trusted by Organizations">
+      <div class="container">
+        <div class="client-strip-title">Trusted by leading educational institutions, AV producers, &amp; conferences</div>
+        <div class="logo-grid">
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed.png" alt="Client Logo 1" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-2.png" alt="Client Logo 2" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-3.png" alt="Client Logo 3" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-4.png" alt="Client Logo 4" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-5.png" alt="Client Logo 5" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-6.png" alt="Client Logo 6" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-7.png" alt="Client Logo 7" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-8.png" alt="Client Logo 8" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-9.png" alt="Client Logo 9" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-10.png" alt="Client Logo 10" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-11.png" alt="Client Logo 11" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-12.png" alt="Client Logo 12" loading="lazy"></div>
+          <div class="client-logo-item"><img src="https://conferencecaptioning.com/images/slider/unnamed-13.png" alt="Client Logo 13" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         EXECUTIVE SNAPSHOT: AT A GLANCE
+         ========================================================================== -->
+    <section class="section-spacing border-b">
+      <div class="container">
+        <div class="metrics-bar">
+          <div class="metrics-header">
+            <div>
+              <span class="eyebrow">Key Metrics</span>
+              <h2>At a Glance</h2>
+            </div>
+            <p class="arch-engine-pill">Enterprise-Grade Performance</p>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-value">25+</span>
+              <span class="metric-label">Languages Supported</span>
+              <span class="metric-detail">Simultaneous live translation</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-value">Sub-sec</span>
+              <span class="metric-label">Processing Latency</span>
+              <span class="metric-detail">Optimized local execution</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-value">On-Device</span>
+              <span class="metric-label">AI Processing</span>
+              <span class="metric-detail">Zero external API dependencies</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-value">100%</span>
+              <span class="metric-label">Offline Capability</span>
+              <span class="metric-detail">Operates without public internet</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-value">3</span>
+              <span class="metric-label">Display Modalities</span>
+              <span class="metric-detail">Stage • Attendee • Broadcast</span>
+            </div>
+
+            <div class="metric-card">
+              <span class="metric-value">0</span>
+              <span class="metric-label">Data Exploitation</span>
+              <span class="metric-detail">No audio sold to train external AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PRODUCT PERFORMANCE & VIDEO DEMO
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="demo">
+      <div class="container">
+        <div class="video-showcase-grid">
+          <div>
+            <span class="eyebrow">Product In Action</span>
+            <h2>Ultra-low latency. Real event speed.</h2>
+            <p style="margin-top: 0.75rem;">
+              Watch ConferenceCaptioning process continuous spoken presentations with rapid word-by-word accuracy and instant attendee delivery across multiple simultaneous live environments.
+            </p>
+
+            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <div class="state-box" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                <span style="font-weight: 600;">Immediate Speech Recognition</span>
+                <span class="arch-engine-pill" style="color: var(--accent-cyan);">~300ms</span>
+              </div>
+              <div class="state-box" style="background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1);">
+                <span style="font-weight: 600;">Multilingual Output Broadcast</span>
+                <span class="arch-engine-pill" style="color: var(--accent-cyan);">Zero Cloud Delay</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Autoplay Muted 1-Minute Live Demo -->
+            <div class="video-embed-container">
+              <iframe 
+                src="https://www.youtube.com/embed/gF1GJmRAGzM?si=AaZCC6ihUHB9tEB0&autoplay=1&mute=1&loop=1&playlist=gF1GJmRAGzM" 
+                title="ConferenceCaptioning Speed and Live Performance Video" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-dim); text-align: center; margin-top: 0.75rem;">
+              Live production footage showcasing real-time on-screen and mobile delivery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         15-SECOND 3-STEP SETUP WORKFLOW
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="workflow">
+      <div class="container">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+          <span class="eyebrow">Zero Operational Complexity</span>
+          <h2>Live streaming captions in under 15 seconds.</h2>
+          <p style="margin-top: 0.5rem;">
+            Designed to deploy effortlessly on existing event infrastructure without lengthy training or cumbersome hardware installations.
+          </p>
+        </div>
+
+        <div class="workflow-grid">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-img-wrap">
+              <img src="https://conferencecaptioning.com/images/promo-3.png" alt="Download app and start streaming in 15 seconds" loading="lazy">
+            </div>
+            <div class="step-body">
+              <span class="step-badge">STEP 01</span>
+              <h3>Launch &amp; Stream</h3>
+              <p>Launch the application on the host machine, select the audio feed, and instantly generate the live event session QR code.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-img-wrap">
+              <img src="https://conferencecaptioning.com/images/promo-4.jpg" alt="Display QR code on screens and flyers" loading="lazy">
+            </div>
+            <div class="step-body">
+              <span class="step-badge">STEP 02</span>
+              <h3>Share Access</h3>
+              <p>Project the QR code onto main stage screens, print on attendee lanyards, or display at room entrances for seamless room access.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-img-wrap">
+              <img src="https://conferencecaptioning.com/images/promo-5.png" alt="Attendees follow live captions during the conference" loading="lazy">
+            </div>
+            <div class="step-body">
+              <span class="step-badge">STEP 03</span>
+              <h3>Audiences Follow Live</h3>
+              <p>Attendees scan with any standard smartphone camera to follow live captions and choose their preferred language in real time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         THE PROBLEM & COMPARISON
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="problem">
+      <div class="container">
+        <span class="eyebrow">Industry Challenge</span>
+        <h2>Live events still leave people behind.</h2>
+        <p style="max-width: 800px; margin-top: 0.5rem;">
+          Traditional live event environments create significant friction when addressing accessibility compliance and international language support.
+        </p>
+
+        <div class="problem-grid">
+          
+          <div class="problem-points">
+            <div class="problem-point-card">
+              <span class="point-number">1</span>
+              <div>
+                <h4 style="color: var(--text-white); margin-bottom: 0.25rem;">Accessibility Gaps</h4>
+                <p>Deaf and hard-of-hearing attendees rely on accurate, real-time captioning that is frequently omitted due to production complexity.</p>
+              </div>
+            </div>
+
+            <div class="problem-point-card">
+              <span class="point-number">2</span>
+              <div>
+                <h4 style="color: var(--text-white); margin-bottom: 0.25rem;">Language Fragmentation</h4>
+                <p>Multilingual attendees struggle to follow fast-paced keynotes when real-time translation is unavailable or cost-prohibitive.</p>
+              </div>
+            </div>
+
+            <div class="problem-point-card">
+              <span class="point-number">3</span>
+              <div>
+                <h4 style="color: var(--text-white); margin-bottom: 0.25rem;">Network Vulnerability</h4>
+                <p>Cloud-dependent transcription tools introduce an uncontrollable point of failure on congested conference Wi-Fi networks.</p>
+              </div>
+            </div>
+
+            <div class="problem-point-card">
+              <span class="point-number">4</span>
+              <div>
+                <h4 style="color: var(--text-white); margin-bottom: 0.25rem;">Workflow Friction</h4>
+                <p>AV engineers need software that integrates natively into standard video switchers rather than cumbersome standalone workarounds.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="comparison-wrapper">
+            <div class="comp-col comp-old">
+              <div class="comp-header">The Old Model</div>
+              <ul class="comp-list">
+                <li>✕ Cloud connection mandatory</li>
+                <li>✕ Venue internet failure stops service</li>
+                <li>✕ Costly human translation booths</li>
+                <li>✕ Complex standalone hardware</li>
+                <li>✕ Accessibility treated as an afterthought</li>
+                <li>✕ Privacy and transcription data exposed</li>
+              </ul>
+            </div>
+
+            <div class="comp-col comp-new">
+              <div class="comp-header">ConferenceCaptioning</div>
+              <ul class="comp-list">
+                <li>✓ 100% On-device local AI processing</li>
+                <li>✓ Full offline event capability</li>
+                <li>✓ 25+ simultaneous translation channels</li>
+                <li>✓ Direct integration into broadcast AV stacks</li>
+                <li>✓ Accessibility built directly into production</li>
+                <li>✓ Strict data privacy & zero cloud leakage</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TECHNOLOGY ARCHITECTURE
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="technology">
+      <div class="container">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+          <span class="eyebrow">Architecture & Engineering</span>
+          <h2>AI that runs where the event happens.</h2>
+          <p style="margin-top: 0.75rem;">
+            ConferenceCaptioning processes live speech directly on the host machine. By executing optimized transcription and translation models locally, latency drops to near-instantaneous levels while eliminating dependency on venue bandwidth.
+          </p>
+        </div>
+
+        <div class="arch-diagram" aria-label="System Architecture Diagram">
+          <div class="arch-flow">
+            
+            <div class="arch-node" style="border-color: rgba(255,255,255,0.2);">
+              🎤 LIVE SPEAKER AUDIO (XLR / USB / Dante / NDI)
+            </div>
+
+            <div class="arch-connector">↓</div>
+
+            <div class="arch-engine">
+              <div class="arch-engine-title">Local On-Device AI Engine</div>
+              <div class="arch-engine-features">
+                <span class="arch-engine-pill">Neural Transcription</span>
+                <span class="arch-engine-pill">Multilingual Translation Engine</span>
+                <span class="arch-engine-pill">Custom Event Vocabulary Cache</span>
+                <span class="arch-engine-pill">Local LAN Web Socket Server</span>
+              </div>
+            </div>
+
+            <div class="arch-connector">↓</div>
+
+            <div class="arch-outputs">
+              <div class="output-card">
+                <h4>Stage Screens</h4>
+                <p>Direct HDMI / DisplayPort confidence monitors and main stage displays</p>
+              </div>
+
+              <div class="output-card">
+                <h4>Attendee Mobile</h4>
+                <p>Local QR access via personal browser — zero app installation needed</p>
+              </div>
+
+              <div class="output-card">
+                <h4>Broadcast & Production</h4>
+                <p>Native integration with OBS, vMix, ProPresenter, and H2R Graphics</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         OFFLINE CAPABILITY & FAILOVER (With failover.png technical graphic)
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="failover">
+      <div class="container">
+        <div class="failover-showcase">
+          
+          <div>
+            <span class="eyebrow">Enterprise Reliability</span>
+            <h2>When the internet goes down, the captions don't have to.</h2>
+            <p style="margin-top: 1rem;">
+              Production teams cannot gamble on venue internet stability. Because ConferenceCaptioning runs neural models locally, your event remains completely protected from outside connectivity drops.
+            </p>
+
+            <div style="margin-top: 1.5rem;">
+              <h4 style="margin-bottom: 0.5rem; color: var(--accent-cyan);">Multi-System Automatic Failover</h4>
+              <p>
+                A primary and backup Mac operate on the same local network. If the primary host fails or drops audio, the backup system automatically assumes real-time output, complete with configurable retry intervals and alerts.
+              </p>
+            </div>
+
+            <p style="margin-top: 1.25rem; font-size: 0.8125rem; font-family: var(--font-mono); color: var(--accent-cyan);">
+              ✓ Designed for the realities of live mission-critical production.
+            </p>
+          </div>
+
+          <div class="media-card">
+            <img 
+              src="https://conferencecaptioning.com/deck/failover.png" 
+              alt="Technical diagram detailing multi-system automatic failover across local network"
+              loading="lazy"
+            >
+            <div class="media-caption">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span>Primary Mac → Local Network → Backup Mac Failover Architecture</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PRODUCT EXPERIENCE (With NJEA Conference GIF & Attendee Video)
+         ========================================================================== -->
+    <section class="section-spacing bg-events border-b" id="experience">
+      <div class="container">
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+          <span class="eyebrow">Display Modalities</span>
+          <h2>One event. Every audience.</h2>
+          <p style="margin-top: 0.5rem;">
+            Deliver captions and multilingual text across multiple endpoints simultaneously without adding operational overhead.
+          </p>
+        </div>
+
+        <div class="experience-grid">
+          
+          <!-- Stage Card (NJEA Conference GIF) -->
+          <div class="experience-card">
+            <div class="experience-media">
+              <img 
+                src="https://conferencecaptioning.com/deck/english.gif" 
+                alt="New Jersey Education Association Conference live real-time captioning on main stage screens"
+                loading="lazy"
+              >
+            </div>
+            <div class="experience-body">
+              <h3>1. Stage Displays</h3>
+              <p>Project high-contrast captions on main stage screens, side monitors, or downstream confidence displays. Proven live at major events like the NJEA Conference.</p>
+              <div class="experience-tags">
+                <span class="exp-pill">NJEA Conference Case</span>
+                <span class="exp-pill">High Contrast</span>
+                <span class="exp-pill">Confidence Monitors</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendee Card (Attendee MP4 Video) -->
+          <div class="experience-card">
+            <div class="experience-media">
+              <video 
+                src="https://conferencecaptioning.com/deck/attendee.mp4" 
+                autoplay 
+                muted 
+                loop 
+                playsinline
+                aria-label="Attendee viewing real-time translated captions on a mobile device in the audience"
+              ></video>
+            </div>
+            <div class="experience-body">
+              <h3>2. Attendee Devices</h3>
+              <p>Attendees scan a simple QR code at their seat to view live captions on their personal phones or tablets in their preferred language. No app download required.</p>
+              <div class="experience-tags">
+                <span class="exp-pill">Zero App Install</span>
+                <span class="exp-pill">Browser Based</span>
+                <span class="exp-pill">Personal Language Choice</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Broadcast Card -->
+          <div class="experience-card">
+            <div class="experience-media">
+              <div style="padding: 2rem; text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 0.5rem;">📡</span>
+                <span style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent-cyan);">BROADCAST & STREAM INTEGRATION</span>
+              </div>
+            </div>
+            <div class="experience-body">
+              <h3>3. AV &amp; Broadcast Workflow</h3>
+              <p>Seamlessly feed live subtitle overlays into live streaming switchers and production software including OBS, vMix, ProPresenter, and H2R Graphics.</p>
+              <div class="experience-tags">
+                <span class="exp-pill">NDI / RTMP</span>
+                <span class="exp-pill">Lower-Third Overlay</span>
+                <span class="exp-pill">Native Alpha Channel</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         MULTILINGUAL EXPERIENCE
+         ========================================================================== -->
+    <section class="section-spacing border-b">
+      <div class="container">
+        <div class="languages-wrapper">
+          <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+            <span class="eyebrow">Global Reach</span>
+            <h2>Accessibility shouldn't stop at one language.</h2>
+            <p style="margin-top: 0.75rem;">
+              Break international communication barriers. ConferenceCaptioning supports multilingual translation across 25+ major global languages in real time.
+            </p>
+          </div>
+
+          <div class="lang-chips">
+            <div class="lang-chip"><span class="lang-code">EN</span> English</div>
+            <div class="lang-chip"><span class="lang-code">ZH</span> 中文 (Mandarin)</div>
+            <div class="lang-chip"><span class="lang-code">ES</span> Español</div>
+            <div class="lang-chip"><span class="lang-code">ID</span> Bahasa Indonesia</div>
+            <div class="lang-chip"><span class="lang-code">TH</span> ภาษาไทย (Thai)</div>
+            <div class="lang-chip"><span class="lang-code">FR</span> Français</div>
+            <div class="lang-chip"><span class="lang-code">DE</span> Deutsch</div>
+            <div class="lang-chip"><span class="lang-code">JA</span> 日本語 (Japanese)</div>
+            <div class="lang-chip"><span class="lang-code">IT</span> Italiano</div>
+            <div class="lang-chip"><span class="lang-code">PT</span> Português</div>
+            <div class="lang-chip"><span class="lang-code">AR</span> العربية</div>
+            <div class="lang-chip"><span class="lang-code">+15</span> &amp; 15+ more</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TARGET SEGMENTS: WHO IT IS FOR
+         ========================================================================== -->
+    <section class="section-spacing border-b">
+      <div class="container">
+        <span class="eyebrow">Market Focus</span>
+        <h2>Built for the people who make events happen.</h2>
+        
+        <div class="cards-4grid">
+          
+          <div class="info-card">
+            <div class="info-card-icon">AV</div>
+            <h3>AV &amp; Production Companies</h3>
+            <p>Reliable captioning and translation capabilities that slot directly into your existing video switchers and event production stacks.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">EV</div>
+            <h3>Conference Organizers</h3>
+            <p>Elevate overall attendee satisfaction, satisfy accessibility requirements, and expand global attendance appeal.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">EN</div>
+            <h3>Enterprise &amp; Higher Ed</h3>
+            <p>Secure, on-premise accessibility for internal all-hands meetings, academic lectures, training seminars, and executive summits.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">HW</div>
+            <h3>Houses of Worship &amp; Nonprofits</h3>
+            <p>Cost-effective spoken accessibility for diverse communities, multilingual congregations, and large community gatherings.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BUSINESS VALUE PILLARS
+         ========================================================================== -->
+    <section class="section-spacing border-b">
+      <div class="container">
+        <div style="max-width: 800px;">
+          <span class="eyebrow">Strategic Value</span>
+          <h2>Accessibility is not an afterthought. It is part of the event experience.</h2>
+          <p style="margin-top: 0.5rem;">
+            Leading organizations view accessibility not merely as a regulatory requirement, but as a direct driver of audience engagement and retention.
+          </p>
+        </div>
+
+        <div class="cards-4grid">
+          
+          <div class="info-card">
+            <h4 style="color: var(--accent-cyan);">Inclusion</h4>
+            <p>Empower Deaf and hard-of-hearing attendees with equal access to spoken discourse, keynotes, and panel sessions.</p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="color: var(--accent-cyan);">Global Reach</h4>
+            <p>Allow international delegates and attendees to follow presentations seamlessly in their native language.</p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="color: var(--accent-cyan);">Attendee Retention</h4>
+            <p>Improve content comprehension across crowded exhibition halls and acoustically challenging conference centers.</p>
+          </div>
+
+          <div class="info-card">
+            <h4 style="color: var(--accent-cyan);">AV Simplicity</h4>
+            <p>Eliminate costly third-party vendor coordination and replace brittle cloud setups with one reliable, local software engine.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TRACTION & COMMERCIAL MOMENTUM
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="traction">
+      <div class="container">
+        <div class="traction-container">
+          
+          <div>
+            <span class="eyebrow">Commercial Validation</span>
+            <h2>From accessibility innovation to a commercial platform.</h2>
+            <p style="margin-top: 0.75rem;">
+              ConferenceCaptioning has transitioned from a specialized accessibility utility into a robust commercial platform serving event producers, academic institutions, and enterprise organizers across multiple continents.
+            </p>
+
+            <div class="quotes-wrapper">
+              <div class="testimonial-card">
+                <p class="testimonial-text">
+                  “It seems like a no-brainer for every conference to use this technology to make auditory content accessible for all attendees.”
+                </p>
+                <div class="testimonial-author">
+                  <span class="author-name">Tom Phillips</span>
+                  <span class="author-title">Faculty, Apple Developer Academy Detroit</span>
+                </div>
+              </div>
+
+              <div class="testimonial-card">
+                <p class="testimonial-text">
+                  “Easy to use and simple to integrate into our existing setup.”
+                </p>
+                <div class="testimonial-author">
+                  <span class="author-name">Michael Goggins</span>
+                  <span class="author-title">AV Professional, Michigan State University</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="traction-stats-grid">
+            <div class="traction-stat-box">
+              <span class="traction-stat-val">7+</span>
+              <span class="traction-stat-label">Active Commercial Clients</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">Across US &amp; International</span>
+            </div>
+
+            <div class="traction-stat-box">
+              <span class="traction-stat-val">$100K+</span>
+              <span class="traction-stat-label">Qualified Pipeline</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">Conferences &amp; AV partners</span>
+            </div>
+
+            <div class="traction-stat-box">
+              <span class="traction-stat-val">Paid</span>
+              <span class="traction-stat-label">Enterprise Pilots</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">Education, Nonprofits &amp; AV</span>
+            </div>
+
+            <div class="traction-stat-box">
+              <span class="traction-stat-val">Global</span>
+              <span class="traction-stat-label">Deployment Reach</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">Multi-continent event usage</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         COMPETITIVE DIFFERENTIATION
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="differentiation">
+      <div class="container">
+        <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+          <span class="eyebrow">Competitive Matrix</span>
+          <h2>Engineered specifically for production environments.</h2>
+          <p style="margin-top: 0.5rem;">
+            How ConferenceCaptioning compares against traditional human CART services and generic cloud-based transcription tools.
+          </p>
+        </div>
+
+        <div class="table-container">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th scope="col">Capability / Feature</th>
+                <th scope="col">Traditional Human CART</th>
+                <th scope="col">Cloud AI APIs</th>
+                <th scope="col" class="col-highlight">ConferenceCaptioning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">On-Device AI Execution</th>
+                <td><span class="check-no">✕ No</span></td>
+                <td><span class="check-no">✕ No</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ Yes (Local Host)</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">100% Offline Capability</th>
+                <td><span class="check-no">✕ No</span></td>
+                <td><span class="check-no">✕ No</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ Full Offline Support</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">Multilingual Live Translation</th>
+                <td><span class="check-no">✕ Expensive Add-on</span></td>
+                <td><span class="check-yes">✓ Variable</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ 25+ Languages</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">AV Switcher Integration</th>
+                <td><span class="check-no">✕ Complex Cabling</span></td>
+                <td><span class="check-no">✕ Generic Web View</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ Native (OBS/vMix/NDI)</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">Dual-System Automatic Failover</th>
+                <td><span class="check-no">✕ Manual</span></td>
+                <td><span class="check-no">✕ None</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ Automated Heartbeat</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">Zero Audio Data Retention/Sale</th>
+                <td><span class="check-yes">✓ High</span></td>
+                <td><span class="check-no">✕ Cloud Dependent</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ 100% On-Device</span></td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight: 500; color: var(--text-white);">Attendee QR Access</th>
+                <td><span class="check-no">✕ Custom Web Setup</span></td>
+                <td><span class="check-no">✕ App Dependent</span></td>
+                <td class="col-highlight"><span class="check-yes">✓ Instant Browser Access</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         WHY NOW & VISION (With 1600x900 Vision Background)
+         ========================================================================== -->
+    <section class="section-spacing bg-vision border-b">
+      <div class="container">
+        <span class="eyebrow">Strategic Inflection</span>
+        <h2>Why now?</h2>
+        
+        <div class="cards-4grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 2.5rem;">
+          <div class="info-card">
+            <span class="point-number">01</span>
+            <h4>Rising Accessibility Expectations</h4>
+            <p>Regulatory frameworks and societal expectations have made accessibility non-negotiable for enterprise and international events.</p>
+          </div>
+
+          <div class="info-card">
+            <span class="point-number">02</span>
+            <h4>Global, Distributed Audiences</h4>
+            <p>Conferences are more international than ever. Simultaneous multilingual communication is rapidly becoming a standard requirement.</p>
+          </div>
+
+          <div class="info-card">
+            <span class="point-number">03</span>
+            <h4>On-Device Silicon Maturity</h4>
+            <p>Modern hardware silicon now enables powerful neural speech processing locally without relying on fragile cloud APIs.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 5rem; text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;">
+          <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1.15;">
+            “Every voice heard.<br>Every audience included.”
+          </h2>
+          <p style="margin-top: 1.5rem; font-size: 1.15rem; color: var(--text-muted);">
+            Our vision is to make real-time accessibility and multilingual communication a standard foundational element of live production — rather than an expensive, specialized service bolted on after the event is designed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOUNDER & COMPANY BACKGROUND
+         ========================================================================== -->
+    <section class="section-spacing border-b">
+      <div class="container">
+        <div class="hero-grid" style="align-items: center;">
+          
+          <div>
+            <span class="eyebrow">Leadership &amp; Origins</span>
+            <h2>Built from accessibility, not just software.</h2>
+            <p style="margin-top: 1rem;">
+              ConferenceCaptioning was created by a dedicated team with deep technical roots in building assistive communication technologies for the Deaf and hard-of-hearing community through <strong>BeAware</strong>.
+            </p>
+            <p style="margin-top: 0.75rem;">
+              Led by founder <strong>Saamer Mansoor</strong>, a software engineer with extensive experience in real-time communication systems, mobile software, and event accessibility, ConferenceCaptioning combines user-centric empathy with enterprise-grade performance engineering.
+            </p>
+          </div>
+
+          <div style="background: var(--brand-surface); border: 1px solid var(--brand-border); padding: 2.5rem; border-radius: var(--radius-md);">
+            <div class="arch-engine-title" style="margin-bottom: 1rem;">The BeAware Heritage</div>
+            <p style="font-size: 0.9375rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Our algorithms, interfaces, and contrast standards are derived directly from real-world testing alongside Deaf and hard-of-hearing individuals.
+            </p>
+            <div style="border-top: 1px solid var(--brand-border); padding-top: 1rem; font-size: 0.8125rem; font-family: var(--font-mono); color: var(--accent-cyan);">
+              Accessibility-First Architecture
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INVESTOR / STRATEGIC PARTNERSHIP SEGMENTED CTA
+         ========================================================================== -->
+    <section class="section-spacing border-b" id="contact">
+      <div class="container">
+        <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+          <span class="eyebrow">Next Steps</span>
+          <h2>Let's make accessibility standard across every event.</h2>
+          <p style="margin-top: 0.5rem;">
+            Whether you are planning your next major conference, expanding your AV production catalog, or exploring strategic opportunities.
+          </p>
+        </div>
+
+        <div class="audience-cta-grid">
+          
+          <div class="audience-cta-card">
+            <div>
+              <span class="eyebrow">For Organizers</span>
+              <h3>Event Planners &amp; Venues</h3>
+              <p style="margin-top: 0.75rem; font-size: 0.875rem;">
+                Schedule a dedicated demonstration with our live technical team to experience on-device captions and translation on your hardware.
+              </p>
+            </div>
+            <a href="mailto:hello@conferencecaptioning.com?subject=Executive%20Demo%20Request" class="btn btn-primary">Request a Demo</a>
+          </div>
+
+          <div class="audience-cta-card">
+            <div>
+              <span class="eyebrow">For AV Leaders</span>
+              <h3>Production Partners</h3>
+              <p style="margin-top: 0.75rem; font-size: 0.875rem;">
+                Integrate ConferenceCaptioning into your video engineering stacks and offer client accessibility across multiple shows.
+              </p>
+            </div>
+            <a href="mailto:hello@conferencecaptioning.com?subject=AV%20Partnership%20Inquiry" class="btn btn-secondary">Explore Partnership</a>
+          </div>
+
+          <div class="audience-cta-card">
+            <div>
+              <span class="eyebrow">For Investors</span>
+              <h3>Strategic Growth</h3>
+              <p style="margin-top: 0.75rem; font-size: 0.875rem;">
+                Review our full commercial deck, capitalization strategy, and roadmaps directly with the founder.
+              </p>
+            </div>
+            <a href="mailto:hello@conferencecaptioning.com?subject=Investor%20Discussion" class="btn btn-secondary">Talk to Founder</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FINAL CTA
+         ========================================================================== -->
+    <section class="final-cta-section">
+      <div class="container">
+        <div class="final-cta-content">
+          <h2 style="font-size: clamp(2rem, 3.5vw, 3rem);">
+            Your next event can be more accessible — without adding another layer of complexity.
+          </h2>
+          <div class="btn-group">
+            <a href="mailto:hello@conferencecaptioning.com?subject=Executive%20Inquiry" class="btn btn-primary">Request an Executive Briefing</a>
+            <a href="https://conferencecaptioning.com" class="btn btn-secondary">Visit Main Website</a>
+          </div>
+          <p style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--accent-cyan);">
+            hello@conferencecaptioning.com • conferencecaptioning.com
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="https://conferencecaptioning.com" class="brand-logo" aria-label="ConferenceCaptioning Home">
+            <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo">
+          </a>
+          <p style="max-width: 450px; font-size: 0.875rem; color: var(--text-dim);">
+            Real-time captioning &amp; multilingual translation powered by on-device AI. Designed for live events, enterprise conferences, and AV production workflows.
+          </p>
+        </div>
+
+        <ul class="footer-links" aria-label="Footer Quick Links">
+          <li><a href="https://conferencecaptioning.com">Product</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#workflow">Setup</a></li>
+          <li><a href="mailto:hello@conferencecaptioning.com">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ConferenceCaptioning / BeAware. All rights reserved.</p>
+        <p>Built for resilience, performance, and accessibility.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTION SCRIPTS (Vanilla JS)
+       ========================================================================== -->
+  <script>
+    // Responsive Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        navMenu.classList.toggle('active');
+      });
+
+      // Close menu on link click
+      navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Smooth Scroll Offset Adjustment for Sticky Nav
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId !== '#') {
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

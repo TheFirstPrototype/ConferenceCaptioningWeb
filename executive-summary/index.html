@@ -152,7 +152,13 @@
 
     .bg-events {
       background: linear-gradient(180deg, rgba(11, 34, 56, 0.9) 0%, rgba(16, 43, 69, 0.18) 50%, rgba(11, 34, 56, 0.95) 100%),
-                  url('https://conferencecaptioning.com/images/full-width-images/section-bg-18.jpg') center/cover no-repeat fixed;
+                  url('https://conferencecaptioning.com/images/full-width-images/section-bg-18.jpg') center/cover no-repeat;
+    }
+
+    @media (min-width: 1025px) and (pointer: fine) {
+      .bg-events {
+        background-attachment: fixed;
+      }
     }
 
     .bg-vision {
@@ -1284,6 +1290,7 @@
             <div class="btn-group">
               <a href="#contact" class="btn btn-primary">Request an Executive Demo</a>
               <a href="#demo" class="btn btn-secondary">Watch Speed Demo (1 Min)</a>
+              <a href="../deck/investor.html" class="btn btn-secondary" download>View Pitch Deck</a>
             </div>
 
             <p class="hero-trust">
@@ -1349,7 +1356,7 @@
 
           <div class="metrics-grid">
             <div class="metric-card">
-              <span class="metric-value">25+</span>
+              <span class="metric-value" data-countup data-target="25" data-suffix="+">0</span>
               <span class="metric-label">Languages Supported</span>
               <span class="metric-detail">Simultaneous live translation</span>
             </div>
@@ -1367,19 +1374,19 @@
             </div>
 
             <div class="metric-card">
-              <span class="metric-value">100%</span>
+              <span class="metric-value" data-countup data-target="100" data-suffix="%">0</span>
               <span class="metric-label">Offline Capability</span>
               <span class="metric-detail">Operates without public internet</span>
             </div>
 
             <div class="metric-card">
-              <span class="metric-value">3</span>
+              <span class="metric-value" data-countup data-target="3" data-suffix="">0</span>
               <span class="metric-label">Display Modalities</span>
               <span class="metric-detail">Stage • Attendee • Broadcast</span>
             </div>
 
             <div class="metric-card">
-              <span class="metric-value">0</span>
+              <span class="metric-value" data-countup data-target="0" data-suffix="">0</span>
               <span class="metric-label">Data Exploitation</span>
               <span class="metric-detail">No audio sold to train external AI</span>
             </div>
@@ -1727,13 +1734,6 @@
                 loading="lazy"
               >
             </div>
-
-            <div class="experience-media">
-              <div style="padding: 2rem; text-align: center;">
-                <span style="font-size: 3rem; display: block; margin-bottom: 0.5rem;">📡</span>
-                <span style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent-cyan);">BROADCAST & STREAM INTEGRATION</span>
-              </div>
-            </div>
             <div class="experience-body">
               <h3>3. AV &amp; Broadcast Workflow</h3>
               <p>Seamlessly feed live subtitle overlays into live streaming switchers and production software including OBS, vMix, ProPresenter, and H2R Graphics.</p>
@@ -1897,7 +1897,7 @@
 
           <div class="traction-stats-grid">
             <div class="traction-stat-box">
-              <span class="traction-stat-val">7+</span>
+              <span class="traction-stat-val" data-countup data-target="7" data-suffix="+">0</span>
               <span class="traction-stat-label">Active Commercial Clients</span>
               <span style="font-size: 0.75rem; color: var(--text-dim);">Across US &amp; International</span>
             </div>
@@ -2166,7 +2166,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2026 ConferenceCaptioning / BeAware. All rights reserved.</p>
+        <p>&copy; 2026 ConferenceCaptioning. All rights reserved.</p>
         <p>Built for resilience, performance, and accessibility.</p>
       </div>
     </div>
@@ -2194,6 +2194,45 @@
           menuToggle.setAttribute('aria-expanded', 'false');
         });
       });
+    }
+
+    // Scroll-Triggered Count-Up Animation for Stat Numbers
+    const countEls = document.querySelectorAll('[data-countup]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const animateCount = (el) => {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+
+      if (prefersReducedMotion || isNaN(target)) {
+        el.textContent = target + suffix;
+        return;
+      }
+
+      const duration = 1200;
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    if (countEls.length) {
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      countEls.forEach(el => countObserver.observe(el));
     }
 
     // Smooth Scroll Offset Adjustment for Sticky Nav

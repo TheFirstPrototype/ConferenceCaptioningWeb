@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Live Captioning for Mosques</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --ink: #16231f;
+    --ink-2: #4a5a54;
+    --ink-3: #7c8b85;
+    --paper: #f6f4ee;
+    --surface: #ffffff;
+    --surface-2: #eef1ec;
+    --line: #dfe3db;
+    --teal: #0f5c53;
+    --teal-ink: #ffffff;
+    --gold: #b8912f;
+    --good: #2f7a4f;
+    --bad: #b3462c;
+    --shadow: 0 1px 2px rgba(20, 30, 25, 0.06), 0 8px 24px rgba(20, 30, 25, 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #eaf0ec;
+      --ink-2: #b7c2bb;
+      --ink-3: #839087;
+      --paper: #10201b;
+      --surface: #14261f;
+      --surface-2: #1a3129;
+      --line: #24392f;
+      --teal: #4fb3a3;
+      --teal-ink: #0b1a15;
+      --gold: #dcb654;
+      --good: #6fbf85;
+      --bad: #e0795b;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 40px 20px 72px;
+  }
+
+  header.top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .mark {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: linear-gradient(160deg, var(--teal), color-mix(in oklab, var(--teal) 70%, black));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mark svg { width: 22px; height: 22px; }
+  header.top h1 {
+    font-size: 19px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  header.top p {
+    margin: 2px 0 0;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+  .card h2 {
+    font-size: 15px;
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+  .card .hint {
+    color: var(--ink-3);
+    font-size: 13px;
+    margin: 0 0 16px;
+  }
+
+  label.field {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin: 16px 0 6px;
+  }
+  label.field:first-of-type { margin-top: 0; }
+
+  input[type="text"], select {
+    width: 100%;
+    font-size: 15px;
+    font-family: inherit;
+    padding: 11px 13px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+  input[type="text"]:focus, select:focus {
+    outline: 2px solid color-mix(in oklab, var(--teal) 55%, transparent);
+    outline-offset: 1px;
+  }
+  input[type="text"]::placeholder { color: var(--ink-3); }
+
+  .field-error {
+    color: var(--bad);
+    font-size: 12.5px;
+    margin-top: 6px;
+    min-height: 1em;
+  }
+  .field-ok {
+    color: var(--good);
+    font-size: 12.5px;
+    margin-top: 6px;
+    min-height: 1em;
+  }
+
+  .row { display: flex; gap: 12px; }
+  .row > * { flex: 1; min-width: 0; }
+
+  button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-primary {
+    background: var(--teal);
+    color: var(--teal-ink);
+    width: 100%;
+    margin-top: 20px;
+  }
+  .btn-danger {
+    background: var(--bad);
+    color: #fff;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .btn-secondary {
+    background: var(--surface-2);
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    flex-shrink: 0;
+  }
+  .dot.live { background: var(--good); box-shadow: 0 0 0 4px color-mix(in oklab, var(--good) 25%, transparent); }
+  .dot.err { background: var(--bad); }
+  .dot.connecting { background: var(--gold); animation: pulse 1.1s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .status-text { font-size: 13.5px; color: var(--ink-2); font-weight: 500; }
+
+  .transcript-box {
+    margin-top: 16px;
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 16px;
+    max-height: 260px;
+    overflow-y: auto;
+    font-size: 14.5px;
+    color: var(--ink-2);
+  }
+  .transcript-box .placeholder { color: var(--ink-3); font-style: italic; }
+  .transcript-box .translation {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    color: var(--ink);
+  }
+  .transcript-box .translation .tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  [hidden] { display: none !important; }
+
+  footer.note {
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 12px;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3c-3 2.2-4.5 5-4.5 8.2 0 4.1 3 7.4 6.9 7.7-1.1.7-2.4 1.1-3.9 1.1-4.4 0-8-3.6-8-8.1C2.5 7.6 6.7 3.4 12 3z" fill="white"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Live Captioning</h1>
+      <p>For khutbahs, lectures, and announcements</p>
+    </div>
+  </header>
+
+  <section class="card" id="setup-card">
+    <h2>Start a stream</h2>
+    <p class="hint">Enter your mosque's stream name to begin. This is provided by your administrator.</p>
+
+    <label class="field" for="stream-name-input">Stream name</label>
+    <input type="text" id="stream-name-input" placeholder="e.g. your-mosque-name" autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <div class="field-error" id="stream-name-error"></div>
+    <div class="field-ok" id="stream-name-ok"></div>
+
+    <label class="field" for="mic-select">Microphone</label>
+    <select id="mic-select" disabled>
+      <option value="">Allow microphone access to choose a device</option>
+    </select>
+
+    <label class="field" for="lang-select">Live caption translation for attendees</label>
+    <select id="lang-select">
+      <option value="">No translation - English captions only</option>
+    </select>
+
+    <button class="btn-primary" id="start-btn" disabled>Allow microphone &amp; start</button>
+  </section>
+
+  <section class="card" id="live-card" hidden>
+    <div class="status-row">
+      <span class="dot" id="status-dot"></span>
+      <span class="status-text" id="status-text">Connecting...</span>
+    </div>
+    <p class="hint" id="live-stream-label" style="margin-top:8px;"></p>
+
+    <div class="transcript-box" id="transcript-box">
+      <span class="placeholder">Captions will appear here once you start speaking.</span>
+    </div>
+
+    <button class="btn-danger" id="stop-btn">Stop streaming</button>
+  </section>
+
+  <footer class="note">Audio is transcribed on-site and never leaves this session except as text captions.</footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---- Fixed backend configuration ---------------------------------
+  // The ASR engine/model are intentionally hardcoded, never a user
+  // choice - see the project README's live-pipeline WER benchmarks for
+  // why parakeet-tdt-0.6b-v2 was chosen (best accuracy/latency tradeoff
+  // for long-form spoken content under the real VAD-segment pipeline,
+  // not just a batch-file number).
+  const STREAM_HOST = "stream.conferencecaptioning.com";
+  const ASR_ENGINE = "parakeet";
+  const ASR_MODEL = "parakeet-tdt-0.6b-v2";
+  const SOURCE_LANGUAGE = "en";
+
+  // No API key is sent from this page at all - the backend recognizes
+  // requests whose WebSocket "Origin" header is this page's own origin
+  // (see live/router.py's PUBLIC_API_KEY_EXEMPT_ORIGINS) and skips the
+  // key check for them. That only works when this exact file is served
+  // from an origin the backend has been configured to trust - if you
+  // copy this page to a different domain, streaming will be rejected
+  // with a 4401 close code until that origin is added there too.
+
+  const DEAF_API_BASE = "https://api.deafassistant.com";
+  const POST_INTERVAL_MS = 1000;
+
+  // Chrome's on-device Translator API language list (mirrors
+  // live/translation_companion.py's SUPPORTED_LANGUAGES exactly - keep
+  // these two lists in sync if either changes) - "en" excluded since
+  // it's always this page's source language.
+  const TRANSLATION_LANGUAGES = [
+    ["ar", "Arabic"], ["ur", "Urdu"], ["fr", "French"], ["es", "Spanish"],
+    ["tr", "Turkish"], ["id", "Indonesian"], ["bn", "Bengali"], ["hi", "Hindi"],
+    ["so", "Somali"], ["ru", "Russian"], ["zh", "Chinese"], ["de", "German"],
+    ["it", "Italian"], ["pt", "Portuguese"], ["nl", "Dutch"], ["sv", "Swedish"],
+  ];
+  // Only "ur" and "so" aren't in Chrome's Translator API - if selected,
+  // the backend's translation companion has no model for them and no
+  // "translation" messages will ever arrive; the page still streams
+  // captions fine, translation just silently never appears. Kept in
+  // the list anyway since they're common in mosque communities and a
+  // future companion/backend change may add them.
+  const CHROME_SUPPORTED = new Set([
+    "ar", "bg", "bn", "cs", "da", "de", "el", "es", "fi", "fr", "he", "hi",
+    "hr", "hu", "id", "it", "ja", "kn", "ko", "lt", "mr", "nl", "no", "pl",
+    "pt", "ro", "ru", "sk", "sl", "sv", "ta", "te", "th", "tr", "uk", "vi",
+    "zh",
+  ]);
+
+  const el = (id) => document.getElementById(id);
+  const streamNameInput = el("stream-name-input");
+  const streamNameError = el("stream-name-error");
+  const streamNameOk = el("stream-name-ok");
+  const micSelect = el("mic-select");
+  const langSelect = el("lang-select");
+  const startBtn = el("start-btn");
+  const stopBtn = el("stop-btn");
+  const setupCard = el("setup-card");
+  const liveCard = el("live-card");
+  const statusDot = el("status-dot");
+  const statusText = el("status-text");
+  const liveStreamLabel = el("live-stream-label");
+  const transcriptBox = el("transcript-box");
+
+  for (const [code, label] of TRANSLATION_LANGUAGES) {
+    const opt = document.createElement("option");
+    opt.value = code;
+    opt.textContent = CHROME_SUPPORTED.has(code) ? label : `${label} (may be unavailable)`;
+    langSelect.appendChild(opt);
+  }
+
+  let streamNameValid = false;
+  let validatingToken = 0;
+
+  async function validateStreamName() {
+    const name = streamNameInput.value.trim();
+    streamNameOk.textContent = "";
+    streamNameError.textContent = "";
+    streamNameValid = false;
+    updateStartEnabled();
+    if (!name) return;
+
+    const token = ++validatingToken;
+    streamNameError.textContent = "";
+    streamNameOk.textContent = "Checking...";
+    try {
+      const url = `${DEAF_API_BASE}/StreamDesign/IsStreamNameAllowed?streamName=${encodeURIComponent(name)}`;
+      const resp = await fetch(url);
+      if (token !== validatingToken) return; // a newer keystroke superseded this check
+      let allowed = false;
+      const raw = (await resp.text()).trim();
+      // Accept either a bare JSON boolean body ("true") or a plain-text
+      // "true" - the sample only specifies the query shape, not the
+      // exact Content-Type of the response.
+      allowed = raw === "true" || raw === '"true"';
+      if (allowed) {
+        streamNameValid = true;
+        streamNameOk.textContent = "Stream name recognized.";
+      } else {
+        streamNameError.textContent = "This stream name isn't recognized. Check with your administrator.";
+      }
+    } catch (err) {
+      if (token !== validatingToken) return;
+      streamNameError.textContent = "Couldn't verify the stream name - check your connection and try again.";
+    } finally {
+      if (token === validatingToken) streamNameOk.textContent = streamNameValid ? "Stream name recognized." : "";
+      updateStartEnabled();
+    }
+  }
+
+  let debounceTimer = null;
+  streamNameInput.addEventListener("input", () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(validateStreamName, 450);
+  });
+
+  function updateStartEnabled() {
+    startBtn.disabled = !streamNameValid;
+  }
+
+  // ---- Microphone device list (labels only populate once permission
+  // has been granted at least once - see startStreaming()) ----------
+  async function refreshDeviceList(selectDeviceId) {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const inputs = devices.filter((d) => d.kind === "audioinput");
+      micSelect.innerHTML = "";
+      if (inputs.length === 0) {
+        const opt = document.createElement("option");
+        opt.value = "";
+        opt.textContent = "No microphones found";
+        micSelect.appendChild(opt);
+        micSelect.disabled = true;
+        return;
+      }
+      inputs.forEach((d, i) => {
+        const opt = document.createElement("option");
+        opt.value = d.deviceId;
+        opt.textContent = d.label || `Microphone ${i + 1}`;
+        micSelect.appendChild(opt);
+      });
+      micSelect.disabled = false;
+      if (selectDeviceId) micSelect.value = selectDeviceId;
+    } catch (err) {
+      // enumerateDevices can fail in unusual embedding contexts - not
+      // fatal, streaming still works with the browser's default device.
+    }
+  }
+
+  // ---- Streaming state ----------------------------------------------
+  let mediaStream = null;
+  let audioContext = null;
+  let ws = null;
+  let reconnectAttempts = 0;
+  const MAX_RECONNECT_DELAY_MS = 8000;
+  let postTimer = null;
+  let stopping = false;
+
+  // The whole session's transcript so far - segments are final and
+  // non-overlapping (each VAD-detected utterance is transcribed exactly
+  // once, see live/pipeline.py), so simple in-order concatenation gives
+  // the full running transcript with no de-duplication needed.
+  let runningTranscript = "";
+  // Translation is fundamentally different: the backend translates a
+  // ROLLING WINDOW of the last few segments together (for translation
+  // context), not one segment at a time - see live/router.py's
+  // TRANSLATION_WINDOW_SEGMENTS. Consecutive translation messages
+  // therefore re-translate overlapping content. This page follows the
+  // same approach the project's own existing test page uses (see
+  // deploy/public-test-page/index.html's addTranslationLine): each
+  // window's translated text is appended as received, without trying
+  // to algebraically remove the overlap from a re-translated string
+  // (translation isn't word-aligned to the source, so that can't be
+  // done reliably). In practice this means the relayed "translation"
+  // field may contain some repeated phrasing across window boundaries -
+  // a known, documented approximation, not a bug.
+  let runningTranslation = "";
+  let lastPostedTranscript = null;
+  let lastPostedTranslation = null;
+
+  const WORKLET_SOURCE = `
+    class CaptureProcessor extends AudioWorkletProcessor {
+      constructor() {
+        super();
+        this.buffer = [];
+        this.bufferedSamples = 0;
+        this.targetSamplesPerChunk = Math.round(sampleRate * 0.1);
+      }
+      process(inputs) {
+        const input = inputs[0];
+        if (input.length > 0) {
+          const channelData = input[0];
+          this.buffer.push(channelData.slice());
+          this.bufferedSamples += channelData.length;
+          if (this.bufferedSamples >= this.targetSamplesPerChunk) {
+            const merged = new Float32Array(this.bufferedSamples);
+            let offset = 0;
+            for (const block of this.buffer) {
+              merged.set(block, offset);
+              offset += block.length;
+            }
+            const pcm16 = new Int16Array(merged.length);
+            for (let i = 0; i < merged.length; i++) {
+              const clamped = Math.max(-1, Math.min(1, merged[i]));
+              pcm16[i] = clamped < 0 ? clamped * 0x8000 : clamped * 0x7fff;
+            }
+            this.port.postMessage(pcm16.buffer, [pcm16.buffer]);
+            this.buffer = [];
+            this.bufferedSamples = 0;
+          }
+        }
+        return true;
+      }
+    }
+    registerProcessor("capture-processor", CaptureProcessor);
+  `;
+
+  function setStatus(state, text) {
+    statusDot.className = "dot" + (state ? ` ${state}` : "");
+    statusText.textContent = text;
+  }
+
+  function renderTranscript() {
+    if (!runningTranscript && !runningTranslation) {
+      transcriptBox.innerHTML = '<span class="placeholder">Captions will appear here once you start speaking.</span>';
+      return;
+    }
+    let html = escapeHtml(runningTranscript || "");
+    if (runningTranslation) {
+      html += `<div class="translation"><span class="tag">Translation</span><br>${escapeHtml(runningTranslation)}</div>`;
+    }
+    transcriptBox.innerHTML = html;
+    transcriptBox.scrollTop = transcriptBox.scrollHeight;
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function currentStreamName() {
+    return streamNameInput.value.trim();
+  }
+
+  function buildWsUrl() {
+    const streamName = currentStreamName();
+    const targetLang = langSelect.value;
+    let url = `wss://${STREAM_HOST}/live/ws?engine=${encodeURIComponent(ASR_ENGINE)}` +
+      `&model=${encodeURIComponent(ASR_MODEL)}&language=${encodeURIComponent(SOURCE_LANGUAGE)}` +
+      `&stream=${encodeURIComponent(streamName)}&title=${encodeURIComponent(streamName)}`;
+    if (targetLang) url += `&langs=${encodeURIComponent(targetLang)}`;
+    return url;
+  }
+
+  function handleServerPayload(payload) {
+    if (payload.type === "vad_state") {
+      if (ws && ws.readyState === WebSocket.OPEN) setStatus("live", payload.speaking ? "Listening..." : "Live - waiting for speech");
+    } else if (payload.type === "segment") {
+      if (payload.text && payload.text.trim()) {
+        runningTranscript = runningTranscript ? `${runningTranscript} ${payload.text.trim()}` : payload.text.trim();
+        renderTranscript();
+      }
+    } else if (payload.type === "translation") {
+      const targetLang = langSelect.value;
+      const text = payload.translations && payload.translations[targetLang];
+      if (text) {
+        runningTranslation = runningTranslation ? `${runningTranslation} ${text}` : text;
+        renderTranscript();
+      }
+    } else if (payload.type === "error") {
+      setStatus("err", `Error: ${payload.message || "unknown"}`);
+    }
+  }
+
+  function connectWebSocket() {
+    ws = new WebSocket(buildWsUrl());
+    ws.binaryType = "arraybuffer";
+
+    ws.onopen = () => {
+      reconnectAttempts = 0;
+      setStatus("live", "Live - waiting for speech");
+    };
+
+    ws.onmessage = (event) => handleServerPayload(JSON.parse(event.data));
+
+    ws.onclose = (event) => {
+      if (stopping) return;
+      if (event.code === 4401) {
+        setStatus("err", "Connection rejected: this page isn't authorized to stream from this domain.");
+        stopStreaming(false);
+        return;
+      }
+      if (event.code === 1011) {
+        setStatus("err", `Connection rejected: ${event.reason || "server error"}`);
+        stopStreaming(false);
+        return;
+      }
+      if (mediaStream) {
+        const delay = Math.min(1000 * 2 ** reconnectAttempts, MAX_RECONNECT_DELAY_MS);
+        reconnectAttempts += 1;
+        setStatus("connecting", `Reconnecting in ${Math.round(delay / 1000)}s...`);
+        setTimeout(() => { if (mediaStream) connectWebSocket(); }, delay);
+      }
+    };
+
+    ws.onerror = () => setStatus("err", "Connection error");
+  }
+
+  async function postUpdate(active) {
+    const streamName = currentStreamName();
+    if (!streamName) return;
+    const body = {
+      timestamp: new Date().toISOString(),
+      roomName: streamName,
+      description: `${streamName} Accessibility Stream`,
+      transcript: runningTranscript,
+      isActivelyStreaming: active,
+      translation: runningTranslation,
+      inputLanguage: SOURCE_LANGUAGE,
+      outputLanguage: langSelect.value || "",
+      isPremiumCustomer: true,
+    };
+    try {
+      await fetch(`${DEAF_API_BASE}/stream/LiteSmartTranslationAdd`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (err) {
+      // Best-effort relay - a dropped POST doesn't interrupt local
+      // captioning, the next 1s tick just tries again with newer text.
+    }
+  }
+
+  function startPolling() {
+    lastPostedTranscript = null;
+    lastPostedTranslation = null;
+    postTimer = setInterval(() => {
+      if (runningTranscript !== lastPostedTranscript || runningTranslation !== lastPostedTranslation) {
+        lastPostedTranscript = runningTranscript;
+        lastPostedTranslation = runningTranslation;
+        postUpdate(true);
+      }
+    }, POST_INTERVAL_MS);
+  }
+
+  async function startStreaming() {
+    if (!streamNameValid) return;
+    startBtn.disabled = true;
+    stopping = false;
+    runningTranscript = "";
+    runningTranslation = "";
+
+    try {
+      const deviceId = micSelect.value || undefined;
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: deviceId
+          ? { deviceId: { exact: deviceId }, channelCount: 1, sampleRate: 16000, echoCancellation: true }
+          : { channelCount: 1, sampleRate: 16000, echoCancellation: true },
+      });
+    } catch (err) {
+      startBtn.disabled = false;
+      streamNameError.textContent = "Microphone permission was denied - allow access and try again.";
+      return;
+    }
+
+    await refreshDeviceList(micSelect.value);
+
+    audioContext = new AudioContext({ sampleRate: 16000 });
+    const workletBlob = new Blob([WORKLET_SOURCE], { type: "application/javascript" });
+    await audioContext.audioWorklet.addModule(URL.createObjectURL(workletBlob));
+    const source = audioContext.createMediaStreamSource(mediaStream);
+    const worklet = new AudioWorkletNode(audioContext, "capture-processor");
+    worklet.port.onmessage = (event) => {
+      if (ws && ws.readyState === WebSocket.OPEN) ws.send(event.data);
+    };
+    source.connect(worklet);
+
+    setupCard.hidden = true;
+    liveCard.hidden = false;
+    liveStreamLabel.textContent = `Streaming as "${currentStreamName()}"`;
+    setStatus("connecting", "Connecting...");
+    renderTranscript();
+
+    connectWebSocket();
+    startPolling();
+  }
+
+  function stopStreaming(sendFinal = true) {
+    stopping = true;
+    if (mediaStream) {
+      mediaStream.getTracks().forEach((t) => t.stop());
+      mediaStream = null;
+    }
+    if (audioContext) {
+      audioContext.close();
+      audioContext = null;
+    }
+    if (ws) {
+      ws.close();
+      ws = null;
+    }
+    if (postTimer) {
+      clearInterval(postTimer);
+      postTimer = null;
+    }
+    if (sendFinal) postUpdate(false);
+
+    setupCard.hidden = false;
+    liveCard.hidden = true;
+    startBtn.disabled = !streamNameValid;
+  }
+
+  // A first (label-less) device enumeration lets the mic dropdown show
+  // something before permission is granted, on browsers that allow it.
+  refreshDeviceList();
+  micSelect.addEventListener("change", () => {
+    // Switching devices mid-stream requires re-acquiring the media
+    // stream - simplest correct behavior is to restart capture.
+    if (mediaStream) {
+      const wasStreaming = true;
+      stopStreaming(true);
+      if (wasStreaming) startStreaming();
+    }
+  });
+
+  startBtn.addEventListener("click", startStreaming);
+  stopBtn.addEventListener("click", () => stopStreaming(true));
+
+  window.addEventListener("beforeunload", () => {
+    if (mediaStream) postUpdate(false);
+  });
+})();
+</script>
+</body>
+</html>

@@ -50,7 +50,7 @@ We are the only solution that offer's fixed pricing for unlimited usage. Our tie
     *   15-second 3-tap setup and use.
 
 ### Standard Plan
-*   **Price**: $100 per day / $400 per month.
+*   **Price**: $100 per day for smaller events / $400 per month billed annually.
 *   **Best for**: Regular conferences, summits, and recurring monthly events.
 *   **Features**:
     *   Premium streaming servers.
@@ -62,7 +62,7 @@ We are the only solution that offer's fixed pricing for unlimited usage. Our tie
     *   3-day (daily) or 7-day (monthly) free trial with full technical support.
 
 ### Enterprise Plan
-*   **Price**: Contact Sales (`hi@deafassistant.com`).
+*   **Price**: Contact Sales (`hello@conferencecaptioning.com`).
 *   **Best for**: Large corporate events, government organizations, and platforms requiring API integrations.
 *   **Features**:
     *   Ability to make events secret, secure, and private.

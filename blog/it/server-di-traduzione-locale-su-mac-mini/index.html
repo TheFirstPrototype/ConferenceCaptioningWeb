@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,53 +14,54 @@
       href="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
     />
     <title>
-      Como Definir um IP Local Estático no Mac para Redes de Produção AV
+      Come Costruire un Server di Traduzione Locale su Mac Mini | IA On-Device
+      in Tempo Reale
     </title>
     <meta
       name="description"
-      content="Proteja sua rede de AV atribuindo um endereço IP local estático ao seu Mac, essencial para Dante, NDI e servidores de API locais."
+      content="Tutto quello che devi sapere per configurare un Mac Mini dedicato come server di traduzione locale e a latenza zero per i tuoi eventi."
     />
     <meta
       property="og:title"
-      content="Como Definir um IP Local Estático no Mac para Redes de Produção AV"
+      content="Come Costruire un Server di Traduzione Locale su Mac Mini | IA On-Device in Tempo Reale"
     />
     <meta
       property="og:description"
-      content="Proteja sua rede de AV atribuindo um endereço IP local estático ao seu Mac, essencial para Dante, NDI e servidores de API locais."
+      content="Tutto quello che devi sapere per configurare un Mac Mini dedicato come server di traduzione locale e a latenza zero per i tuoi eventi."
     />
     <meta
       property="og:image"
-      content="https://tawk.link/67291e984304e3196add0224/kb/attachments/ndAKhaWJEE.png"
+      content="https://tawk.link/67291e984304e3196add0224/kb/attachments/wwxjyJTcou.png"
     />
     <meta
       property="og:url"
-      content="https://conferencecaptioning.com/blog/pt-br/definir-ip-estatico-local-no-mac-para-producao-av"
+      content="https://conferencecaptioning.com/blog/it/server-di-traduzione-locale-su-mac-mini/"
     />
     <meta property="og:type" content="article" />
     <link
       rel="alternate"
       hreflang="en"
-      href="https://conferencecaptioning.com/blog/how-to-set-a-static-local-ip-address-on-mac-av/"
+      href="https://conferencecaptioning.com/blog/how-to-build-a-local-translation-server-on-mac-mini/"
     />
     <link
       rel="alternate"
       hreflang="es"
-      href="https://conferencecaptioning.com/blog/es/ip-estatica-local-en-mac-para-produccion-av/"
+      href="https://conferencecaptioning.com/blog/es/servidor-de-traduccion-local-en-mac-mini/"
     />
     <link
       rel="alternate"
       hreflang="fr"
-      href="https://conferencecaptioning.com/blog/fr/ip-statique-locale-sur-mac-pour-la-production-av/"
+      href="https://conferencecaptioning.com/blog/fr/serveur-de-traduction-locale-sur-mac-mini/"
     />
     <link
       rel="alternate"
       hreflang="pt-BR"
-      href="https://conferencecaptioning.com/blog/pt-br/definir-ip-estatico-local-no-mac-para-producao-av/"
+      href="https://conferencecaptioning.com/blog/pt-br/servidor-de-traducao-local-no-mac-mini/"
     />
     <link
       rel="alternate"
       hreflang="it"
-      href="https://conferencecaptioning.com/blog/it/come-impostare-un-ip-locale-statico-su-mac-per-reti-di-produzione-av/"
+      href="https://conferencecaptioning.com/blog/it/server-di-traduzione-locale-su-mac-mini/"
     />
     <link
       rel="stylesheet"
@@ -70,12 +71,12 @@
       {
         "@context": "https://schema.org",
         "@type": "Article",
-        "headline": "Como Definir um IP Local Estático no Mac para Redes de Produção AV",
-        "description": "Proteja sua rede de AV atribuindo um endereço IP local estático ao seu Mac, essencial para Dante, NDI e servidores de API locais.",
-        "image": "https://tawk.link/67291e984304e3196add0224/kb/attachments/ndAKhaWJEE.png",
+        "headline": "Come Costruire un Server di Traduzione Locale su Mac Mini | IA On-Device in Tempo Reale",
+        "description": "Tutto quello che devi sapere per configurare un Mac Mini dedicato come server di traduzione locale e a latenza zero per i tuoi eventi.",
+        "image": "https://tawk.link/67291e984304e3196add0224/kb/attachments/wwxjyJTcou.png",
         "author": { "@type": "Person", "name": "Saamer Mansoor" },
-        "datePublished": "2025-10-24",
-        "dateModified": "2026-10-24"
+        "datePublished": "2026-01-05",
+        "dateModified": "2026-01-05"
       }
     </script>
     <link
@@ -122,25 +123,25 @@
             <a
               href="https://conferencecaptioning.com"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
-              >Início</a
+              >Home</a
             ><a
               href="https://conferencecaptioning.com#about"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
-              >Sobre</a
+              >Chi Siamo</a
             ><a
               href="https://conferencecaptioning.com#features"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
-              >Recursos</a
+              >Funzionalità</a
             ><a
               href="https://conferencecaptioning.com#pricing"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
-              >Planos</a
+              >Prezzi</a
             ><a
               href="https://conferencecaptioning.com#contact"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
-              >Contato</a
+              >Contatti</a
             ><a
-              href="https://conferencecaptioning.com/blog/pt-br/"
+              href="https://conferencecaptioning.com/blog/it/"
               class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
               >Blog</a
             >
@@ -148,7 +149,7 @@
               <button
                 class="text-white hover:text-indigo-200 text-sm font-medium transition-colors flex items-center gap-1 py-4"
               >
-                Soluções<svg
+                Soluzioni<svg
                   class="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
@@ -168,15 +169,15 @@
                 <a
                   href="https://conferencecaptioning.com/av-production.html"
                   class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
-                  >Engenheiros de AV e Radiodifusão</a
+                  >Tecnici AV e Broadcasting</a
                 ><a
                   href="https://conferencecaptioning.com/event-organizers.html"
                   class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
-                  >Planejadores e Organizadores de Eventos</a
+                  >Organizzatori di Eventi</a
                 ><a
                   href="https://conferencecaptioning.com/church-live-translation-transcription.html"
                   class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
-                  >Igrejas e Capelas</a
+                  >Chiese e Cappelle</a
                 >
               </div>
             </div>
@@ -196,7 +197,7 @@
                     stroke-width="2"
                     d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
                   ></path></svg
-                >Português<svg
+                >Italiano<svg
                   class="w-4 h-4 opacity-80"
                   fill="none"
                   stroke="currentColor"
@@ -255,7 +256,7 @@
                   stroke-width="2"
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 ></path></svg
-              >Testar Agora</a
+              >Prova Ora</a
             >
           </nav>
         </div>
@@ -266,7 +267,7 @@
         <header class="mb-12 text-center max-w-3xl mx-auto">
           <div class="mb-6">
             <a
-              href="https://conferencecaptioning.com/blog/pt-br/category/technology/"
+              href="/blog/category/technology/"
               class="inline-block text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-4 py-1.5 rounded-full hover:bg-[#193C5D]/20 transition-colors"
               >Tecnologia</a
             >
@@ -274,7 +275,8 @@
           <h1
             class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-slate-900"
           >
-            Como Definir um IP Local Estático no Mac para Redes de Produção AV
+            Come Costruire un Server di Traduzione Locale su Mac Mini | IA
+            On-Device in Tempo Reale
           </h1>
           <div
             class="text-slate-500 flex items-center justify-center gap-4 font-medium text-sm"
@@ -283,233 +285,259 @@
               ><img
                 class="rounded"
                 src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
-                alt="Rosto de Saamer" /></a
+                alt="Il volto di Saamer" /></a
             ><span>Saamer Mansoor</span><span>•</span
-            ><time>23 de outubro de 2025</time>
+            ><time>4 gennaio 2026</time>
           </div>
         </header>
         <div
           class="prose prose-lg prose-slate max-w-none prose-h1:text-4xl prose-h1:font-bold prose-h1:tracking-tight prose-h1:text-slate-900 prose-h2:text-2xl prose-h2:font-bold prose-h2:tracking-tight prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-slate-900 prose-p:text-slate-600 prose-a:text-[#193C5D] hover:prose-a:text-[#112940] prose-img:rounded-xl prose-img:border prose-img:border-slate-200"
         >
           <h2>
-            Domine as configurações manuais de IPv4 e as reservas de DHCP para
-            garantir comunicação sem interrupções entre os dispositivos da sua
-            rede local
+            Guida a Sottotitoli Privati e a Bassa Latenza e Traduzioni
+            Multilingue per Istituti Scolastici
           </h2>
           <p>
-            Definir um endereço IP local fixo garante que seus computadores de
-            transcrição principal e reserva sempre consigam se encontrar,
-            mesmo que o roteador da rede local reinicie durante o
-            evento.<br />No macOS, você pode fazer isso de duas formas:
-            configurando manualmente um IP Estático no próprio Mac, ou
-            criando uma Reserva de DHCP no roteador da sua rede. Veja como
-            fazer as duas.
+            ConferenceCaptioning offre una soluzione unica &quot;imposta e
+            dimentica&quot; per gli istituti scolastici. Sfruttando l&#x27;IA
+            On-Device, puoi trasformare un Mac Mini in un dispositivo di
+            traduzione dedicato che offre traduzioni arabo-inglese (e
+            viceversa) a bassa latenza, private e affidabili per studenti e
+            personale.
           </p>
-          <h3>Método 1: Definindo um IP Estático Manual no macOS</h3>
+          <h3>Hardware Consigliato e Ingresso Audio</h3>
           <p>
-            Como mostrado na imagem abaixo, este é o método mais rápido caso
-            você não tenha acesso administrativo ao roteador ou switch da
-            rede:
+            Per garantire prestazioni fluide durante l&#x27;esecuzione dei
+            modelli linguistici per trascrizione e traduzione, consigliamo le
+            seguenti specifiche:
           </p>
-          <p><strong>Passo 1: Abra os Ajustes de Rede</strong></p>
-          <ol>
-            <li>
-              Clique no Menu Apple () no canto superior esquerdo da tela e
-              selecione Ajustes do Sistema...
-            </li>
-            <li>Na barra lateral, clique em Rede.</li>
-          </ol>
-          <p><strong>Passo 2: Selecione Sua Interface de Rede</strong></p>
-          <ol>
-            <li>
-              Clique na conexão de rede ativa que você está usando para o
-              evento (ex.: Ethernet ou Wi-Fi).
-            </li>
-            <li>
-              Clique no botão Detalhes... ao lado do status da sua rede
-              conectada.
-            </li>
-          </ol>
-          <p><strong>Passo 3: Configure o IPv4 Manualmente</strong></p>
-          <ol>
-            <li>
-              Na janela pop-up, clique na aba TCP/IP na barra lateral. Anote
-              os valores de &quot;Endereço IP&quot;, &quot;Máscara de
-              sub-rede&quot; e &quot;Roteador&quot;
-            </li>
-            <li>
-              Ao lado de Configurar IPv4, altere o menu suspenso de <em
-                >Usando DHCP</em
-              > para Manualmente.
-            </li>
-          </ol>
-          <p><strong>Passo 4: Insira os Dados da Sua Rede</strong></p>
-          <p>Você precisará informar três dados essenciais:</p>
           <ul>
             <li>
-              <p>
-                Endereço IP: informe o IP específico que você deseja que este
-                Mac mantenha (ex.: 192.168.1.50).
-              </p>
-              <blockquote>
-                <p>
-                  <em
-                    >Observação: certifique-se de que esse endereço IP esteja
-                    fora do intervalo automático de DHCP do seu roteador para
-                    evitar conflito de IP com outro dispositivo. Você pode
-                    simplesmente usar o endereço IP que já foi copiado para o
-                    seu bloco de notas acima, no Passo 3.</em
-                  > 
-                </p>
-              </blockquote>
+              <strong>Processore:</strong> È richiesto un chip Apple Silicon
+              (M1 o superiore). Il Neural Engine di questi chip è ciò che
+              gestisce l&#x27;elaborazione IA.
             </li>
             <li>
-              <p>
-                Máscara de sub-rede: para a maioria das redes locais de AV
-                padrão, será 255.255.255.0 ou o valor que você anotou acima no
-                Passo 3.
-              </p>
+              <strong>Memoria (RAM):</strong> 16GB sono altamente consigliati
+              per i modelli &quot;Multilingue&quot; per evitare rallentamenti
+              durante sessioni lunghe.
             </li>
             <li>
-              <p>
-                Roteador: informe o endereço IP do gateway local do seu
-                roteador (normalmente 192.168.1.1 ou 192.168.0.1, ou o que
-                você anotou no Passo 3 acima).
-              </p>
-            </li>
-          </ul>
-          <p>Clique em OK e depois em Aplicar para salvar a configuração.</p>
-          <p>
-            <img
-              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/ndAKhaWJEE.png"
-              alt="Captura de tela do método 1 feito visualmente"
-            />
-          </p>
-          <h3>Método 2: Configurando uma Reserva de DHCP (Recomendado)</h3>
-          <p>
-            Também conhecido como &quot;DHCP Estático&quot; ou
-            &quot;Reserva de IP&quot;, este método é configurado diretamente
-            no roteador da sua rede. É o método preferido entre técnicos de
-            AV profissionais porque centraliza toda a gestão de IPs em um só
-            lugar.
-          </p>
-          <p>
-            <strong
-              >Passo 1: Encontre o Endereço MAC (Hardware) do Seu Mac</strong
-            >
-          </p>
-          <p>
-            Seu roteador precisa conhecer o identificador físico exclusivo do
-            hardware do seu Mac para sempre atribuir a ele o mesmo endereço
-            IP.
-          </p>
-          <ol>
-            <li>
-              Vá em Ajustes do Sistema &gt; Rede e clique em Detalhes... na
-              sua conexão ativa.
-            </li>
-            <li>Clique na aba Hardware na barra lateral.</li>
-            <li>
-              Copie a sequência do Endereço MAC (no formato
-              00:1A:2B:3C:4D:5E).
-            </li>
-          </ol>
-          <p>
-            <strong
-              >Passo 2: Faça Login no Painel de Administração do Seu
-              Roteador</strong
-            >
-          </p>
-          <ol>
-            <li>Abra um navegador no seu Mac.</li>
-            <li>
-              Digite o endereço IP do gateway do seu roteador na barra de
-              URL (ex.: 192.168.1.1) e pressione Enter.
-            </li>
-            <li>
-              Faça login usando as credenciais do administrador da rede.
-            </li>
-          </ol>
-          <p><strong>Passo 3: Mapeie a Reserva de IP</strong></p>
-          <ol>
-            <li>
-              Navegue até a aba de configurações de rede, geralmente
-              chamada de Servidor DHCP, Configuração de LAN ou Reserva de IP.
-            </li>
-            <li>Clique em Adicionar Novo ou Reservar IP.</li>
-            <li>
-              Preencha os campos de mapeamento:
+              <strong>Ingresso Audio:</strong> Se macOS riconosce la fonte come
+              dispositivo Microfono/Input, il software funzionerà.
               <ul>
-                <li>Nome do Dispositivo: ex., Backup-Captioning-Mac</li>
                 <li>
-                  Endereço MAC: cole o endereço de hardware que você copiou
-                  no Passo 1.
+                  <em>Consiglio:</em> Usa un&#x27;interfaccia audio USB di alta
+                  qualità o un convertitore XLR-USB per portare audio pulito
+                  dal mixer audio della sala al Mac Mini.
                 </li>
                 <li>
-                  Endereço IP: atribua o endereço IP local específico que
-                  você deseja fixar permanentemente para esta máquina.
+                  <em>Verifica:</em> Vai su <strong
+                    >Impostazioni di Sistema &gt; Suono &gt; Ingresso</strong
+                  >. Assicurati che le barre del livello di ingresso si
+                  muovano quando viene riprodotto audio.
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            <img
+              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/ZNvB6By0Do.png"
+              alt="Screenshot delle Impostazioni del Sistema Audio su Mac"
+            />
+          </p>
+          <h3>Configurazione Iniziale e Attivazione</h3>
+          <ol>
+            <li>
+              <strong>Installa</strong>: Scarica l&#x27;ultima versione di
+              ConferenceCaptioning dal Mac App Store.
+            </li>
+            <li>
+              <strong>Attiva Premium</strong>:
+              <ul>
+                <li>Apri l&#x27;app → Seleziona Event Organizer.</li>
+                <li>
+                  Fai clic sul pulsante Info (in alto a destra) → Seleziona
+                  Attiva.
+                </li>
+                <li>
+                  Accedi o Registrati. Una volta fatto, &quot;Consenti&quot;
+                  al browser di reindirizzare di nuovo all&#x27;app. Dovresti
+                  vedere &quot;Premium Stream Attivato.&quot;
                 </li>
               </ul>
             </li>
             <li>
-              Salve as configurações e reinicie ou reconecte seu Mac à
-              rede.
+              <strong>Scarica i Modelli IA</strong>:
+              <ul>
+                <li>Seleziona la casella &quot;Usa IA On-Device&quot;.</li>
+                <li>
+                  Imposta l&#x27;Accuratezza su Multilingue. Questo è
+                  fondamentale per poter passare da una lingua all&#x27;altra
+                  (Es: Arabo-Inglese e Inglese-Arabo)
+                </li>
+                <li>
+                  Fai clic su Scarica Modello IA. Questo potrebbe richiedere
+                  alcuni minuti a seconda della velocità di internet.
+                </li>
+              </ul>
             </li>
           </ol>
           <p>
             <img
-              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/SZ6q_7M8NI.png"
-              alt=""
+              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/taGLxkvWjS.png"
+              alt="Screenshot 1 dei passaggi di attivazione dell'account"
             />
           </p>
-          <blockquote>
-            <p>
-              <strong
-                >Dicas Profissionais para Gestão de Rede de AV:</strong
-              ><br />Evite Conflitos de IP: se você definiu um IP estático
-              manualmente pelo Método 1, certifique-se de que o endereço IP
-              escolhido não esteja sendo atribuído ativamente ao celular ou
-              tablet de alguém pelo roteador.<br />Cabo em Vez de Sem Fio:
-              para configurações de redundância, sempre use um adaptador
-              físico USB-C para Ethernet. Quedas no sinal de Wi-Fi podem fazer
-              o aplicativo iniciar prematuramente uma sequência de failover.
-            </p>
-          </blockquote>
+          <p>
+            <img
+              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/mntYd8CjWu.png"
+              alt="Screenshot 2 dei passaggi di attivazione dell'account"
+            />
+          </p>
+          <h3>Configurazione del Flusso di Traduzione</h3>
+          <p>
+            Una volta pronto il modello IA di base, devi configurare la coppia
+            di traduzione specifica:
+          </p>
+          <ol>
+            <li>
+              Seleziona la lingua verso cui vuoi tradurre <em>(destinazione)</em
+              > (ad es. Arabo) e fai clic su Crea Premium Stream.
+            </li>
+            <li>
+              Nella pagina dello Stream, seleziona la casella Translation+.
+            </li>
+            <li>
+              Scarica il Modello di Traduzione: scarica nello specifico i
+              moduli Arabo e Inglese finché lo stato non mostra
+              &quot;Attivo.&quot;
+            </li>
+            <li>
+              Imposta la Direzione: attiva le lingue correttamente. Es: deve
+              indicare &quot;Arabo verso Inglese&quot; per la traduzione
+              arabo-inglese
+            </li>
+            <li>Vai in Diretta: tocca Avvia Streaming Live.</li>
+            <li>
+              Il Codice QR: espandi il codice QR. Puoi stamparlo o mostrarlo
+              sulla porta dell&#x27;aula; rimarrà lo stesso per questo stream.
+              Seleziona &quot;Avvia lo streaming immediatamente&quot; per
+              saltare la pagina di destinazione per gli studenti.
+            </li>
+          </ol>
+          <p>
+            <img
+              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/A8hD7BgCp2.png"
+              alt="Screenshot 3 dei passaggi di attivazione dell'account"
+            />
+          </p>
+          <hr />
+          <h3>Gestione Remota (Il Server &quot;Headless&quot;)</h3>
+          <p>
+            Poiché il Mac Mini spesso si trova in un rack server senza
+            monitor, puoi gestirlo da qualsiasi laptop/tablet/dispositivo sulla
+            stessa rete locale.
+          </p>
+          <ol>
+            <li>
+              Sull&#x27;app del Mac Mini, fai clic sul pulsante Info (i) nella
+              pagina dello Stream.
+            </li>
+            <li>
+              Copia l&#x27;URL fornito (ad es., <a
+                href="http://192.168.1.50:8080/index.html"
+                >http://192.168.1.50:8080/index.html</a
+              >).
+            </li>
+            <li>
+              Sostituisci la parola index nell&#x27;URL con control (ad es.,
+              <a
+                href="http://192.168.1.50:8080/control.html"
+                >http://192.168.1.50:8080/control.html</a
+              >).
+            </li>
+            <li>
+              Apri questo URL sul tuo telefono o laptop. Ora puoi Scambiare le
+              Lingue (Inglese ↔ Arabo) oppure Avviare/Fermare lo stream da
+              remoto senza bisogno di un mouse o di una tastiera collegati al
+              Mac.
+            </li>
+          </ol>
+          <p>
+            <img
+              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/wwxjyJTcou.png"
+              alt="Screenshot che mostra come controllare l'app da remoto"
+            />
+          </p>
+          <h3>Automazione: Riavvio Automatico in Caso di Interruzione di Corrente</h3>
+          <p>
+            Per garantire che il servizio di traduzione sia sempre disponibile
+            anche dopo un blackout o un riavvio del sistema:
+          </p>
+          <ol>
+            <li>Crea un nuovo file di testo chiamato &quot;auto-restart.sh&quot;</li>
+            <li>
+              Incolla il contenuto di
+              <a
+                href="https://gist.github.com/saamerm/f83a6573776c696e6539ae4432542746"
+                >questo gist di GitHub</a
+              > nel file
+            </li>
+            <li>Apri il Terminale ed esegui &quot;sh auto-restart.sh&quot;</li>
+            <li>
+              Questo script monitora l&#x27;app e assicura che, se il Mac Mini
+              si riavvia, il software si avvii e riprenda lo streaming
+              automaticamente.
+            </li>
+          </ol>
+          <h3>Visualizzazione dell&#x27;Output</h3>
+          <p>
+            A seconda della configurazione della tua aula, hai due modi per
+            mostrare le traduzioni:
+          </p>
+          <ul>
+            <li>
+              <strong>Per gli Studenti</strong>: ricevono semplicemente
+              l&#x27;URL dello stream o scansionano il codice QR e guardano le
+              traduzioni live e la trascrizione sui propri dispositivi
+              (telefoni/tablet).
+            </li>
+            <li>
+              <strong>Per gli Schermi in Aula</strong>:
+              <ul>
+                <li>
+                  Semplice: usa la nostra <a
+                    href="https://conferencecaptioning.tawk.help/article/how-to-add-live-captions-translations-to-propresenter"
+                    >guida per la sovrapposizione su Presentazioni</a
+                  > per mostrare i sottotitoli sopra a Canva/Slides/Keynote.
+                </li>
+                <li>
+                  Avanzato: usa l&#x27;<a
+                    href="https://conferencecaptioning.tawk.help/article/how-to-add-live-captions-translations-to-propresenter"
+                    >integrazione con ProPresenter</a
+                  > per un mixaggio video di livello professionale sugli
+                  schermi dell&#x27;auditorium.
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
         <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
-          <h3 class="text-2xl font-bold mb-3">Proteger sua rede de AV é o instinto certo.</h3>
-          <p class="text-slate-200 mb-6 max-w-2xl">O ConferenceCaptioning foi projetado para operar nessa mesma rede isolada e sem acesso à internet externa — sem necessidade de conexão de saída, então uma falha na legendagem nunca é o motivo que derruba o seu evento. Temos prazer em conversar sobre como isso se encaixa na sua cadeia de sinal.</p>
+          <h3 class="text-2xl font-bold mb-3">Stai già eseguendo la traduzione sul tuo hardware?</h3>
+          <p class="text-slate-200 mb-6 max-w-2xl">Questa è esattamente la filosofia su cui si basa ConferenceCaptioning: IA on-device senza dipendenza dal cloud, senza bisogno di internet e niente che si blocchi appena la rete della sede va giù. Se lo stai valutando rispetto a un server basato su cloud, parliamone insieme.</p>
           <div class="flex flex-wrap gap-4">
-            <button onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#193C5D] font-bold hover:bg-slate-100 transition-colors">Fazer uma pergunta técnica</button>
-            <a href="https://conferencecaptioning.com/av-production.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">Ver especificações completas de AV &rarr;</a>
+            <button onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#193C5D] font-bold hover:bg-slate-100 transition-colors">Fai una domanda tecnica</button>
+            <a href="https://conferencecaptioning.com/av-production.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">Vedi tutte le specifiche AV &rarr;</a>
           </div>
         </div>
         <div class="mt-24 pt-12 border-t border-slate-200">
           <h2 class="text-2xl font-bold mb-8 text-slate-900 tracking-tight">
-            Artigos Relacionados
+            Articoli Correlati
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <a
-              href="https://conferencecaptioning.com/blog/how-to-add-live-captions-translations-to-propresenter/"
-              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
-              ><div class="flex items-center gap-2 mb-1">
-                <span
-                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
-                  >Technology</span
-                >
-              </div>
-              <h3
-                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-              >
-                How to Add Live Captions &amp; Translations to ProPresenter
-              </h3>
-              <p class="text-slate-600 text-sm line-clamp-2">
-                A step-by-step guide to integrating live, real-time AI captions
-                directly into your ProPresenter workflow for immersive event
-                experiences.
-              </p></a
-            ><a
-              href="https://conferencecaptioning.com/blog/live-captions-translations-for-any-slide-deck-presentation/"
+              href="/blog/live-captions-translations-for-any-slide-deck-presentation/"
               class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
               ><div class="flex items-center gap-2 mb-1">
                 <span
@@ -525,6 +553,25 @@
               <p class="text-slate-600 text-sm line-clamp-2">
                 Learn how to easily layer live captions and instant translations
                 over any Keynote, PowerPoint, or Google Slides presentation.
+              </p></a
+            ><a
+              href="/blog/how-to-set-a-static-local-ip-address-on-mac-av/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Technology</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                How to Set a Static Local IP Address on Mac for AV Production
+                Networks
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                Lock down your AV network by assigning a static local IP address
+                to your Mac, crucial for Dante, NDI, and local API servers.
               </p></a
             >
           </div>
@@ -547,9 +594,9 @@
               ></a
             >
             <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-              O sistema de tradução e legendagem de eventos, em tempo real e
-              no próprio dispositivo, mais rápido e confiável do mundo para
-              profissionais de AV.
+              Il sistema di traduzione e sottotitolazione per eventi, in tempo
+              reale e interamente sul dispositivo, più veloce e affidabile al
+              mondo per i professionisti AV.
             </p>
             <div class="flex space-x-4">
               <a
@@ -557,7 +604,7 @@
                 title="Vimeo"
                 target="_blank"
                 class="text-slate-500 hover:text-white transition-colors"
-                ><span class="sr-only">Perfil do Vimeo</span
+                ><span class="sr-only">Vimeo profile</span
                 ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path
                     d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.466-2.24 1.399L.637 7.728c1.586-1.306 3.172-2.705 4.758-4.198 1.96-1.866 3.266-2.752 3.918-2.659 1.493.186 2.333 1.586 2.52 4.198.28 4.292.56 6.531.84 6.718.466.466 1.166.046 2.099-1.26 1.026-1.492 1.633-2.659 1.82-3.498.28-1.306-.234-1.959-1.54-1.959-.56 0-1.073.14-1.54.42 1.026-3.359 3.032-4.992 6.018-4.898 2.332.093 3.359 1.492 3.08 4.198l-.187.374z"
@@ -607,28 +654,28 @@
             <h3
               class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
             >
-              Soluções
+              Soluzioni
             </h3>
             <ul class="space-y-3">
               <li>
                 <a
                   href="https://conferencecaptioning.com/av-production.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Engenheiros de AV e Radiodifusão</a
+                  >Tecnici AV e Broadcasting</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com/event-organizers.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Planejadores e Organizadores de Eventos</a
+                  >Organizzatori di Eventi</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com/church-live-translation-transcription.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Igrejas e Capelas</a
+                  >Chiese e Cappelle</a
                 >
               </li>
             </ul>
@@ -637,7 +684,7 @@
             <h3
               class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
             >
-              Avaliações e Conformidade
+              Valutazioni e Conformità
             </h3>
             <ul class="space-y-3">
               <li>
@@ -645,28 +692,28 @@
                   href="https://conferencecaptioning.com/ada-compliance-certification.pdf"
                   target="_blank"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Certificação de Conformidade ADA</a
+                  >Certificazione di Conformità ADA</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com/arabic.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Avaliação de Precisão em Árabe</a
+                  >Valutazione di Precisione in Arabo</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com/japanese.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Avaliação de Precisão em Japonês</a
+                  >Valutazione di Precisione in Giapponese</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com/italian.html"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Avaliação de Precisão em Italiano</a
+                  >Valutazione di Precisione in Italiano</a
                 >
               </li>
             </ul>
@@ -675,21 +722,21 @@
             <h3
               class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
             >
-              Empresa
+              Azienda
             </h3>
             <ul class="space-y-3">
               <li>
                 <a
                   href="https://conferencecaptioning.com#about"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Sobre Nós</a
+                  >Chi Siamo</a
                 >
               </li>
               <li>
                 <a
                   href="https://conferencecaptioning.com#contact"
                   class="text-slate-400 hover:text-white transition-colors text-sm"
-                  >Contato</a
+                  >Contatti</a
                 >
               </li>
               <li>

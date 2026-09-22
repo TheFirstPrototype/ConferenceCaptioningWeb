@@ -2,3 +2,10 @@
 *.sass.map
 *.scss.map
 .DS_Store
+
+# Parakeet ASR model weights: uploaded directly to Hostinger via SFTP, not
+# through git (well over GitHub's 100MB per-file push limit). The Hostinger
+# webhook does a `git pull` in place, so these untracked files persist on the
+# server across deploys as long as they're never committed here.
+models/parakeet-v2/
+models/parakeet-v3/

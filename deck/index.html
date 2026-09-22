@@ -402,6 +402,31 @@
       pointer-events: none;
     }
 
+    .watch-youtube-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10, 23, 38, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .watch-youtube-btn:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+    }
+
     /* Slide 2: Problem Grid */
     .problem-grid {
       display: grid;
@@ -798,6 +823,193 @@
       background: linear-gradient(90deg, #193c5d, #38bdf8);
       transition: width 0.35s ease;
     }
+
+    /* ==========================================================================
+       MOBILE LAYOUT
+       This deck is built as a fixed 16:9 projected presentation (vw/vh units,
+       absolutely-positioned full-bleed slides, multi-column grids). None of that
+       fits a phone screen, so below this breakpoint we drop the "slide" model
+       entirely and render each slide as a normal stacked, scrollable section.
+       ========================================================================== */
+    @media (max-width: 768px) {
+      html, body {
+        height: auto;
+        overflow: auto;
+      }
+
+      .deck-container {
+        display: block;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        background: var(--bg-dark);
+      }
+
+      .slide {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 42px);
+        padding: 20px 20px 40px 20px;
+        transform: none !important;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      .slide-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .header-content {
+        max-width: 100%;
+      }
+
+      .slide-title {
+        font-size: 1.6rem;
+      }
+
+      .slide-subtitle {
+        font-size: 0.9rem;
+      }
+
+      /* Collapse every multi-column layout to a single column */
+      .hero-layout,
+      .demo-split,
+      .av-slide-layout,
+      .multilingual-layout,
+      .failover-split,
+      .problem-grid,
+      .grid-2x2,
+      .grid-3x2,
+      .steps-row,
+      .promo-gallery,
+      [style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        gap: 14px !important;
+      }
+
+      .workflow-container {
+        flex-direction: column;
+        gap: 10px;
+        margin: 12px 0;
+      }
+
+      .workflow-connector {
+        width: 2px;
+        height: 20px;
+        transform: rotate(0deg);
+      }
+
+      .workflow-connector::after {
+        content: '▼';
+        right: -4px;
+        top: auto;
+        bottom: -3px;
+      }
+
+      .video-frame-container {
+        height: 200px;
+      }
+
+      .phone-housing {
+        width: 200px;
+        height: 380px;
+      }
+
+      .media-box {
+        height: 220px !important;
+      }
+
+      .failover-media img {
+        max-height: 220px;
+      }
+
+      .signal-flow {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .biz-diagram {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .biz-diagram > div[style*="font-size: 1.4rem"] {
+        transform: rotate(90deg);
+      }
+
+      .logo-grid-static {
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .logo-ticker-track {
+        gap: 6vw;
+      }
+
+      .glass-card {
+        padding: 14px 16px;
+      }
+
+      .problem-card {
+        padding: 22px 18px;
+      }
+
+      .step-box {
+        padding: 20px 16px;
+      }
+
+      .promo-card {
+        min-height: 220px;
+      }
+
+      .promo-card-overlay {
+        padding: 14px 14px;
+      }
+
+      /* Bottom bar with big centered CTAs and small side logo strip
+         no longer fits on one line */
+      .slide[data-slide="10"] > div[style*="justify-content: space-between"] {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 20px;
+      }
+
+      .slide[data-slide="10"] > div[style*="justify-content: space-between"] > div[style*="max-width: 45%"] {
+        max-width: 100% !important;
+      }
+
+      .bottom-statement {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: 0.78rem;
+        margin-top: 24px;
+        padding-top: 14px;
+        padding-bottom: 20px;
+      }
+
+      .slide {
+        padding-bottom: 70px;
+      }
+
+      .deck-hud {
+        height: 42px;
+        padding: 0 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -840,10 +1052,14 @@
             <div class="media-overlay-badge">
               <span class="live-indicator"></span> LIVE BENCHMARK SPEED
             </div>
-            <iframe 
-              src="https://www.youtube-nocookie.com/embed/gF1GJmRAGzM?autoplay=1&mute=1&controls=0&loop=1&playlist=gF1GJmRAGzM&playsinline=1&modestbranding=1&rel=0" 
-              title="ConferenceCaptioning Live Latency Demo" 
-              allow="autoplay; encrypted-media" 
+            <a href="https://www.youtube.com/watch?v=gF1GJmRAGzM" target="_blank" rel="noopener" class="watch-youtube-btn" style="pointer-events: all;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Watch on YouTube
+            </a>
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/gF1GJmRAGzM?autoplay=1&mute=1&controls=0&loop=1&playlist=gF1GJmRAGzM&playsinline=1&modestbranding=1&rel=0"
+              title="ConferenceCaptioning Live Latency Demo"
+              allow="autoplay; encrypted-media"
               allowfullscreen>
             </iframe>
           </div>

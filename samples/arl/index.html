@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARL 2025: What Your Captions Would Have Looked Like</title>
+<meta name="description" content="We ran ConferenceCaptioning's Rapid tier against footage from ARL's own 2025 Fall Forum keynote. Here's exactly what would have been on screen, unedited, start to finish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1726;
+    --bg-2: #10223a;
+    --bg-3: #142a47;
+    --ink: #f4f7fa;
+    --ink-2: #aabccc;
+    --ink-3: #71879c;
+    --accent: #38bdf8;
+    --accent-dim: #1f9cd1;
+    --accent-soft: rgba(56, 189, 248, 0.14);
+    --line: rgba(244, 247, 250, 0.12);
+    --line-strong: rgba(244, 247, 250, 0.22);
+    --shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+    --serif-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+    --serif-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif-body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--serif-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ---------- Header ---------- */
+  header.site {
+    border-bottom: 1px solid var(--line);
+    padding: 22px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .logos {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .logos img { height: 28px; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.92; }
+  .logos img.arl-logo { height: 34px; }
+  .logo-x {
+    font-family: var(--mono);
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-2);
+    letter-spacing: 0.02em;
+    text-align: right;
+    max-width: 340px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 88px 0 70px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -160px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: start;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 4.4vw, 3.4rem);
+    line-height: 1.08;
+    margin: 14px 0 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero p.lede {
+    font-size: 1.12rem;
+    color: var(--ink-2);
+    max-width: 48ch;
+    margin: 0 0 28px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .hero-meta div { display: flex; flex-direction: column; gap: 2px; }
+  .hero-meta .num {
+    font-family: var(--serif-display);
+    font-size: 1.5rem;
+    color: var(--ink);
+  }
+  .hero-meta .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+  }
+
+  /* live reveal card */
+  .reveal-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 26px 22px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .reveal-card .rc-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .rc-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    margin-right: 7px;
+    box-shadow: 0 0 0 0 rgba(56,189,248,0.5);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(56,189,248,0.5); }
+    70% { box-shadow: 0 0 0 7px rgba(56,189,248,0); }
+    100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+  }
+  .rc-label {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .rc-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid rgba(56,189,248,0.35);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  #hero-transcript {
+    font-family: var(--serif-body);
+    font-size: 1.06rem;
+    color: var(--ink);
+    min-height: 130px;
+  }
+  #hero-transcript .cursor {
+    display: inline-block;
+    width: 2px; height: 1.1em;
+    background: var(--accent);
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .rc-foot {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- Section shell ---------- */
+  section {
+    padding: 84px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section:last-of-type { border-bottom: none; }
+  .section-head {
+    max-width: 660px;
+    margin-bottom: 44px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    margin: 12px 0 14px;
+  }
+  .section-head p {
+    color: var(--ink-2);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  /* reveal-on-scroll */
+  .fx {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  }
+  .fx.in { opacity: 1; transform: translateY(0); }
+  .fx-d1 { transition-delay: 0.08s; }
+  .fx-d2 { transition-delay: 0.16s; }
+  .fx-d3 { transition-delay: 0.24s; }
+
+  /* ---------- Accuracy excerpt ---------- */
+  .compare-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .excerpt-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12.5px;
+  }
+  .excerpt-tabs button {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-2);
+    padding: 7px 13px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .excerpt-tabs button.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .excerpt-tabs button:hover { border-color: var(--ink-2); color: var(--ink); }
+
+  .rapid-legend {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+  }
+  .rapid-legend .swatch { width: 9px; height: 9px; border-radius: 3px; display: inline-block; background: var(--accent); }
+
+  .excerpt-panel {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 34px 36px 36px;
+    box-shadow: var(--shadow);
+  }
+  .excerpt-panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--line-strong);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .excerpt-name {
+    font-family: var(--serif-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .excerpt-tagline {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .excerpt-text {
+    font-size: 1.08rem;
+    color: var(--ink-2);
+    min-height: 160px;
+    max-width: 72ch;
+  }
+  .excerpt-text mark {
+    background: transparent;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  .compare-note {
+    margin-top: 18px;
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    font-style: italic;
+    max-width: 70ch;
+  }
+
+  /* ---------- On stage ---------- */
+  .stage-demo {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .stage-media {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    background: #000;
+    position: relative;
+  }
+  .stage-media img { width: 100%; height: auto; display: block; }
+  .stage-media-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(180deg, rgba(10,23,38,0) 0%, rgba(10,23,38,0.92) 70%);
+    padding: 30px 18px 14px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stage-copy h3 {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+  }
+  .stage-copy p {
+    color: var(--ink-2);
+    margin: 0 0 14px;
+  }
+  .stage-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+  .stage-list li {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .stage-list li::before {
+    content: "—";
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 760px) {
+    .stage-demo { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Full transcript reveal ---------- */
+  .transcript-shell {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .transcript-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    gap: 14px;
+  }
+  .transcript-toggle:hover { color: var(--accent); }
+  .transcript-toggle .chev {
+    display: inline-block;
+    transition: transform 0.25s ease;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .transcript-toggle.open .chev { transform: rotate(180deg); }
+  .transcript-body {
+    display: none;
+    border-top: 1px solid var(--line);
+    padding: 8px 36px 36px;
+    max-height: 620px;
+    overflow-y: auto;
+  }
+  .transcript-body.open { display: block; }
+  .transcript-body p {
+    font-size: 1rem;
+    color: var(--ink-2);
+    max-width: 74ch;
+    margin: 22px 0 0;
+  }
+  .transcript-body p:first-child { margin-top: 22px; }
+
+  /* ---------- Value props ---------- */
+  .props-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .prop-card {
+    background: var(--bg-2);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .prop-icon {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+  }
+  .prop-card h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .prop-card p {
+    color: var(--ink-2);
+    font-size: 0.94rem;
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .props-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .props-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    text-align: center;
+    padding: 90px 0 70px;
+  }
+  .cta h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin: 12px auto 16px;
+    max-width: 24ch;
+  }
+  .cta p { color: var(--ink-2); max-width: 46ch; margin: 0 auto 30px; }
+  .cta-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    padding: 13px 26px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #051826;
+    font-weight: 600;
+  }
+  .btn-primary:hover { background: #67e8f9; text-decoration: none; }
+  .btn-secondary {
+    border-color: var(--line-strong);
+    color: var(--ink-2);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding: 26px 0 40px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap header-row">
+    <div class="logos">
+      <img class="cc-logo" src="https://conferencecaptioning.com/images/logo-white.svg" alt="Conference Captioning">
+      <span class="logo-x">&times;</span>
+      <img class="arl-logo" src="https://www.arl.org/wp-content/themes/arl-wp/assets/imgs/logo.svg" alt="Association of Research Libraries">
+    </div>
+    <div class="header-tag">A simulation built from footage of ARL's own 2025&nbsp;Fall&nbsp;Forum keynote</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow fx in">Prepared for ARL &middot; Knoxville, Tennessee</div>
+      <h1 class="fx in fx-d1">Here's what your screen would have looked like. <em>Word for word, under a second behind.</em></h1>
+      <p class="lede fx in fx-d2">We took footage of Derek Alderman and Rev. Renee Kessler's keynote on restorative cartography and the Beck Cultural Exchange Center from your 2025 Fall Forum and ran it through our Rapid captioning engine &mdash; the same engine that would have been running live on your stage. Nothing below has been touched up.</p>
+      <div class="hero-meta fx in fx-d3">
+        <div><span class="num">61</span><span class="lbl">Minutes simulated</span></div>
+        <div><span class="num">&lt;1s</span><span class="lbl">Latency, mic to screen</span></div>
+        <div><span class="num">0</span><span class="lbl">Cloud services used</span></div>
+      </div>
+    </div>
+    <div class="reveal-card fx in fx-d2">
+      <div class="rc-top">
+        <span class="rc-label"><span class="rc-dot"></span>Simulated live feed &mdash; Rapid</span>
+        <span class="rc-badge">&lt;1s latency &middot; offline</span>
+      </div>
+      <div id="hero-transcript"></div>
+      <div class="rc-foot">
+        <span>speaker: R. Kessler</span>
+        <span id="hero-timer">00:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="compare">
+  <div class="wrap">
+    <div class="section-head fx">
+      <div class="eyebrow">The Accuracy</div>
+      <h2>This is what your audience would have read.</h2>
+      <p>Every word below came directly out of our Rapid engine &mdash; nothing has been hand-corrected. Browse a few moments from across the full hour to see how it holds up on proper nouns, institution names, and unscripted asides, the hardest thing for any ASR model to get right on a first pass.</p>
+    </div>
+
+    <div class="compare-controls fx">
+      <div class="excerpt-tabs" role="tablist" aria-label="Choose transcript excerpt">
+        <button class="active" data-excerpt="0">Opening remarks</button>
+        <button data-excerpt="1">Institutional archive</button>
+        <button data-excerpt="2">&ldquo;A library burns to the ground&rdquo;</button>
+      </div>
+      <div class="rapid-legend"><span class="swatch"></span>Rapid tier, unedited</div>
+    </div>
+
+    <div class="excerpt-panel fx">
+      <div class="excerpt-panel-head">
+        <span class="excerpt-name">Rapid</span>
+        <span class="excerpt-tagline">&lt;1s latency &middot; premium accuracy</span>
+      </div>
+      <div class="excerpt-text" id="panel-rapid"></div>
+    </div>
+    <p class="compare-note fx">Underlined words mark the names and institutions worth a close read &mdash; and where the engine got them right in real time, with no dictionary priming beyond what ships by default.</p>
+  </div>
+</section>
+
+<section id="stage">
+  <div class="wrap">
+    <div class="section-head fx">
+      <div class="eyebrow">On Your Screen</div>
+      <h2>This is what it looks like at the podium.</h2>
+      <p>Not a lab demo &mdash; the same lower-third caption treatment that would have run live behind Derek and Renee, legible from the back row and synced to the word.</p>
+    </div>
+
+    <div class="stage-demo">
+      <div class="stage-media fx">
+        <img src="https://conferencecaptioning.com/deck/multilingual.gif" alt="Example of ConferenceCaptioning's live on-stage caption display across multiple screens">
+        <div class="stage-media-caption">
+          <span class="rc-dot" style="margin-right:0;"></span>
+          Live example &middot; on-stage caption display
+        </div>
+      </div>
+      <div class="stage-copy fx fx-d1">
+        <h3>Built for the room, not the demo.</h3>
+        <p>Captions render live at the bottom of the stage screen (or a dedicated side monitor) as the speaker talks &mdash; no cloud round-trip, no buffering, no drift between the voice and the words.</p>
+        <ul class="stage-list">
+          <li>High-contrast, large-format captions readable from the back of the hall</li>
+          <li>Runs entirely on local hardware in the room &mdash; no dependence on venue Wi-Fi</li>
+          <li>Same feed can carry a QR code for attendees who want it on their own phone, in their own language</li>
+        </ul>
+        <a class="btn btn-secondary" href="https://conferencecaptioning.com/deck/index.html?slide=8" target="_blank" rel="noopener">See it in the deck &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="full-transcript">
+  <div class="wrap">
+    <div class="section-head fx">
+      <div class="eyebrow">The Full Session</div>
+      <h2>Or read the whole hour.</h2>
+      <p>The complete, unedited simulated transcript of the keynote &mdash; nothing corrected, nothing cut. This is the same text that would have scrolled across your stage screen in real time.</p>
+    </div>
+
+    <div class="transcript-shell fx">
+      <button class="transcript-toggle" id="transcriptToggle" aria-expanded="false" aria-controls="transcriptBody">
+        <span>Show the full 61-minute transcript</span>
+        <span class="chev">&#9660;</span>
+      </button>
+      <div class="transcript-body" id="transcriptBody">
+        <p>With that, I'm pleased to kick things off. You're in for a treat. I have two dear friends. I'm gonna invite to the stage in a moment. The Reverend Renee Kessler and Professor Derek Alderman. Reverend Kessler is president of the Beck Cultural Exchange Centre, which is the primary repository and archive of African American history and culture for East Tennessee and the greater region. Derek Alderman is chancellor's professor, former department head of the Department of Geography and Sustainability, and the immediate past president of our faculty senate.</p>
+      <p>So, I just love Derek and Renee. They're good friends, great partners, great collaborators, and they're just great citizens of the world, of the community, of the university. So, They're going to talk about restorative cartography, a restorative cartography collaboration between the UT, Department of Geography, and the Beck Centre here in Knoxville. The story of urban renewal and displacement in Knoxville is a local story that is also universal. This partnership is a set of local relationships, but it's also a model of community engaged. scholarship.</p>
+      <p>Please join me in welcoming to our state, to the stage, Derek Alderman and the Reverend Renee Kessler. I think I had asked, uh, for the Rolling Stones to be my intro, but, uh, uh, good morning, everybody. All right, it's a tough crowd already. You had a nice breakfast. I saw that earlier. So, thank you for that very kind introduction and on behalf of my co-presenter, Renee Kessler. Allow me to express our gratitude for the opportunity to address you today. And before we begin, I want to recognise the excellent work of our dean of UT Library, Steve Smith.</p>
+      <p>Steve has been a transformative force on our campus. He's a tireless supporter of research, teaching, and outreach. Thank you, Dean Smith. And to have it on the record, Steve did not ask me to say that. So our presentation today is organised around 2 goals. First, we want to deepen your understanding of Knoxville as a place. It's local histories, its institutions, its cultures of advocacy. Conferences take place in cities shaped by social struggles. And those social struggles often remain invisible in meeting rooms and visitor centres. Places carried layered stories.</p>
+      <p>And we have a responsibility to listen to and learn from the communities who make those places meaningful. Many of us at University of Tennessee take the take that responsibility very seriously and work to amplifying Knoxville's overlooked and marginalised place histories. That commitment guides much of our university's partnership with the cultural centre and with the fabulous Renee Kessler. And I'm delighted to serve as the warm up act for one of the crown jewels of our local community, that being Renee. And I need to talk very fast to get Renee up here, and that's not easy to do with this southern draw.</p>
+      <p>So that's all right, it's okay to laugh at me. Under Reverend Kessler's leadership, the bank has become a key place where UT faculty staff and students learn about the history of Knoxville's African-American community and support its preservation and its interpretation. Our second major goal of the day is introduce a research project that has helped frame several years of collaborations between the Beck Centre and many of our geography faculty and students at UT. That project is called The Living Black Atlas. It focusses on black on how black communities, many times working beyond the confines of science or the academy, have long engaged in creative and resistant forms of mapping and geographic storytelling as part of living against and beyond racism.</p>
+      <p>The Beck Centre offers a powerful example of that tradition of the living Black Atlas. But the living black Atlas is found wherever black communities have used maps, memory, and place-based knowledge to resist erasure, to heal from discrimination, and to reclaim a belonging. The Living Black Atlas redefines in a very fundamental way. What a map is. Who counts as a map maker? And what social work maps can and should do in the world? I would also suggest, given the nature of this conference, that the Atlas offers some powerful ways of rethinking the relationship between research libraries, map collections, and community engagement.</p>
+      <p>Working with Josh Inwood, a collaborator of mine at Penn State. I 1st began to rethink maps while studying the student nonviolent coordinating committee. As many of you perhaps know, Snick was an important 1960s youth led grassroots civil rights organisation. What a lot of folks perhaps don't realise is that Snick engaged in mapping. As part of its campaign against white supremacy, Snick produced traditional maps and statistical tables that documented racial inequality across the deep South. But Snick also produced more unconventional looking power maps, like the ones shown here, to track and challenge social networks that upheld segregation.</p>
+      <p>Our conceptualisation of the Living Black Atlas brings together three things. And I'll do my best not to engage in a lengthy lit review, which is a natural academic tendency. Again a very tough room. The 1st the 1st is black geographies, which is an interdisciplinary approach that centres black ways of knowing, inhabiting, and remaking the world. The 2nd is critical cartographies. The study of how maps reflect and shape social power and struggles for social justice. Third and most importantly, the living Black Atlas is informed by the brilliance of the African American community itself.</p>
+      <p>The Atlas works to recover those moments when black organisers, black educators, black clergy, entrepreneurs, and ordinary citizens created and used maps to protest racism, to educate for change, to travel within hostile landscapes, and to plan a more just future. The Beck Centre is part of that tradition of community brilliance. And that's why I'm so honoured to be on stage with you, Renee. The back, like, part of this tradition that I'm describing sees maps, not merely as spatial tools, but as practises for reaffirming the value of black lives, histories, and places.</p>
+      <p>Mapping is inseparable from what noted geographer Catherine McKitrick calls black livingness. The active assertion of black humanity, memory, creativity, and resistance against marginalisation. The living black Atlas offers a very important intervention for professional geographic researchers like me. It provokes me, provokes us, to conceive of mapping and more ethical, adaptable, and community centred ways, to see maps beyond industry standards, scientific conventions, and academic agendas. You see. There we go. So, uh, projected on the screen that you see are 4 examples of the living black Atlas set in different eras, producing different kinds of maps.</p>
+      <p>Importantly, these maps were created by women of colour, who have played leading roles in what bell hooks would call talking back to authority. Please meet NAACPs, Madeline Allison, who map lynching murders in the early 20th century to advocate for federal legislation, to protect African Americans. Please also meet Louise Jefferson, a Harlem Renaissance artist who created a 1946 map of Black America, celebrating figures and landmarks absent for most school and library cartographies at the time. More recently, there is the We, the People of Detroit, a female collective, who is mapping income and racial injustices, and what are utilities shut offs in the city's neighbourhoods?</p>
+      <p>And my favourite of all time is Tanika Lewis Johnson, who uses photography and interviews to fold Chicago's gridded street map. She brings residents from the north and south sides of the same segregated street together to talk about racism. Each of these maps carries an ethical lesson. Maps have the capacity to undermine longstanding boundaries and inequalities. Maps have the capacity to rework social relationships. They have the capacity to be reparative. Here we go. That reparative capacity of the living black Atlas exists precisely because it challenges a long history of oppressive and exclusionary mapping by officials.</p>
+      <p>Maps were technologies of colonial power historically, helping chart Africa for conquests, extraction, and enslavement. cartography underwrote 20th century redlining. and the displacement of communities of colour, through urban planning, gentrification, and highway construction. Even among well intended researchers, journalists, and policymakers, there's still a tradition of reducing black people in places to dehumanise data points. The Living Black Atlas pushing pushes back explicitly upon that tendency. It creates an avenue for highlighting black dignity and agency, and the way maps can serve more socially just ends.</p>
+      <p>Importantly, the Living Black Atlas refuses to see mapping as the exclusive domain of scientific experts or government elites or boring geographers like me. Instead, it recognises that black mapping traditions can reshape the very meaning and practice of research. So I will repeat that. These black mapping traditions can reshape the very meaning and practice of research. The Living Black Atlas is helping nurture a growing generation of universities, scholars, and GIS professionals committed to equity, anti-racism, and public engagement through mapping.</p>
+      <p>I'm very excited to tell you that our students at UT's geography programme are already beginning to engage in these ideas. including through our GIS and community course, which I will you'll hear more about in just a moment. To fully appreciate the living black Atlas requires us to question and rethink the nature of the map. What is it? What does it look like? How does it function? The atlas is not just a collection, a map, artefacts, it's a dynamic set of resilient and creative practises that give expression to a black sense of place. It includes artistic and everyday political forms that move beyond what is traditionally defined as maps or data.</p>
+      <p>The living black Atlas is etched into a wide array of visual images, stories, movements, and landscapes of the black experience. Within the living Black Atlas, the body itself can serve as a way of mapping as it moves and forms social and spatial connections and self-determined ways. The Atlas lives at African-American festivals, family reunions, and neighbourhood remembrance parties. These events remap and rejoin communities split apart by slavery. segregation, urban renewal and gentrification. The Atlas can also be seen in the guided tours of Paris led by educator and travel entrepreneur Monique Wells.</p>
+      <p>He's a very good friend of a lot of us here at University of Tennessee. Her tours use walking and storytelling to recover a black France. at risk of being forgotten. In particular, she maps and preserves the legacy of Knoxville born artist Buford Delaney, who made Paris a vital part of his life and his creative journey. The transformative part of the Living Black Atlas lies in pushing geographic researchers like me and others to rethink the concept of wear itself. Many of us think wear is pretty unproblematic. But for African American communities, wear has never just been a set of neutral coordinates.</p>
+      <p>It has never been a fixed locations on a map. Rather, the question of where is an active negotiation of life. It's bound up in black people's struggles over visibility, mobility, memory, belonging, within a world that has often not made a place for them. And the living black Atlas, wear is not simply where black alive appears on a map. But how those map locations are contested, claimed, remembered, and felt. Three examples that you see on the screen are from the Atlas that illustrate the struggle to affirm the wear of black history and life. At the National Memorial for Peace and Justice in Montgomery, Alabama, Brian Stevenson, and the Equal Justice Initiative force us to reckon with the geography or wear of racial terror lynching. historically.</p>
+      <p>Visitors to the memorial is surrounded by suspended steel monuments that name lynching victims and map 100s of counties where these murders took place. Through the Texas Freedom Colonies Project, Planning Scholar and my own colleague, Andrea Roberts, maps, the wear of all black settlements established after emancipation. Many of them now disappearing for public memory. And as Andrea Roberts suggests, recovering their location, and their stories are critical to supporting preservation and heritage justice. The now famous Green Book is a powerful example of how the living black Atlas arose to renegotiate the terms of where and belonging for black American travellers. published by Victor and Alma Green from the 1930s to the 1960s.</p>
+      <p>The Green Book Travel Guide helped African-American motorists navigate Jim Crow highways and locate accommodations and services that would not turn them away. The pages of the Green Book, if you've taken a look at it, contain no conventional maps. But its listings represent a cartography. Its listings led travellers to infrastructures of care and safety, found in black meccas across the United States. These were places in which black travellers could have a wear that had been denied to them. Urban renewal is one of the clearest ways to understand the contested place of where in the living Black Alice.</p>
+      <p>Across the United States, urban renewal and highway construction uprooted and destroyed African American neighbourhoods on a massive scale. And nearly 1000 cities, those projects displaced about one million people, roughly two thirds of those displays were black. destroying their homes, their businesses, their churches, and their social networks, supposedly in the name of progress. Today, mapping is becoming a vital tool in the memory work of coming to terms with the harms of urban renewal. Community groups, sometimes working with academic researchers, but sometimes working by themselves, are using cardographic storytelling to recover where black communities once stood, and to make those histories visible again.</p>
+      <p>And in that broader restorative movement. Knoxville, the cultural exchange centre, and Reverend Kessler are at the leading edge. The back is mapping the effects of urban renewal, not simply to document loss, but to also recover what black community, but also to recover where black communities lived, where they flourish, where they build institutions, and where they made lasting contributions in Knoxville. And as Renee has taught me, and I've been so grateful for what you have taught me. It's not just about filling a blank spot on the map for the back.</p>
+      <p>But advancing recognition and ultimately a different way of seeing and experiencing and feeling about Knoxville. For the past 7 years, UT, geography students, and faculty have collaborated with the Beck Centre to remap Black Knoxville before urban renewal. This work is forced us at the university to confront an important question. And maybe that question is of importance to you given the theme of this conference. What does it mean for research institutions to adapt their practises and spaces, to partner with and support black community centred mapping traditions?</p>
+      <p>The answer is, we have learned at UT. is not to make the best goals fit our predetermined disciplinary priorities and definitions. Instead, we must change how we understand the map itself. And we must carry out research that centres and adapts to community needs. Student and faculty support of the Back Centre has happened through successive offerings of our program's popular GIS and community course, and I really need to acknowledge my faculty colleagues, Myra Roman Rivera, Michael Campanovo, and Liam Tran for helping mentor a lot of this work over the years.</p>
+      <p>Students began their collaboration by recovering the location of Knoxville's black homes, businesses, and institutions displaced or destroyed by urban renewal. And then converting those locations into mapable geographic coordinates. But this geocoding work is geography geeks like me like to say. was never just technical. These coordinates were traces of disruptive lives, attachments and communities. Students learn very quickly to practice an ethics of care that recognises how data can represent open social wounds. Students also created story maps that connected rays, black locations, to archival documents.</p>
+      <p>Photographs and community knowledge available through the back. And in fact, the back is a treasure trove, archively speaking. I live in archive, in fact. This helped ensure that map points did not remain abstract and lifeless. Maps should tell a deeper story about what these places were and what they meant to the story of Knoxville. And perhaps most powerfully, and I tend to get very excited about this part, Students help create a geo memory overlay. Draping now invisible black landscapes onto the contemporary city map. This overlay does more than simply compare the past and the present.</p>
+      <p>It forces them into conversation. The overlay makes visible not only where Black Knoxville once thrived, but also how urban renewal continues to organise absence and inequality in the city. And I would add it also, we see how urban renewal is now organising renewal. And repair. The back collaboration and the Living Black Atlas pushed us at UT to adapt. I made a point, Judy, of really coming in on that adapt part to adapt and recalibrate how we think about GIS, geographic information, science, and mapping. It taught us that mapping and data are never purely neutral.</p>
+      <p>What might seem like routine and mundane mapping task. Like geocoding, overlaying, become acts of recovery and justice and care. We were reminded that places are live worlds. not just coordinates. Mapping requires an emotional and ethical awareness on the part of the geographic researcher. And frankly, for every researcher. We learn that mapping is not just about visualising data, but working to repair people's relationships with place. We learn the value of representing trauma without reducing our African American partners to victimhood or denying their agency.</p>
+      <p>We learn that expertise does not reside only in the university. For some of my colleagues, that's a provocative thought. I don't think it is with you guys. Communities are co-creators of knowledge, and their oral histories and place attachments count as powerful forms of data. Elders such as the late Dr. Robert Booker, and I'm going to try to talk about Dr. Booker without tearing up. Um, He ground truth our project by providing his expansive mental map of Black Knoxville. His memories of streets, businesses, and neighbourhoods lost to urban renewal helped recover geographies.</p>
+      <p>That official archives alone could not fully restore. And in the end, we learned that the maps ultimate value lies in how it is put to work. Our team was not just mapping the effects of urban renewal as a class project. We were supporting the backs goals of educating the public, provoking public accountability, and planning heritage development. All right, so before handing this over to my better half, Reverend Kessler, I do want to leave you some thoughts about the current moment. And this is, you know, my mother thought I would either go to prison, uh, be a preacher, or be a professor.</p>
+      <p>So I'm not going to prison, but I will assume almost a preachy type tone. So my apologies. Adaptation cannot be about retreating from difficult knowledge and discussions. It's about finding creative and collaborative ways to keep that knowledge public and grounded and useful. And such adaptation requires research practises that are, in my opinion, this is just my one opinion. They need to be relational and community led. They need to be spatially accountable to harm landscapes and displace lives, both in the past, and especially now. They need to be have the ability to improvise, we need to loosen our attachment to some predetermined agendas.</p>
+      <p>We need to always humanise our data. And then this is the one that usually gets me a little bit of trouble. We need to also be institutionally humble. We don't always have to lead from the front or claim visibility. We need to find and protect spaces, however small they are, for the work to continue. And then ultimately, we have to create a reparative public good in our research. That research does, research itself does not undo harm. contrary to what I think some of my colleagues believe. But it can create the conditions for reckoning and actionable knowledge that can lead to true repair.</p>
+      <p>So I appreciate your time, and I'm gonna have my colleague come up now. What an honour to be here and to... share... this city with all of you. Welcome to Knoxville into East Tennessee. I want to thank my colleague, Pastor Alderman. You always have a reverend who liked to upstage you before you get here with the closing. But his work is groundbreaking. And it's grounded in truth. And for that, I'm forever grateful. It's an honour to walk alongside you and the work that you're doing at UT. So I'm grateful I don't have to regurgitate much of that. And certainly for my good friend, Dean Smith, thank you for walking alongside us as well.</p>
+      <p>So native Knoxvillian. Um, for me, is personal. I loved the opening when the, um, the president, I guess, the outgoing president, said, um, shared her personal story of history. I heard you. And looking back, right, it's really connected. When we think about what we do in this room, terms of research, it's not disconnected from who we are. Likewise, the work that we do at Beck is not disconnected from me. Not only because I'm native and I am connected to many of these families, but Something about truth. Right? And the quest for that. Your librarians, you look for the quest for truth.</p>
+      <p>So how will this work that we're doing and form what you're going to do? Because I need you. This world needs you to make sure we're investing. And work that's not being forgotten. So what are you gonna do as you leave here today? That's my assignment. My assignment is to get in your head. And make you remember me. So that when you're doing this important work, When you're holding on and you're looking at policies and procedures that you remember, there's institutions out there with memory. How are we supporting that? Because the unfortunate thing that we're gonna find out, what Irma renewal, and indeed, with all the projects all over, is that, oftentimes, when you get a seat to sit at the table, if you're not willing to lift your voice, then give up your seat.</p>
+      <p>You must lift your voice because the most important asset or resource we will ever have. His people. And what does policy and procedures do? to affect people not just today? But indeed for generations to come. That's the work. And so I'm honoured to be here today for just a few moments and share how we recover and retail stories of Black Knoxville that were impacted by urban renewal. In many instances, people did not call it urban renewal. They called it urban removal because indeed, it literally wiped out much of the history. And the culture of African American history, not only in many urban cities all over the country, not just in Knoxville.</p>
+      <p>But it also destructed and destroyed knowledge ecosystems. When we erased neighbourhoods, so to entire knowledge systems, many of which were never formally archived. Why were they not archived? Do you think about your institutions? Can you think of your institutions and think about things that happened? and not know any history on those areas other than what's contained in the library books. Because there wasn't an institution. If there is not an institutions with their eyes on history and specifically the history on neighbourhoods and communities, then that archive is lost.</p>
+      <p>And indeed, in many cases, that archive has never, ever even been known that it existed. There was no back, prior to urban renewal, and obstacle comes the city in 1791. And there's no bet culture exchange centre till 1975. So where did that archive live? Alex Haley says it like this, he says when an elder dies, it's almost as though a library burns to the ground. It's like all of that wisdom, all of that knowledge, all that intellectual property. How do you get it back? How do you agree in it? Loss of archives, oil histories, and the like are so important.</p>
+      <p>Interestingly, Doctor, all the men talked about, um, the Snick and the mapping. I should mention that my predecessor at the Bet Culture Exchange Centre. Mr. Avon Rollins, a co-founder of Snake's student non-volent coordinating committee. He also mentioned about Dr. Booker, and I'll talk a little bit about him. But that predecessor, Dr. Booker, is going to be the leader of the civil rights movement right here in Knoxville. Both of those are my mentors. That's whose shoulders I stand on. Neither one of them are here today, both were there. When I got, both recruited me to come to bed.</p>
+      <p>I stand on their shoulders. Because they told me not only the stories, that their lived experiences shared with me, but they shared with me the experiences. of life. It's one thing to read something in the book about what people write about history. It's another thing to talk to somebody who lived history. You'll always get a different story. Oral histories are so important in 1979. Beck did an oil history project where the average age of the respondent was 80 years and older. Many of which could go back to 1919 in this country, when we had the largest race rides all over this country, at any period in our history, and they literally termed it.</p>
+      <p>It was so devastating. The Red Summer of 1919. Knoxville became one of those red summer cities. Absent of the oral histories, we don't even really know what that looked like right here in Knoxville. But it did happen. The Bad Culture Exchange Centre was established, as I said, in 1975. It became a repository. People, after urban renewal, which in Knoxville, will say, and I'm putting it under quotes, will go from 1959 to 1974. At the close of urban renewal, the people began to get together. and talk about their neighbourhood and their community in this map that had now been erased, this memory base that was being erased.</p>
+      <p>And they said, if we don't begin to preserve, and conserve this rich history, it's almost gonna be as though the people, or the places, never existed. I shudder to think, what would have happened to all of this history if Beck had not been created? In 1975, the people began to bring all of their artefacts, their pictures, their memorabilia, their stories. And they say, We need a place. to house this. Because it's too important. Hence, the discovery and the establishment of the Vet Culture Exchange Centre, it is just briefly named after James and Ethel Beck, the 3rd and final family to live in this beautiful, lovely home that was built in 1912.</p>
+      <p>Um, and so they're gonna be the 1st, um, there are only 3 families that will live in the original house. Um, They'll be the 2nd black family in the neighbourhood. Um, they are African Americans, James and Ethelbeck, but prior to that and before, um, right after the Civil War, as they began to develop this area over in what they call the Mabry estate, east of where you are right now, about a mile. You're sitting right now. One mile from where the bad culture exchange centre is. And within a mile radius of where urban renewal took place, you're sitting right now, within a mile radius.</p>
+      <p>And then many block, many, many instances, just blocks from downtown, where the race riots took place. The predominantly African American community. Do you realise that? Did you feel any of that when you rolled into town, that we're in a historic place? Did you see anything? that gave you that image. If you didn't, I dare you come back. Because we are not finished. You will. We named our studio, my predecessor, Dr. Booker, passed away February the 22nd, 2024. And so we named the archives just before his passing, the Dr. Robert J. Booker Archival Studio. I might mention that the University of Tennessee, under Chancellor Dondie Ploughman, and the trustee board of directors honoured him with an honorary doctorate degree.</p>
+      <p>Um, just before his passing. Just a couple of weeks at his home, it was a lovely occasion. And we named the doctor, the studios after him. Over 50,000 artefacts. we have right now, that speak to African American history and culture, and this rich history, all over, not just of Knoxville, and not just East Tennessee, but really 100s of years of history, of African Americans all over this country, but specifically, we focus in non traditional. So if I ask you, for example, let me give you some sense of what you may not have in your archives. I'm a preacher of the gospel.</p>
+      <p>So this is interesting. Unfortunately, I'm also a community pastor, which means I do a lot of funerals. And in many instances, I think of urban renewal as a death as well. Suffice it to say, I go to my white brothers and sisters funerals, and I'll do a funeral. And y'all just have this little card with a little name on it. Y'all so disrespectful. You go to black people's funerals. Y'all, we got booklets, we got pictures, we got fat. You been to one, I see. Yeah, is this my amen corner over here? So, you go, and we got, like, glamour shots, we got cousins, we got everybody.</p>
+      <p>You understand what I'm talking about, sis. We got everybody's name in there. And I kept asking myself when I, why do black people in their funerals have all these elaborate funeral programmes and all of these names and, and all of the things, and, and I got to realising that really before a certain period in this country, and indeed all over this country, in the obituary section of newspapers, many African Americans are not going to be included in that section. I'm just going to say, a coloured woman died or, you know, coloured man died. So I believe if I'm using my historical narrative brain, perhaps African Americans begin this tradition of recording their histories somewhere, so it could be recorded.</p>
+      <p>I just did an article in yesterday's paper talking about the Bible, how important the Bible is to many African Americans, because that's the place where the family trees were. It was the filing system. It was the memory bank. It was a testament that life did live. And then, so in many instances, that became the genealogical record of African Americans. Now, I'll also mention to you for those of you who don't know the culture. Everybody is a cousin in the black community. Yeah, you can laugh at that. And everybody's name has to be in the paper, and you got to put the nicknames in there too, because I'm not going to know who Josephine is, but I will know who Mamasui is, or, you know, who Boo Boo is, or Tyrone.</p>
+      <p>I am sorry, y'all don't understand that colloquium, but it's pretty expensive if you put all that in a newspaper. So I imagine that these, but it's wonderful because we have found out much of the history of many of the African Americans that we don't have records on. And, indeed, you guys are gonna be looking for, including the world renowned Buford and Joseph Delaney. Much of the history that we are able to ascribe from them in addition to the archives that are contained at the University of Tennessee. We'll talk about that. comes from a funeral programme.</p>
+      <p>Right? And being able to do that. So it's very important, and I'm gonna run out of time, so I'm gonna start moving quickly, because I could tell stories all day. But urban renewal, displaced, businesses, almost 107 African American owned businesses, almost 3,000 homes, 15 churches. In fact, today, if you go, I remember, I remember when the mayor asked me, they said, um, listen, um, this is before we had the convention centre. So right now we're sitting right here next door to the convention centre. We didn't, um, when we first built the convention centre, I remember the mayor coming to me and said, Rebecca, so what do you think about the Colosseum?</p>
+      <p>The Colosseum is a stone's throw from downtown where you are now. They said, you know, the costume's old, you know, it's been there for a little while now. Um, you know, and, and we're thinking about tearing it down, because now we have the convention centre. What are your thoughts about that? And I said to them, Just to build a civic collatin. Took 72 residences. 9 businesses, and 2 churches. Just to build that building. That was what was destroyed during urban renewal. And here we are now. coming back saying, should we tear it down? And I said to them at that time, Whether you tear it down or whether you keep it, I need you to understand what God tore down and ripped out to build it.</p>
+      <p>Because in some instances, we just keep repeating history. Civic Coliseum is still standing and we're still using it in the convention centre. Whether we do anything or not, whether we make a decision or not, you got to understand the decisions that were made in the past to get us. Where we were. Where we are right now. Urban renewal was devastating. And I want to tell you this story because this is important. I look at the school bill, that building's called high school elementary school. High school elementary school was a new school building that was built down in the bottom because Knoxville's gonna go in 3 phrases.</p>
+      <p>The 1st phase of urban renewal is called the Willowwood Riverfront Project, or the bottom. There was a school down there. Now watch this. I asked someone. Um, tell me about the history. He said to me, who lived in the bottom, in addition to my predecessor, Dr. Booker, he said, Renee, when did Urban renewal happen in Knoxville? Now, for those of you who are listening to me and those are not, what years did I say urban renewal happened in Knoxville? Y'all not listening to me. Y'all work with each other, get it together, come reverse, huh? Come on, work it out, work it out.</p>
+      <p>What year is in Knoxville? Okay, that is right. I said, urban renewal happened from 1959 to 1974 in Knoxville. I said this to someone who lived in urban renewal. And he said to me, you're wrong. I said, how dare you tell me I'm wrong? I know my history. The act, Housing and Irving Development, signed the act in 1949. In 1949, high school elementary school, Went to the 6th grade. At the end of the sixth grade in 1950, High school elementary school did not replace the 6th grade. And it went to the 5th grade. Hmm, that's odd. The students begin to say, what's happening? to our school.</p>
+      <p>Why the 6th graders didn't come back? The next year, when the 5th graders graduated from high school elementary school. The 5th graders did not get replaced, high school elementary school went to the 4th grade. Whoa. What's happening? What's happening to our community? Why are they not replacing these grades? Go to the 4th grade. The community's starting to change. What's happening to our community, why is this happening? By the time urban renewal hits in 1959, meaning the 1st building comes down, high school, elementary school is left with one grade. And then the building came down.</p>
+      <p>Long before we took down any building. We took down the spirit of a people. And that's what urban renewal did. That geography, that map, that's real. We see it as a thing, as a place, as a time. It's a people. Same thing when we talk about history of enslavement. It wasn't about breaking the back. That's easy. about breaking the spirit. Then I got you. So when we talk about urban renewal, oftentimes, we talk about the African American displacement, and true enough, we had 3 phases of urban renewal in Knoxville. I mentioned the bottom. Um, I mentioned, um, and then there's the second one, the Mountain View Project, and the Morningside project.</p>
+      <p>But actually, those were three projects that disproportionately affected African American communities. But can we be truthful, are we in the libraries right now? Can we really tell the truth about how many projects we're in Knoxville? I said there were 3 projects in Knoxville that disproportionately affected the African American community. But do you know there were four? So the 1st one was a riverfront real old project, which we call the bottom. Before we got to Mountain View, there was a 2nd one. Anybody care to guess where it was? University of Tennessee.</p>
+      <p>So Renee, why aren't you telling that story until we tell the full breath of history? We've not done it well. I want to tell the history of the University of Tennessee. We talked about the indigenous. We did not talk about that after that was an urban displacement. of families who were not primarily African American. And I want to tell that story. But I don't even know this other story yet, so I gotta figure that one out, and then I'll come back and do that one. We'll keep working on it. But mapping is very important. And it's important to the point where Beck is reclaiming those spaces and working with students as Dr.</p>
+      <p>Alderman talked about is very important, very critical to our work. So it's helping us to put history back on the maps. And what I wanted to share with you is this partnership with the University of Tennessee. in so many ways, and some of the works that we're doing, that I just am very proud of. And to his point, for many years, we've been working with the geography department, with many departments, but today, I really want to focus on that geography department, and this mapping, and how I can help do the work that I'm so passionate about doing. And so I wanted to share some students work with you, so you can see some of the things that they did in their class project here. the entire African American community that was living here, from churches, to businesses, to homes, and, um, so what we did is we have Sanborn Fire Insurance maps from 1917, georeferenced over current street maps, and talk about the people, and what they did, and the first, um, business that we focussed on was the Ardagonists and Mortuary, which is actually the only business that is still a business today.</p>
+      <p>So, like, in the future, if we found more history, we went through the Vic Centre archives, we would be able to add to this, and that's the ongoing project is, like, we can continue to add to this and put it out the community, and learn more about the people who used to be here. The goal of this was to, for people who are going on tours for the, uh, at the back cultural season. They can, as they're walking, they can scenes, if they so choose to have a mobile phone. Um, it does work better on a laptop and a tablet, but obviously most people are not smart friends.</p>
+      <p>So there are limitations to the smartphone aspect of this web app. If you were so kindly, if you would like to, you can scan the QR code. It is the 2nd QR code on it in the vector, paragraph section, excuse me. And so, when visitors of the Back Centre opened this application on their, on their smartphone, they'll see this. And all of this was for people who are, oh, excuse me, the ability for people who aren't actually taking a tour, and people who are on their phones, so equally equally be accessible, make learning about or learning no announcement accessible.</p>
+      <p>There were many students over the years that had to do and I specifically chose these two, because they did the storytelling maps, which were really, very good. But every year, students do it. And I say to students all the time, We're gonna keep your names, your information, because you're part of this important work. You document this. So it's not only helping us, but we're helping students with aspirential learning. We're also helping them with having this background knowledge of we were a part of something bigger than self. So I love when they can come back and say that.</p>
+      <p>So that work that the students have been doing is really helping us today, be able to create markers and monuments all over the city. So you'll start seeing historical markers as a result of these students' work that we're gonna be doing, talking about the living history that lives here. I'm going to quickly move forward, because the next person I want to share with you is, when we say partnerships, we're partners with the University of Tennessee in a very real way. Certainly with the geography department, certainly with Africana Studies Department, certainly with art and architecture.</p>
+      <p>I could tell you every department that I've been working with over the years. And certainly with the dean of libraries, and we'll talk a little bit about that as we close this out. But specifically, we also, traditionally, we have been partners at the base level, right? Meaning students all the way up. that's been a lovely. You know what else is really lovely is to be able to bit the top down. So, um, Beck has been partnership with, um, the president of the University of Tennessee. Mr. Boyd. So a lot of people, as I said, we work with Boyd Foundation, and I don't know if you know Randy Boyd, but he is the president of the University of Tennessee systems.</p>
+      <p>And so we have been working with Randy for many years, who's a dear friend, not only in this work. But as a university, he's doing cutting edge things, and never mind Chancellor Dondi Ploughman. We're so proud to work with them. So the most recent project that we have worked on for the last 5 or 6 years, I wanted to share that with you, because you're right now in a moment where I can tell you what's happening in Knoxville. Today has been an exciting day. The Noxel Smokies are making history by sharing history, sharing the history of the Knoxville Giants, and all the Dewer League players of the past that made East Doxel a mecca for baseball all across the country.</p>
+      <p>It was one of those days that I don't think I'll ever forget. Actually, seeing them here in their space and unveiled, is just really surreal. So it's a great space. It's great statues, and I think people who come here are just going to be excited to be in a place, in a space where everybody feels welcome. But also, if you love baseball, you're gonna learn about some great baseball players that maybe you didn't know about. This is way more than athletics. This collection recognises the Negro League that played here, but it's bigger than that, because... this is the most comprehensive collection of that league anywhere at any stadium in the country, which you definitely should be proud of.</p>
+      <p>It's really cool. So many legends, so many great stories, and we're gonna be able to celebrate and remember them for years because of these statues that we're able to avail today. I think when people come here, what they're gonna find is inspiration, encouragement, excitement, and they're gonna just feel good. Don't you think you need that sometimes? Like, being a place where you can just feel good, feel good about everything that's happening to you. So, these statues, there were seven of them that we commissioned, Beck. And if you go down to the new Covenant Health Park, which is home to the Smoky Stadium, and also one knocks our, um, not only our minor league baseball, but also our soccer team.</p>
+      <p>You're going to find these statues that were commissioned every single detail. came out of bed, every single detail, 7 of them. Now, I should mention that there's seven, but there's 4 on one that just counts as one. But, um, yeah, they I don't do math like everybody else, but suffice it to say, for me, it was important not only to talk about baseball in terms of the Negro Southern League, which was here in Knoxville, in the Knoxville Giants in the 1920 team, of which we have pictures today. Our first historian at the Bad Culture Exchange Centre was Ms.</p>
+      <p>Margaret Carson. Margaret Singleton Carson. She is responsible for about 85 to 90% of the archives that we have. She was my predecessor's mentor. She made sure that all of this history got there. When she was 17 years old, in high school, her father was one of the first black police detectives on the force here in Knoxville. He would take her on ride alone. He brought her a brown bell camera. That camera is what she used to take the pictures of the 1920 Knoxville Giants team. Absent of that little brown Bell camera, we don't have that history. And she's our first historian, so we're very proud of that.</p>
+      <p>So we were thinking that location where the stadium is today, if you get a chance to go over, we're very proud of our new stadium. You'll start seeing, you'll see all of the logos and we're continuing to add more. We're starting with the baseball, but that's not where we're ending. Y'all make me put these slides in too well. I can't remember what I did last week. Never mind, 3 weeks ago when these slides got turned in. But I will tell you this. Since then, we've added 4 more statues. We just unveiled 2 weeks ago for statues. Now, on that park was the statues of the baseball players and all of those things.</p>
+      <p>And then we had the kids because I thought it was important to have kids. One of the players you may have noticed was one Wing Force Maddox. He only had one wing. For me, it's about everybody coming down there and finding themselves, everybody is important. He was an extraordinary baseball player. And I wanted you to know his history and his story. But moreover, I had these great distinguished gentlemen for Professor Brooks, who was the manager of the team. He's there, so he got a distinguished gentleman. He's got a tie on his jacket. You got ball players, you got babies.</p>
+      <p>Y'all, who y'all missing? You know, the ladies came next. So and let me be clear. The ladies just weren't there, not because they were last, because I just, they were just last to be revealed. They were only last to be revealed because of the construction and where the entry was. We've added 3 statues of women. Ida P. Cox, who was an extraordinary legendary queen of the blues, that we talk about, and also uncrowned queen of the blues. And we also talk about Ruth Cobb Bryce, was an extraordinary artist, and my favourite, and one of my dear friends, Nikki Giovanni, world renown point.</p>
+      <p>They're there. And as well, Buford Delaney, and we'll talk about that. So, we're putting history back into places and spaces where it took place. So I want to share just a little bit more about some of the work we're doing around the stadium with naming and all. Hello everyone. I'm Reverend Renee Kessler with the Bet Culture Exchange Centre. And I am beyond excited to welcome you to the Beck cultural corridor. That's a walking tour about exciting people and places and things that took place. In fact, let's start right here. Do you know that the ground you're standing on was actually part of a huge community of great people, extraordinary people, doctors and lawyers, preachers, and teachers?</p>
+      <p>You name it, they were here. It was a community, but we called it the Bottom. That's right, the bottom was filled with rich history and culture. In fact, a stop on that journey was right here. This bridge, and it reminds me of the bridge that the children often had to take when they were going to school. Green Elementary School, built in 1909. It's still standing today, but on rainy days, the creek would flood. The bridge would often be swallowed by water, and the children had to take the long road all the way around to get to class. Steel, they persevered.</p>
+      <p>So while you're enjoying the game, take a moment to walk around the bottom. Come across this bridge, and then wave. Up on the heel at the next generation of children and educators, because when you do, you bridge the gap between the past and the right future. I'm right here walking around the bottom, and I found myself standing right in front of the beautiful yardly flats. Do you know where the Yardley Flat's name comes from? Let me tell you, William F. Yardley. Do you know that he is the first African American lawyer in Nostville? In 1872, he's 27 years old when he becomes a lawyer.</p>
+      <p>And many of the families here in the bottom, he will represent. But that's not it. So keep going. He'll run for governor in the state of Tennessee. He'll be a justice of a peace, an alderman, he will just keep being a great community servant. In fact, there are so many greats about him. I couldn't tell at all. But I will tell you this. He was a distinguished gentleman, and he was a true community fervent. And today, Yardley Platt is named in his honour. And we've landed right in front of the Delaney, but Delaney is a beautiful, stunning residential complex.</p>
+      <p>But what's even more important is its name. Do you know where the Delaney name comes from? I'll tell you. It comes from world renowned artist, Buford Delaney. That's right. One of the greatest artists of the 20th century, Buford Delaney and his younger brother, Joseph Delaney, are from right here in Knoxville, Tennessee. And the Delaneys actually live right up the hill. You can see the place where they used to live. Their home at 8:15, East Fine Avenue, no longer exists. It was taken as was many of the houses down here in the bottom. However, there is still one house remaining.</p>
+      <p>The ancestral home of Buford Delaney is still standing, and it's standing right next to the Bat Culture Exchain Centre. And so today, we're taking that home and reimagining it as the Laney Museum at bat. He was such an extraordinary artist, and for those of us who really love his artwork, you'll know that he used the colour yellow. Often, it was the colour of inspiration. It was the colour of light, healing, and restoration. And that's what you feel when you come to this stadium, and you think about the rich history. We want you to feel that way. Delaney is lifted up high, and it's a light for all to see.</p>
+      <p>So welcome to your smoky home place, the place where African American kitchen and culture are preserved. Thank you. and enjoy. So the stadium, I hope you get a chance to go, but Beck is reimagining this Delaney museum. Beck is unique, because of all the museums in the country, we have two house museums that speak to the rich history of African Americans. Nowhere in the country will you find two places where you can actually have the Bet Culture Exchange Centre. We're right next door to the Delaney Museum. And so in so doing, when we finish this, we're continuing to raise money.</p>
+      <p>We are working with our partners at the UT Library. So we'll have an upstairs, which will have an artist in residence studio apartment, working with Professor Dean, excuse me, Dean Smith, in the UT Highbraries, who has the Buford Delaney archives. We believe that when the history books write his history, he will not just be saying he's one of the greatest abstract artists of the 20th century, but I think the history books will say he is the greatest artist of all time because of the impact and influence, not only in this country, but globally, that he will have.</p>
+      <p>Our hope is to bring the world to Knoxville. We're going to change tourism. library. My goal when we started this was to ask you and to have you ask yourself, how are we preserving memory? How is your work influencing my work? How do we partner together to make our communities better, to help our students be the best that they can be, to help the work that we do continue to live out legacy long after we're gone? That's the challenge I hope you will answer this week. How can you begin to partner with others? And certainly you're always welcome to partner with the bet because I'm a freelance person where I'll take everybody.</p>
+      <p>So, um, we want you to come and be our partners with us, but especially, I want you to remember the legacy that you're going to be living, how we preserve memory, and how we preserve all the things that are to come. So thank you for allowing me the privilege to stand here with you today to share this rich history. And I know that I've ran out of time and I apologise. So I don't think we have time for questions. Um, but, but thank you for allowing me to speak. I don't know what the protocol is. So thank you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="value">
+  <div class="wrap">
+    <div class="section-head fx">
+      <div class="eyebrow">Why Research Libraries Choose Us</div>
+      <h2>Built for the room, not the demo.</h2>
+      <p>Conference proceedings, oral history collections, and community archives all live or die on the accuracy of their transcripts. We built our tiers around that reality.</p>
+    </div>
+    <div class="props-grid">
+      <div class="prop-card fx">
+        <div class="prop-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <h3>Real-time, on-site</h3>
+        <p>Captions appear as the speaker talks &mdash; no network round-trip, no cloud queue. Runs entirely on local hardware in the room.</p>
+      </div>
+      <div class="prop-card fx fx-d1">
+        <div class="prop-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h3>Under one second</h3>
+        <p>The words above hit the screen less than a second after they were spoken &mdash; fast enough that captions never feel like they're catching up.</p>
+      </div>
+      <div class="prop-card fx fx-d2">
+        <div class="prop-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        </div>
+        <h3>ADA &amp; accessibility ready</h3>
+        <p>Full-session live captions and downloadable transcripts satisfy ADA Title II/III and Section 508 obligations for conference attendees.</p>
+      </div>
+      <div class="prop-card fx fx-d3">
+        <div class="prop-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-3"/></svg>
+        </div>
+        <h3>Archival by default</h3>
+        <p>Every session produces a clean, timestamped transcript &mdash; the same kind of durable record the Beck Center's oral histories relied on to survive when nothing else was written down.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="eyebrow fx">Let's Caption Your Next Conference</div>
+    <h2 class="fx fx-d1">Same accuracy, live on your stage.</h2>
+    <p class="fx fx-d2">This is a simulation from last year's footage &mdash; next time, it can be the real thing, running live behind you. Whether it's a keynote hall or a breakout room, we'll help you pick the tier that fits the moment.</p>
+    <div class="cta-actions fx fx-d3">
+      <a class="btn btn-primary" href="mailto:hello@conferencecaptioning.com">Email hello@conferencecaptioning.com</a>
+      <a class="btn btn-secondary" href="https://app.conferencecaptioning.com" target="_blank" rel="noopener">Chat with us &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>&copy; Conference Captioning &middot; Simulated from footage of ARL's 2025 Fall Forum, provided by ARL</span>
+    <span>Transcript unedited, straight from the pipeline</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- excerpt data (Rapid tier only, unedited) ---------- */
+  var excerpts = [
+    {
+      name: "Excerpt A",
+      tagline: "Opening remarks",
+      text: "With that, I'm pleased to kick things off. You're in for a treat. I have two dear friends. I'm gonna invite to the stage in a moment. The <mark>Reverend Renee Kessler</mark> and Professor <mark>Derek Alderman</mark>. Reverend Kessler is president of the <mark>Beck Cultural Exchange Centre</mark>, which is the primary repository and archive of African American history and culture for East Tennessee and the greater region."
+    },
+    {
+      name: "Excerpt B",
+      tagline: "Institutional archive",
+      text: "As many of you perhaps know, <mark>Snick</mark> was an important 1960s youth led grassroots civil rights organisation. What a lot of folks perhaps don't realise is that <mark>Snick</mark> engaged in mapping. As part of its campaign against white supremacy, <mark>Snick</mark> produced traditional maps and statistical tables that documented racial inequality across the deep South. Mapping is inseparable from what noted geographer <mark>Catherine McKitrick</mark> calls black livingness."
+    },
+    {
+      name: "Excerpt C",
+      tagline: "“A library burns to the ground”",
+      text: "There was no back, prior to urban renewal, and obstacle comes the city in 1791. And there's no bet culture exchange centre till 1975. So where did that archive live? <mark>Alex Haley</mark> says it like this, he says when an elder dies, it's almost as though a library burns to the ground. It's like all of that wisdom, all of that knowledge, all that intellectual property."
+    }
+  ];
+
+  function paint(idx) {
+    document.getElementById("panel-rapid").innerHTML = excerpts[idx].text;
+  }
+  paint(0);
+
+  var tabs = document.querySelectorAll(".excerpt-tabs button");
+  tabs.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      tabs.forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      var panel = document.getElementById("panel-rapid");
+      panel.style.opacity = 0;
+      setTimeout(function () {
+        paint(parseInt(btn.getAttribute("data-excerpt"), 10));
+        panel.style.transition = "opacity .35s ease";
+        panel.style.opacity = 1;
+      }, 180);
+    });
+  });
+
+  /* ---------- hero typewriter ---------- */
+  var heroText = "With that, I'm pleased to kick things off. You're in for a treat. I have two dear friends I'm gonna invite to the stage in a moment…";
+  var heroEl = document.getElementById("hero-transcript");
+  var timerEl = document.getElementById("hero-timer");
+  var i = 0;
+  var seconds = 0;
+
+  function tick() {
+    if (i <= heroText.length) {
+      heroEl.innerHTML = heroText.slice(0, i) + '<span class="cursor"></span>';
+      i += Math.random() > 0.7 ? 2 : 1;
+      setTimeout(tick, 34 + Math.random() * 28);
+    } else {
+      heroEl.innerHTML = heroText + '<span class="cursor"></span>';
+      setTimeout(function () { i = 0; heroEl.innerHTML = '<span class="cursor"></span>'; setTimeout(tick, 900); }, 2600);
+    }
+  }
+  tick();
+
+  setInterval(function () {
+    seconds++;
+    var m = Math.floor(seconds / 60).toString().padStart(2, "0");
+    var s = (seconds % 60).toString().padStart(2, "0");
+    timerEl.textContent = m + ":" + s;
+  }, 1000);
+
+  /* ---------- full transcript toggle ---------- */
+  var transcriptToggle = document.getElementById("transcriptToggle");
+  var transcriptBody = document.getElementById("transcriptBody");
+  transcriptToggle.addEventListener("click", function () {
+    var isOpen = transcriptBody.classList.toggle("open");
+    transcriptToggle.classList.toggle("open", isOpen);
+    transcriptToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    transcriptToggle.querySelector("span").textContent = isOpen ? "Hide the full transcript" : "Show the full 61-minute transcript";
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var fxEls = document.querySelectorAll(".fx");
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) {
+    fxEls.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fxEls.forEach(function (el) { obs.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1827,7 +1827,10 @@
         else if (touchEndX > touchStartX + threshold) prevSlide();
       }, { passive: true });
 
-      showSlide(0);
+      // Deep-link support: ?slide=8 or #8 opens directly on that slide.
+      const requestedSlide = parseInt(new URLSearchParams(window.location.search).get('slide') || window.location.hash.replace('#', ''), 10);
+      const startIndex = (!isNaN(requestedSlide) && requestedSlide >= 1 && requestedSlide <= totalSlides) ? requestedSlide - 1 : 0;
+      showSlide(startIndex);
     })();
   </script>
 </body>

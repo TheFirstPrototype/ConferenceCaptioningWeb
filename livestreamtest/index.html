@@ -431,9 +431,10 @@
     // translation") --------------------------------------------------------
     // From https://developer.chrome.com/docs/ai/translator-api - must match
     // live/translation_companion.py's SUPPORTED_LANGUAGES exactly (English
-    // excluded, it's always the source language here).
+    // excluded, it's always the source language here), plus its
+    // LOCAL_LANGUAGES (Burmese - server-side NLLB, see live/nllb_translator.py).
     const TRANSLATOR_LANGUAGES = {
-      ar: "Arabic", bg: "Bulgarian", bn: "Bengali", cs: "Czech", da: "Danish",
+      ar: "Arabic", bg: "Bulgarian", bn: "Bengali", my: "Burmese", cs: "Czech", da: "Danish",
       de: "German", el: "Greek", es: "Spanish", fi: "Finnish", fr: "French",
       he: "Hebrew", hi: "Hindi", hr: "Croatian", hu: "Hungarian", id: "Indonesian",
       it: "Italian", ja: "Japanese", kn: "Kannada", ko: "Korean", lt: "Lithuanian",

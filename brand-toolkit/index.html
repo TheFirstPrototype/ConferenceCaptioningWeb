@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Toolkit | ConferenceCaptioning</title>
+<meta name="description" content="Official ConferenceCaptioning logos, colors, and usage guidelines for press, partners, and integrators.">
+<link rel="canonical" href="https://conferencecaptioning.com/brand-toolkit/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://conferencecaptioning.com/brand-toolkit/">
+<meta property="og:title" content="Brand Toolkit | ConferenceCaptioning">
+<meta property="og:description" content="Official ConferenceCaptioning logos, colors, and usage guidelines for press, partners, and integrators.">
+<meta property="og:image" content="https://conferencecaptioning.com/images/brand-toolkit/DarkMode-Horizontal.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-navy-dark: #0a1726;
+    --brand-navy: #193C5D;
+    --brand-navy-light: #244e77;
+    --brand-accent: #38bdf8;
+    --brand-accent-glow: rgba(56, 189, 248, 0.25);
+    --brand-teal: #2DD4BF;
+
+    --bg: #0a1726;
+    --bg-2: #10203380;
+    --bg-card: #10223a;
+    --bg-card-light: #f4f7fa;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-strong: rgba(255, 255, 255, 0.22);
+
+    --text-white: #ffffff;
+    --text-soft: #f4f7fa;
+    --text-muted: #aabccc;
+    --text-dim: #71879c;
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-soft);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--brand-accent); }
+  ::selection { background: var(--brand-accent-glow); color: #fff; }
+
+  .wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; margin: 0; color: #fff; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--brand-accent);
+    font-weight: 600;
+  }
+
+  /* ---------- header ---------- */
+  .toolkit-header {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    background: rgba(10, 23, 38, 0.9);
+    backdrop-filter: blur(14px);
+    z-index: 20;
+  }
+  .toolkit-header .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .toolkit-header img { height: 26px; display: block; }
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .back-link:hover { color: #fff; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 84px 0 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+    line-height: 1.1;
+    margin: 14px 0 18px;
+    max-width: 16ch;
+  }
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 60ch;
+    margin: 0 0 30px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 13px 22px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--brand-accent); color: #051826; }
+  .btn-primary:hover { background: #67e8f9; transform: translateY(-1px); }
+  .btn-secondary { border-color: var(--border-strong); color: var(--text-soft); background: rgba(255,255,255,0.04); }
+  .btn-secondary:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
+  .btn-sm { padding: 9px 14px; font-size: 12px; }
+
+  /* ---------- section shell ---------- */
+  section.block {
+    padding: 70px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section.block:last-of-type { border-bottom: none; }
+  .section-head {
+    margin-bottom: 36px;
+    max-width: 640px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    margin: 10px 0 12px;
+  }
+  .section-head p {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* ---------- logo grid ---------- */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  .logo-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .logo-preview {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+  }
+  .logo-preview.on-light { background: var(--bg-card-light); }
+  .logo-preview.on-dark { background: linear-gradient(160deg, #132a44, #0a1726); }
+  .logo-preview img.horizontal { max-width: 82%; max-height: 70px; width: auto; height: auto; }
+  .logo-preview img.square { max-width: 110px; max-height: 110px; width: auto; height: auto; }
+  .logo-card-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .logo-card-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+  }
+  .logo-card-tag {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .logo-card-dl { display: flex; gap: 8px; }
+
+  @media (max-width: 700px) {
+    .logo-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- color palette ---------- */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .swatch-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .swatch-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .swatch-fill { height: 90px; }
+  .swatch-info { padding: 14px 16px; }
+  .swatch-name { font-weight: 600; font-size: 0.92rem; color: #fff; margin-bottom: 3px; }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .swatch-copied {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--brand-accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .swatch-copied.show { opacity: 1; }
+
+  /* ---------- typography ---------- */
+  .type-sample {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    width: 140px;
+    flex-shrink: 0;
+  }
+  .type-glyphs { color: #fff; }
+
+  /* ---------- guidelines ---------- */
+  .guide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .guide-col h3 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .guide-col.do h3 { color: var(--brand-teal); }
+  .guide-col.dont h3 { color: #f87171; }
+  .guide-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .guide-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .guide-col.do .guide-list li::before { content: "✓"; color: var(--brand-teal); font-weight: 700; flex-shrink: 0; }
+  .guide-col.dont .guide-list li::before { content: "✕"; color: #f87171; font-weight: 700; flex-shrink: 0; }
+
+  .clearspace-demo {
+    margin-top: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .clearspace-box {
+    border: 1px dashed rgba(56, 189, 248, 0.4);
+    padding: 34px;
+    display: inline-flex;
+  }
+  .clearspace-box img { height: 34px; width: auto; }
+
+  @media (max-width: 700px) {
+    .guide-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- contact cta ---------- */
+  .contact-block {
+    text-align: center;
+    padding: 80px 0 90px;
+  }
+  .contact-block h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 14px; }
+  .contact-block p { color: var(--text-muted); max-width: 46ch; margin: 0 auto 26px; }
+
+  footer.toolkit-footer {
+    border-top: 1px solid var(--border);
+    padding: 26px 0 40px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="toolkit-header">
+  <div class="wrap">
+    <a href="https://conferencecaptioning.com" aria-label="ConferenceCaptioning Home">
+      <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning">
+    </a>
+    <a class="back-link" href="https://conferencecaptioning.com">&larr; Back to conferencecaptioning.com</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Brand Toolkit</div>
+    <h1>Everything you need to talk about ConferenceCaptioning.</h1>
+    <p>Logos, colors, and usage guidelines for press, integration partners, AV production teams, and anyone featuring ConferenceCaptioning in their own materials.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="../images/brand-toolkit/ConferenceCaptioning-Brand-Assets.zip" download>
+        Download all assets (.zip)
+      </a>
+      <a class="btn btn-secondary" href="mailto:hello@conferencecaptioning.com?subject=Brand%20Toolkit%20Question">
+        Ask a brand question
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="logos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Logos</div>
+      <h2>Four files. Every context covered.</h2>
+      <p>Use the light-mode mark on white or light backgrounds, and the dark-mode mark on navy, black, or photographic backgrounds. SVG is preferred wherever it's supported.</p>
+    </div>
+
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-preview on-light">
+          <img class="horizontal" src="../images/brand-toolkit/LightMode-Horizontal.png" alt="ConferenceCaptioning logo, horizontal, light mode">
+        </div>
+        <div class="logo-card-body">
+          <div>
+            <span class="logo-card-name">Horizontal &middot; Light Mode</span>
+            <span class="logo-card-tag">For light backgrounds</span>
+          </div>
+          <div class="logo-card-dl">
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/LightMode-Horizontal.svg" download>SVG</a>
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/LightMode-Horizontal.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-card">
+        <div class="logo-preview on-dark">
+          <img class="horizontal" src="../images/brand-toolkit/DarkMode-Horizontal.png" alt="ConferenceCaptioning logo, horizontal, dark mode">
+        </div>
+        <div class="logo-card-body">
+          <div>
+            <span class="logo-card-name">Horizontal &middot; Dark Mode</span>
+            <span class="logo-card-tag">For dark backgrounds</span>
+          </div>
+          <div class="logo-card-dl">
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/DarkMode-Horizontal.svg" download>SVG</a>
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/DarkMode-Horizontal.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-card">
+        <div class="logo-preview on-light">
+          <img class="square" src="../images/brand-toolkit/LightMode-Square.png" alt="ConferenceCaptioning logo, square, light mode">
+        </div>
+        <div class="logo-card-body">
+          <div>
+            <span class="logo-card-name">Square &middot; Light Mode</span>
+            <span class="logo-card-tag">Avatars, app icons</span>
+          </div>
+          <div class="logo-card-dl">
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/LightMode-Square.svg" download>SVG</a>
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/LightMode-Square.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-card">
+        <div class="logo-preview on-dark">
+          <img class="square" src="../images/brand-toolkit/DarkMode-Square.png" alt="ConferenceCaptioning logo, square, dark mode">
+        </div>
+        <div class="logo-card-body">
+          <div>
+            <span class="logo-card-name">Square &middot; Dark Mode</span>
+            <span class="logo-card-tag">Avatars, app icons</span>
+          </div>
+          <div class="logo-card-dl">
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/DarkMode-Square.svg" download>SVG</a>
+            <a class="btn btn-secondary btn-sm" href="../images/brand-toolkit/DarkMode-Square.png" download>PNG</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="colors">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Color Palette</div>
+      <h2>The core system.</h2>
+      <p>Deep navy for backgrounds and authority, cyan for action and emphasis. Click any swatch to copy its hex code.</p>
+    </div>
+
+    <div class="swatch-grid" id="swatchGrid">
+      <div class="swatch-card" data-hex="#0A1726">
+        <div class="swatch-fill" style="background:#0A1726;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy Dark</div>
+          <div class="swatch-hex"><span>#0A1726</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+      <div class="swatch-card" data-hex="#193C5D">
+        <div class="swatch-fill" style="background:#193C5D;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Navy</div>
+          <div class="swatch-hex"><span>#193C5D</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+      <div class="swatch-card" data-hex="#38BDF8">
+        <div class="swatch-fill" style="background:#38BDF8;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Accent Cyan</div>
+          <div class="swatch-hex"><span>#38BDF8</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+      <div class="swatch-card" data-hex="#2DD4BF">
+        <div class="swatch-fill" style="background:#2DD4BF;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Teal</div>
+          <div class="swatch-hex"><span>#2DD4BF</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+      <div class="swatch-card" data-hex="#F4F7FA">
+        <div class="swatch-fill" style="background:#F4F7FA;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Text Soft</div>
+          <div class="swatch-hex"><span>#F4F7FA</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+      <div class="swatch-card" data-hex="#AABCCC">
+        <div class="swatch-fill" style="background:#AABCCC;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Text Muted</div>
+          <div class="swatch-hex"><span>#AABCCC</span><span class="swatch-copied">Copied</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="typography">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Typography</div>
+      <h2>What we set our words in.</h2>
+      <p>Inter for headlines and body copy. JetBrains Mono for labels, metrics, and anything technical.</p>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-row">
+        <span class="type-label">Inter / 800</span>
+        <span class="type-glyphs" style="font-family:var(--font-sans); font-weight:800; font-size:2rem;">Making every conference understandable.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Inter / 600</span>
+        <span class="type-glyphs" style="font-family:var(--font-sans); font-weight:600; font-size:1.25rem;">Real-time captions, on-device AI, zero cloud dependency.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">Inter / 400</span>
+        <span class="type-glyphs" style="font-family:var(--font-sans); font-weight:400; font-size:1.05rem; color:var(--text-muted);">Body copy sets in Inter Regular at comfortable line height for long-form reading.</span>
+      </div>
+      <div class="type-row">
+        <span class="type-label">JetBrains Mono</span>
+        <span class="type-glyphs" style="font-family:var(--font-mono); font-weight:500; font-size:0.95rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--brand-accent);">ON-DEVICE AI &middot; &lt;1S LATENCY &middot; 25+ LANGUAGES</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="guidelines">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Usage Guidelines</div>
+      <h2>Keep it recognizable.</h2>
+      <p>The logo works hard for us. A few simple rules keep it consistent everywhere it appears.</p>
+    </div>
+
+    <div class="guide-grid">
+      <div class="guide-col do">
+        <h3>Do</h3>
+        <ul class="guide-list">
+          <li>Use the light-mode mark on light backgrounds and the dark-mode mark on dark ones</li>
+          <li>Keep clear space around the logo at least equal to the height of the mark</li>
+          <li>Scale the logo proportionally in both directions</li>
+          <li>Use the SVG file whenever the platform supports it, for crisp rendering at any size</li>
+        </ul>
+      </div>
+      <div class="guide-col dont">
+        <h3>Don't</h3>
+        <ul class="guide-list">
+          <li>Recolor, recreate, or apply effects (drop shadows, outlines, gradients) to the logo</li>
+          <li>Stretch, squash, or rotate the logo</li>
+          <li>Place the light-mode mark on a light background or vice versa</li>
+          <li>Crowd the logo with other text, logos, or graphics</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="clearspace-demo">
+      <div class="clearspace-box">
+        <img src="../images/brand-toolkit/DarkMode-Horizontal.svg" alt="ConferenceCaptioning logo with clear space guide">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-block">
+  <div class="wrap">
+    <div class="eyebrow">Questions?</div>
+    <h2>We're happy to help with anything not covered here.</h2>
+    <p>Co-branding, press kits, custom sizes, or anything else &mdash; just reach out.</p>
+    <a class="btn btn-primary" href="mailto:hello@conferencecaptioning.com?subject=Brand%20Toolkit%20Question">Email hello@conferencecaptioning.com</a>
+  </div>
+</section>
+
+<footer class="toolkit-footer">
+  &copy; ConferenceCaptioning <span id="year"></span> &middot; Brand assets for press and partner use
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  document.querySelectorAll(".swatch-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      var hex = card.getAttribute("data-hex");
+      var label = card.querySelector(".swatch-copied");
+      navigator.clipboard.writeText(hex).then(function () {
+        label.classList.add("show");
+        setTimeout(function () { label.classList.remove("show"); }, 1400);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

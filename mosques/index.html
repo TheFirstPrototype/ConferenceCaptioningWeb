@@ -339,18 +339,42 @@
     ["tr", "Turkish"], ["id", "Indonesian"], ["bn", "Bengali"], ["hi", "Hindi"],
     ["so", "Somali"], ["ru", "Russian"], ["zh", "Chinese"], ["de", "German"],
     ["it", "Italian"], ["pt", "Portuguese"], ["nl", "Dutch"], ["sv", "Swedish"],
+    ["my", "Burmese"],
+    ["prs", "Dari"],
+    ["fa", "Persian"],
+    ["ps", "Pashto"],
+    ["ckb", "Kurdish (Sorani)"],
+    ["kmr", "Kurdish (Kurmanji)"],
+    ["pa", "Punjabi"],
+    ["gu", "Gujarati"],
+    ["ne", "Nepali"],
+    ["si", "Sinhala"],
+    ["sw", "Swahili"],
+    ["am", "Amharic"],
+    ["ha", "Hausa"],
+    ["yo", "Yoruba"],
+    ["ti", "Tigrinya"],
+    ["ms", "Malay"],
+    ["fil", "Filipino"],
+    ["km", "Khmer"],
+    ["lo", "Lao"],
+    ["uz", "Uzbek"],
+    ["kk", "Kazakh"],
+    ["az", "Azerbaijani"],
+    ["sq", "Albanian"],
+    ["bs", "Bosnian"],
   ];
-  // Only "ur" and "so" aren't in Chrome's Translator API - if selected,
-  // the backend's translation companion has no model for them and no
-  // "translation" messages will ever arrive; the page still streams
-  // captions fine, translation just silently never appears. Kept in
-  // the list anyway since they're common in mosque communities and a
-  // future companion/backend change may add them.
+  // "ur", "so", "my" and every language after them aren't in Chrome's Translator API - the backend
+  // translates them server-side instead (live/nllb_translator.py), so
+  // they're listed as supported below alongside Chrome's languages.
   const CHROME_SUPPORTED = new Set([
     "ar", "bg", "bn", "cs", "da", "de", "el", "es", "fi", "fr", "he", "hi",
     "hr", "hu", "id", "it", "ja", "kn", "ko", "lt", "mr", "nl", "no", "pl",
     "pt", "ro", "ru", "sk", "sl", "sv", "ta", "te", "th", "tr", "uk", "vi",
     "zh",
+    // Not Chrome - translated server-side by live/nllb_translator.py.
+    "my", "ur", "so",
+    "prs", "fa", "ps", "ckb", "kmr", "pa", "gu", "ne", "si", "sw", "am", "ha", "yo", "ti", "ms", "fil", "km", "lo", "uz", "kk", "az", "sq", "bs",
   ]);
 
   const el = (id) => document.getElementById(id);

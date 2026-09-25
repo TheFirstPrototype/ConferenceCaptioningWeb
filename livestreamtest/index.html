@@ -219,7 +219,7 @@
     </label>
     <label>
       Stream name (optional - leave blank to not broadcast)
-      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - e.g. "arl". Lowercase letters/digits/hyphens only. Lets attendees view these captions on their own phone/laptop with no mic access or transcription of their own - see README "Broadcasting captions to attendees".</span>
+      <span style="font-weight:normal;font-size:0.8rem;color:#777"> - e.g. "arl". Lowercase letters/digits/hyphens only. Lets attendees view these captions on their own phone/laptop with no mic access or transcription of their own - see README "Broadcasting captions to attendees". Also relays the transcript + up to 4 translations to api.deafassistant.com under this name.</span>
       <input type="text" id="stream-name-input" placeholder="arl" />
     </label>
     <label>
@@ -432,9 +432,9 @@
     // From https://developer.chrome.com/docs/ai/translator-api - must match
     // live/translation_companion.py's SUPPORTED_LANGUAGES exactly (English
     // excluded, it's always the source language here), plus its
-    // LOCAL_LANGUAGES (Burmese - server-side NLLB, see live/nllb_translator.py).
+    // LOCAL_LANGUAGES (server-side NLLB, see live/nllb_translator.py).
     const TRANSLATOR_LANGUAGES = {
-      ar: "Arabic", bg: "Bulgarian", bn: "Bengali", my: "Burmese", cs: "Czech", da: "Danish",
+      ar: "Arabic", bg: "Bulgarian", bn: "Bengali", cs: "Czech", da: "Danish",
       de: "German", el: "Greek", es: "Spanish", fi: "Finnish", fr: "French",
       he: "Hebrew", hi: "Hindi", hr: "Croatian", hu: "Hungarian", id: "Indonesian",
       it: "Italian", ja: "Japanese", kn: "Kannada", ko: "Korean", lt: "Lithuanian",
@@ -442,6 +442,31 @@
       ro: "Romanian", ru: "Russian", sk: "Slovak", sl: "Slovenian", sv: "Swedish",
       ta: "Tamil", te: "Telugu", th: "Thai", tr: "Turkish", uk: "Ukrainian",
       vi: "Vietnamese", zh: "Chinese", "zh-Hant": "Chinese (Traditional)",
+      // Server-side NLLB (live/nllb_translator.py NLLB_TARGET_LANGUAGES):
+      my: "Burmese", ur: "Urdu", so: "Somali",
+      prs: "Dari",
+      fa: "Persian",
+      ps: "Pashto",
+      ckb: "Kurdish (Sorani)",
+      kmr: "Kurdish (Kurmanji)",
+      pa: "Punjabi",
+      gu: "Gujarati",
+      ne: "Nepali",
+      si: "Sinhala",
+      sw: "Swahili",
+      am: "Amharic",
+      ha: "Hausa",
+      yo: "Yoruba",
+      ti: "Tigrinya",
+      ms: "Malay",
+      fil: "Filipino",
+      km: "Khmer",
+      lo: "Lao",
+      uz: "Uzbek",
+      kk: "Kazakh",
+      az: "Azerbaijani",
+      sq: "Albanian",
+      bs: "Bosnian",
     };
     const MAX_LANGS = 4;
 
@@ -618,6 +643,104 @@
       }
     }
 
+    // -- Relay to the Deaf Assistant API (ConfCapApi's
+    // StreamController.LiteSmartTranslationAdd) --------------------------
+    // Same 1s change-only POST as deploy/mosques/index.html. That
+    // endpoint rather than LiteSmartAdd: LiteSmartAdd always re-translates
+    // language 1 server-side, overwriting what we send; this one stores
+    // our translations as-is whenever `translation` is non-empty.
+    const DEAF_API_BASE = "https://api.deafassistant.com";
+    const RELAY_INTERVAL_MS = 1000;
+    let relayStreamName = "";
+    let relaySourceLang = "en";
+    let relayLangs = [];
+    let relayTranscript = "";
+    let relayTranslations = {};
+    let relayTimer = null;
+    let lastRelayedBody = null;
+
+    // Translations arrive as a rolling window of the last few segments
+    // (live/router.py's TRANSLATION_WINDOW_SEGMENTS), so consecutive
+    // windows overlap - append only the words past the longest shared
+    // suffix/prefix. Copied from deploy/mosques/index.html.
+    function appendWithOverlapDedup(committed, incoming) {
+      if (!committed) return incoming;
+      if (!incoming) return committed;
+      const committedWords = committed.split(/\s+/).filter(Boolean);
+      const incomingWords = incoming.split(/\s+/).filter(Boolean);
+      const maxOverlap = Math.min(committedWords.length, incomingWords.length);
+      for (let k = maxOverlap; k > 0; k--) {
+        const tail = committedWords.slice(committedWords.length - k).join(" ");
+        const head = incomingWords.slice(0, k).join(" ");
+        if (tail === head) {
+          const remainder = incomingWords.slice(k).join(" ");
+          return remainder ? `${committed} ${remainder}` : committed;
+        }
+      }
+      return `${committed} ${incoming}`;
+    }
+
+    function buildRelayBody(active) {
+      const body = {
+        timestamp: new Date().toISOString(),
+        roomName: relayStreamName,
+        description: `${relayStreamName} Accessibility Stream`,
+        transcript: relayTranscript,
+        isActivelyStreaming: active,
+        inputLanguage: relaySourceLang,
+        isPremiumCustomer: true,
+      };
+      for (let i = 0; i < 4; i++) {
+        const suffix = i === 0 ? "" : String(i + 1);
+        const lang = relayLangs[i] || "";
+        body[`translation${suffix}`] = lang ? relayTranslations[lang] || "" : "";
+        body[`outputLanguage${suffix}`] = lang;
+      }
+      return body;
+    }
+
+    async function postRelay(active) {
+      if (!relayStreamName) return;
+      try {
+        await fetch(`${DEAF_API_BASE}/stream/LiteSmartTranslationAdd`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(buildRelayBody(active)),
+        });
+      } catch (err) {
+        // Best-effort - a dropped POST never interrupts local captioning;
+        // the next tick sends the newer full text anyway.
+      }
+    }
+
+    function startRelay(streamName, sourceLang, langs) {
+      relayStreamName = streamName;
+      relaySourceLang = sourceLang && sourceLang !== "auto" ? sourceLang : "en";
+      relayLangs = langs;
+      relayTranscript = "";
+      relayTranslations = {};
+      lastRelayedBody = null;
+      if (!streamName) return;
+      relayTimer = setInterval(() => {
+        const snapshot = JSON.stringify([relayTranscript, relayTranslations]);
+        if (snapshot !== lastRelayedBody) {
+          lastRelayedBody = snapshot;
+          postRelay(true);
+        }
+      }, RELAY_INTERVAL_MS);
+    }
+
+    function stopRelay() {
+      if (!relayTimer) return;
+      clearInterval(relayTimer);
+      relayTimer = null;
+      postRelay(false);
+    }
+
+    window.addEventListener("pagehide", () => {
+      if (relayTimer) postRelay(false);
+    });
+
     function handleServerPayload(payload) {
       if (payload.type === "broadcast_started") {
         const base = `${window.location.origin}${window.location.pathname.replace(/index\.html$/, "")}`;
@@ -627,11 +750,14 @@
         setSpeaking(payload.speaking);
       } else if (payload.type === "segment") {
         addCaption(payload);
+        const text = (payload.text || "").trim();
+        if (text) relayTranscript = relayTranscript ? `${relayTranscript} ${text}` : text;
       } else if (payload.type === "translation_status") {
         updateTranslationStatus(payload.lang, payload.status, payload.percent);
       } else if (payload.type === "translation") {
         for (const [lang, text] of Object.entries(payload.translations || {})) {
           addTranslationLine(lang, text, `${payload.start_s.toFixed(2)}s-${payload.end_s.toFixed(2)}s`);
+          relayTranslations[lang] = appendWithOverlapDedup(relayTranslations[lang] || "", text);
         }
       } else if (payload.error) {
         setStatus(`error: ${payload.error}`);
@@ -735,6 +861,7 @@
     }
 
     function stopCapture() {
+      stopRelay();
       if (mediaStream) {
         mediaStream.getTracks().forEach((t) => t.stop());
         mediaStream = null; // also tells ws.onclose not to auto-reconnect
@@ -778,6 +905,13 @@
       document.getElementById("tts-backend-select").disabled = true;
       setupTranslationUI(selectedLangs().slice(0, MAX_LANGS));
       setSpeaking(false);
+      // Same language list connectWebSocket() sends as `langs`.
+      const relaySource = document.getElementById("live-language-select").value;
+      startRelay(
+        streamNameInput.value.trim().toLowerCase(),
+        relaySource,
+        selectedLangs().filter((l) => l !== relaySource).slice(0, MAX_LANGS),
+      );
       try {
         await startCapture();
       } catch (err) {

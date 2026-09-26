@@ -18,7 +18,7 @@
     </title>
     <meta
       name="description"
-      content="Elabora l'audio del tuo evento completamente offline con la nostra nuova estensione Chrome basata su IA sul dispositivo."
+      content="Sottotitoli dal vivo con IA sul dispositivo in Chrome: scegli uno stream gratuito o Premium, seleziona un modello vocale e mostra i sottotitoli su qualsiasi schermo."
     />
     <meta
       property="og:title"
@@ -26,7 +26,7 @@
     />
     <meta
       property="og:description"
-      content="Elabora l'audio del tuo evento completamente offline con la nostra nuova estensione Chrome basata su IA sul dispositivo."
+      content="Sottotitoli dal vivo con IA sul dispositivo in Chrome: scegli uno stream gratuito o Premium, seleziona un modello vocale e mostra i sottotitoli su qualsiasi schermo."
     />
     <meta
       property="og:image"
@@ -71,11 +71,11 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Estensione Chrome di Conference Captioning (IA sul Dispositivo per Eventi)",
-        "description": "Elabora l'audio del tuo evento completamente offline con la nostra nuova estensione Chrome basata su IA sul dispositivo.",
+        "description": "Sottotitoli dal vivo con IA sul dispositivo in Chrome: scegli uno stream gratuito o Premium, seleziona un modello vocale e mostra i sottotitoli su qualsiasi schermo.",
         "image": "https://tawk.link/67291e984304e3196add0224/kb/attachments/9LICKtIseq.png",
         "author": { "@type": "Person", "name": "Saamer Mansoor" },
         "datePublished": "2026-04-10",
-        "dateModified": "2026-04-10"
+        "dateModified": "2026-09-26"
       }
     </script>
     <link
@@ -284,7 +284,7 @@
                 class="rounded"
                 src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
                 alt="Il volto di Saamer" /></a
-            ><span>Saamer Mansoor</span><span>•</span><time>9 aprile 2026</time>
+            ><span>Saamer Mansoor</span><span>•</span><time>9 aprile 2026</time><span>•</span><span>Aggiornato il 26 settembre 2026</span>
           </div>
         </header>
         <div
@@ -309,56 +309,45 @@
           </p>
           <h3>Quando Usare Questa Configurazione:</h3>
           <ul>
-            <li>Stai organizzando eventi su Windows o hardware non Apple</li>
+            <li>Stai organizzando eventi su Windows o su hardware non Apple</li>
             <li>Hai bisogno di sottotitoli in tempo reale con latenza minima</li>
-            <li>
-              Vuoi una soluzione di sottotitolazione locale (sul dispositivo)
-              senza dipendere dall'elaborazione cloud
-            </li>
-            <li>
-              Hai già creato il tuo stream sull'Admin Portal qui:
-              <a href="https://app.conferencecaptioning.com"
-                >https://app.conferencecaptioning.com</a
-              >
-            </li>
+            <li>Vuoi che il riconoscimento vocale venga eseguito sul tuo computer invece che su un servizio vocale nel cloud</li>
+            <li>Vuoi provarlo prima: è disponibile una prova gratuita di Premium, senza carta di credito</li>
           </ul>
           <h3>Guida alla Configurazione Passo per Passo:</h3>
-          <p>1. Prepara il Tuo Stream di Sottotitoli</p>
+          <p>1. Scegli il Tuo Stream di Sottotitoli (Gratuito o Premium)</p>
           <p>
-            Prima di installare l'estensione, assicurati che il tuo stream di
-            sottotitoli sia pronto:
+            Ogni evento ha bisogno di un nome di stream. I partecipanti aprono <a href="https://deafassistant.com/%7BStreamName%7D"
+              >https://deafassistant.com/{StreamName}</a
+            > (con il nome del tuo stream al posto di {StreamName}) per leggere i sottotitoli, oppure scansionano il codice QR che ti mostra l'estensione. Dopo aver installato l'estensione (passo 2), clicca sulla sua icona e poi su <strong>Change</strong> (Cambia) accanto al nome dello stream. Si apre la pagina della dashboard, dove scegli una delle due opzioni:
           </p>
           <ul>
             <li>
-              Vai su:<br /><a
-                href="https://deafassistant.com/%7BStreamName%7D"
-                >https://deafassistant.com/{StreamName}</a
-              >
+              <strong>Stream Premium (consigliato per gli eventi reali):</strong> clicca su <strong>Activate Premium Stream</strong> (Attiva stream Premium). La dashboard ti fa accedere, attiva il tuo stream Premium e lo collega all'estensione. Puoi iniziare con una prova gratuita, senza bisogno di carta di credito. Premium ti offre uno stream tutto tuo, i modelli vocali ultra precisi ed extra come le domande del pubblico.
             </li>
-            <li>Sostituisci {StreamName} con l'ID univoco del tuo stream</li>
             <li>
-              Conferma che la pagina si carichi correttamente, oppure creala
-              tramite
-              <a href="http://app.conferencecaptioning.com"
-                >app.conferencecaptioning.com</a
-              >
+              <strong>Stream gratuito (solo per test):</strong> clicca su <strong>Generate Free Stream</strong> (Genera stream gratuito) per ottenere subito un nome di stream, senza account. Gli stream gratuiti servono per fare prove e hanno un tempo di utilizzo limitato. Ne esiste un numero limitato, quindi qualcun altro potrebbe usare lo stesso stream gratuito nello stesso momento. Non usarne uno per un evento dal vivo.
             </li>
           </ul>
-          <p>2. Scarica l'Estensione Chrome</p>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-qr.png"
+              alt="Screenshot della dashboard dell'estensione con il nome dello stream, i pulsanti Generate Free Stream e Activate Premium Stream e un codice QR da condividere con i partecipanti"
+            />
+          </p>
+          <p>
+            La dashboard mostra anche il codice QR e il link (per esempio deafassistant.com/iltuostream) da condividere con il tuo pubblico. Si aggiorna ogni volta che cambi stream.
+          </p>
+          <p>2. Installa l'Estensione Chrome</p>
           <ul>
             <li>
               <p>
-                Scarica il pacchetto dell'estensione (che include il modello IA
-                di trascrizione): <a
-                  href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk"
-                  >https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk</a
-                >
+                Installa l'estensione dalla <a href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk">pagina di ConferenceCaptioning sul Chrome Web Store</a>. Il modello vocale predefinito è incluso, quindi non devi scaricare nient'altro per iniziare.
               </p>
             </li>
             <li>
               <p>
-                Al termine del download, tocca l'icona delle Estensioni e
-                seleziona &quot;ConferenceCaptioning&quot; dall'elenco
+                Una volta installata, clicca sull'icona delle Estensioni (il pezzo di puzzle) e fissa «ConferenceCaptioning» per averla sempre a portata di clic
               </p>
             </li>
           </ul>
@@ -368,128 +357,114 @@
               alt="Screenshot che mostra l'estensione Chrome installata"
             />
           </p>
-          <p>3. Concedi i Permessi del Microfono</p>
+          <p>3. Avvia i Sottotitoli e Concedi il Permesso per il Microfono</p>
           <ul>
-            <li>
-              Una volta installata, quando la tocchi, l'estensione chiederà
-              l'accesso al microfono
-            </li>
-            <li>
-              Clicca su &quot;Consenti durante la visita al sito&quot; per
-              abilitare l'acquisizione audio
-            </li>
-            <li>
-              Se premi Nega per errore, puoi toccare i tre puntini a destra
-              del pin di ConferenceCaptioning che vedi sopra -&gt; Visualizza
-              Permessi del Sito -&gt; Microfono -&gt; Consenti. Il salvataggio
-              è automatico
-            </li>
+            <li>Apri la pagina che vuoi sottotitolare (il video o le slide del tuo evento), clicca sull'icona di ConferenceCaptioning e premi <strong>Start</strong> (Avvia). La piccola finestra ti permette anche di attivare le traduzioni dal vivo e scegliere le lingue.</li>
+            <li>L'estensione apre una scheda fissata chiamata dashboard, con l'avviso «Do not close this tab!» (Non chiudere questa scheda!). I sottotitoli funzionano in questa scheda, quindi lasciala aperta per tutta la durata dell'evento</li>
+            <li>La prima volta, Chrome chiede l'accesso al microfono. Clicca su «Consenti durante la visita al sito» in modo che l'estensione possa mixare il tuo microfono con l'audio riprodotto nella scheda</li>
+            <li>Se premi Nega per errore, clicca sui tre puntini a destra dell'icona fissata di ConferenceCaptioning → Visualizza Permessi del Sito → Microfono → Consenti. Il salvataggio è automatico</li>
           </ul>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/popup.png"
+              alt="Screenshot della finestra dell'estensione ConferenceCaptioning con il nome dello stream, un pulsante Change, le impostazioni delle traduzioni dal vivo e un pulsante Start"
+            />
+          </p>
           <p>
             <img
               src="https://tawk.link/67291e984304e3196add0224/kb/attachments/28nBQBy4qr.png"
               alt="Screenshot della richiesta di permessi del browser"
             />
           </p>
-          <p>4. Per Iniziare la Sottotitolazione Durante il Tuo Evento</p>
+          <p>4. Verifica Cosa Vede il Tuo Pubblico</p>
           <ol>
             <li>
-              Torna semplicemente alla pagina del tuo stream:<br /><a
-                href="https://deafassistant.com/%7BStreamName%7D"
-                >https://deafassistant.com/{StreamName}</a
-              >
+              Apri la pagina del tuo stream:<br /><a href="https://deafassistant.com/%7BStreamName%7D"
+              >https://deafassistant.com/{StreamName}</a
+            > (oppure scansiona il codice QR mostrato nella dashboard dell'estensione)
             </li>
-            <li>Clicca sull'icona dell'estensione Conference Captioning</li>
-            <li>Nel popup, inserisci il Nome del tuo Stream in minuscolo</li>
-            <li>
-              Clicca su Avvia, e dovresti riuscire a vedere i sottotitoli
-              apparire sul tuo schermo. Se tocchi il pulsante &quot;Mostra
-              Sottotitoli&quot; sulla pagina, vedrai anche ciò che vedono i
-              partecipanti.
-            </li>
+            <li>Parla, oppure riproduci dell'audio nella scheda che stai sottotitolando. I sottotitoli compaiono in un attimo sulla pagina che stai sottotitolando e sulla pagina dello stream che vedono i partecipanti.</li>
+            <li>Clicca sul pulsante «Mostra Sottotitoli» nella pagina dello stream per vedere esattamente ciò che vedono i partecipanti. Condividi il link dello stream o il codice QR con il tuo pubblico.</li>
+            <li>Per terminare, clicca sull'icona dell'estensione e premi Interrompi.</li>
           </ol>
+          <hr />
+          <h3>Scegliere un Modello di Riconoscimento Vocale</h3>
+          <p>
+            L'estensione include diversi modelli di riconoscimento vocale che funzionano sul dispositivo. Scorri in basso nella pagina della dashboard fino a «Speech Recognition Model» (Modello di riconoscimento vocale) e scegline uno. Se lo cambi mentre i sottotitoli sono attivi, interrompili e riavviali perché la modifica abbia effetto. I sottotitoli includono una punteggiatura aggiunta automaticamente, così ciò che legge il tuo pubblico sembra fatto di frasi vere e non di un flusso di parole in minuscolo.
+          </p>
+          <ul>
+            <li><strong>Speed</strong> (predefinito, gratuito): integrato, nessun download, funziona su qualsiasi computer. Ideale per la bassa latenza.</li>
+            <li><strong>Accuracy</strong> (inglese, Premium): il nostro modello ultra preciso, con punteggiatura integrata. È un download una tantum di circa 660 MB che Chrome conserva per la volta successiva.</li>
+            <li><strong>Multilingual</strong> (Premium): riconoscimento ultra preciso di 13 lingue (inglese, francese, tedesco, spagnolo, italiano, portoghese, olandese, polacco, russo, ucraino, giapponese, coreano e cinese). È un download una tantum di circa 930 MB. Scegli la lingua parlata in modo che sottotitoli e traduzioni sappiano cosa viene detto.</li>
+            <li><strong>Nano</strong> (gratuito): usa l'IA integrata di Chrome, nelle versioni recenti di Chrome che la supportano. Può richiedere un passaggio di attivazione una tantum e il download del modello da parte di Chrome.</li>
+          </ul>
+          <p>
+            I modelli Accuracy e Multilingual sono disponibili solo con uno stream Premium, e puoi attivare Premium come prova gratuita senza carta di credito (vedi il passo 1).
+          </p>
           <p>
             <img
-              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/t7RM83-5k8.png"
-              alt="Screenshot dell'estensione Chrome di ConferenceCaptioning"
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-model.png"
+              alt="Screenshot del menu a discesa Speech Recognition Model della dashboard e dell'impostazione Local Network Display"
             />
           </p>
+          <p>
+            Scaricare un modello è un passaggio una tantum e richiede una connessione a internet. Il tuo audio non viene mai caricato: il riconoscimento vocale funziona sul tuo computer e viene inviato solo il testo dei sottotitoli risultante, affinché il tuo pubblico possa leggerlo.
+          </p>
+          <h3>Mostrare i Sottotitoli su uno Schermo o in OBS (Local Network Display)</h3>
+          <p>
+            Puoi anche inviare i sottotitoli a un piccolo server sulla tua rete, oltre al normale stream. Questo ti permette di mostrarli su un televisore, un monitor di controllo o come sorgente browser in OBS, senza dipendere dalla connessione a internet per quello schermo. Attiva «Local Network Display» più in basso nella pagina della dashboard (vedi lo screenshot qui sopra) e inserisci l'indirizzo del tuo server. Il server complementare è uno script gratuito: <a href="https://github.com/BeAware-DeafAssistant/ConfCapExtensionLocalServer">ConfCapExtensionLocalServer</a>. Non ha alcun login, quindi usalo solo su una rete fidata.
+          </p>
+          <h3>Novità (Settembre 2026)</h3>
+          <ul>
+            <li>Nuovi modelli vocali ultra precisi: Accuracy e Multilingual (Premium, prova gratuita disponibile)</li>
+            <li>Selettore della lingua parlata per sottotitoli e traduzioni multilingue</li>
+            <li>Punteggiatura automatica nei sottotitoli, e sottotitoli suddivisi nelle pause naturali in modo che le parole non vengano tagliate a metà</li>
+            <li>Local Network Display per televisori e OBS</li>
+            <li>Attivazione Premium con un clic e generatore di stream gratuiti di prova nella dashboard</li>
+            <li>Correzioni di stabilità per eventi lunghi e download dei modelli</li>
+          </ul>
           <hr />
           <h3>Come Funziona Durante un Evento</h3>
           <ul>
+            <li>L'estensione cattura l'audio dal tuo dispositivo (microfono o audio di sistema instradato)</li>
+            <li>L'IA elabora il parlato localmente (sul dispositivo); solo il testo dei sottotitoli viene inviato alla pagina del tuo stream</li>
             <li>
-              L'estensione cattura l'audio dal tuo dispositivo (microfono o
-              audio di sistema instradato)
-            </li>
-            <li>L'IA elabora il parlato localmente (sul dispositivo)</li>
-            <li>
-              I sottotitoli appaiono:
+              I sottotitoli compaiono:
               <ul>
-                <li>In una finestra di anteprima locale</li>
-                <li>
-                  Sulla pagina dello stream live quando clicchi su “Mostra
-                  Sottotitoli”
-                </li>
+                <li>In un'anteprima sopra la pagina sottotitolata</li>
+                <li>Sulla pagina dello stream dal vivo quando clicchi su «Mostra Sottotitoli»</li>
               </ul>
             </li>
           </ul>
           <p>Questo permette ai team AV di:</p>
           <ul>
-            <li>
-              Monitorare i sottotitoli in tempo reale per assicurarsi che i
-              loro sistemi siano configurati correttamente
-            </li>
-            <li>
-              Garantire la conformità di accessibilità per i partecipanti
-            </li>
+            <li>Monitorare i sottotitoli in tempo reale per assicurarsi che i sistemi siano configurati correttamente</li>
+            <li>Garantire la conformità all'accessibilità per i partecipanti</li>
           </ul>
           <h3>Best Practice per i Professionisti AV</h3>
           <ul>
-            <li>
-              Usa un feed audio diretto (tramite mixer o interfaccia) invece
-              del microfono ambientale quando possibile
-            </li>
-            <li>
-              Testa i livelli audio prima dell'evento per migliorare
-              l'accuratezza
-            </li>
-            <li>
-              Mantieni Chrome sulla pagina dello stream per evitare
-              interruzioni
-            </li>
-            <li>
-              Usa un computer dedicato come macchina di sottotitolazione per
-              eventi di grandi dimensioni
-            </li>
+            <li>Usa un ingresso audio diretto (tramite mixer o interfaccia) invece del microfono ambientale quando possibile</li>
+            <li>Testa i livelli audio prima dell'evento per migliorare la precisione</li>
+            <li>Tieni aperta la pagina «Do not close this tab!» e lascia Chrome in esecuzione per tutta la durata dell'evento</li>
+            <li>Usa un computer dedicato come macchina per i sottotitoli negli eventi di grandi dimensioni</li>
           </ul>
-          <h3>Consigli per la Risoluzione dei Problemi</h3>
+          <h3>Suggerimenti per la Risoluzione dei Problemi</h3>
           <ul>
-            <li>
-              Nessun sottotitolo appare → Verifica che il Nome dello Stream
-              corrisponda esattamente
-            </li>
-            <li>
-              Bassa accuratezza → Controlla la qualità dell'ingresso del
-              microfono e il rumore di fondo
-            </li>
-            <li>
-              L'estensione non si carica → Assicurati che la Modalità
-              Sviluppatore sia abilitata in Chrome
-            </li>
-            <li>
-              Qualsiasi altra cosa → Usa semplicemente l'opzione chat sul
-              nostro sito per il supporto live durante l'evento
-            </li>
+            <li>Nessun sottotitolo visibile → Verifica che il nome del tuo stream corrisponda esattamente</li>
+            <li>Bassa precisione → Controlla la qualità dell'ingresso del microfono e il rumore di fondo</li>
+            <li>Nessun suono rilevato → Verifica che il microfono sia consentito (passo 3) e che l'audio venga effettivamente riprodotto nella scheda da cui hai avviato</li>
+            <li>Il download di un modello si blocca → Controlla la connessione a internet e lo spazio libero su disco, oppure torna al modello Speed predefinito</li>
+            <li>Hai cambiato un'impostazione e non è successo nulla → Interrompi e riavvia i sottotitoli; le modifiche al modello si applicano al successivo avvio</li>
+            <li>Qualsiasi altra cosa → Usa semplicemente la chat sul nostro sito web per l'assistenza dal vivo durante l'evento</li>
           </ul>
           <h3>Perché Usare Conference Captioning (IA sul Dispositivo)?</h3>
           <ul>
             <li>✅ Funziona su Windows e Mac</li>
-            <li>✅ Nessuna dipendenza da internet (opzione di elaborazione locale)</li>
-            <li>✅ Bassa latenza per eventi live</li>
+            <li>✅ Il riconoscimento vocale funziona sul tuo computer, non nel cloud</li>
+            <li>✅ Prova gratuita di Premium, senza carta di credito</li>
+            <li>✅ Bassa latenza per gli eventi dal vivo</li>
             <li>✅ Facile integrazione nei flussi di lavoro AV esistenti</li>
-            <li>
-              ✅ Scalabile per conferenze, luoghi di culto ed eventi aziendali
-            </li>
+            <li>✅ Scalabile per conferenze, luoghi di culto ed eventi aziendali</li>
           </ul>
           <p>
             <img

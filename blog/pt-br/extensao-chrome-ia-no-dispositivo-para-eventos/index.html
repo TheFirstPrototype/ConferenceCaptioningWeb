@@ -18,7 +18,7 @@
     </title>
     <meta
       name="description"
-      content="Processe o áudio do seu evento totalmente offline com nossa nova extensão do Chrome com IA no próprio dispositivo."
+      content="Legendas ao vivo com IA no dispositivo no Chrome: escolha uma transmissão gratuita ou Premium, selecione um modelo de voz e exiba as legendas em qualquer tela."
     />
     <meta
       property="og:title"
@@ -26,7 +26,7 @@
     />
     <meta
       property="og:description"
-      content="Processe o áudio do seu evento totalmente offline com nossa nova extensão do Chrome com IA no próprio dispositivo."
+      content="Legendas ao vivo com IA no dispositivo no Chrome: escolha uma transmissão gratuita ou Premium, selecione um modelo de voz e exiba as legendas em qualquer tela."
     />
     <meta
       property="og:image"
@@ -71,11 +71,11 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Extensão do Chrome para Legendagem de Eventos (IA no Dispositivo)",
-        "description": "Processe o áudio do seu evento totalmente offline com nossa nova extensão do Chrome com IA no próprio dispositivo.",
+        "description": "Legendas ao vivo com IA no dispositivo no Chrome: escolha uma transmissão gratuita ou Premium, selecione um modelo de voz e exiba as legendas em qualquer tela.",
         "image": "https://tawk.link/67291e984304e3196add0224/kb/attachments/9LICKtIseq.png",
         "author": { "@type": "Person", "name": "Saamer Mansoor" },
         "datePublished": "2026-04-10",
-        "dateModified": "2026-04-10"
+        "dateModified": "2026-09-26"
       }
     </script>
     <link
@@ -285,7 +285,7 @@
                 src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
                 alt="Rosto de Saamer" /></a
             ><span>Saamer Mansoor</span><span>•</span
-            ><time>9 de abril de 2026</time>
+            ><time>9 de abril de 2026</time><span>•</span><span>Atualizado em 26 de setembro de 2026</span>
           </div>
         </header>
         <div
@@ -311,55 +311,45 @@
           </p>
           <h3>Quando Usar Esta Configuração:</h3>
           <ul>
-            <li>Você está realizando eventos no Windows ou em hardware não Apple</li>
+            <li>Você está realizando eventos em Windows ou em hardware que não é da Apple</li>
             <li>Você precisa de legendas em tempo real com latência mínima</li>
-            <li>
-              Você quer uma solução de legendagem local (no dispositivo) sem
-              depender de processamento em nuvem
-            </li>
-            <li>
-              Você já criou sua transmissão no Portal do Administrador aqui:
-              <a href="https://app.conferencecaptioning.com"
-                >https://app.conferencecaptioning.com</a
-              >
-            </li>
+            <li>Você quer que o reconhecimento de voz seja executado no seu próprio computador em vez de em um serviço de voz na nuvem</li>
+            <li>Você quer testar primeiro: há um teste gratuito do Premium, sem precisar de cartão de crédito</li>
           </ul>
           <h3>Guia de Configuração Passo a Passo:</h3>
-          <p>1. Prepare sua Transmissão de Legendas</p>
+          <p>1. Escolha sua Transmissão de Legendas (Gratuita ou Premium)</p>
           <p>
-            Antes de instalar a extensão, certifique-se de que sua transmissão
-            de legendas está pronta:
+            Todo evento precisa de um nome de transmissão. Os participantes abrem <a href="https://deafassistant.com/%7BStreamName%7D"
+              >https://deafassistant.com/{StreamName}</a
+            > (com o nome da sua transmissão no lugar de {StreamName}) para ler as legendas, ou escaneiam o QR code que a extensão mostra. Depois de instalar a extensão (passo 2), clique no ícone dela e depois em <strong>Change</strong> (Alterar), ao lado do nome da transmissão. Isso abre a página do painel, onde você escolhe uma de duas opções:
           </p>
           <ul>
             <li>
-              Acesse:<br /><a
-                href="https://deafassistant.com/%7BStreamName%7D"
-                >https://deafassistant.com/{StreamName}</a
-              >
+              <strong>Transmissão Premium (recomendada para eventos reais):</strong> clique em <strong>Activate Premium Stream</strong> (Ativar transmissão Premium). O painel faz o seu login, ativa a sua transmissão Premium e a vincula à extensão. Você pode começar com um teste gratuito, sem precisar de cartão de crédito. O Premium oferece a sua própria transmissão, os modelos de voz ultra precisos e extras como as perguntas da plateia.
             </li>
-            <li>Substitua {StreamName} pelo ID exclusivo da sua transmissão</li>
             <li>
-              Confirme que a página carrega com sucesso, ou então crie-a usando
-              <a href="http://app.conferencecaptioning.com"
-                >app.conferencecaptioning.com</a
-              >
+              <strong>Transmissão gratuita (somente para testes):</strong> clique em <strong>Generate Free Stream</strong> (Gerar transmissão gratuita) para obter um nome de transmissão na hora, sem conta. As transmissões gratuitas servem para experimentar e têm tempo de uso limitado. Existe um número limitado delas, então outra pessoa pode estar usando a mesma transmissão gratuita ao mesmo tempo. Não use uma para um evento ao vivo.
             </li>
           </ul>
-          <p>2. Baixe a Extensão do Chrome</p>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-qr.png"
+              alt="Captura de tela do painel da extensão com o nome da transmissão, os botões Generate Free Stream e Activate Premium Stream e um QR code para compartilhar com os participantes"
+            />
+          </p>
+          <p>
+            O painel também mostra o QR code e o link (por exemplo, deafassistant.com/suatransmissao) para compartilhar com a sua plateia. Ele é atualizado sempre que você troca de transmissão.
+          </p>
+          <p>2. Instale a Extensão do Chrome</p>
           <ul>
             <li>
               <p>
-                Baixe o pacote da extensão (que inclui o modelo de IA de
-                transcrição): <a
-                  href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk"
-                  >https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk</a
-                >
+                Instale a extensão pela <a href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk">página do ConferenceCaptioning na Chrome Web Store</a>. O modelo de voz padrão já vem incluído, então você não precisa baixar mais nada para começar.
               </p>
             </li>
             <li>
               <p>
-                Após a conclusão do download, toque no ícone de Extensões e
-                selecione &quot;ConferenceCaptioning&quot; na lista
+                Depois de instalada, clique no ícone de Extensões (a peça de quebra-cabeça) e fixe o «ConferenceCaptioning» para tê-lo sempre a um clique de distância
               </p>
             </li>
           </ul>
@@ -369,124 +359,114 @@
               alt="Captura de tela mostrando a extensão do Chrome instalada"
             />
           </p>
-          <p>3. Conceda Permissões de Microfone</p>
+          <p>3. Inicie a Legendagem e Conceda a Permissão de Microfone</p>
           <ul>
-            <li>
-              Depois de instalada, ao tocar nela, a extensão solicitará acesso
-              ao microfone
-            </li>
-            <li>
-              Clique em &quot;Permitir ao visitar o site&quot; para ativar a
-              captura de áudio
-            </li>
-            <li>
-              Se você clicar em Negar por engano, pode tocar nos três pontos
-              à direita do ícone fixado do ConferenceCaptioning mostrado
-              acima -&gt; Ver Permissões do Site -&gt; Microfone -&gt;
-              Permitir. Isso salvará automaticamente
-            </li>
+            <li>Abra a página que você quer legendar (o vídeo ou os slides do seu evento), clique no ícone do ConferenceCaptioning e pressione <strong>Start</strong> (Iniciar). A janela pequena também permite ativar as traduções ao vivo e escolher os idiomas.</li>
+            <li>A extensão abre uma aba fixada chamada painel, com o aviso «Do not close this tab!» (Não feche esta aba!). A legendagem roda nesta aba, então deixe-a aberta durante todo o evento</li>
+            <li>Na primeira vez, o Chrome solicita acesso ao microfone. Clique em «Permitir ao visitar o site» para que a extensão possa misturar o seu microfone com o áudio reproduzido na aba</li>
+            <li>Se você pressionar Bloquear por engano, clique nos três pontos à direita do ícone fixado do ConferenceCaptioning → Ver Permissões do Site → Microfone → Permitir. Isso salvará automaticamente</li>
           </ul>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/popup.png"
+              alt="Captura de tela da janela da extensão ConferenceCaptioning com o nome da transmissão, um botão Change, as configurações de tradução ao vivo e um botão Start"
+            />
+          </p>
           <p>
             <img
               src="https://tawk.link/67291e984304e3196add0224/kb/attachments/28nBQBy4qr.png"
               alt="Captura de tela da solicitação de permissões do navegador"
             />
           </p>
-          <p>4. Para Iniciar a Legendagem Durante seu Evento</p>
+          <p>4. Confira o que a Sua Plateia Vê</p>
           <ol>
             <li>
-              Basta voltar para a página da sua transmissão:<br /><a
-                href="https://deafassistant.com/%7BStreamName%7D"
-                >https://deafassistant.com/{StreamName}</a
-              >
+              Abra a página da sua transmissão:<br /><a href="https://deafassistant.com/%7BStreamName%7D"
+              >https://deafassistant.com/{StreamName}</a
+            > (ou escaneie o QR code exibido no painel da extensão)
             </li>
-            <li>Clique no ícone da extensão Conference Captioning</li>
-            <li>No pop-up, digite o nome da sua transmissão em letras minúsculas</li>
-            <li>
-              Clique em Iniciar, e você deverá conseguir ver as legendas
-              exibidas na sua tela. Se você tocar no botão &quot;Mostrar
-              Legendas&quot; na página, também verá o que os participantes
-              conseguem ver.
-            </li>
+            <li>Fale, ou reproduza áudio na aba que está sendo legendada. As legendas aparecem em instantes na página que você está legendando e na página da transmissão que os participantes veem.</li>
+            <li>Clique no botão «Mostrar Legendas» na página da transmissão para ver exatamente o que os participantes veem. Compartilhe o link da transmissão ou o QR code com a sua plateia.</li>
+            <li>Para encerrar, clique no ícone da extensão e pressione Parar.</li>
           </ol>
+          <hr />
+          <h3>Escolhendo um Modelo de Reconhecimento de Voz</h3>
+          <p>
+            A extensão inclui vários modelos de reconhecimento de voz que rodam no próprio dispositivo. Role a página do painel até «Speech Recognition Model» (Modelo de reconhecimento de voz) e escolha um. Se você o trocar durante a legendagem, pare e inicie a legendagem novamente para que a mudança tenha efeito. As legendas vêm com pontuação adicionada automaticamente, então o que a sua plateia lê parece frases de verdade, e não um fluxo de palavras em minúsculas.
+          </p>
+          <ul>
+            <li><strong>Speed</strong> (padrão, gratuito): integrado, sem download e funciona em qualquer computador. Ideal para baixa latência.</li>
+            <li><strong>Accuracy</strong> (inglês, Premium): nosso modelo ultra preciso, com pontuação integrada. É um download único de cerca de 660 MB que o Chrome guarda para a próxima vez.</li>
+            <li><strong>Multilingual</strong> (Premium): reconhecimento ultra preciso de 13 idiomas (inglês, francês, alemão, espanhol, italiano, português, holandês, polonês, russo, ucraniano, japonês, coreano e chinês). É um download único de cerca de 930 MB. Escolha o idioma falado para que as legendas e as traduções saibam o que está sendo dito.</li>
+            <li><strong>Nano</strong> (gratuito): usa a IA integrada do Chrome, em versões recentes do Chrome que a suportam. Pode exigir uma etapa de ativação única e o download do modelo pelo próprio Chrome.</li>
+          </ul>
+          <p>
+            Os modelos Accuracy e Multilingual só estão disponíveis com uma transmissão Premium, e você pode ativar o Premium como teste gratuito sem cartão de crédito (veja o passo 1).
+          </p>
           <p>
             <img
-              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/t7RM83-5k8.png"
-              alt="Captura de tela da extensão do Chrome do ConferenceCaptioning"
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-model.png"
+              alt="Captura de tela do menu suspenso Speech Recognition Model do painel e da configuração Local Network Display"
             />
           </p>
+          <p>
+            Baixar um modelo é uma etapa única e exige conexão com a internet. O seu áudio nunca é enviado: o reconhecimento de voz roda no seu computador, e apenas o texto das legendas resultante é enviado para que a sua plateia possa lê-lo.
+          </p>
+          <h3>Exibindo Legendas em uma Tela ou no OBS (Local Network Display)</h3>
+          <p>
+            Você também pode enviar as legendas para um pequeno servidor na sua própria rede, além da transmissão normal. Isso permite exibi-las em uma TV, em um monitor de retorno ou como fonte de navegador no OBS, sem depender da conexão com a internet para essa exibição. Ative «Local Network Display» mais abaixo na página do painel (veja a captura de tela acima) e informe o endereço do seu servidor. O servidor complementar é um script gratuito: <a href="https://github.com/BeAware-DeafAssistant/ConfCapExtensionLocalServer">ConfCapExtensionLocalServer</a>. Ele não tem login, então use-o somente em uma rede confiável.
+          </p>
+          <h3>Novidades (Setembro de 2026)</h3>
+          <ul>
+            <li>Novos modelos de voz ultra precisos: Accuracy e Multilingual (Premium, com teste gratuito disponível)</li>
+            <li>Seletor de idioma falado para legendas e traduções multilíngues</li>
+            <li>Pontuação automática nas legendas, e legendas divididas em pausas naturais para que as palavras não sejam cortadas ao meio</li>
+            <li>Local Network Display para TVs e OBS</li>
+            <li>Ativação Premium com um clique e gerador de transmissões gratuitas de teste no painel</li>
+            <li>Correções de estabilidade para eventos longos e downloads de modelos</li>
+          </ul>
           <hr />
           <h3>Como Funciona Durante um Evento</h3>
           <ul>
-            <li>
-              A extensão captura o áudio do seu dispositivo (microfone ou
-              áudio do sistema roteado)
-            </li>
-            <li>A IA processa a fala localmente (no dispositivo)</li>
+            <li>A extensão captura o áudio do seu dispositivo (microfone ou áudio do sistema roteado)</li>
+            <li>A IA processa a fala localmente (no dispositivo); apenas o texto das legendas é enviado para a página da sua transmissão</li>
             <li>
               As legendas aparecem:
               <ul>
-                <li>Em uma janela de pré-visualização local</li>
-                <li>
-                  Na página de transmissão ao vivo quando você clica em
-                  “Mostrar Legendas”
-                </li>
+                <li>Em uma pré-visualização sobre a página que está sendo legendada</li>
+                <li>Na página da transmissão ao vivo quando você clica em «Mostrar Legendas»</li>
               </ul>
             </li>
           </ul>
           <p>Isso permite que as equipes de AV:</p>
           <ul>
-            <li>
-              Monitorem as legendas em tempo real para garantir que seus
-              sistemas estejam configurados corretamente
-            </li>
+            <li>Monitorem as legendas em tempo real para garantir que seus sistemas estejam configurados corretamente</li>
             <li>Garantam a conformidade de acessibilidade para os participantes</li>
           </ul>
-          <h3>Melhores Práticas para Profissionais de AV</h3>
+          <h3>Boas Práticas para Profissionais de AV</h3>
           <ul>
-            <li>
-              Use uma entrada de áudio direta (via mesa de som ou interface)
-              em vez do microfone ambiente sempre que possível
-            </li>
+            <li>Use uma entrada de áudio direta (por meio de mesa de som ou interface) em vez do microfone ambiente sempre que possível</li>
             <li>Teste os níveis de áudio antes do evento para melhorar a precisão</li>
-            <li>
-              Mantenha o Chrome focado na página de transmissão para evitar
-              interrupções
-            </li>
-            <li>
-              Use um computador dedicado como máquina de legendagem para
-              eventos grandes
-            </li>
+            <li>Mantenha a página «Do not close this tab!» aberta e deixe o Chrome em execução durante todo o evento</li>
+            <li>Use um computador dedicado como máquina de legendagem em eventos grandes</li>
           </ul>
           <h3>Dicas de Solução de Problemas</h3>
           <ul>
-            <li>
-              Nenhuma legenda aparecendo → Verifique se o Nome da Transmissão
-              corresponde exatamente
-            </li>
-            <li>
-              Baixa precisão → Verifique a qualidade da entrada do microfone e
-              o ruído de fundo
-            </li>
-            <li>
-              A extensão não carrega → Certifique-se de que o Modo de
-              Desenvolvedor está ativado no Chrome
-            </li>
-            <li>
-              Qualquer outra coisa → Basta usar a opção de chat no nosso site
-              para suporte ao vivo durante o evento
-            </li>
+            <li>Nenhuma legenda aparecendo → Verifique se o nome da sua transmissão corresponde exatamente</li>
+            <li>Baixa precisão → Verifique a qualidade da entrada do microfone e o ruído de fundo</li>
+            <li>Nenhum som captado → Verifique se o microfone está permitido (passo 3) e se há realmente áudio sendo reproduzido na aba de onde você iniciou</li>
+            <li>O download de um modelo trava → Verifique sua conexão com a internet e o espaço livre em disco, ou volte ao modelo Speed padrão</li>
+            <li>Mudou uma configuração e nada aconteceu → Pare e inicie a legendagem novamente; as mudanças de modelo valem a partir do próximo início</li>
+            <li>Qualquer outra coisa → Basta usar a opção de chat no nosso site para suporte ao vivo durante o evento</li>
           </ul>
           <h3>Por Que Usar o Conference Captioning (IA no Dispositivo)?</h3>
           <ul>
-            <li>✅ Funciona no Windows e no Mac</li>
-            <li>✅ Sem dependência de internet (opção de processamento local)</li>
+            <li>✅ Funciona em Windows e Mac</li>
+            <li>✅ O reconhecimento de voz roda no seu computador, não na nuvem</li>
+            <li>✅ Teste gratuito do Premium, sem cartão de crédito</li>
             <li>✅ Baixa latência para eventos ao vivo</li>
             <li>✅ Fácil integração aos fluxos de trabalho de AV existentes</li>
-            <li>
-              ✅ Escalável para conferências, casas de culto e eventos
-              corporativos
-            </li>
+            <li>✅ Escalável para conferências, locais de culto e eventos corporativos</li>
           </ul>
           <p>
             <img

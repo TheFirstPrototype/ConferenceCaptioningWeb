@@ -18,7 +18,7 @@
     </title>
     <meta
       name="description"
-      content="Process your event audio completely offline with our new on-device AI Chrome Extension."
+      content="Live captions with on-device AI in Chrome: choose a free or premium stream, pick a speech model, and show captions on any screen."
     />
     <meta
       property="og:title"
@@ -26,7 +26,7 @@
     />
     <meta
       property="og:description"
-      content="Process your event audio completely offline with our new on-device AI Chrome Extension."
+      content="Live captions with on-device AI in Chrome: choose a free or premium stream, pick a speech model, and show captions on any screen."
     />
     <meta
       property="og:image"
@@ -71,11 +71,11 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "Conference Captioning Chrome Extension (On-Device AI for Events)",
-        "description": "Process your event audio completely offline with our new on-device AI Chrome Extension.",
+        "description": "Live captions with on-device AI in Chrome: choose a free or premium stream, pick a speech model, and show captions on any screen.",
         "image": "https://tawk.link/67291e984304e3196add0224/kb/attachments/9LICKtIseq.png",
         "author": { "@type": "Person", "name": "Saamer Mansoor" },
         "datePublished": "2026-04-10",
-        "dateModified": "2026-04-10"
+        "dateModified": "2026-09-26"
       }
     </script>
     <link
@@ -284,7 +284,7 @@
                 class="rounded"
                 src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
                 alt="Saamer&#x27;s face" /></a
-            ><span>Saamer Mansoor</span><span>•</span><time>April 9, 2026</time>
+            ><span>Saamer Mansoor</span><span>•</span><time>April 9, 2026</time><span>•</span><span>Updated September 26, 2026</span>
           </div>
         </header>
         <div
@@ -311,52 +311,72 @@
             <li>You are running events on Windows or non-Apple hardware</li>
             <li>You need real-time captions with minimal latency</li>
             <li>
-              You want a local (on-device) captioning solution without relying
-              on cloud processing
+              You want speech recognition to run on your own computer instead
+              of a cloud speech service
             </li>
             <li>
-              You have already created your stream on the Admin Portal here:
-              <a href="https://app.conferencecaptioning.com"
-                >https://app.conferencecaptioning.com</a
-              >
+              You want to try it first: a free premium trial is available with
+              no credit card required
             </li>
           </ul>
           <h3>Step-by-Step Setup Guide:</h3>
-          <p>1. Prepare Your Caption Stream</p>
+          <p>1. Choose Your Caption Stream (Free or Premium)</p>
           <p>
-            Before installing the extension, ensure your caption stream is
-            ready:
+            Every event needs a stream name. Attendees open
+            <a href="https://deafassistant.com/%7BStreamName%7D"
+              >https://deafassistant.com/{StreamName}</a
+            >
+            (with your stream name in place of {StreamName}) to read the
+            captions, or scan the QR code the extension shows you. After you
+            install the extension (step 2), click its icon, then click
+            <strong>Change</strong> next to the Stream Name. This opens the
+            dashboard page, where you choose one of two options:
           </p>
           <ul>
             <li>
-              Navigate to:<br /><a
-                href="https://deafassistant.com/%7BStreamName%7D"
-                >https://deafassistant.com/{StreamName}</a
-              >
+              <strong>Premium stream (recommended for real events):</strong>
+              click <strong>Activate Premium Stream</strong>. The dashboard
+              signs you in, activates your premium stream, and links it to the
+              extension. You can start with a free trial, and no credit card is
+              required. Premium gives you your own stream, the ultra-accurate
+              speech models, and extras such as audience questions.
             </li>
-            <li>Replace {StreamName} with your unique stream ID</li>
             <li>
-              Confirm the page loads successfully, or else create it using
-              <a href="http://app.conferencecaptioning.com"
-                >app.conferencecaptioning.com</a
-              >
+              <strong>Free stream (for testing only):</strong> click
+              <strong>Generate Free Stream</strong> for a stream name right
+              away, with no account. Free streams are meant for trying things
+              out and have limited usage time. There are only a limited number
+              of them, so someone else may be using the same free stream at the
+              same time. Don't use one for a live event.
             </li>
           </ul>
-          <p>2. Download the Chrome Extension</p>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-qr.png"
+              alt="Screenshot of the extension dashboard with the Stream Name, Generate Free Stream and Activate Premium Stream buttons, and a QR code to share with attendees"
+            />
+          </p>
+          <p>
+            The dashboard also shows the QR code and link (for example
+            deafassistant.com/yourstream) to share with your audience. It
+            updates whenever you change your stream.
+          </p>
+          <p>2. Install the Chrome Extension</p>
           <ul>
             <li>
               <p>
-                Download the extension package (which includes the transcription
-                AI model): <a
+                Install the extension from the <a
                   href="https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk"
-                  >https://chromewebstore.google.com/detail/conferencecaptioning/hblipfjbehhndelmmfifecnlnhehhgjk</a
-                >
+                  >ConferenceCaptioning page on the Chrome Web Store</a
+                >. The default speech model is included, so there is nothing
+                else to download to get started.
               </p>
             </li>
             <li>
               <p>
-                After the download of completes, tap on the Extensions icon, and
-                select &quot;ConferenceCaptioning&quot; from the list
+                After it installs, click the Extensions (puzzle piece) icon and
+                pin &quot;ConferenceCaptioning&quot; so it's always one click
+                away
               </p>
             </li>
           </ul>
@@ -366,50 +386,151 @@
               alt="Screenshot showing the Chrome extension installed"
             />
           </p>
-          <p>3. Grant Microphone Permissions</p>
+          <p>3. Start Captioning and Grant Microphone Permission</p>
           <ul>
             <li>
-              Once installed, when you tap on it, the extension will prompt for
-              microphone access
+              Open the page you want to caption (your event's video or slides),
+              click the ConferenceCaptioning icon, and press
+              <strong>Start</strong>. The small window also lets you turn on
+              live translations and choose the languages.
             </li>
             <li>
-              Click &quot;Allow while visiting the site&quot; to enable audio
-              capture
+              The extension opens a pinned tab called the dashboard, marked
+              &quot;Do not close this tab!&quot;. Captioning runs in this tab,
+              so leave it open for the whole event
             </li>
             <li>
-              If you press Deny by mistake, you can tap on the three dots to the
-              right of the ConferenceCaptioning pin you see above -&gt; View Web
-              Permissions -&gt; Microphone -&gt; Allow. It will autosave
+              The first time, Chrome asks for microphone access. Click
+              &quot;Allow while visiting the site&quot; so the extension can mix
+              your microphone with the audio playing in the tab
+            </li>
+            <li>
+              If you press Deny by mistake, click the three dots to the right of
+              the ConferenceCaptioning pin -&gt; View Web Permissions -&gt;
+              Microphone -&gt; Allow. It will autosave
             </li>
           </ul>
+          <p>
+            <img
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/popup.png"
+              alt="Screenshot of the ConferenceCaptioning extension window with the stream name, a Change button, live translation settings and a Start button"
+            />
+          </p>
           <p>
             <img
               src="https://tawk.link/67291e984304e3196add0224/kb/attachments/28nBQBy4qr.png"
               alt="Screenshot of the permissions request from the browser"
             />
           </p>
-          <p>4. To Start Captioning During Your Event</p>
+          <p>4. Check What Your Audience Sees</p>
           <ol>
             <li>
-              Simply back to your stream page:<br /><a
+              Open your stream page:<br /><a
                 href="https://deafassistant.com/%7BStreamName%7D"
                 >https://deafassistant.com/{StreamName}</a
               >
+              (or scan the QR code shown on the extension's dashboard page)
             </li>
-            <li>Click the Conference Captioning extension icon</li>
-            <li>In the popup, enter your Stream Name in lower case</li>
             <li>
-              Click Start, and you should be able to see captions display on
-              your screen. If you tap on the &quot;Show Captions&quot; button on
-              the page, you will also see what the attendees get to see.
+              Speak, or play audio in the captioned tab. Captions appear on the
+              page you're captioning within a moment, and on the stream page
+              your attendees see.
+            </li>
+            <li>
+              Click the &quot;Show Captions&quot; button on the stream page to
+              see exactly what attendees see. Share the stream link or QR code
+              with your audience.
+            </li>
+            <li>
+              To finish, click the extension icon and press Stop.
             </li>
           </ol>
+          <hr />
+          <h3>Choosing a Speech Recognition Model</h3>
+          <p>
+            The extension includes several on-device speech recognition models.
+            Scroll down on the dashboard page to &quot;Speech Recognition
+            Model&quot; and pick one. If you change it while captioning, stop
+            and start captioning again for the change to take effect.
+            Captions come with punctuation added automatically, so what your
+            audience reads looks like sentences, not a stream of lowercase
+            words.
+          </p>
+          <ul>
+            <li>
+              <strong>Speed</strong> (default, free): built in, no download,
+              and works on any computer. Best for low latency.
+            </li>
+            <li>
+              <strong>Accuracy</strong> (English, Premium): our ultra-accurate
+              model, with punctuation built in. It's a one-time download of
+              roughly 660 MB that Chrome keeps for next time.
+            </li>
+            <li>
+              <strong>Multilingual</strong> (Premium): ultra-accurate
+              recognition of 13 languages (English, French, German, Spanish,
+              Italian, Portuguese, Dutch, Polish, Russian, Ukrainian, Japanese,
+              Korean and Chinese). It's a one-time download of roughly 930 MB.
+              Choose the Spoken Language so captions and translations know
+              what's being said.
+            </li>
+            <li>
+              <strong>Nano</strong> (free): uses Chrome's built-in AI, on
+              recent versions of Chrome that support it. It can need a one-time
+              enable step and Chrome's own model download.
+            </li>
+          </ul>
+          <p>
+            The Accuracy and Multilingual models are only available with a
+            Premium stream, and you can activate Premium as a free trial with no
+            credit card (see step 1).
+          </p>
           <p>
             <img
-              src="https://tawk.link/67291e984304e3196add0224/kb/attachments/t7RM83-5k8.png"
-              alt="Screenshot from Chrome extension of ConferenceCaptioning"
+              src="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/options-model.png"
+              alt="Screenshot of the dashboard's Speech Recognition Model dropdown and the Local Network Display setting"
             />
           </p>
+          <p>
+            Downloading a model is a one-time step and needs an internet
+            connection. Your audio is never uploaded: speech recognition runs on
+            your computer, and only the resulting caption text is sent so your
+            audience can read it.
+          </p>
+          <h3>Show Captions on a Screen or in OBS (Local Network Display)</h3>
+          <p>
+            You can also send captions to a small server on your own network, in
+            addition to the normal stream. This lets you show them on a TV, a
+            confidence monitor, or as an OBS browser source without depending on
+            the internet connection for that display. Turn on &quot;Local
+            Network Display&quot; further down the dashboard page (see the
+            screenshot above) and enter your server's
+            address. The companion server is a free script:
+            <a
+              href="https://github.com/BeAware-DeafAssistant/ConfCapExtensionLocalServer"
+              >ConfCapExtensionLocalServer</a
+            >. It has no login, so use it on a trusted network only.
+          </p>
+          <h3>What's New (September 2026)</h3>
+          <ul>
+            <li>
+              New ultra-accurate speech models: Accuracy and Multilingual
+              (Premium, free trial available)
+            </li>
+            <li>
+              Spoken Language picker for multilingual captions and translation
+            </li>
+            <li>
+              Automatic punctuation on your captions, and captions are split at
+              natural pauses so words aren't cut in half
+            </li>
+            <li>Local Network Display for TVs and OBS</li>
+            <li>
+              One-click premium activation, and a free test stream generator, in
+              the dashboard
+            </li>
+            <li>Stability fixes for long events and model downloads</li>
+          </ul>
           <hr />
           <h3>How It Works During an Event</h3>
           <ul>
@@ -417,11 +538,14 @@
               The extension captures audio from your device (mic or routed
               system audio)
             </li>
-            <li>AI processes the speech locally (on-device)</li>
+            <li>
+              AI processes the speech locally (on-device); only the caption
+              text is sent to your stream page
+            </li>
             <li>
               Captions appear:
               <ul>
-                <li>In a local preview window</li>
+                <li>In a preview over the captioned page</li>
                 <li>On the live stream page when you click “Show Captions”</li>
               </ul>
             </li>
@@ -442,7 +566,8 @@
             </li>
             <li>Test audio levels before the event to improve accuracy</li>
             <li>
-              Keep Chrome focused on the stream page to avoid interruptions
+              Keep the &quot;Do not close this tab!&quot; page open, and keep
+              Chrome running, for the whole event
             </li>
             <li>
               Use a dedicated computer as the captioning machine for large
@@ -458,7 +583,16 @@
               Low accuracy → Check microphone input quality and background noise
             </li>
             <li>
-              Extension not loading → Ensure Developer Mode is enabled in Chrome
+              No sound picked up → Check that the microphone is allowed (step 3)
+              and that audio is actually playing in the tab you started from
+            </li>
+            <li>
+              Stuck on a model download → Check your internet connection and
+              free disk space, or switch back to the default Speed model
+            </li>
+            <li>
+              Changed a setting and nothing happened → Stop and start captioning
+              again; model changes apply on the next start
             </li>
             <li>
               Anything else → Just use the chat option on our website for live
@@ -468,7 +602,8 @@
           <h3>Why Use Conference Captioning (On-Device AI)?</h3>
           <ul>
             <li>✅ Works on Windows &amp; Mac</li>
-            <li>✅ No internet dependency (local processing option)</li>
+            <li>✅ Speech recognition runs on your computer, not in the cloud</li>
+            <li>✅ Free premium trial, no credit card required</li>
             <li>✅ Low latency for live events</li>
             <li>✅ Easy integration into existing AV workflows</li>
             <li>

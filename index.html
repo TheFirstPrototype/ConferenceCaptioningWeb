@@ -286,7 +286,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                             </span>
                                         </h2>
                                         <h3 class="hs-line-6 mb-60 mb-xs-40 wow fadeInUpShort" data-wow-delay=".2s">
-                                            Captions appear on screens and attendees' phones less than a second after the speaker says them, in 50+ languages. Your device becomes an offline AI captioning server for the whole room. ADA, ACA &amp; EAA ready.
+                                            Captions appear on screens and attendees' phones <a href="#speed" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">less than a second</a> after the speaker says them, in 50+ languages. Your device becomes an offline AI captioning server for the whole room. ADA, ACA &amp; EAA ready.
                                         </h3>
                                         <div class="local-scroll wow fadeInUpShort" data-wow-delay=".3s">
                                             <a href="https://app.conferencecaptioning.com" class="btn btn-mod btn-w btn-medium btn-round me-md-1" data-cta="hero-start-free">
@@ -416,6 +416,53 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     </div>
                 </section>
                 <!-- End Offline Server Section -->
+                <!-- Speed Demo Section -->
+                <section class="page-section bg-dark-lighter light-content" id="speed">
+                    <style>
+                        .yt-facade { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 16px 40px rgba(0,0,0,.45); aspect-ratio: 16 / 9; background: #000; }
+                        .yt-facade button { all: unset; cursor: pointer; display: block; width: 100%; height: 100%; position: relative; }
+                        .yt-facade img { display: block; width: 100%; height: 100%; object-fit: cover; }
+                        .yt-facade .yt-play { position: absolute; top: 50%; left: 50%; width: 76px; height: 54px; transform: translate(-50%,-50%); border-radius: 14px; background: #ff0000; box-shadow: 0 6px 18px rgba(0,0,0,.4); transition: transform .15s ease; }
+                        .yt-facade .yt-play::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%,-50%); border-style: solid; border-width: 12px 0 12px 20px; border-color: transparent transparent transparent #fff; }
+                        .yt-facade button:hover .yt-play, .yt-facade button:focus-visible .yt-play { transform: translate(-50%,-50%) scale(1.08); }
+                        .yt-facade button:focus-visible { outline: 3px solid #38bdf8; outline-offset: -3px; }
+                        .yt-facade iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+                        .speed-stat { display: inline-block; font-size: 42px; font-weight: 600; color: #38bdf8; line-height: 1; margin-bottom: 6px; }
+                    </style>
+                    <div class="container relative">
+                        <div class="row align-items-center">
+                            <div class="col-lg-5 mb-md-50">
+                                <span class="speed-stat">&lt; 1 second</span>
+                                <h2 class="section-title mb-20" style="text-align:left;">From the speaker&#x27;s mouth to every screen</h2>
+                                <p>Watch ConferenceCaptioning caption a live speaker and translate into other languages in real time, with no internet connection. Words reach the screen in under a second, so captions keep pace with the speaker instead of trailing a sentence behind.</p>
+                                <p style="font-size:15px;opacity:.85;">Cloud captioning adds delay every time audio travels to a data center and back. Here, the AI runs on the device in the room.</p>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="yt-facade" data-video-id="gF1GJmRAGzM">
+                                    <button type="button" aria-label="Play video: real-time AI captions and live translations in under a second">
+                                        <img src="https://i.ytimg.com/vi/gF1GJmRAGzM/maxresdefault.jpg" width="1280" height="720" loading="lazy" alt="">
+                                        <span class="yt-play" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.querySelectorAll('.yt-facade button').forEach(function (btn) {
+                            btn.addEventListener('click', function () {
+                                var box = btn.parentNode, id = box.getAttribute('data-video-id');
+                                var f = document.createElement('iframe');
+                                f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+                                f.title = 'Real-time AI captions and live translations in under a second';
+                                f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+                                f.allowFullscreen = true;
+                                box.replaceChildren(f);
+                                if (typeof gtag === 'function') gtag('event', 'video_play', { video: id, section: 'speed' });
+                            });
+                        });
+                    </script>
+                </section>
+                <!-- End Speed Demo Section -->
             
                 <!-- Divider -->
                 <hr class="mt-0 mb-0 white" />
@@ -1868,6 +1915,20 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
           }
         }
       ]
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://conferencecaptioning.com/#speed-demo",
+      "name": "World's Fastest Real-Time AI Captions & Live Translations for Conferences? (Offline & Under 0.5s)",
+      "description": "ConferenceCaptioning captions a live speaker and generates real-time translations on-device, with no internet, in under a second.",
+      "thumbnailUrl": "https://i.ytimg.com/vi/gF1GJmRAGzM/maxresdefault.jpg",
+      "uploadDate": "2026-06-05T01:46:31-07:00",
+      "duration": "PT1M39S",
+      "contentUrl": "https://www.youtube.com/watch?v=gF1GJmRAGzM",
+      "embedUrl": "https://www.youtube.com/embed/gF1GJmRAGzM",
+      "publisher": {
+        "@id": "https://conferencecaptioning.com/#org"
+      }
     }
   ]
 }

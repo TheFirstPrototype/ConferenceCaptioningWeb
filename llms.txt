@@ -5,7 +5,7 @@
 Built by the team behind the award-winning BeAware Deaf Assistant app. Founder: Saamer Mansoor. Contact: hello@conferencecaptioning.com.
 
 ## Key facts
-- Latency: under 1 second (sub-1000 ms) from speaker to screen.
+- Latency: under 1 second (sub-1000 ms) from speaker to screen. Demo video of live captions and translations under a second, offline: https://www.youtube.com/watch?v=gF1GJmRAGzM
 - Languages: pool of 50+ languages; up to 5 simultaneous translations per event.
 - Offline AI server: installing ConferenceCaptioning turns a Mac, iPad, or iPhone (or a Windows PC through the Chrome extension) into an AI captioning and translation server. Transcription, translation, and broadcast-quality captions on every screen, TV, or device on the same local network work with no internet at all, including fully air-gapped setups.
 - Attendee phones: organizers usually share a QR code to a public link so attendees read along over their own mobile data without joining anything; attendees can alternatively join the local Wi-Fi to stay fully offline.

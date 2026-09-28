@@ -236,7 +236,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                 On-Device AI Captioning for Professional AV Engineer Broadcasts.
                             </h1>
                             <h3 class="hs-line-6 mb-60 mb-xs-40 wow fadeInUpShort" data-wow-delay=".2s" style="color:#c5c6c7; max-width: 800px;">
-                                Turn any laptop, tablet, or phone into an offline AI captioning server and eliminate the cloud bottleneck for mission-critical broadcasts. Sub-1000ms latency, zero internet requirement, and seamless integration into your SDI/NDI signal chain.
+                                Turn a Mac, iPad, or iPhone into an offline AI captioning server (or a Windows PC through our Chrome extension) and eliminate the cloud bottleneck for mission-critical broadcasts. Sub-1000ms latency, zero internet requirement, and seamless integration into your SDI/NDI signal chain.
                             </h3>
                             <div class="local-scroll wow fadeInUpShort" data-wow-delay=".3s">
                                 <a href="https://conferencecaptioning.com/portal" class="btn btn-mod btn-w btn-medium btn-round me-md-1 mb-xs-10" style="background:#45a29e; color:#0b0c10; font-weight:bold; border-color:#45a29e;">
@@ -509,7 +509,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                             With Conference Captioning, the translations keep scrolling.
                         </p>
                         <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.6; margin-top:20px; margin-bottom:0;">
-                            And if the captioning computer itself fails? A backup device on the local network takes over the caption feed in about two seconds, with no page refresh, and your AV lead gets an alert email. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/" style="color:#66fcf1;">See the hot-failover setup guide &rarr;</a>
+                            And if the captioning computer itself fails? With the Enterprise plan, a backup Mac or iPad on the local network takes over the caption feed in about two seconds, with no page refresh, and your AV lead gets an alert email. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/" style="color:#66fcf1;">See the hot-failover setup guide &rarr;</a>
                         </p>
                     </div>
                 </div>
@@ -559,6 +559,10 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                 <p>Feed it from your existing chain: XLR or USB through an audio interface, a virtual sound card, Dante, or NDI.</p>
                             </details>
                             <details class="faq-item">
+                                <summary>Does it work on Windows, or only on Apple devices?</summary>
+                                <p>Both. The native app runs on Mac, iPad, and iPhone and performs best there, because it uses Apple&#x27;s Neural Engine for on-device AI. On Windows, or any computer with Google Chrome, the <a href="https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/">ConferenceCaptioning Chrome extension</a> runs speech recognition on-device too. Hot-failover redundancy currently requires Apple devices.</p>
+                            </details>
+                            <details class="faq-item">
                                 <summary>Which production tools does it work with?</summary>
                                 <p>vMix, OBS Studio, ProPresenter, Wirecast, TriCaster, H2R Graphics, and Blackmagic Design switchers. Use the transparent overlay or a chroma-key background for lower thirds, and style it with custom CSS or the Caption URL Generator.</p>
                             </details>
@@ -572,7 +576,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                             </details>
                             <details class="faq-item">
                                 <summary>What happens if the captioning computer fails mid-show?</summary>
-                                <p>A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/">See the hot-failover setup guide</a>.</p>
+                                <p>A backup Mac or iPad on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. Hot failover is included in the Enterprise plan. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/">See the hot-failover setup guide</a>.</p>
                             </details>
                             <details class="faq-item">
                                 <summary>Can it caption and translate at the same time?</summary>
@@ -824,6 +828,14 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         },
         {
           "@type": "Question",
+          "name": "Does it work on Windows, or only on Apple devices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both. The native app runs on Mac, iPad, and iPhone and performs best there, because it uses Apple's Neural Engine for on-device AI. On Windows, or any computer with Google Chrome, the ConferenceCaptioning Chrome extension runs speech recognition on-device too. Hot-failover redundancy currently requires Apple devices."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Which production tools does it work with?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -851,7 +863,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
           "name": "What happens if the captioning computer fails mid-show?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. See the hot-failover setup guide."
+            "text": "A backup Mac or iPad on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. Hot failover is included in the Enterprise plan. See the hot-failover setup guide."
           }
         },
         {

@@ -363,9 +363,14 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                 <section class="page-section bg-dark light-content" id="offline">
                     <style>
                         .offline-figure { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
-                        .offline-figure img { display: block; width: 100%; height: auto; }
+                        .offline-figure video { display: block; width: 100%; height: auto; }
+                        .offline-media { position: relative; }
+                        .screen-tag { position: absolute; top: 21%; padding: 2px 8px; border-radius: 999px; background: rgba(10,23,38,.85); border: 1px solid #38bdf8; color: #fff; font-size: 12px; font-weight: 600; line-height: 1.5; white-space: nowrap; }
+                        .screen-tag.centered { transform: translateX(-50%); }
+                        @media (min-width: 992px) { .screen-tag { font-size: 15px; padding: 3px 12px; } .offline-figure figcaption { font-size: 16px; padding: 14px 20px; } }
+                        @media (max-width: 480px) { .screen-tag { font-size: 9px; padding: 0 5px; top: 19%; } }
                         .offline-figure figcaption { padding: 12px 16px; font-size: 14px; background: rgba(0,0,0,.35); }
-                        .offline-flow { list-style: none; padding: 0; margin: 28px 0 0; }
+                        .offline-flow { list-style: none; padding: 0; margin: 0; }
                         .offline-flow li { border: 1px solid rgba(255,255,255,.18); border-radius: 10px; padding: 12px 16px; background: rgba(255,255,255,.04); }
                         .offline-flow li strong { display: block; color: #fff; }
                         .offline-flow li span { font-size: 14px; opacity: .75; }
@@ -374,16 +379,28 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                         .offline-badge { display: inline-block; margin-top: 16px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #38bdf8; }
                     </style>
                     <div class="container relative">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 mb-md-60">
+                        <div class="row">
+                            <div class="col-12 mb-60 mb-sm-40">
                                 <figure class="offline-figure wow fadeInUpShort">
-                                    <img src="deck/multilingual.gif" width="360" height="202" loading="lazy" alt="Four stage screens showing live broadcast-style captions in Chinese, Bahasa Indonesia, English and Thai at the same time, with no internet connection">
-                                    <figcaption>Bali summit: 4 screens, 4 languages, zero internet.</figcaption>
+                                    <div class="offline-media">
+                                        <video src="deck/bali-summit.mp4" poster="deck/bali-summit-poster.jpg" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Bali summit stage with a speaker between four screens showing live captions at the same time: Mandarin, Bahasa Indonesia, Thai and English, running with no internet"></video>
+                                        <span class="screen-tag" style="left:1.5%;" aria-hidden="true">Mandarin</span>
+                                        <span class="screen-tag centered" style="left:24%;" aria-hidden="true">Bahasa</span>
+                                        <span class="screen-tag centered" style="left:77.9%;" aria-hidden="true">Thai</span>
+                                        <span class="screen-tag" style="right:1.5%;" aria-hidden="true">English</span>
+                                    </div>
+                                    <figcaption><strong style="color:#fff;">Bali summit: 6 languages at once.</strong> Mandarin, Bahasa Indonesia, Thai and English on the stage screens with zero internet, plus Burmese and Japanese on attendees&#x27; phones when the screens ran out.</figcaption>
                                 </figure>
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-md-40">
                                 <h2 class="section-title mb-20" style="text-align:left;">Your device becomes the AI captioning server</h2>
                                 <p>Install ConferenceCaptioning on any laptop, tablet, or phone and it transcribes and translates speech on the device itself. Every screen on the same local network shows broadcast-quality captions, with no internet anywhere in the chain and no captioning hardware to buy or rent.</p>
+                                <p class="mt-20" style="font-size:17px;"><strong style="color:#fff;">The AI runs on your device, not in a data center.</strong> Most captioning tools send every word your speakers say to remote servers. Here, speech is transcribed and translated on the machine in the room, and the audio is never uploaded, stored, or used to train AI.</p>
+                                <p class="mt-20" style="font-size:15px;opacity:.85;">Attendees can follow on their own phones too: share a QR code to a public link and they read along over their mobile data, with nothing to join or install. Prefer to stay fully offline? They can join the same local Wi-Fi instead.</p>
+                            </div>
+                            <div class="col-lg-6">
                                 <ol class="offline-flow" aria-label="How the offline setup works">
                                     <li><strong>Microphone or sound board</strong><span>Your existing audio via USB, XLR interface, Dante, or NDI</span></li>
                                     <li class="arrow" aria-hidden="true">&darr;</li>
@@ -394,8 +411,6 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                     <li><strong>Stage screens, TVs &amp; confidence monitors</strong><span>Broadcast-quality captions in each screen's language</span></li>
                                 </ol>
                                 <span class="offline-badge">No internet anywhere in this picture</span>
-                                <p class="mt-20" style="font-size:17px;"><strong style="color:#fff;">The AI runs on your device, not in a data center.</strong> Most captioning tools send every word your speakers say to remote servers. Here, speech is transcribed and translated on the machine in the room, and the audio is never uploaded, stored, or used to train AI.</p>
-                                <p class="mt-20" style="font-size:15px;opacity:.85;">Attendees can follow on their own phones too: share a QR code to a public link and they read along over their mobile data, with nothing to join or install. Prefer to stay fully offline? They can join the same local Wi-Fi instead.</p>
                             </div>
                         </div>
                     </div>

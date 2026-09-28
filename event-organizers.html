@@ -314,6 +314,8 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                 <div class="col-md-6 wow fadeInLeft" data-wow-delay="0s" data-wow-duration="1s">
                     <h2 class="section-title mb-30" style="color: #f7a800; font-size:2rem;">The No-Internet-Required Advantage</h2>
                     <p style="font-size: 1.1rem; line-height:1.6;"><strong>A Reliability Guarantee:</strong> Venue Wi-Fi is notoriously unreliable when thousands of attendees hit the network simultaneously. While other cloud-based services buffer, drop words, or stop completely during internet lags, our on-device hardware runs locally. Uninterrupted captions, 100% of the time.</p>
+                    <p style="font-size: 1.1rem; line-height:1.6; margin-top:16px;"><strong>Your Device Becomes the Server:</strong> Install ConferenceCaptioning on any laptop, tablet, or phone and it becomes an offline AI captioning and translation server. Every screen on the room's local network shows broadcast-quality captions, with no internet and no captioning hardware to buy or rent.</p>
+                    <p style="font-size: 1.1rem; line-height:1.6; margin-top:16px;"><strong>A Budget Line You Can Cross Off:</strong> Venues often charge a premium for a dedicated hardwired internet line in each room. Cloud captioning tools need one to stay reliable. ConferenceCaptioning doesn't, so there's no line to order and that money stays in your budget.</p>
                 </div>
             </div>
         </div>
@@ -336,7 +338,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         <div class="container relative">
             <div class="text-center mb-80 mb-sm-50">
                 <h2 class="section-title">The Value Calculator</h2>
-                <p class="section-title-descr">See how much you save compared to traditional Human CART Captioning.</p>
+                <p class="section-title-descr">See how much you save compared to traditional human CART captioning, including the venue internet lines you won't need.</p>
             </div>
             
             <div class="row pt-50 pb-50" style="background: rgba(255,255,255,0.03); border-radius: 10px; padding: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
@@ -352,6 +354,12 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                         <label for="calc-days" style="font-size:1.15rem; font-weight:600; display:block;">Number of Days:</label>
                         <input type="number" id="calc-days" class="form-control" value="2" min="1" style="border-radius:5px; margin-top:10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:white; font-size:1.2rem; padding: 10px;">
                     </div>
+
+                    <div class="form-group mb-20">
+                        <label for="calc-internet" style="font-size:1.15rem; font-weight:600; display:block;">Venue's quote for a hardwired internet line ($ per room, per day):</label>
+                        <input type="number" id="calc-internet" class="form-control" placeholder="Optional, e.g. from your venue's AV order form" min="0" style="border-radius:5px; margin-top:10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color:white; font-size:1.2rem; padding: 10px;">
+                        <p style="font-size:0.85rem; opacity:0.7; margin-top:8px; line-height:1.4;">Cloud captioning and remote CART need a reliable connection in every room. ConferenceCaptioning runs on-device, so you can skip this order entirely.</p>
+                    </div>
                 </div>
                 
                 <div class="col-md-7 text-center">
@@ -360,7 +368,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                         <div class="col-6">
                             <h4 style="color:#ff6b6b; font-size: 1.25rem;">Human CART</h4>
                             <div style="font-size:2.5rem; font-weight:bold; color:#ff6b6b;" id="cost-cart">$0</div>
-                            <p style="font-size:0.85rem; opacity:0.7; margin-top:10px; line-height:1.4;">Based on ~$150-200/hr<br>+ travel & minimums</p>
+                            <p style="font-size:0.85rem; opacity:0.7; margin-top:10px; line-height:1.4;">Based on ~$150-200/hr<br>+ travel & minimums<span id="cart-internet-note" hidden><br>+ venue internet line</span></p>
                         </div>
                         <div class="col-6">
                             <h4 style="color:#20c997; font-size: 1.25rem;">Conference Captioning</h4>
@@ -370,6 +378,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     </div>
                     <div class="mt-40 pt-20" style="border-top: 1px solid rgba(255,255,255,0.1);">
                         <div style="font-size:1.75rem; font-weight:bold;">Potential Savings: <span id="cost-savings" style="color:#f7a800; font-size: 2rem;">70%</span></div>
+                        <p id="internet-savings" hidden style="margin-top:12px; font-size:1rem; opacity:0.9;">Includes <strong id="internet-savings-amount"></strong> in venue internet lines you won't need to order.</p>
                     </div>
                 </div>
             </div>
@@ -385,7 +394,15 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     let travelFeePerDayPerRoom = 100; // travel / setup fees
                     
                     let cartCost = (sessions * days * hoursPerSession * hourRate) + (sessions * days * travelFeePerDayPerRoom);
-                    
+
+                    // Optional venue internet line quote; only counted when the organizer enters one.
+                    let internetPerRoomDay = Math.max(0, parseFloat(document.getElementById('calc-internet').value) || 0);
+                    let internetCost = Math.round(sessions * days * internetPerRoomDay);
+                    cartCost += internetCost;
+                    document.getElementById('cart-internet-note').hidden = internetCost === 0;
+                    document.getElementById('internet-savings').hidden = internetCost === 0;
+                    document.getElementById('internet-savings-amount').innerText = "$" + internetCost.toLocaleString();
+
                     // AI Cost: $100 per day per room/session standard
                     let aiCost = sessions * days * 100;
                     
@@ -400,8 +417,10 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                 document.addEventListener("DOMContentLoaded", function() {
                     let e1 = document.getElementById('calc-sessions');
                     let e2 = document.getElementById('calc-days');
+                    let e3 = document.getElementById('calc-internet');
                     if(e1) e1.addEventListener('input', updateCalculator);
                     if(e2) e2.addEventListener('input', updateCalculator);
+                    if(e3) e3.addEventListener('input', updateCalculator);
                     updateCalculator();
                 });
             </script>
@@ -458,6 +477,10 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                             <details class="faq-item">
                                 <summary>What happens if the venue Wi-Fi fails?</summary>
                                 <p>Captions keep running. The AI runs on-device on the captioning computer, so it doesn't depend on venue internet the way cloud captioning services do.</p>
+                            </details>
+                            <details class="faq-item">
+                                <summary>Do I need to order a hardwired internet line from the venue?</summary>
+                                <p>No. ConferenceCaptioning runs transcription and translation on-device, so there's no dedicated internet line, wired drop, or reserved bandwidth to rent from the venue. Venue internet lines can be a significant line item per room, so skipping them is often one of the biggest savings compared with cloud captioning tools.</p>
                             </details>
                             <details class="faq-item">
                                 <summary>Do we need extra staff or AV equipment?</summary>
@@ -721,6 +744,14 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Captions keep running. The AI runs on-device on the captioning computer, so it doesn't depend on venue internet the way cloud captioning services do."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to order a hardwired internet line from the venue?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. ConferenceCaptioning runs transcription and translation on-device, so there's no dedicated internet line, wired drop, or reserved bandwidth to rent from the venue. Venue internet lines can be a significant line item per room, so skipping them is often one of the biggest savings compared with cloud captioning tools."
           }
         },
         {

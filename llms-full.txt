@@ -45,7 +45,7 @@ We are the only solution that offer's fixed pricing for unlimited usage. Our tie
     *   Live transcription for events.
     *   Attendee & Organizer access.
     *   16 freely available streams.
-    *   15-minute streaming limit per session.
+    *   20-minute streaming limit per session.
     *   Supports 20+ languages.
     *   15-second 3-tap setup and use.
 

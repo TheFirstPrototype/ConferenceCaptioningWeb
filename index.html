@@ -1520,48 +1520,58 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         </script>
         <script defer type="text/javascript" src="js/analyticsLite.js"></script>
         <script defer type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                var userLang = navigator.language || navigator.userLanguage;
-                // Do not navigate if you come from another deaf assistant page
-                if (document.referrer.includes("conferencecaptioning.com")) {
-                    console.log("Internal");
-                } else {
-                    var langMap = {
-                        "fr": "index-fr.html",
-                        "de": "index-de.html",
-                        "es": "index-es.html",
-                        "ar": "index-ar.html",
-                        "nl": "index-nl.html",
-                        "pt": "index-pt.html",
-                        "ru": "index-ru.html",
-                        "uk": "index-uk.html",
-                        "hi": "index-hi.html",
-                        "ur": "index-ur.html",
-                        "yo": "index-yo.html",
-                        "id": "index-id.html",
-                        "it": "index-it.html",
-                        "ja": "index-ja.html",
-                        "sw": "index-sw.html",
-                        "pl": "index-pl.html",
-                        "vi": "index-vi.html",
-                        "ro": "index-ro.html",
-                        "zh-Hant": "index-zh-hant.html",
-                        "zh": "index-zh.html",
-                        "hr": "index-hr.html",
-                        "fa": "index-fa.html",
-                        "ko": "index-ko.html",
-                        "sv": "index-sv.html",
-                        "hu": "index-hu.html",
-                        "sq": "index-sq.html"
-                    };
+            // Offer (don't force) a translated homepage. Automatic redirects can stop
+            // crawlers and English-preferring visitors from reaching this page.
+            document.addEventListener('DOMContentLoaded', function () {
+                var pages = {
+                    fr: ["index-fr.html", "Voir cette page en français ?", "Oui", "Non merci"],
+                    de: ["index-de.html", "Diese Seite auf Deutsch ansehen?", "Ja", "Nein danke"],
+                    es: ["index-es.html", "¿Ver esta página en español?", "Sí", "No, gracias"],
+                    ar: ["index-ar.html", "عرض هذه الصفحة باللغة العربية؟", "نعم", "لا، شكرًا"],
+                    nl: ["index-nl.html", "Deze pagina in het Nederlands bekijken?", "Ja", "Nee, bedankt"],
+                    pt: ["index-pt.html", "Ver esta página em português?", "Sim", "Não, obrigado"],
+                    ru: ["index-ru.html", "Открыть эту страницу на русском?", "Да", "Нет, спасибо"],
+                    uk: ["index-uk.html", "Переглянути цю сторінку українською?", "Так", "Ні, дякую"],
+                    hi: ["index-hi.html", "यह पेज हिंदी में देखें?", "हाँ", "नहीं, धन्यवाद"],
+                    ur: ["index-ur.html", "یہ صفحہ اردو میں دیکھیں؟", "جی ہاں", "نہیں، شکریہ"],
+                    yo: ["index-yo.html", "Wo ojú-ìwé yìí ní èdè Yorùbá?", "Bẹ́ẹ̀ni", "Rárá o ṣé"],
+                    id: ["index-id.html", "Lihat halaman ini dalam Bahasa Indonesia?", "Ya", "Tidak, terima kasih"],
+                    it: ["index-it.html", "Vedere questa pagina in italiano?", "Sì", "No, grazie"],
+                    ja: ["index-ja.html", "このページを日本語で表示しますか？", "はい", "いいえ"],
+                    sw: ["index-sw.html", "Tazama ukurasa huu kwa Kiswahili?", "Ndiyo", "Hapana, asante"],
+                    pl: ["index-pl.html", "Wyświetlić tę stronę po polsku?", "Tak", "Nie, dziękuję"],
+                    vi: ["index-vi.html", "Xem trang này bằng tiếng Việt?", "Có", "Không, cảm ơn"],
+                    ro: ["index-ro.html", "Vezi această pagină în română?", "Da", "Nu, mulțumesc"],
+                    "zh-hant": ["index-zh-hant.html", "要以繁體中文檢視此頁面嗎？", "是", "不用了"],
+                    zh: ["index-zh.html", "要以简体中文查看此页面吗？", "是", "不用了"],
+                    hr: ["index-hr.html", "Prikazati ovu stranicu na hrvatskom?", "Da", "Ne, hvala"],
+                    fa: ["index-fa.html", "این صفحه را به فارسی ببینید؟", "بله", "نه، ممنون"],
+                    ko: ["index-ko.html", "이 페이지를 한국어로 보시겠습니까?", "예", "아니요"],
+                    sv: ["index-sv.html", "Visa den här sidan på svenska?", "Ja", "Nej tack"],
+                    hu: ["index-hu.html", "Megnézi ezt az oldalt magyarul?", "Igen", "Nem, köszönöm"],
+                    sq: ["index-sq.html", "Shikoni këtë faqe në shqip?", "Po", "Jo, faleminderit"]
+                };
+                var raw = (navigator.language || navigator.userLanguage || "").toLowerCase();
+                var code = /^zh-(hant|tw|hk|mo)/.test(raw) ? "zh-hant" : raw.split("-")[0];
+                var page = pages[code];
+                if (!page) return;
+                try { if (localStorage.getItem("langBannerDismissed") === code) return; } catch (e) {}
 
-                    for (var lang in langMap) {
-                        if (userLang.startsWith(lang)) {
-                            window.location.href = langMap[lang];
-                            break;
-                        }
-                    }
-                }
+                var bar = document.createElement("div");
+                bar.setAttribute("role", "region");
+                bar.setAttribute("aria-label", "Language suggestion");
+                bar.style.cssText = "position:fixed;left:16px;bottom:16px;max-width:calc(100% - 120px);z-index:10000;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 14px;background:#193C5D;color:#fff;font-size:14px;border:1px solid rgba(255,255,255,.18);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.45);";
+                var msg = document.createElement("span"); msg.textContent = page[1];
+                var yes = document.createElement("a"); yes.href = page[0]; yes.textContent = page[2];
+                yes.style.cssText = "background:#38bdf8;color:#051826;padding:6px 16px;border-radius:6px;font-weight:600;text-decoration:none;";
+                var no = document.createElement("button"); no.type = "button"; no.textContent = page[3];
+                no.style.cssText = "background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:5px 14px;border-radius:6px;cursor:pointer;";
+                no.addEventListener("click", function () {
+                    try { localStorage.setItem("langBannerDismissed", code); } catch (e) {}
+                    bar.remove();
+                });
+                bar.appendChild(msg); bar.appendChild(yes); bar.appendChild(no);
+                document.body.appendChild(bar);
             });
         </script>
         <script type="application/ld+json">

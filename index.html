@@ -414,6 +414,19 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                             </div>
                         </div>
                     </div>
+                    <script>
+                        // Nudge autoplay on iOS: play when the video is on screen, pause when it leaves.
+                        (function () {
+                            var v = document.querySelector('#offline video');
+                            if (!v) return;
+                            v.muted = true;
+                            var play = function () { var r = v.play(); if (r && r.catch) r.catch(function () {}); };
+                            if (!('IntersectionObserver' in window)) { play(); return; }
+                            new IntersectionObserver(function (entries) {
+                                entries.forEach(function (e) { if (e.isIntersecting) play(); else v.pause(); });
+                            }, { threshold: 0.25 }).observe(v);
+                        })();
+                    </script>
                 </section>
                 <!-- End Offline Server Section -->
                 <!-- Speed Demo Section -->

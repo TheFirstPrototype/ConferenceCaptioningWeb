@@ -45,7 +45,7 @@ We are the only solution that offer's fixed pricing for unlimited usage. Our tie
     *   Live transcription for events.
     *   Attendee & Organizer access.
     *   16 freely available streams.
-    *   15-minute streaming limit per session.
+    *   20-minute streaming limit per session.
     *   Supports 20+ languages.
     *   15-second 3-tap setup and use.
 
@@ -59,7 +59,7 @@ We are the only solution that offer's fixed pricing for unlimited usage. Our tie
     *   Customized branding and logos.
     *   Obscene text filtering.
     *   Discount available for non-profits.
-    *   3-day (daily) or 7-day (monthly) free trial with full technical support.
+    *   7-day free trial with full technical support.
 
 ### Enterprise Plan
 *   **Price**: Contact Sales (`hello@conferencecaptioning.com`).

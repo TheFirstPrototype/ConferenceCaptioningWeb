@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://conferencecaptioning.com/deck/">
   <meta property="og:title" content="ConferenceCaptioning | Real-Time Captions & Translation">
   <meta property="og:description" content="Real-time captions and multilingual translation for live events — on-device AI, offline-capable, AV-ready.">
-  <meta property="og:image" content="https://conferencecaptioning.com/deck/multilingual.gif">
+  <meta property="og:image" content="https://conferencecaptioning.com/deck/bali-summit-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -777,6 +777,25 @@
       cursor: pointer;
     }
 
+    .screen-tag {
+      position: absolute;
+      top: 21%;
+      z-index: 10;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(10, 23, 38, 0.85);
+      border: 1px solid var(--brand-accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .screen-tag.centered {
+      transform: translateX(-50%);
+    }
+
     /* HUD */
     .deck-hud {
       position: fixed;
@@ -937,6 +956,22 @@
 
       .media-box {
         height: 220px !important;
+      }
+
+      .media-box.is-16x9 {
+        height: auto !important;
+      }
+
+      .media-box.is-16x9 .media-overlay-badge {
+        font-size: 8.5px;
+        padding: 2px 6px;
+        bottom: 6px !important;
+        left: 6px;
+      }
+
+      .screen-tag {
+        font-size: 9px;
+        padding: 0 5px;
       }
 
       .failover-media img {
@@ -1263,7 +1298,7 @@
 
       <div class="bottom-statement">
         <span>From audio console to individual attendee screen in under 300 milliseconds.</span>
-        <span>Scales to 10,000+ simultaneous viewers</span>
+        <span>No venue internet line to rent</span>
       </div>
     </section>
 
@@ -1301,7 +1336,7 @@
             </div>
             <h3 class="card-title">Wayne State University "Toast of the Town"</h3>
             <p class="card-text" style="font-size: 0.95rem; margin-bottom: 1.2vh;">
-              Attendees simply scanned the room QR code and were immediately able to follow the English stage speakers in Spanish with zero latency.
+              Attendees simply scanned the room QR code and were immediately able to follow the English stage speakers in Spanish, less than a second behind.
             </p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem; color: #cbd5e1;">
               <div>✓ Instant language switching</div>
@@ -1372,8 +1407,8 @@
       <div class="av-slide-layout">
         <div class="grid-2x2">
           <div class="glass-card">
-            <h3 class="card-title">💻 1-Computer AI Server</h3>
-            <p class="card-text">One machine does real-time AI transcription and hosts the live server locally for venue attendees.</p>
+            <h3 class="card-title">💻 Your Device Is the AI Server</h3>
+            <p class="card-text">A Mac, iPad, or iPhone (or a Windows PC via our Chrome extension) runs transcription and translation and serves captions locally. The AI runs on your device, not in a data center.</p>
           </div>
           <div class="glass-card" style="border-left: 3px solid var(--brand-accent);">
             <h3 class="card-title">🔄 Automated Failover</h3>
@@ -1385,7 +1420,7 @@
           </div>
           <div class="glass-card">
             <h3 class="card-title">🎛️ Video Switcher Overlay</h3>
-            <p class="card-text">Downstream key (DSK) / overlay captions directly over live camera feeds into ATEM, Roland, or Tricaster.</p>
+            <p class="card-text">Downstream key (DSK) / overlay captions into ATEM, Roland, or Tricaster. Start, stop, show, and hide from an Elgato Stream Deck or Bitfocus Companion.</p>
           </div>
         </div>
 
@@ -1495,7 +1530,7 @@
         </div>
 
         <div class="glass-card">
-          <h3 class="card-title">⏱️ 3-Minute Setup</h3>
+          <h3 class="card-title">⏱️ 15-Second Setup</h3>
           <p class="card-text">Set up an event room in seconds, print or project the QR code, and start capturing speech immediately.</p>
         </div>
       </div>
@@ -1545,16 +1580,20 @@
           </div>
 
           <div class="glass-card" style="border-left: 3px solid #f59e0b;">
-            <h3 class="card-title">📈 Superior Audience Engagement</h3>
-            <p class="card-text">Empower attendees to follow technical terminology and accented speakers even in large, echoey auditoriums.</p>
+            <h3 class="card-title">💸 No Venue Internet Line to Rent</h3>
+            <p class="card-text">Venues charge a premium for a hardwired internet line in each room. Cloud captioning needs one; we don't, so that line item comes off your budget.</p>
           </div>
         </div>
 
-        <div class="media-box" style="height: 44vh;">
-          <div class="media-overlay-badge">
-            <span class="live-indicator"></span> BALI SUMMIT · 4-SCREEN TRANSLATION (OFFLINE)
+        <div class="media-box is-16x9" style="height: auto; aspect-ratio: 16 / 9;">
+          <div class="media-overlay-badge" style="top:auto; bottom:10px;">
+            <span class="live-indicator"></span> BALI SUMMIT · 6 LANGUAGES AT ONCE · SCREENS OFFLINE
           </div>
-          <img src="multilingual.gif" alt="Bali Summit 4-screen live translation offline" onerror="this.parentNode.innerHTML='<div style=\'padding:40px;text-align:center;color:#fff;\'><strong>Bali Summit, Indonesia</strong><br><span style=\'color:var(--text-muted);font-size:0.85rem;\'>4 screens (Chinese, Bahasa, English, Thai) with zero internet</span></div>'">
+          <video src="bali-summit.mp4" poster="bali-summit-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Bali summit stage with four screens showing live captions at the same time in Mandarin, Bahasa Indonesia, Thai and English, with no internet"></video>
+          <span class="screen-tag" style="left:1.5%;" aria-hidden="true">Mandarin</span>
+          <span class="screen-tag centered" style="left:24%;" aria-hidden="true">Bahasa</span>
+          <span class="screen-tag centered" style="left:77.9%;" aria-hidden="true">Thai</span>
+          <span class="screen-tag" style="right:1.5%;" aria-hidden="true">English</span>
         </div>
       </div>
 
@@ -1672,8 +1711,8 @@
             "Every voice finds a stage."
           </h3>
           <div style="display: flex; gap: 0.8rem;">
-            <button class="btn-primary" onclick="alert('Technical demo scheduler ready.')">Schedule a Technical Demo</button>
-            <button class="btn-secondary" onclick="alert('Pilot configuration initiated.')">Start a Pilot</button>
+            <a class="btn-primary" href="https://conferencecaptioning.com/portal" target="_blank" rel="noopener" style="text-decoration:none; display:inline-block;">Schedule a Technical Demo</a>
+            <a class="btn-secondary" href="https://app.conferencecaptioning.com" target="_blank" rel="noopener" style="text-decoration:none; display:inline-block;">Start a Free Pilot</a>
           </div>
         </div>
 
@@ -1701,7 +1740,7 @@
          ========================================== -->
     <div class="deck-hud" id="deckHud">
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);" id="slideCounter">01 / 09</span>
+        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);" id="slideCounter">01 / 10</span>
       </div>
 
       <div class="hud-controls">

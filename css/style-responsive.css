@@ -727,6 +727,24 @@
     .owl-prev, .owl-next{
         display: none;
     }
+    /* Keep arrows on the testimonial slider: the pagination dots alone are easy to miss. */
+    .text-slider .owl-prev,
+    .text-slider .owl-next{
+        display: block;
+        height: 30px;
+        font-size: 30px;
+        padding: 10px 6px;
+    }
+    .text-slider .owl-prev{
+        left: -6px;
+    }
+    .text-slider .owl-next{
+        right: -6px;
+    }
+    .text-slider .owl-item > *{
+        padding-left: 28px;
+        padding-right: 28px;
+    }
     .owl-page{
         padding-left: 8px;
         padding-right: 8px;

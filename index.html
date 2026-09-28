@@ -1328,8 +1328,12 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                 <p>Yes. The caption feed can be added as a browser source in OBS Studio, vMix, ProPresenter, and H2R Graphics, including a chroma-key background for transparent lower-third overlays. Audio comes in from your existing sound board via USB, XLR interface, Dante, or NDI.</p>
                             </details>
                             <details class="faq-item">
+                                <summary>Can I control captions from a Stream Deck or Bitfocus Companion?</summary>
+                                <p>Yes. AV teams can start, stop, show, and hide captions and translations on screen from an Elgato Stream Deck or Bitfocus Companion, so the operator never has to walk back to the captioning computer mid-show.</p>
+                            </details>
+                            <details class="faq-item">
                                 <summary>What happens if the captioning computer fails mid-event?</summary>
-                                <p>Enterprise setups support multi-system automatic failover: a backup computer monitors the primary and takes over the caption stream automatically, without attendees losing their feed, and the production team gets an email alert.</p>
+                                <p>A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/">See the hot-failover setup guide</a>.</p>
                             </details>
                             <details class="faq-item">
                                 <summary>Is my event&#x27;s audio sent to a data center or used to train AI?</summary>
@@ -1828,10 +1832,18 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         },
         {
           "@type": "Question",
+          "name": "Can I control captions from a Stream Deck or Bitfocus Companion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AV teams can start, stop, show, and hide captions and translations on screen from an Elgato Stream Deck or Bitfocus Companion, so the operator never has to walk back to the captioning computer mid-show."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "What happens if the captioning computer fails mid-event?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Enterprise setups support multi-system automatic failover: a backup computer monitors the primary and takes over the caption stream automatically, without attendees losing their feed, and the production team gets an email alert."
+            "text": "A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. See the hot-failover setup guide."
           }
         },
         {

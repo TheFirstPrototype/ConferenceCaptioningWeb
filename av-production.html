@@ -485,10 +485,15 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.7;">
                         Utilize our <strong>Transparent Overlay</strong> and fully <strong>Custom CSS</strong> options to inject broadcast-ready lower thirds directly into your video mix, perfectly matched to the event's precise branding specs.
                     </p>
+                    <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.7;">
+                        <strong>Run captions from the booth.</strong> Start, stop, show, and hide captions and translations from an <strong>Elgato Stream Deck</strong> or <strong>Bitfocus Companion</strong>, right alongside the rest of your show controls. No walking back to the captioning computer mid-show.
+                    </p>
                     <div class="mt-30">
                         <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px; margin-right:10px;">vMix API</span>
                         <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px; margin-right:10px;">OBS WebSockets</span>
-                        <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px;">NDI® 5 Tools</span>
+                        <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px; margin-right:10px;">NDI® 5 Tools</span>
+                        <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px; margin-right:10px; margin-top:10px;">Elgato Stream Deck</span>
+                        <span class="badge" style="background-color:#45a29e; color:#000; font-size:0.9rem; padding:8px 15px; margin-top:10px;">Bitfocus Companion</span>
                     </div>
                 </div>
                 
@@ -497,11 +502,14 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     <div style="background: rgba(255,107,107,0.05); padding: 40px; border-left: 4px solid #ff6b6b; border-radius:0 8px 8px 0;">
                         <h2 class="section-title mb-20" style="color:#ff6b6b; text-align:left; font-size:1.8rem;">Built for the "What Ifs"</h2>
                         <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.6;">
-                            Live production is controlled chaos. What happens when the venue internet goes dark? When thousands of attendee cell phones crash the local tower? When the designated network switch dies?
+                            AV teams tell us their biggest risk with AI captioning is depending on the venue's internet. Live production is controlled chaos. What happens when the venue internet goes dark? When thousands of attendee cell phones crash the local tower? When the designated network switch dies?
                         </p>
                         <p style="color:#fff; font-size:1.15rem; font-weight:600; line-height:1.6; margin-bottom:0;">
                             With cloud AI, your accessibility tools break.<br>
                             With Conference Captioning, the translations keep scrolling.
+                        </p>
+                        <p style="color:#c5c6c7; font-size:1.1rem; line-height:1.6; margin-top:20px; margin-bottom:0;">
+                            And if the captioning computer itself fails? A backup device on the local network takes over the caption feed in about two seconds, with no page refresh, and your AV lead gets an alert email. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/" style="color:#66fcf1;">See the hot-failover setup guide &rarr;</a>
                         </p>
                     </div>
                 </div>
@@ -555,12 +563,16 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                                 <p>vMix, OBS Studio, ProPresenter, Wirecast, TriCaster, H2R Graphics, and Blackmagic Design switchers. Use the transparent overlay or a chroma-key background for lower thirds, and style it with custom CSS or the Caption URL Generator.</p>
                             </details>
                             <details class="faq-item">
+                                <summary>Can I control captions from a Stream Deck or Bitfocus Companion?</summary>
+                                <p>Yes. AV teams can start, stop, show, and hide captions and translations on screen from an Elgato Stream Deck or Bitfocus Companion, so the operator never has to walk back to the captioning computer mid-show.</p>
+                            </details>
+                            <details class="faq-item">
                                 <summary>Can it run fully offline or air-gapped?</summary>
                                 <p>Yes. Transcription and translation run on the local machine, so the system works on an isolated network with no public internet, and no audio data leaves the device.</p>
                             </details>
                             <details class="faq-item">
                                 <summary>What happens if the captioning computer fails mid-show?</summary>
-                                <p>Enterprise setups support multi-system automatic failover. A backup machine watches the primary and takes over the caption stream automatically, and your team gets an email alert.</p>
+                                <p>A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/">See the hot-failover setup guide</a>.</p>
                             </details>
                             <details class="faq-item">
                                 <summary>Can it caption and translate at the same time?</summary>
@@ -820,6 +832,14 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         },
         {
           "@type": "Question",
+          "name": "Can I control captions from a Stream Deck or Bitfocus Companion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. AV teams can start, stop, show, and hide captions and translations on screen from an Elgato Stream Deck or Bitfocus Companion, so the operator never has to walk back to the captioning computer mid-show."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Can it run fully offline or air-gapped?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -831,7 +851,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
           "name": "What happens if the captioning computer fails mid-show?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Enterprise setups support multi-system automatic failover. A backup machine watches the primary and takes over the caption stream automatically, and your team gets an email alert."
+            "text": "A backup device on the same local network takes over automatically. The caption display checks the primary every 500 milliseconds, and if it stops responding, captions switch to the backup in about two seconds, with no page refresh, while an alert email goes to your AV lead. See the hot-failover setup guide."
           }
         },
         {

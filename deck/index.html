@@ -713,7 +713,7 @@
     /* Slide 7: Multilingual Proof */
     .multilingual-layout {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 0.75fr 1.25fr;
       gap: 2.2vw;
       align-items: center;
       margin-top: 0.8vh;
@@ -1088,7 +1088,7 @@
           </p>
           <div style="display: flex; gap: 0.8rem; align-items: center;">
             <span class="event-tag">● Live Benchmark</span>
-            <span style="font-size: 0.82rem; color: var(--text-muted);">Zero-lag speech transcription & translation engine</span>
+            <span style="font-size: 0.82rem; color: var(--text-muted);">Sub-second speech transcription & translation, measured under 500 ms</span>
           </div>
         </div>
 
@@ -1297,7 +1297,7 @@
       </div>
 
       <div class="bottom-statement">
-        <span>From audio console to individual attendee screen in under 300 milliseconds.</span>
+        <span>From audio console to individual attendee screen in under 500 milliseconds.</span>
         <span>No venue internet line to rent</span>
       </div>
     </section>
@@ -1412,7 +1412,7 @@
           </div>
           <div class="glass-card" style="border-left: 3px solid var(--brand-accent);">
             <h3 class="card-title">🔄 Automated Failover</h3>
-            <p class="card-text">Supports instant, seamless auto-switch to a redundant backup laptop without dropping attendee streams.</p>
+            <p class="card-text">A backup Mac or iPad takes over in as little as 0.5 seconds (about 2 seconds at the default setting) without dropping attendee streams.</p>
           </div>
           <div class="glass-card">
             <h3 class="card-title">🛡️ 100% Offline Capable</h3>
@@ -1471,7 +1471,7 @@
           <div class="glass-card" style="border-left: 3px solid #10b981;">
             <div style="font-size: 0.75rem; font-family: var(--font-mono); color: #10b981; font-weight: 700; margin-bottom: 0.2vh;">STEP 2 · BACKUP HOST</div>
             <h3 class="card-title">🔄 Secondary Failover App</h3>
-            <p class="card-text">Backup machine continuously monitors stream heartbeat. If primary drops out, stream automatically migrates to secondary laptop.</p>
+            <p class="card-text">The display polls the primary every 0.5 seconds. After your chosen number of missed checks (default 4), captions switch to the backup Mac or iPad automatically. <a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/" target="_blank" rel="noopener" style="color: var(--brand-accent);">Setup guide &rarr;</a></p>
           </div>
 
           <div class="glass-card" style="border-left: 3px solid #f59e0b;">
@@ -1525,8 +1525,8 @@
         </div>
 
         <div class="glass-card">
-          <h3 class="card-title">📊 Documented Benchmarks</h3>
-          <p class="card-text">Detailed technical tutorials, CPU load metrics, and latency reports documented openly on our engineering blog.</p>
+          <h3 class="card-title">📚 Documented Setup Guides</h3>
+          <p class="card-text">Step-by-step tutorials for ProPresenter, OBS, failover, and local AI servers, published openly on <a href="https://conferencecaptioning.com/blog/" target="_blank" rel="noopener" style="color: var(--brand-accent);">our blog</a>.</p>
         </div>
 
         <div class="glass-card">
@@ -1548,7 +1548,7 @@
 
       <div class="bottom-statement">
         <span><strong>"There is no 'try again' button during a live event."</strong></span>
-        <span>Read full technical benchmark reports on our engineering blog</span>
+        <span><a href="https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/" target="_blank" rel="noopener" style="color: inherit;">See how hot failover keeps captions running &rarr;</a></span>
       </div>
     </section>
 
@@ -1661,9 +1661,19 @@
         </div>
       </div>
 
+      <div class="glass-card" style="margin-top: 1.4vh;">
+        <h3 class="card-title">🤝 AV Reseller Program</h3>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">
+          <div><strong style="color:#fff;">Partner pricing</strong><br>Bulk and multi-event rates so you keep a healthy margin on every bid.</div>
+          <div><strong style="color:#fff;">Your brand</strong><br>Custom-branded and white-labeled caption displays for your clients.</div>
+          <div><strong style="color:#fff;">Sales support</strong><br>This deck, demo videos, and live demos for your client meetings.</div>
+          <div><strong style="color:#fff;">Show-day backup</strong><br>Priority live-event support whenever you're running our captions.</div>
+        </div>
+      </div>
+
       <div class="bottom-statement">
         <span><strong>You already own the event production relationship. We make accessibility easier to deliver.</strong></span>
-        <span>AV partner discounts and reseller margins</span>
+        <span>Partner terms: <a href="mailto:saamer@conferencecaptioning.com?subject=AV%20Reseller%20Program" style="color: var(--brand-accent);">saamer@conferencecaptioning.com</a></span>
       </div>
     </section>
 
@@ -1701,7 +1711,7 @@
         <div class="step-box">
           <div class="num">04</div>
           <h4 style="color:#fff; margin-bottom: 0.3vh;">Go Live</h4>
-          <p class="card-text">Deliver instant captions & multilingual streams.</p>
+          <p class="card-text">Deliver sub-second captions & multilingual streams.</p>
         </div>
       </div>
 
@@ -1717,6 +1727,10 @@
         </div>
 
         <div style="max-width: 45%;">
+          <blockquote style="margin: 0 0 1.4vh; padding: 12px 16px; border-left: 3px solid var(--brand-accent); background: rgba(10, 23, 38, 0.82); backdrop-filter: blur(10px); border-radius: 0 10px 10px 0;">
+            <p style="font-size: 0.95rem; font-style: italic; color: #e2e8f0; line-height: 1.45;">&ldquo;It seems like a no-brainer for every conference to use this technology to make auditory content accessible for all attendees.&rdquo;</p>
+            <footer style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Tom Phillips, Faculty, Apple Developer Academy Detroit</footer>
+          </blockquote>
           <div style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 6px;">
             PROVEN AT CONFERENCES WORLDWIDE:
           </div>
@@ -1730,8 +1744,8 @@
       </div>
 
       <div class="bottom-statement">
-        <span><strong>ConferenceCaptioning.com</strong> · Check our blog for step-by-step AV setup guides</span>
-        <span>Dedicated AV support & hardware recommendations</span>
+        <span><strong>ConferenceCaptioning.com</strong> · <a href="https://conferencecaptioning.com/blog/" target="_blank" rel="noopener" style="color: inherit;">Step-by-step AV setup guides</a></span>
+        <span>Saamer Mansoor, Founder · <a href="mailto:saamer@conferencecaptioning.com" style="color: var(--brand-accent);">saamer@conferencecaptioning.com</a></span>
       </div>
     </section>
 

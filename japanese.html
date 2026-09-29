@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Japanese Live Transcription Accuracy Evaluation | Conference Captioning</title>
+
+  <meta
+    name="description"
+    content="Conference Captioning's Japanese live speech-to-text scored a 4.33% word error rate (95.25% information preserved) on a real speech sample, with 95.8% accuracy in a second real-time test."
+  />
+
+  <meta
+    name="keywords"
+    content="Japanese ASR, Japanese live transcription, Japanese speech recognition, word error rate, conference captions, live captioning, real-time subtitles, on-device AI"
+  />
+
+  <meta property="og:title" content="Japanese Live ASR Evaluation | Conference Captioning" />
+  <meta property="og:description" content="Japanese speech-to-text accuracy report: 4.33% word error rate on real speech and 95.8% accuracy in a live real-time test." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://conferencecaptioning.com/images/logo-white.svg" />
+  <meta property="og:url" content="https://conferencecaptioning.com/japanese.html" />
+
+  <link rel="canonical" href="https://conferencecaptioning.com/japanese.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"Japanese Live Transcription Accuracy Evaluation",
+    "description":"Conference Captioning's Japanese live speech-to-text scored a 4.33% word error rate (95.25% information preserved) on a real speech sample, with 95.8% accuracy in a second real-time test.",
+    "author":{
+      "@type":"Person",
+      "name":"Saamer Mansoor"
+    },
+    "publisher":{
+      "@type":"Organization",
+      "name":"ConferenceCaptioning.com"
+    },
+    "datePublished":"2025-10-14",
+    "about":[
+      "Automatic Speech Recognition",
+      "Japanese ASR",
+      "Live Captioning",
+      "Accessibility Technology",
+      "Word Error Rate"
+    ]
+  }
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'HK Grotesk';
+      src: local('HK Grotesk');
+    }
+
+    :root{
+      --bg:#193C5D;
+      --card:#21496f;
+      --text:#ffffff;
+      --muted:#d7e3ef;
+      --accent:#6ec1ff;
+      --border:rgba(255,255,255,0.12);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'HK Grotesk', Arial, sans-serif;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .hero{
+      padding:70px 24px 60px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:600px;
+      height:600px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.03);
+      top:-250px;
+      right:-200px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .logo{
+      width:280px;
+      margin-bottom:40px;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,0.1);
+      color:#fff;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:14px;
+      margin-bottom:20px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    h1{
+      font-size:64px;
+      line-height:1.1;
+      margin:0 0 24px;
+      max-width:900px;
+      letter-spacing:-2px;
+    }
+
+    .lead{
+      font-size:22px;
+      max-width:850px;
+      color:var(--muted);
+    }
+
+    .cta-row{
+      display:flex;
+      gap:18px;
+      margin-top:40px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:16px 28px;
+      border-radius:14px;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:700;
+      transition:0.25s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:#193C5D;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.2);
+      color:white;
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.06);
+    }
+
+    section{
+      padding:30px 24px 80px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.18);
+    }
+
+    .card h3{
+      margin-top:0;
+      font-size:24px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .metric{
+      font-size:50px;
+      font-weight:800;
+      margin-bottom:8px;
+      letter-spacing:-1px;
+    }
+
+    .comparison{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin-top:30px;
+    }
+
+    .transcript-box{
+      background:#102b45;
+      border-radius:22px;
+      padding:28px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .transcript-box h4{
+      margin-top:0;
+      font-size:22px;
+    }
+
+    .jp{
+      font-size:20px;
+      line-height:2;
+      color:#ffffff;
+    }
+
+    .highlight{
+      color:var(--accent);
+      font-weight:700;
+    }
+
+    .footer{
+      padding:40px 24px 80px;
+      text-align:center;
+      color:#d5dfeb;
+    }
+
+    .youtube-link{
+      color:#8fd2ff;
+      text-decoration:none;
+      word-break:break-word;
+    }
+
+    .divider{
+      height:1px;
+      background:rgba(255,255,255,0.08);
+      margin:60px 0;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:25px;
+    }
+
+    .pill{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:12px 18px;
+      border-radius:999px;
+      font-size:15px;
+    }
+
+    @media(max-width:900px){
+
+      h1{
+        font-size:44px;
+      }
+
+      .comparison{
+        grid-template-columns:1fr;
+      }
+
+      .jp{
+        font-size:17px;
+      }
+
+      .lead{
+        font-size:19px;
+      }
+    }
+
+    @media print {
+
+      body{
+        background:white !important;
+        color:black !important;
+      }
+
+      .card,
+      .transcript-box{
+        background:white !important;
+        color:black !important;
+        border:1px solid #ccc;
+      }
+
+      .jp{
+        color:black !important;
+      }
+
+      .btn{
+        display:none;
+      }
+
+      .hero::before{
+        display:none;
+      }
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:16px;
+    }
+    th,td{
+      text-align:left;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      vertical-align:top;
+    }
+    th{
+      color:var(--muted);
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .table-wrap{
+      overflow-x:auto;
+    }
+    h2{
+      font-size:42px;
+      margin:0 0 24px;
+      line-height:1.15;
+    }
+    .related-links a{
+      display:inline-block;
+      margin:0 14px 14px 0;
+      color:#8fd2ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="container">
+      <a href="https://conferencecaptioning.com">
+        <img class="logo" src="https://conferencecaptioning.com/images/logo-white.svg" alt="Conference Captioning Logo">
+      </a>
+
+      <div class="eyebrow">Japanese Live Transcription Evaluation</div>
+
+      <h1>Japanese Speech-to-Text Accuracy: 4.33% Word Error Rate</h1>
+
+      <p class="lead">
+        Japanese is one of the hardest languages for automatic speech
+        recognition: three writing systems, no spaces between words, and many
+        homophones. We tested Conference Captioning on real Japanese speech and
+        on a second, reproducible real-time test, and both landed at roughly 95%
+        accuracy or better.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-secondary" href="japanese-2.pdf" target="_blank">Download Report (PDF, Oct 2025)</a>
+        <a class="btn btn-secondary" href="japanese.html" target="_blank">Download Real-Time Test (PDF)</a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <div class="grid">
+        <div class="card">
+          <div class="metric">4.33%</div>
+          <h3>Word Error Rate</h3>
+          <p class="muted">
+            On a real 254-word speech sample. Below 10% is considered good and
+            below 5&ndash;6% is top-tier for professional use.
+          </p>
+        </div>
+        <div class="card">
+          <div class="metric">95.25%</div>
+          <h3>Word Information Preserved</h3>
+          <p class="muted">
+            The transcript kept over 95% of the original information, with only
+            4.75% lost.
+          </p>
+        </div>
+        <div class="card">
+          <div class="metric">&lt;1.5s</div>
+          <h3>Real-Time Latency</h3>
+          <p class="muted">
+            In the live test, captions appeared with less than 1.5 seconds of
+            lag, suitable for presentations, classrooms and conferences.
+          </p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Why Japanese Is Hard for ASR</h3>
+          <ul>
+            <li><strong>Complex writing system:</strong> Kanji, Hiragana and Katakana are mixed in one sentence.</li>
+            <li><strong>No word delimiters:</strong> the engine must segment sentences into words itself.</li>
+            <li><strong>Homophones:</strong> for example, <span lang="ja">きかい</span> can mean <span lang="ja">機械</span> (machine), <span lang="ja">機会</span> (opportunity) or <span lang="ja">奇怪</span> (strange).</li>
+            <li><strong>Kanji variants:</strong> <span lang="ja">温かい</span> and <span lang="ja">暖かい</span> both mean &ldquo;warm&rdquo; with subtle differences in nuance.</li>
+            <li><strong>Fillers and colloquial speech:</strong> <span lang="ja">あのー</span> and <span lang="ja">えっと</span> must be handled correctly.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Evaluation Methodology</h3>
+          <p class="muted">Both tests used the Multilingual speech model, which can switch languages in real time and is not our most accurate model for a single language.</p>
+          <ul>
+            <li><strong>Test 1 (October 2025, app v2.15):</strong> a clear public-speaking sample transcribed by Conference Captioning and compared with a hand-made reference transcript.</li>
+            <li><strong>Test 2 (app v2.13.0, MacBook Pro M4):</strong> a two-minute Japanese speech written for high school students, converted to audio with Google Translate&rsquo;s text-to-speech, and transcribed live with no pre-uploaded data.</li>
+            <li><strong>Metrics:</strong> Word Error Rate (WER) = (substitutions + deletions + insertions) / words in the reference, and Word Information Preserved (WIP).</li>
+          </ul>
+          <div class="pill-row">
+            <div class="pill">Live ASR</div>
+            <div class="pill">Japanese Speech</div>
+            <div class="pill">Word Error Rate</div>
+            <div class="pill">Reproducible</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>Test 1: Real Speech Sample</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Error Tally</h3>
+          <div class="table-wrap">
+          <table>
+            <tr><th>Type</th><th>Count</th><th>Examples</th></tr>
+            <tr><td>Substitutions (S)</td><td>5</td><td lang="ja">温かい→暖かい, 5年→お念, 風→ふう, ピタッと→来たとこ, 未来→見らえ</td></tr>
+            <tr><td>Deletions (D)</td><td>4</td><td lang="ja">が, です, ね, に</td></tr>
+            <tr><td>Insertions (I)</td><td>2</td><td lang="ja">あのー, でも</td></tr>
+            <tr><td>Words in reference (N)</td><td>254</td><td>&nbsp;</td></tr>
+          </table>
+          </div>
+          <p class="muted">WER = (5 + 4 + 2) / 254 = 11 / 254 &asymp; <span class="highlight">4.33%</span></p>
+        </div>
+
+        <div class="card">
+          <h3>What the Errors Show</h3>
+          <ul>
+            <li><strong>Few semantic errors:</strong> <span lang="ja">温かい→暖かい</span> and <span lang="ja">風→ふう</span> are understandable and often acceptable in informal text. The larger misses were rare phonetic slips.</li>
+            <li><strong>Verbatim accuracy:</strong> fillers such as <span lang="ja">あのー</span> were captured, which matters for legal and research transcripts.</li>
+            <li><strong>Natural speech:</strong> <span lang="ja">というのは</span> was written as the more conversational <span lang="ja">ってのは</span>, showing the model follows spoken Japanese, not just formal writing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="transcript-box">
+          <h4>Reference (Ground Truth)</h4>
+          <div class="jp" lang="ja">皆さんの温かい空気で本当に気持ちがいいですね5年ぶりのサミットですけれども毎回こうやって集まると本当に国籍や宗教や肌の色やすべてを超えて家族だなという風にねいつも思わせてもらえる最高の世界です私はですね台湾に35年ぶりに来ました当時は20代で非常に若く思いだけはあって志と情熱を持って本当に生きていきたいなというふうに思いながら日々を過ごしていましたところがですねやはり当時振り返ると自分の理想と現実は全く違ってましたねでも今35年経って台湾に来ましたけれども今は自分の理想と現実がピタッと一つになっています本当に人生というのは知り上がりに良くなっていくんだなということを最近強く思いますでもそれはやはりしっかりと努力は当たり前ですけれどもいつも未来に対して思いを持って準備をしてきたなというふうに思います20代の時には30代をどう生きるかということを考えて生きてそして30代になれば40代どう生きるかということを生きて今60代ですけども本当にこれからの未来をどのように生きていくかということを</div>
+        </div>
+        <div class="transcript-box">
+          <h4>Conference Captioning Output</h4>
+          <div class="jp" lang="ja">皆さんの暖かい空気で本当に気持ちいいですねあのーお念ぶりのサミットですけれども、毎回こうやって、集まると本当に、国籍や宗教や肌の色や全てを越えて 家族だなというふうにねいつも思わせてもらえる最高の世界です。私は台湾に35年ぶりに来ました。 当時は20代で 非常に若く思いだけはあって心差しと情熱を持って本当に生きていきたいなというふうに思いながら日々を過ごしていました。ところがですねやはり当時振り返ると自分の理想と現実は全く違ってましたね。でも今35年経って、対話に来ましたけれども今は自分の理想と現実が来たとこ一つになっています。本当に人生ってのは 知り上がりによくなっていくんだなということを最近強く思います それはやはりしっかりと努力は当たり前ですけれども、いつも見らえに対して思いを持って準備をしてきたなというふうに思います20代の時には30代をどう生きるかということを考えて生きて、そして30代になれば40代どう生きるかということを生きて今60代ですけどもあの本当にこれからの未来をどのように生きていくかということを考えて。</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>Test 2: Real-Time Text-to-Speech Test</h2>
+
+      <div class="grid">
+        <div class="card">
+          <div class="metric">95.8%</div>
+          <h3>Overall Accuracy</h3>
+          <p class="muted">About a 4.2% word error rate over roughly two minutes of speech, transcribed in real time.</p>
+        </div>
+        <div class="card">
+          <h3>Sample Differences</h3>
+          <div class="table-wrap">
+          <table>
+            <tr><th>Reference</th><th>Output</th><th>Type</th></tr>
+            <tr><td lang="ja">未来を片づくります</td><td lang="ja">未来を形作ります</td><td>Substitution</td></tr>
+            <tr><td lang="ja">上熱を持って</td><td lang="ja">情熱をもって</td><td>Substitution</td></tr>
+            <tr><td lang="ja">ら心盤</td><td lang="ja">羅針盤</td><td>Substitution</td></tr>
+            <tr><td lang="ja">お忘れないこと</td><td lang="ja">忘れないこと</td><td>Deletion</td></tr>
+            <tr><td lang="ja">ありがとうございました</td><td lang="ja">ありがとうございまし</td><td>Truncation</td></tr>
+          </table>
+          </div>
+          <p class="muted">The reference text itself contained the odd wording shown on the left, so several &ldquo;errors&rdquo; are the model correcting it. None affected meaning.</p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="transcript-box">
+          <h4>Original Speech Text</h4>
+          <div class="jp" lang="ja">さんおはようございます。今日は一つ覚えてほしいことがあります。それは情熱のある努力は必ず人生を変えるということです。勉強は時に退屈で、難しくて、なぜやっているのかわからなくなる時もあるでしょう。でも、どんなに小さな努力でも毎日の積み重ねが未来を片づくります。今日の1時間が、明日の自分を作ります。失敗してもいい間違えてもいい大切なのはなぜやるのか、お忘れないことです。自分の心が燃えるものを見つけてくださいこれが好きだこれをやりたいと思えるものに出会えたらそれはあなたの人生のら心盤になります そしてその情熱を持って努力を続ければ必ず道は開けます。どんなに小さな一歩でも上熱を持って踏み出せばそれは誰にも真似できないあなた自身の道になります。だから今日も胸を張って前に進みましょう。未来はあなたの努力と情熱で輝くのです。ありがとうございました。</div>
+        </div>
+        <div class="transcript-box">
+          <h4>Conference Captioning Output</h4>
+          <div class="jp" lang="ja">さん、おはようございます。今日は一つ、覚えてほしいことがあります。それは――「情熱のある努力は、必ず人生を変える」ということです。勉強は時に退屈で、難しくて、なぜやっているのかわからなくなる時もあるでしょう。でも、どんなに小さな努力でも、毎日の積み重ねが未来を形作ります。今日の一時間が、明日の自分を作ります。失敗してもいい。間違えてもいい。大切なのは「なぜやるのか」を忘れないことです。自分の心が燃えるものを見つけてください。「これが好きだ」「これをやりたい」と思えるものに出会えたら、それはあなたの人生の羅針盤になります。そして、その情熱を持って努力を続ければ、必ず道は開けます。どんなに小さな一歩でも、情熱をもって踏み出せば、それは誰にも真似できない、あなた自身の道になります。だから今日も、胸を張って前に進みましょう。未来は、あなたの努力と情熱で輝くのです。ありがとうございまし</div>
+        </div>
+      </div>
+
+      <p class="muted">
+        You can reproduce this test: the speech was generated with ChatGPT using the prompt
+        &ldquo;Give me a 2 minute inspirational speech written in Japanese for high school students to motivate them to study hard and be passionate about what they do&rdquo;,
+        played with the Listen feature in Google Translate, and fed into the app.
+      </p>
+
+      <div class="card" style="margin-top:50px;">
+        <h3>Key Findings</h3>
+        <ul>
+          <li>Both tests came in at roughly 95% accuracy or better (4.33% and about 4.2% word error rate).</li>
+          <li>Errors were mostly small substitutions or missing characters, not changes in meaning.</li>
+          <li>Captions were effectively instant, under 1.5 seconds of lag.</li>
+          <li>This used the Multilingual model, which switches languages in real time, so a dedicated single-language model has room to be even more accurate.</li>
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>FAQ</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>How accurate is Conference Captioning for Japanese?</h3>
+          <p class="muted">Our tests measured a 4.33% word error rate (95.25% information preserved) on real speech and about 95.8% accuracy in a live real-time test.</p>
+        </div>
+        <div class="card">
+          <h3>Does it work in real time?</h3>
+          <p class="muted">Yes. Captions appeared with less than 1.5 seconds of lag, with no pre-uploaded audio.</p>
+        </div>
+        <div class="card">
+          <h3>Can Japanese speech be translated for other attendees?</h3>
+          <p class="muted">Yes. A speaker can talk in Japanese and attendees can read live captions or translations in their own language.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>Related Evaluations</h2>
+
+      <div class="related-links">
+        <a href="arabic.html">Arabic Live Transcription Evaluation</a>
+        <a href="italian.html">Italian Live Transcription Evaluation</a>
+        <a href="korean.html">Korean Live Translation Report</a>
+        <a href="ada-compliance-certification.pdf">Realtime ADA Accessibility Performance Reports</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">
+    <a href="https://conferencecaptioning.com">
+      <img src="https://conferencecaptioning.com/images/logo-white.svg" style="width:180px; margin-bottom:20px;" alt="Conference Captioning">
+    </a>
+    <div>
+      Real-Time Captions &amp; Translations for Conferences, Events, and Accessibility
+    </div>
+    <p>
+      <a class="youtube-link" href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>
+    </p>
+  </div>
+</body>
+</html>

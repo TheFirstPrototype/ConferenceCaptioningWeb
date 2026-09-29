@@ -1653,7 +1653,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         </script>
         <script defer type="text/javascript" src="js/analyticsLite.js"></script>
         <script defer type="text/javascript">
-            // Lazy-load the Bali summit video: start downloading only when it is about one screen from view.
+            // Lazy-load the Bali summit video: start downloading on the visitor's first scroll/touch/key press.
             document.addEventListener('DOMContentLoaded', function () {
                 var v = document.querySelector('video[data-src]');
                 if (!v) return;
@@ -1665,14 +1665,13 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                     var p = v.play();
                     if (p && p.catch) p.catch(function () {});
                 }
-                if ('IntersectionObserver' in window) {
-                    var io = new IntersectionObserver(function (entries) {
-                        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
-                    }, { rootMargin: '100% 0px' });
-                    io.observe(v);
-                } else {
-                    window.addEventListener('load', load);
+                var evts = ['scroll', 'touchstart', 'wheel', 'keydown'];
+                function start() {
+                    evts.forEach(function (e) { window.removeEventListener(e, start); });
+                    load();
                 }
+                evts.forEach(function (e) { window.addEventListener(e, start, { passive: true }); });
+                if (window.scrollY > 0) start();
             });
         </script>
         <script defer type="text/javascript">

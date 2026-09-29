@@ -98,6 +98,11 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
 
         <link rel="preload" href="css/splitting.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="css/splitting.css"></noscript>        
+        <style>
+            /* Hero text must not wait for window "load" (wow.js init / page loader) to become visible: it is the LCP element */
+            .page-loader { display: none !important; }
+            .home-content .wow { opacity: 1 !important; visibility: visible !important; }
+        </style>
         <!-- Google tag (gtag.js) -->
         <script defer type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-632LHDVZTW">
         </script>

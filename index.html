@@ -383,7 +383,7 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
                             <div class="col-12 mb-60 mb-sm-40">
                                 <figure class="offline-figure wow fadeInUpShort">
                                     <div class="offline-media">
-                                        <video src="deck/bali-summit.mp4" poster="deck/bali-summit-poster.jpg" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Bali summit stage with a speaker between four screens showing live captions at the same time: Mandarin, Bahasa Indonesia, Thai and English, running with no internet"></video>
+                                        <video data-src="deck/bali-summit.mp4" poster="deck/bali-summit-poster.jpg" width="1280" height="720" autoplay muted loop playsinline preload="none" aria-label="Bali summit stage with a speaker between four screens showing live captions at the same time: Mandarin, Bahasa Indonesia, Thai and English, running with no internet"></video>
                                         <span class="screen-tag" style="left:1.5%;" aria-hidden="true">Mandarin</span>
                                         <span class="screen-tag centered" style="left:24%;" aria-hidden="true">Bahasa</span>
                                         <span class="screen-tag centered" style="left:77.9%;" aria-hidden="true">Thai</span>
@@ -1652,6 +1652,29 @@ You can find the code of your language here - https://www.w3schools.com/tags/ref
         <script defer type="text/javascript" src="js/splitting.min.js">
         </script>
         <script defer type="text/javascript" src="js/analyticsLite.js"></script>
+        <script defer type="text/javascript">
+            // Lazy-load the Bali summit video: start downloading only when it is about one screen from view.
+            document.addEventListener('DOMContentLoaded', function () {
+                var v = document.querySelector('video[data-src]');
+                if (!v) return;
+                function load() {
+                    if (!v.dataset.src) return;
+                    v.src = v.dataset.src;
+                    v.removeAttribute('data-src');
+                    v.load();
+                    var p = v.play();
+                    if (p && p.catch) p.catch(function () {});
+                }
+                if ('IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(function (entries) {
+                        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); load(); }
+                    }, { rootMargin: '100% 0px' });
+                    io.observe(v);
+                } else {
+                    window.addEventListener('load', load);
+                }
+            });
+        </script>
         <script defer type="text/javascript">
             // Offer (don't force) a translated homepage. Automatic redirects can stop
             // crawlers and English-preferring visitors from reaching this page.

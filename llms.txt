@@ -46,6 +46,7 @@ Built by the team behind the award-winning BeAware Deaf Assistant app. Founder: 
 - [World's fastest event translations](https://conferencecaptioning.com/blog/worlds-fastest-event-translations/)
 - [Zero-downtime live captions with hot failover](https://conferencecaptioning.com/blog/zero-downtime-live-captions-hot-failover-redundancy/)
 - [Add live captions and translations to ProPresenter](https://conferencecaptioning.com/blog/how-to-add-live-captions-translations-to-propresenter/)
+- [Add live captions and translations to OBS, no internet required](https://conferencecaptioning.com/blog/how-to-add-live-captions-translations-to-obs/)
 - [Live captions for any slide deck presentation](https://conferencecaptioning.com/blog/live-captions-translations-for-any-slide-deck-presentation/)
 - [Build a local translation server on a Mac mini](https://conferencecaptioning.com/blog/how-to-build-a-local-translation-server-on-mac-mini/)
 - [Chrome extension with on-device AI](https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/)

@@ -10,11 +10,6 @@
       <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://conferencecaptioning.com</loc>
-    <lastmod>2024-06-28T05:55:24+00:00</lastmod>
-    <priority>0.80</priority>
-  </url>
-  <url>
     <loc>https://conferencecaptioning.com/app.html</loc>
     <lastmod>2024-06-28T05:55:24+00:00</lastmod>
     <priority>0.80</priority>
@@ -181,7 +176,7 @@
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/</loc>
-    <lastmod>2026-09-10T04:35:03+00:00</lastmod>
+    <lastmod>2026-09-28T00:00:00+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -221,7 +216,7 @@
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/es/extension-de-chrome-ia-en-el-dispositivo-para-eventos/</loc>
-    <lastmod>2026-09-10T04:35:03+00:00</lastmod>
+    <lastmod>2026-09-28T00:00:00+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -256,7 +251,7 @@
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/fr/extension-chrome-ia-sur-appareil-pour-evenements/</loc>
-    <lastmod>2026-09-10T04:35:03+00:00</lastmod>
+    <lastmod>2026-09-28T00:00:00+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -336,6 +331,7 @@
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/pt-br/extensao-chrome-ia-no-dispositivo-para-eventos/</loc>
+    <lastmod>2026-09-28T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/pt-br/traducoes-mais-rapidas/</loc>
@@ -357,6 +353,7 @@
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/it/estensione-chrome-ia-sul-dispositivo-per-eventi/</loc>
+    <lastmod>2026-09-28T00:00:00+00:00</lastmod>
   </url>
   <url>
     <loc>https://conferencecaptioning.com/blog/it/traduzioni-piu-veloci/</loc>

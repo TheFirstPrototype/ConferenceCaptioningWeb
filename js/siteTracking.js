@@ -12,8 +12,11 @@
         document.head.appendChild(s);
     }
 
+    // Beacon transport lets the event finish sending when the click navigates away in the same tab.
     function track(name, params) {
-        window.gtag('event', name, params || {});
+        var p = params || {};
+        p.transport_type = 'beacon';
+        window.gtag('event', name, p);
     }
 
     function ctaLabel(el) {
@@ -53,7 +56,7 @@
         return m ? m[1] : null;
     }
     function vimeoSubscribe(frame) {
-        ['play', 'pause', 'ended', 'timeupdate'].forEach(function (evt) {
+        ['play', 'playProgress', 'finish'].forEach(function (evt) {
             try {
                 frame.contentWindow.postMessage(JSON.stringify({ method: 'addEventListener', value: evt }), 'https://player.vimeo.com');
             } catch (err) {}
@@ -84,14 +87,14 @@
         if (data.event === 'play' && !st.played) {
             st.played = true;
             track('video_start', base);
-        } else if (data.event === 'timeupdate' && data.data && data.data.percent != null) {
+        } else if (data.event === 'playProgress' && data.data && data.data.percent != null) {
             [25, 50, 75].forEach(function (pct) {
                 if (data.data.percent * 100 >= pct && !st.milestones[pct]) {
                     st.milestones[pct] = true;
                     track('video_progress', Object.assign({ video_percent: pct }, base));
                 }
             });
-        } else if (data.event === 'ended' && !st.ended) {
+        } else if (data.event === 'finish' && !st.ended) {
             st.ended = true;
             track('video_complete', base);
         }

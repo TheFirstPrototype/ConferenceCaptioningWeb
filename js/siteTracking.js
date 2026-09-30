@@ -1,5 +1,5 @@
 (function () {
-    var GA_ID = 'G-632LHDVZTW';
+    var GA_ID = 'G-0LVRKJGVDT';
 
     window.dataLayer = window.dataLayer || [];
     if (typeof window.gtag !== 'function') {

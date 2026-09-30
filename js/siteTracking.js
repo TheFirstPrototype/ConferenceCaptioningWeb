@@ -45,6 +45,60 @@
         });
     });
 
+    // Vimeo embeds: subscribe to the player's postMessage events (no Vimeo library needed).
+    var vimeoFrames = [];
+    var vimeoState = {};
+    function vimeoId(src) {
+        var m = /player\.vimeo\.com\/video\/(\d+)/.exec(src || '');
+        return m ? m[1] : null;
+    }
+    function vimeoSubscribe(frame) {
+        ['play', 'pause', 'ended', 'timeupdate'].forEach(function (evt) {
+            try {
+                frame.contentWindow.postMessage(JSON.stringify({ method: 'addEventListener', value: evt }), 'https://player.vimeo.com');
+            } catch (err) {}
+        });
+    }
+    function initVimeo() {
+        var frames = document.querySelectorAll('iframe[src*="player.vimeo.com/video/"]');
+        Array.prototype.forEach.call(frames, function (frame) {
+            var id = vimeoId(frame.src);
+            if (!id || vimeoFrames.indexOf(frame) !== -1) return;
+            vimeoFrames.push(frame);
+            vimeoState[id] = { played: false, ended: false, milestones: {} };
+            frame.addEventListener('load', function () { vimeoSubscribe(frame); });
+            vimeoSubscribe(frame);
+        });
+    }
+    window.addEventListener('message', function (e) {
+        if (e.origin !== 'https://player.vimeo.com') return;
+        var data = e.data;
+        if (typeof data === 'string') { try { data = JSON.parse(data); } catch (err) { return; } }
+        if (!data || !data.event) return;
+        var frame = vimeoFrames.filter(function (f) { return f.contentWindow === e.source; })[0];
+        if (!frame) return;
+        if (data.event === 'ready') { vimeoSubscribe(frame); return; }
+        var id = vimeoId(frame.src);
+        var st = vimeoState[id];
+        var base = { video_provider: 'vimeo', video_id: id, video_title: frame.getAttribute('title') || undefined };
+        if (data.event === 'play' && !st.played) {
+            st.played = true;
+            track('video_start', base);
+        } else if (data.event === 'timeupdate' && data.data && data.data.percent != null) {
+            [25, 50, 75].forEach(function (pct) {
+                if (data.data.percent * 100 >= pct && !st.milestones[pct]) {
+                    st.milestones[pct] = true;
+                    track('video_progress', Object.assign({ video_percent: pct }, base));
+                }
+            });
+        } else if (data.event === 'ended' && !st.ended) {
+            st.ended = true;
+            track('video_complete', base);
+        }
+    });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initVimeo);
+    else initVimeo();
+
     window.Tawk_API = window.Tawk_API || {};
     var prevChatStarted = window.Tawk_API.onChatStarted;
     window.Tawk_API.onChatStarted = function () {

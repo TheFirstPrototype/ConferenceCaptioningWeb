@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On-Device Captioning Benchmark | ConferenceCaptioning</title>
+  <meta name="description" content="Real-time accuracy, caption delay and resource use of ConferenceCaptioning's on-device speech engines, measured on a 2-minute live-speech clip.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://conferencecaptioning.com/benchmark/">
+  <meta property="og:title" content="On-Device Captioning Benchmark | ConferenceCaptioning">
+  <meta property="og:description" content="How accurate and how fast are on-device live captions? Real-time results for four engines.">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-navy: #193C5D; --brand-accent: #38bdf8; --brand-emerald: #10b981; --brand-amber: #f59e0b;
+      --bg-dark: #0c1824; --bg-surface: rgba(25, 60, 93, 0.48); --border-subtle: rgba(255,255,255,0.14);
+      --border-focus: rgba(56,189,248,0.5); --text-white: #fff; --text-muted: #94a3b8; --text-subtle: #64748b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans); color: var(--text-white); background: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% -5%, #1c456b 0%, var(--bg-dark) 62%);
+      background-attachment: fixed; -webkit-font-smoothing: antialiased; line-height: 1.5;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 72px; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0 8px; }
+    header.top img { height: 26px; opacity: .92; }
+    header.top a.back { font-family: var(--font-mono); font-size: .78rem; color: var(--text-muted); text-decoration: none; letter-spacing: .06em; }
+    header.top a.back:hover { color: var(--brand-accent); }
+    .eyebrow { font-family: var(--font-mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; color: var(--brand-accent); }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; margin: 10px 0 14px; }
+    h1 span { background: linear-gradient(90deg, #38bdf8, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lede { color: var(--text-muted); font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 760px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 6px; }
+    .chip { font-family: var(--font-mono); font-size: .72rem; padding: 5px 11px; border-radius: 999px; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.32); color: var(--brand-accent); }
+    section { margin-top: 56px; }
+    h2 { font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .sub { color: var(--text-muted); max-width: 780px; margin-bottom: 22px; }
+    .glass { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 22px 24px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 12px 30px -8px rgba(0,0,0,.5); }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 34px; }
+    .kpi .label { font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--text-muted); }
+    .kpi .value { font-size: clamp(1.7rem, 3.2vw, 2.35rem); white-space: nowrap; font-weight: 800; letter-spacing: -0.03em; margin: 6px 0 2px; }
+    .kpi .who { font-size: .9rem; color: var(--text-muted); }
+    .bars { display: grid; gap: 14px; }
+    .bar-row { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 14px; }
+    .bar-name { font-weight: 600; font-size: .95rem; }
+    .bar-name small { display: block; font-weight: 400; color: var(--text-muted); font-size: .75rem; }
+    .track { position: relative; height: 34px; border-radius: 9px; background: rgba(255,255,255,.06); overflow: hidden; }
+    .fill { height: 100%; border-radius: 9px; width: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+      font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #06121d; transition: width 900ms cubic-bezier(.16,1,.3,1); min-width: 0; }
+    .val { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #fff; white-space: nowrap; }
+    .p95 { position: absolute; top: 5px; bottom: 5px; width: 3px; border-radius: 2px; background: #fff; opacity: .85; }
+    .legend { font-size: .8rem; color: var(--text-muted); margin-top: 12px; }
+    .legend b { color: #fff; }
+    .note { font-size: .82rem; color: var(--text-subtle); margin-top: 10px; }
+    .tablewrap { overflow-x: auto; border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: .88rem; }
+    th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid rgba(255,255,255,.08); white-space: nowrap; }
+    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+    th { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); font-weight: 500; }
+    td.eng { font-weight: 600; }
+    td.eng i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .cols h3 { font-size: 1rem; margin-bottom: 6px; }
+    .cols p, .cols li { color: var(--text-muted); font-size: .92rem; }
+    .cols ul { padding-left: 18px; }
+    footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; color: var(--text-muted); font-size: .85rem; }
+    footer a { color: var(--brand-accent); text-decoration: none; }
+    @media (max-width: 640px) { .bar-row { grid-template-columns: 1fr; gap: 6px; } }
+    @media (prefers-reduced-motion: reduce) { .fill { transition: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" onerror="this.style.display='none'">
+    <a class="back" href="https://conferencecaptioning.com/">conferencecaptioning.com</a>
+  </header>
+
+  <div class="eyebrow">Benchmark &middot; September 2026</div>
+  <h1>Live captions, <span>measured in real time.</span></h1>
+  <p class="lede">We streamed a two-minute clip of natural speech through each of ConferenceCaptioning's on-device engines at real-time speed, the way a microphone would, and compared the captions with a human-checked, word-for-word transcript. Nothing left the device.</p>
+  <div class="chips">
+    <span class="chip">Apple M4</span><span class="chip">16 GB unified memory</span><span class="chip">macOS 27</span>
+    <span class="chip">1&times; real-time playback</span><span class="chip">120 s of continuous speech</span><span class="chip">English</span>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>Accuracy</h2>
+    <p class="sub">Word error rate against a verbatim reference, lower is better. Case, punctuation and number formatting are ignored; every missed, wrong or extra word counts, including spoken disfluencies like &ldquo;uh&rdquo; and &ldquo;mhm&rdquo;.</p>
+    <div class="glass"><div class="bars" id="werBars"></div>
+      <p class="legend">About <b>3 points</b> of every score come from spoken disfluencies and back-channels that live captioning normally leaves out, so no engine can reach 0%.</p></div>
+  </section>
+
+  <section>
+    <h2>Caption delay</h2>
+    <p class="sub">How long after a word was spoken it appeared on screen. The bar is the average; the white marker is the 95th percentile, the delay you would notice on a slow moment.</p>
+    <div class="glass"><div class="bars" id="lagBars"></div>
+      <p class="legend">Whisper engines confirm a word only after it repeats across two decoding passes, which trades a little delay for stable text. Parakeet waits for a natural pause before it commits a phrase.</p></div>
+  </section>
+
+  <section>
+    <h2>Footprint on the device</h2>
+    <p class="sub">Peak memory of the app process while captioning, and average processor use (100% is one core).</p>
+    <div class="cols">
+      <div class="glass"><h3>Peak memory (MB)</h3><div class="bars" id="memBars"></div></div>
+      <div class="glass"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpuBars"></div></div>
+    </div>
+    <p class="note">* Apple&rsquo;s speech engine runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
+  </section>
+
+  <section>
+    <h2>All the numbers</h2>
+    <p class="sub">Every engine ran on the same audio, in the same session, on the same machine.</p>
+    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="table"></table></div>
+  </section>
+
+  <section>
+    <h2>How to read this</h2>
+    <div class="cols">
+      <div class="glass"><h3>What was measured</h3><ul>
+        <li>Two minutes of continuous, natural English speech, played at real-time speed in 100 ms chunks.</li>
+        <li>Each engine runs the same segmentation and decoding logic the app uses when listening live.</li>
+        <li>Models are downloaded and warmed up first, as in the app&rsquo;s setup screen; load time is reported separately.</li></ul></div>
+      <div class="glass"><h3>What it does not tell you</h3><ul>
+        <li>One clip and one machine. Repeating the same engine varies by about 1&ndash;2 points of WER and a few tenths of a second, so treat small gaps as a tie.</li>
+        <li>Clean studio audio. Room noise, distant microphones and accents will move every number.</li>
+        <li>English only. Other languages are not covered here.</li></ul></div>
+      <div class="glass"><h3>Choosing an engine</h3><ul>
+        <li><b>Rapid</b>: fastest captions and lightest on memory; needs iOS or macOS 26.</li>
+        <li><b>Mix</b>: top accuracy, works on older systems, slightly later captions.</li>
+        <li><b>Standard / Basic</b>: well under half of Mix&rsquo;s peak memory, for lower-memory devices; Standard is the more accurate of the two.</li></ul></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Questions or want to run it on your own audio? <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a></span>
+    <span>&copy; ConferenceCaptioning</span>
+  </footer>
+</div>
+
+<script>
+const DATA = [{"id":"Rapid","model":"Apple on-device speech (iOS / macOS 26+)","family":"Apple SpeechAnalyzer","color":"#10b981","wer":11.8,"sub":23,"del":19,"ins":2,"refWords":372,"firstCaption":1.13,"lagMean":0.05,"lagP50":0.02,"lagP95":0.07,"lagMax":1.1,"finalLatency":0.1,"infMean":null,"infP95":null,"rtf":null,"loadSeconds":0.8,"modelMB":1,"peakMB":66,"cpuMean":5,"outOfProcess":true,"power":null},{"id":"Mix","model":"NVIDIA Parakeet TDT v3 + Silero VAD","family":"Parakeet","color":"#a78bfa","wer":10.8,"sub":15,"del":22,"ins":3,"refWords":372,"firstCaption":3.19,"lagMean":1.22,"lagP50":1.28,"lagP95":1.62,"lagMax":1.6,"finalLatency":0.12,"infMean":0.26,"infP95":0.49,"rtf":0.041,"loadSeconds":14.3,"modelMB":625,"peakMB":786,"cpuMean":9,"outOfProcess":false,"power":null},{"id":"Standard","model":"Whisper base (English)","family":"On-device Whisper","color":"#38bdf8","wer":14.8,"sub":22,"del":29,"ins":4,"refWords":372,"firstCaption":1.27,"lagMean":0.87,"lagP50":0.27,"lagP95":2.72,"lagMax":13.5,"finalLatency":0.15,"infMean":0.15,"infP95":0.3,"rtf":0.141,"loadSeconds":8.3,"modelMB":240,"peakMB":346,"cpuMean":14,"outOfProcess":false,"power":null},{"id":"Basic","model":"Whisper tiny (English)","family":"On-device Whisper","color":"#f59e0b","wer":22.8,"sub":33,"del":45,"ins":7,"refWords":372,"firstCaption":1.23,"lagMean":0.39,"lagP50":0.14,"lagP95":1.87,"lagMax":6.6,"finalLatency":0.18,"infMean":0.13,"infP95":0.2,"rtf":0.118,"loadSeconds":6.4,"modelMB":114,"peakMB":269,"cpuMean":13,"outOfProcess":false,"power":null}];
+const $ = (id) => document.getElementById(id);
+const fmt = (v, d = 1) => v === null || v === undefined ? 'n/a' : Number(v).toFixed(d);
+
+function bars(el, rows, value, label, max, opts = {}) {
+  el.innerHTML = rows.map((r) => `
+    <div class="bar-row">
+      <div class="bar-name">${r.id}<small>${r.family}</small></div>
+      <div class="track" role="img" aria-label="${r.id}: ${label(r)}">
+        ${(() => { const pct = Math.max(3, (value(r) / max) * 100); const short = pct < 24;
+          return `<div class="fill" data-w="${pct}" style="background:${r.color}">${short ? '' : label(r)}</div>` +
+            (short ? `<div class="val" style="left:calc(${pct}% + 10px)">${label(r)}</div>` : ''); })()}
+        ${opts.marker ? `<div class="p95" data-l="${(opts.marker(r) / max) * 100}" title="95th percentile"></div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function kpis() {
+  const best = (f, dir = 1) => DATA.reduce((a, b) => (f(b) * dir < f(a) * dir ? b : a));
+  const wer = best((r) => r.wer), lag = best((r) => r.lagMean);
+  const rtfs = DATA.filter((r) => r.rtf).map((r) => r.rtf);
+  const faster = Math.floor(1 / Math.max(...rtfs));
+  const cards = [
+    ['Most accurate', wer.wer.toFixed(1) + '%', wer.id + ' &middot; ' + wer.model],
+    ['Fastest captions', lag.lagMean.toFixed(2) + ' s', lag.id + ' &middot; average delay'],
+    ['Real-time headroom', '&ge; ' + faster + '&times;', 'every engine that reports it decodes at least ' + faster + '&times; faster than speech'],
+    ['Privacy', 'On-device', 'audio never leaves the device; all four engines transcribe locally'],
+  ];
+  $('kpis').innerHTML = cards.map((c) => `<div class="glass kpi"><div class="label">${c[0]}</div><div class="value">${c[1]}</div><div class="who">${c[2]}</div></div>`).join('');
+}
+
+function table() {
+  const head = ['Engine', 'Model', 'WER', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Decode per audio sec', 'Load time', 'Model memory', 'Peak memory', 'CPU avg'];
+  const rows = DATA.map((r) => [
+    `<i style="background:${r.color}"></i>${r.id}`, r.model, fmt(r.wer) + '%', `${r.sub} / ${r.del} / ${r.ins}`,
+    fmt(r.firstCaption, 2) + ' s', fmt(r.lagMean, 2) + ' s', fmt(r.lagP95, 2) + ' s', fmt(r.lagMax, 1) + ' s',
+    r.rtf ? fmt(r.rtf, 2) + ' s' : 'n/a', fmt(r.loadSeconds, 1) + ' s', r.outOfProcess ? '*' : r.modelMB + ' MB',
+    r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''),
+  ]);
+  $('table').innerHTML = '<thead><tr>' + head.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+    rows.map((r) => '<tr>' + r.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
+}
+
+const maxWer = Math.ceil(Math.max(...DATA.map((r) => r.wer)) / 5) * 5;
+bars($('werBars'), DATA, (r) => r.wer, (r) => r.wer.toFixed(1) + '%', maxWer);
+const maxLag = Math.max(...DATA.map((r) => Math.max(r.lagMean, r.lagP95))) * 1.08;
+bars($('lagBars'), DATA, (r) => r.lagMean, (r) => r.lagMean.toFixed(2) + ' s', maxLag, { marker: (r) => r.lagP95 });
+bars($('memBars'), DATA, (r) => r.peakMB, (r) => r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.peakMB)) * 1.05);
+bars($('cpuBars'), DATA, (r) => r.cpuMean, (r) => r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.cpuMean)) * 1.15);
+kpis(); table();
+requestAnimationFrame(() => setTimeout(() => {
+  document.querySelectorAll('.fill').forEach((el) => { el.style.width = el.dataset.w + '%'; });
+  document.querySelectorAll('.p95').forEach((el) => { el.style.left = 'calc(' + el.dataset.l + '% - 1px)'; });
+}, 60));
+</script>
+</body>
+</html>

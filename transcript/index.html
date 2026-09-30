@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Transcript History | ConferenceCaptioning</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="https://conferencecaptioning.com/images/apple-touch-icon-57x57.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.5}
+header{background:#0f172a;padding:14px 20px}
+header .in{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header img{height:32px;width:auto;display:block}
+header a.cta{color:#fff;font-size:14px;text-decoration:none;border:1px solid #475569;padding:6px 12px;border-radius:8px}
+main{max-width:900px;margin:0 auto;padding:24px 16px 64px}
+h1{margin:0;font-size:26px}
+.sub{color:#475569;margin:4px 0 20px}
+.pill{display:inline-block;background:#dbeafe;color:#1d4ed8;padding:2px 10px;border-radius:999px;font-weight:600;font-size:15px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.bar input{flex:1;min-width:200px;padding:11px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px;background:#fff}
+.bar input:focus{outline:2px solid #2563eb;border-color:#2563eb}
+button{padding:10px 14px;border:1px solid #cbd5e1;background:#fff;border-radius:10px;font-size:14px;cursor:pointer;color:#0f172a}
+button:hover{background:#f8fafc}
+button:disabled{opacity:.5;cursor:default}
+.meta{font-size:14px;color:#64748b;margin-bottom:12px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.card .t{font-size:13px;color:#64748b;margin-bottom:6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.card .lang{background:#f1f5f9;border-radius:6px;padding:1px 7px;font-size:12px}
+.card p{margin:0;white-space:pre-wrap;word-wrap:break-word;font-size:16px}
+mark{background:#fde68a;padding:0 1px;border-radius:3px}
+.msg{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:40px 24px;text-align:center}
+.msg h2{margin:0 0 8px;font-size:20px}
+.msg p{margin:0;color:#475569}
+.msg.err{border-color:#fecaca;background:#fef2f2}
+.msg.err h2{color:#b91c1c}
+.spin{width:36px;height:36px;border:4px solid #e2e8f0;border-top-color:#2563eb;border-radius:50%;margin:0 auto 12px;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+footer{text-align:center;color:#64748b;font-size:13px;margin-top:32px}
+footer a{color:#2563eb}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <a href="https://conferencecaptioning.com/"><img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" width="188" height="37"></a>
+  <a class="cta" href="https://app.conferencecaptioning.com/">Open dashboard</a>
+</div></header>
+<main>
+  <h1>Live Transcript History</h1>
+  <p class="sub" id="sub"></p>
+  <div id="tools" class="bar" hidden>
+    <input id="q" type="search" placeholder="Search the transcript..." aria-label="Search transcripts" autocomplete="off">
+    <button id="refresh" type="button">Refresh</button>
+    <button id="dl" type="button">Download .txt</button>
+  </div>
+  <div id="meta" class="meta" hidden></div>
+  <div id="out"></div>
+  <footer>Powered by <a href="https://conferencecaptioning.com/">ConferenceCaptioning</a></footer>
+</main>
+<script>
+(function(){
+  var API='https://api.deafassistant.com/history/GetStreamHistory';
+  var params=new URLSearchParams(location.search);
+  var uid=(params.get('uid')||'').trim(), stream=(params.get('streamName')||'').trim();
+  var out=document.getElementById('out'), tools=document.getElementById('tools'),
+      meta=document.getElementById('meta'), q=document.getElementById('q'),
+      sub=document.getElementById('sub'), dl=document.getElementById('dl');
+  var items=[];
+
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function re(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  function parse(s){if(!s)return null;var d=new Date(/[zZ]|[+-]\d\d:?\d\d$/.test(s)?s:s.substring(0,23)+'Z');return isNaN(d)?null:d}
+  function fmt(d){return d?d.toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):''}
+  function box(cls,h,p){out.innerHTML='<div class="msg '+cls+'"><h2>'+esc(h)+'</h2><p>'+esc(p)+'</p></div>'}
+
+  function render(){
+    var term=q.value.trim();
+    var list=items.filter(function(i){return !term||(i.transcript||'').toLowerCase().indexOf(term.toLowerCase())>-1});
+    meta.hidden=false;
+    meta.textContent=term?list.length+' of '+items.length+' transcripts match "'+term+'"':items.length+' transcript'+(items.length===1?'':'s');
+    if(!list.length){box('','No matches','Nothing in this stream\'s history contains "'+term+'".');return}
+    var rx=term?new RegExp('('+re(esc(term))+')','gi'):null;
+    out.innerHTML=list.map(function(i){
+      var t=esc(i.transcript||''); if(rx)t=t.replace(rx,'<mark>$1</mark>');
+      var s=parse(i.startTimestamp), e=parse(i.endTimestamp);
+      var when=fmt(s); if(s&&e&&e-s>1000)when+=' – '+e.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+      return '<div class="card"><div class="t"><span>'+esc(when)+'</span>'+(i.inputLanguage?'<span class="lang">'+esc(i.inputLanguage)+'</span>':'')+'</div><p>'+t+'</p></div>';
+    }).join('');
+  }
+
+  function load(){
+    if(!uid||!stream){
+      sub.textContent='';
+      box('err','Missing stream details','This page needs a link like conferencecaptioning.com/transcript?uid=YOUR_UID&streamName=YOUR_STREAM. Copy the full link from your ConferenceCaptioning dashboard.');
+      return;
+    }
+    sub.innerHTML='Stream: <span class="pill">'+esc(stream)+'</span>';
+    out.innerHTML='<div class="msg"><div class="spin"></div><p>Loading transcripts...</p></div>';
+    tools.hidden=true; meta.hidden=true;
+    fetch(API+'?'+new URLSearchParams({uid:uid,streamName:stream}))
+      .then(function(r){
+        return r.text().then(function(body){
+          if(!r.ok){var m=body;try{var j=JSON.parse(body);m=j.message||j.error||j.title||body}catch(_){}
+            throw new Error('The server returned '+r.status+(m?': '+String(m).slice(0,300):''))}
+          try{return JSON.parse(body)}catch(_){throw new Error('The server returned an unexpected response.')}
+        });
+      })
+      .then(function(data){
+        items=Array.isArray(data)?data:[];
+        items.sort(function(a,b){return (parse(b.startTimestamp)||0)-(parse(a.startTimestamp)||0)});
+        tools.hidden=false;
+        if(!items.length){meta.hidden=true;box('','No transcript yet','Nothing has been captioned on "'+stream+'" yet. Start speaking into your stream and the transcript will appear here. Use Refresh to check again.');return}
+        render();
+      })
+      .catch(function(err){
+        tools.hidden=false; dl.disabled=true; meta.hidden=true;
+        box('err','Could not load the transcript',err&&err.message?err.message:'Network error. Check your connection and try again.');
+      });
+  }
+
+  q.addEventListener('input',function(){if(items.length)render()});
+  document.getElementById('refresh').addEventListener('click',function(){dl.disabled=false;load()});
+  dl.addEventListener('click',function(){
+    var asc=items.slice().reverse().map(function(i){return '['+fmt(parse(i.startTimestamp))+']\n'+(i.transcript||'')}).join('\n\n');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([asc],{type:'text/plain'}));
+    a.download=stream+'-transcript.txt';document.body.appendChild(a);a.click();a.remove();
+  });
+  load();
+})();
+</script>
+</body>
+</html>

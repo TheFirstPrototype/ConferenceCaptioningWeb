@@ -76,7 +76,6 @@
     @media (max-width: 640px) { .bar-row { grid-template-columns: 1fr; gap: 6px; } }
     @media (prefers-reduced-motion: reduce) { .fill { transition: none; } html { scroll-behavior: auto; } }
   </style>
-  <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
 </head>
 <body>
 <div class="wrap">
@@ -90,23 +89,23 @@
   <p class="lede">We streamed a two-minute clip of natural speech through each of ConferenceCaptioning's on-device engines at real-time speed, the way a microphone would, and compared the captions with a human-checked, word-for-word transcript. Nothing left the device.</p>
   <div class="chips">
     <span class="chip">Apple M4</span><span class="chip">16 GB unified memory</span><span class="chip">macOS 27</span>
-    <span class="chip">1&times; real-time playback</span><span class="chip">120 s of continuous speech</span><span class="chip">English</span>
+    <span class="chip">1&times; real-time playback</span><span class="chip">126 s of continuous speech</span><span class="chip">English</span>
   </div>
 
   <div class="kpis" id="kpis"></div>
 
   <section>
     <h2>Accuracy</h2>
-    <p class="sub">Word error rate against a verbatim reference, lower is better. Case, punctuation and number formatting are ignored; every missed, wrong or extra word counts, including spoken disfluencies like &ldquo;uh&rdquo; and &ldquo;mhm&rdquo;.</p>
+    <p class="sub">Word error rate against a human-checked, word-for-word reference, lower is better. Case, punctuation and number formatting are ignored, as are filler sounds (&ldquo;uh&rdquo;, &ldquo;mhm&rdquo;, &ldquo;hmm&rdquo;), and a few equivalent spellings count as correct (&ldquo;cuz&rdquo;, &ldquo;cause&rdquo; and &ldquo;because&rdquo;). Every other missed, wrong or extra word counts.</p>
     <div class="glass"><div class="bars" id="werBars"></div>
-      <p class="legend">About <b>3 points</b> of every score come from spoken disfluencies and back-channels that live captioning normally leaves out, so no engine can reach 0%.</p></div>
+      <p class="legend">The small line under each engine is the stricter score that also counts filler sounds. Spoken back-channels like &ldquo;Yeah&rdquo; and &ldquo;Woo&rdquo; still count against every engine in both.</p></div>
   </section>
 
   <section>
     <h2>Caption delay</h2>
     <p class="sub">How long after a word was spoken it appeared on screen. The bar is the average; the white marker is the 95th percentile, the delay you would notice on a slow moment.</p>
     <div class="glass"><div class="bars" id="lagBars"></div>
-      <p class="legend">Whisper engines confirm a word only after it repeats across two decoding passes, which trades a little delay for stable text. Parakeet waits for a natural pause before it commits a phrase.</p></div>
+      <p class="legend">Basic and Standard confirm a word only after it repeats across two decoding passes, which trades a little delay for stable text. Mix waits for a natural pause before it commits a phrase.</p></div>
   </section>
 
   <section>
@@ -116,7 +115,23 @@
       <div class="glass"><h3>Peak memory (MB)</h3><div class="bars" id="memBars"></div></div>
       <div class="glass"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpuBars"></div></div>
     </div>
-    <p class="note">* Apple&rsquo;s speech engine runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
+    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
+  </section>
+
+  <section>
+    <h2>Neural Engine</h2>
+    <p class="sub">Apple&rsquo;s Neural Engine (ANE) is a low-power accelerator for machine-learning models. We checked whether each engine uses it and whether other processor choices would be faster.</p>
+    <div class="cols">
+      <div class="glass"><h3>Which chip runs the model</h3><ul>
+        <li><b>Basic and Standard:</b> both stages of the model run on the Neural Engine by default.</li>
+        <li><b>Mix:</b> the main model stage loads on CPU + Neural Engine; we confirmed this at load time.</li>
+        <li><b>Rapid:</b> run by the operating system, so which chip it uses is not visible to the app.</li>
+        <li><b>Power, measured system-wide</b> while the engines ran: the Neural Engine sat at 0&nbsp;mW when idle and averaged roughly 50&ndash;70&nbsp;mW (peaks under 1&nbsp;W), against about 0.7&ndash;1.2&nbsp;W for the CPU, so it carries only about 4&ndash;9% of the compute power.</li></ul></div>
+      <div class="glass"><h3>Would other processors be faster?</h3>
+        <div class="tablewrap" style="padding:0"><table id="computeTable" style="min-width:0"></table></div>
+        <p class="note">Standard engine, same clip. Time per decoding pass and CPU time used over the run.</p></div>
+    </div>
+    <p class="note">The Neural Engine is already the fastest and lightest option we tried. Caption delay is set mostly by waiting for stable text, not by compute, so moving more work onto it would mainly save energy and CPU rather than shorten delays. Per-engine energy figures will be added once measured engine by engine.</p>
   </section>
 
   <section>
@@ -150,14 +165,14 @@
 </div>
 
 <script>
-const DATA = [{"id":"Rapid","model":"Apple on-device speech (iOS / macOS 26+)","family":"Apple SpeechAnalyzer","color":"#10b981","wer":11.3,"sub":21,"del":19,"ins":2,"refWords":372,"firstCaption":1.13,"lagMean":0.05,"lagP50":0.02,"lagP95":0.07,"lagMax":1.1,"finalLatency":0.1,"infMean":null,"infP95":null,"rtf":null,"loadSeconds":0.8,"modelMB":1,"peakMB":66,"cpuMean":5,"outOfProcess":true,"power":null},{"id":"Mix","model":"NVIDIA Parakeet TDT v3 + Silero VAD","family":"Parakeet","color":"#a78bfa","wer":10.2,"sub":13,"del":22,"ins":3,"refWords":372,"firstCaption":3.19,"lagMean":1.22,"lagP50":1.28,"lagP95":1.62,"lagMax":1.6,"finalLatency":0.12,"infMean":0.26,"infP95":0.49,"rtf":0.041,"loadSeconds":14.3,"modelMB":625,"peakMB":786,"cpuMean":9,"outOfProcess":false,"power":null},{"id":"Standard","model":"Whisper base (English)","family":"On-device Whisper","color":"#38bdf8","wer":14.5,"sub":21,"del":29,"ins":4,"refWords":372,"firstCaption":1.27,"lagMean":0.87,"lagP50":0.27,"lagP95":2.72,"lagMax":13.5,"finalLatency":0.15,"infMean":0.15,"infP95":0.3,"rtf":0.141,"loadSeconds":8.3,"modelMB":240,"peakMB":346,"cpuMean":14,"outOfProcess":false,"power":null},{"id":"Basic","model":"Whisper tiny (English)","family":"On-device Whisper","color":"#f59e0b","wer":22.6,"sub":32,"del":45,"ins":7,"refWords":372,"firstCaption":1.23,"lagMean":0.39,"lagP50":0.14,"lagP95":1.87,"lagMax":6.6,"finalLatency":0.18,"infMean":0.13,"infP95":0.2,"rtf":0.118,"loadSeconds":6.4,"modelMB":114,"peakMB":269,"cpuMean":13,"outOfProcess":false,"power":null}];
+const DATA = [{"id":"Rapid","model":"System speech service (iOS / macOS 26+)","family":"System speech service","color":"#10b981","wer":7.0,"werStrict":8.0,"sub":18,"del":5,"ins":3,"refWords":371,"firstCaption":1.13,"lagMean":0.05,"lagP50":0.02,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.09,"infMean":null,"infP95":null,"rtf":null,"loadSeconds":0.8,"modelMB":0,"peakMB":120,"cpuMean":6,"outOfProcess":true,"power":null},{"id":"Mix","model":"Large on-device model + voice-activity detection","family":"Large model + pause detection","color":"#a78bfa","wer":6.5,"werStrict":7.2,"sub":10,"del":11,"ins":3,"refWords":371,"firstCaption":3.26,"lagMean":1.26,"lagP50":1.16,"lagP95":1.71,"lagMax":1.7,"finalLatency":0.08,"infMean":0.25,"infP95":0.47,"rtf":0.042,"loadSeconds":13.5,"modelMB":625,"peakMB":783,"cpuMean":9,"outOfProcess":false,"power":null},{"id":"Standard","model":"Mid-size on-device model","family":"Mid-size model","color":"#38bdf8","wer":9.2,"werStrict":10.4,"sub":18,"del":13,"ins":3,"refWords":371,"firstCaption":1.26,"lagMean":0.87,"lagP50":0.29,"lagP95":3.45,"lagMax":11.2,"finalLatency":0.15,"infMean":0.15,"infP95":0.34,"rtf":0.143,"loadSeconds":9.1,"modelMB":260,"peakMB":380,"cpuMean":14,"outOfProcess":false,"power":null},{"id":"Basic","model":"Compact on-device model","family":"Compact model","color":"#f59e0b","wer":20.5,"werStrict":21.5,"sub":31,"del":43,"ins":2,"refWords":371,"firstCaption":1.21,"lagMean":0.49,"lagP50":0.21,"lagP95":2.16,"lagMax":6.7,"finalLatency":0.17,"infMean":0.13,"infP95":0.22,"rtf":0.122,"loadSeconds":6.3,"modelMB":115,"peakMB":272,"cpuMean":14,"outOfProcess":false,"power":null}];
 const $ = (id) => document.getElementById(id);
 const fmt = (v, d = 1) => v === null || v === undefined ? 'n/a' : Number(v).toFixed(d);
 
 function bars(el, rows, value, label, max, opts = {}) {
   el.innerHTML = rows.map((r) => `
     <div class="bar-row">
-      <div class="bar-name">${r.id}<small>${r.family}</small></div>
+      <div class="bar-name">${r.id}<small>${r.family}${opts.std ? "<br>" + r.werStrict.toFixed(1) + "% counting every word" : ""}</small></div>
       <div class="track" role="img" aria-label="${r.id}: ${label(r)}">
         ${(() => { const pct = Math.max(3, (value(r) / max) * 100); const short = pct < 24;
           return `<div class="fill" data-w="${pct}" style="background:${r.color}">${short ? '' : label(r)}</div>` +
@@ -173,7 +188,7 @@ function kpis() {
   const rtfs = DATA.filter((r) => r.rtf).map((r) => r.rtf);
   const faster = Math.floor(1 / Math.max(...rtfs));
   const cards = [
-    ['Most accurate', wer.wer.toFixed(1) + '%', wer.id + ' &middot; ' + wer.model],
+    ['Most accurate', wer.wer.toFixed(1) + '%', wer.id + ' &middot; ' + wer.model + ' (' + wer.werStrict.toFixed(1) + '% counting every word)'],
     ['Fastest captions', lag.lagMean.toFixed(2) + ' s', lag.id + ' &middot; average delay'],
     ['Real-time headroom', '&ge; ' + faster + '&times;', 'every engine that reports it decodes at least ' + faster + '&times; faster than speech'],
     ['Privacy', 'On-device', 'audio never leaves the device; all four engines transcribe locally'],
@@ -182,9 +197,9 @@ function kpis() {
 }
 
 function table() {
-  const head = ['Engine', 'Model', 'WER', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Decode per audio sec', 'Load time', 'Model memory', 'Peak memory', 'CPU avg'];
+  const head = ['Engine', 'Model', 'WER', 'WER, every word', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Decode per audio sec', 'Load time', 'Model memory', 'Peak memory', 'CPU avg'];
   const rows = DATA.map((r) => [
-    `<i style="background:${r.color}"></i>${r.id}`, r.model, fmt(r.wer) + '%', `${r.sub} / ${r.del} / ${r.ins}`,
+    `<i style="background:${r.color}"></i>${r.id}`, r.model, fmt(r.wer) + '%', fmt(r.werStrict) + '%', `${r.sub} / ${r.del} / ${r.ins}`,
     fmt(r.firstCaption, 2) + ' s', fmt(r.lagMean, 2) + ' s', fmt(r.lagP95, 2) + ' s', fmt(r.lagMax, 1) + ' s',
     r.rtf ? fmt(r.rtf, 2) + ' s' : 'n/a', fmt(r.loadSeconds, 1) + ' s', r.outOfProcess ? '*' : r.modelMB + ' MB',
     r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''),
@@ -194,11 +209,19 @@ function table() {
 }
 
 const maxWer = Math.ceil(Math.max(...DATA.map((r) => r.wer)) / 5) * 5;
-bars($('werBars'), DATA, (r) => r.wer, (r) => r.wer.toFixed(1) + '%', maxWer);
+bars($('werBars'), DATA, (r) => r.wer, (r) => r.wer.toFixed(1) + '%', maxWer, { std: true });
 const maxLag = Math.max(...DATA.map((r) => Math.max(r.lagMean, r.lagP95))) * 1.08;
 bars($('lagBars'), DATA, (r) => r.lagMean, (r) => r.lagMean.toFixed(2) + ' s', maxLag, { marker: (r) => r.lagP95 });
 bars($('memBars'), DATA, (r) => r.peakMB, (r) => r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.peakMB)) * 1.05);
 bars($('cpuBars'), DATA, (r) => r.cpuMean, (r) => r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.cpuMean)) * 1.15);
+const COMPUTE = [
+  { name: 'Neural Engine (default)', pass: 0.109, cpu: 13.2, wer: 11.8 },
+  { name: 'All processors', pass: 0.155, cpu: 18.9, wer: 12.4 },
+  { name: 'GPU', pass: 0.204, cpu: 26.3, wer: 16.7 },
+  { name: 'Neural Engine + GPU mix', pass: 0.224, cpu: 26.8, wer: 13.4 },
+];
+$('computeTable').innerHTML = '<thead><tr><th>Processor</th><th>Per pass</th><th>CPU time</th></tr></thead><tbody>' +
+  COMPUTE.map((c) => `<tr><td>${c.name}</td><td>${c.pass.toFixed(3)} s</td><td>${c.cpu.toFixed(1)} s</td></tr>`).join('') + '</tbody>';
 kpis(); table();
 requestAnimationFrame(() => setTimeout(() => {
   document.querySelectorAll('.fill').forEach((el) => { el.style.width = el.dataset.w + '%'; });

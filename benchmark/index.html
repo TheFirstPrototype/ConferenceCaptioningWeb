@@ -3,13 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>On-Device Captioning Benchmark | ConferenceCaptioning</title>
-  <meta name="description" content="Real-time accuracy, caption delay and resource use of ConferenceCaptioning&#39;s on-device speech engines, measured on a live NASA news conference.">
-  <meta property="og:type" content="website">
+  <title>Live Captioning Accuracy & Delay Benchmark | ConferenceCaptioning</title>
+  <meta name="description" content="Real-time test of on-device live captions on a NASA news conference: up to 97.2% word accuracy and 0.05 s caption delay on an Apple M4. Method, data and reproduction steps included.">
+  <link rel="canonical" href="https://conferencecaptioning.com/benchmark/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ConferenceCaptioning">
   <meta property="og:url" content="https://conferencecaptioning.com/benchmark/">
-  <meta property="og:title" content="On-Device Captioning Benchmark | ConferenceCaptioning">
-  <meta property="og:description" content="How accurate and how fast are on-device live captions? Real-time results measured on a NASA news conference.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content="Live Captioning Accuracy & Delay Benchmark | ConferenceCaptioning">
+  <meta property="og:description" content="Real-time test of on-device live captions on a NASA news conference: up to 97.2% word accuracy and 0.05 s caption delay on an Apple M4. Method, data and reproduction steps included.">
+  <meta property="og:image" content="https://conferencecaptioning.com/benchmark/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ConferenceCaptioning live captioning benchmark: word accuracy and caption delay measured on a NASA news conference">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Live Captioning Accuracy & Delay Benchmark | ConferenceCaptioning">
+  <meta name="twitter:description" content="Real-time test of on-device live captions on a NASA news conference: up to 97.2% word accuracy and 0.05 s caption delay on an Apple M4. Method, data and reproduction steps included.">
+  <meta name="twitter:image" content="https://conferencecaptioning.com/benchmark/og-image.png">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Live captioning accuracy and delay benchmark: on-device engines on a NASA news conference",
+    "description": "Real-time test of on-device live captions on a NASA news conference: up to 97.2% word accuracy and 0.05 s caption delay on an Apple M4. Method, data and reproduction steps included.",
+    "datePublished": "2026-10-05",
+    "dateModified": "2026-10-05",
+    "inLanguage": "en",
+    "mainEntityOfPage": "https://conferencecaptioning.com/benchmark/",
+    "url": "https://conferencecaptioning.com/benchmark/",
+    "image": "https://conferencecaptioning.com/benchmark/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "ConferenceCaptioning",
+      "url": "https://conferencecaptioning.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ConferenceCaptioning",
+      "url": "https://conferencecaptioning.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://conferencecaptioning.com/images/logo-white.svg"
+      }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "ConferenceCaptioning live captioning benchmark: NASA Artemis II news conference",
+    "description": "Word accuracy, caption delay, memory, CPU and power of two on-device live-captioning engines streamed in real time over 2 minutes 53 seconds of a public NASA news conference, with the corrected reference transcript and scoring script.",
+    "url": "https://conferencecaptioning.com/benchmark/",
+    "creator": {
+      "@type": "Organization",
+      "name": "ConferenceCaptioning",
+      "url": "https://conferencecaptioning.com"
+    },
+    "datePublished": "2026-10-05",
+    "dateModified": "2026-10-05",
+    "inLanguage": "en",
+    "isBasedOn": "https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s",
+    "keywords": [
+      "live captioning",
+      "speech recognition",
+      "word error rate",
+      "latency",
+      "on-device AI",
+      "accessibility"
+    ],
+    "measurementTechnique": "Real-time streaming of audio at 1x speed; word error rate by word-level edit distance against a corrected reference transcript",
+    "variableMeasured": [
+      "word accuracy",
+      "word error rate",
+      "caption delay",
+      "peak memory",
+      "CPU use",
+      "power"
+    ],
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://conferencecaptioning.com/benchmark/data/nasa-benchmark-results.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://conferencecaptioning.com/benchmark/data/nasa-benchmark-results.csv"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/plain",
+        "contentUrl": "https://conferencecaptioning.com/benchmark/data/nasa-reference-transcript.txt"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ConferenceCaptioning",
+        "item": "https://conferencecaptioning.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Live captioning benchmark",
+        "item": "https://conferencecaptioning.com/benchmark/"
+      }
+    ]
+  }
+]
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -77,16 +185,21 @@
     @media (prefers-reduced-motion: reduce) { .fill { transition: none; } html { scroll-behavior: auto; } }
 
 
+
+
     /* --- additions: anchors, element ids, scales, CTA --- */
     [id] { scroll-margin-top: 24px; }
     th:first-child, td:first-child, th.l, td.l { text-align: left; }
-    th:nth-child(2):not(.l), td:nth-child(2):not(.l) { text-align: right; }
-    @media (max-width: 640px) { .axis { grid-template-columns: 1fr; } .axis > span:first-child { display: none; } }
+    .byline { font-size: .85rem; color: var(--text-muted); margin: 6px 0 14px; }
+    .byline a { color: var(--brand-accent); text-decoration: none; }
+    code { font-family: var(--font-mono); font-size: .85em; background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 5px; color: #e2e8f0; }
     .anchor { margin-left: 8px; font-family: var(--font-mono); font-size: .8em; color: var(--text-subtle); text-decoration: none; opacity: 0; transition: opacity .15s; }
     h2:hover .anchor, h3:hover .anchor, .anchor:focus { opacity: 1; }
     .anchor:hover { color: var(--brand-accent); }
     .axis { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: center; margin-top: 2px; }
     .axis .ticks { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: .68rem; color: var(--text-subtle); padding: 0 2px; }
+    @media (max-width: 640px) { .axis { grid-template-columns: 1fr; } .axis > span:first-child { display: none; } }
+    .fill { transition: none; }
     .fill.short { padding: 0; border-radius: 4px; }
     .fill.ref { background: repeating-linear-gradient(45deg, rgba(148,163,184,.55), rgba(148,163,184,.55) 6px, rgba(148,163,184,.3) 6px, rgba(148,163,184,.3) 12px) !important; color: #fff; }
     .bar-row.ref .bar-name { color: var(--text-muted); }
@@ -114,6 +227,7 @@
 
   <div class="eyebrow" id="eyebrow">Benchmark &middot; October 2026</div>
   <h1 id="title">Live captions, <span>measured in real time.</span></h1>
+  <p class="byline" id="byline">Published by the ConferenceCaptioning team &middot; Updated <time datetime="2026-10-05">October 5, 2026</time> &middot; <a href="#methodology">Method</a> &middot; <a href="#data-downloads">Data</a> &middot; <a href="#changelog">Changelog</a></p>
   <p class="lede" id="intro">We streamed 2 minutes 53 seconds of a real NASA news conference through ConferenceCaptioning&rsquo;s on-device engines at real-time speed, the way a microphone would, and compared the captions with a corrected, word-for-word transcript. Several speakers, technical vocabulary and unusual names. Nothing left the device.</p>
   <div class="chips" id="test-setup">
     <span class="chip">Apple M4</span><span class="chip">16 GB unified memory</span><span class="chip">macOS 27</span>
@@ -121,21 +235,24 @@
   </div>
 
   <div class="glass" id="check-it-yourself" style="margin-top:22px">
-    <p><b>Check it yourself.</b> The audio is NASA&rsquo;s <a href="https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s" target="_blank" rel="noopener" style="color:var(--brand-accent)">Artemis II post-splashdown news conference (April 10, 2026)</a>. Open it at <b>6:38</b> (the link jumps there); the test runs from 6:38 to 9:31, from &ldquo;They are Amit Kshatriya&hellip;&rdquo; to &ldquo;&hellip;I&rsquo;ll hand it over to Dr. Glaze.&rdquo; Press play and watch our captions beside it.</p>
+    <p><b>Check it yourself.</b> The audio is NASA&rsquo;s <a href="https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s" target="_blank" rel="noopener" style="color:var(--brand-accent)">Artemis II post-splashdown news conference (April 10, 2026)</a>. Open it at <b>6:38</b> (the link jumps there); the test runs from 6:38 to 9:31, from &ldquo;They are Amit Kshatriya&hellip;&rdquo; to &ldquo;&hellip;I&rsquo;ll hand it over to Dr. Glaze.&rdquo; Press play and watch our captions beside it, or <a href="#reproduce" style="color:var(--brand-accent)">score the engine of your choice on the same clip</a>.</p>
   </div>
 
-  <div class="kpis" id="key-numbers"></div>
+  <div class="kpis" id="key-numbers"><div class="glass kpi" id="kpi-accuracy"><div class="label">Most accurate</div><div class="value">97.2%</div><div class="who">Mix &middot; word accuracy (2.8% word error rate)</div></div><div class="glass kpi" id="kpi-speed"><div class="label">Fastest captions</div><div class="value">0.05 s</div><div class="who">Rapid &middot; average delay</div></div><div class="glass kpi" id="kpi-words"><div class="label">Words checked</div><div class="value">562</div><div class="who">in 173 s of real-time speech</div></div><div class="glass kpi" id="kpi-privacy"><div class="label">Privacy</div><div class="value">On-device</div><div class="who">audio never leaves the device; both engines transcribe locally</div></div></div>
 
   <section id="accuracy">
     <h2 id="accuracy-heading">Accuracy</h2>
     <p class="sub" id="accuracy-explainer"><b>Word accuracy</b> is the share of the words in a corrected, word-for-word reference that were captioned correctly: 100% minus the <b>word error rate</b>, where word error rate is <b>(wrong + missed + extra words) &divide; words in the reference</b>. The reference has 562 words (not counting filler sounds).</p>
-    <div class="glass" id="accuracy-chart"><div class="bars" id="accuracy-bars"></div>
+    <div class="glass" id="accuracy-chart"><div class="bars" id="accuracy-bars">
+        <div class="bar-row" id="accuracy-bar-rapid"><div class="bar-name">Rapid<small>System speech service<br>4.8% word error rate<br>94.2% accuracy counting every word</small></div><div class="track" role="img" aria-label="Rapid: 95.2%"><div class="fill" style="width:95.20%;background:#10b981">95.2%</div></div></div>
+        <div class="bar-row" id="accuracy-bar-mix"><div class="bar-name">Mix<small>Large model + pause detection<br>2.8% word error rate<br>97.2% accuracy counting every word</small></div><div class="track" role="img" aria-label="Mix: 97.2%"><div class="fill" style="width:97.20%;background:#a78bfa">97.2%</div></div></div>
+        <div class="axis"><span></span><div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div></div>
       <p class="legend" id="accuracy-legend">Bars run from 0% to 100%. Filler sounds (&ldquo;uh&rdquo;, &ldquo;um&rdquo;) are ignored in the main score; the line under each engine also gives the accuracy when they count.</p></div>
-    <div class="glass tablewrap" id="accuracy-table-box" style="padding:6px 6px 0;margin-top:16px"><table id="accuracy-table"></table></div>
+    <div class="glass tablewrap" id="accuracy-table-box" style="padding:6px 6px 0;margin-top:16px"><table id="accuracy-table"><thead><tr><th class="l">Engine</th><th class="">Words in reference</th><th class="">Wrong</th><th class="">Missed</th><th class="">Extra</th><th class="">Total errors</th><th class="">Word accuracy</th><th class="">Word error rate</th><th class="">Accuracy, every word</th></tr></thead><tbody><tr id="accuracy-row-rapid"><td class="eng l"><i style="background:#10b981"></i>Rapid</td><td class="">562</td><td class="">23</td><td class="">4</td><td class="">0</td><td class="">27</td><td class="">95.2%</td><td class="">4.8%</td><td class="">94.2%</td></tr><tr id="accuracy-row-mix"><td class="eng l"><i style="background:#a78bfa"></i>Mix</td><td class="">562</td><td class="">11</td><td class="">4</td><td class="">1</td><td class="">16</td><td class="">97.2%</td><td class="">2.8%</td><td class="">97.2%</td></tr></tbody></table></div>
 
     <h3 id="error-types" style="margin:26px 0 8px">What the errors were</h3>
     <p class="sub" id="error-types-explainer">We sorted every counted error into what actually went wrong, so you can see whether a score reflects hard names and word endings or real mistakes.</p>
-    <div class="glass tablewrap" id="error-types-table-box" style="padding:6px 6px 0;"><table id="error-types-table" style="min-width:0"></table></div>
+    <div class="glass tablewrap" id="error-types-table-box" style="padding:6px 6px 0;"><table id="error-types-table" style="min-width:0"><thead><tr><th class="l">Kind of error</th><th class="l">What it looks like</th><th>Rapid</th><th>Mix</th></tr></thead><tbody><tr id="error-type-names"><td class="eng l">Names and titles</td><td class="l" style="white-space:normal;min-width:260px;color:var(--text-muted)">Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling.</td><td>6</td><td>4</td></tr><tr id="error-type-endings"><td class="eng l">Word endings</td><td class="l" style="white-space:normal;min-width:260px;color:var(--text-muted)">&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural.</td><td>3</td><td>3</td></tr><tr id="error-type-sounds"><td class="eng l">Similar-sounding words</td><td class="l" style="white-space:normal;min-width:260px;color:var(--text-muted)">A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;.</td><td>10</td><td>3</td></tr><tr id="error-type-small"><td class="eng l">Words dropped, added or swapped</td><td class="l" style="white-space:normal;min-width:260px;color:var(--text-muted)">Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra.</td><td>8</td><td>6</td></tr><tr id="error-type-total"><td class="eng l">Total</td><td class="l"></td><td><b>27</b></td><td><b>16</b></td></tr></tbody></table></div>
     <p class="note" id="error-examples">Examples: &ldquo;Amit Kshatriya&rdquo; heard as &ldquo;Amet Shatriya&rdquo; or &ldquo;Ahmed Shatriya&rdquo;, &ldquo;touched&rdquo; written as &ldquo;touch&rdquo;, &ldquo;packed&rdquo; heard as &ldquo;peck&rdquo;. Names like these are the hardest part of any live captioning job, which is why we kept them in the score.</p>
 
     <div class="cols" id="scoring-rules" style="margin-top:16px">
@@ -154,7 +271,12 @@
   <section id="caption-delay">
     <h2 id="caption-delay-heading">Caption delay</h2>
     <p class="sub" id="caption-delay-explainer">How long after a word was spoken it appeared on screen. The solid bar is the average; the white marker is the 95th percentile, the delay you would notice on a slow moment. The grey bars are published reference points, not products we tested.</p>
-    <div class="glass" id="delay-chart"><div class="bars" id="delay-bars"></div>
+    <div class="glass" id="delay-chart"><div class="bars" id="delay-bars">
+        <div class="bar-row" id="delay-bar-rapid"><div class="bar-name">Rapid<small>System speech service<br>95th percentile 0.07 s</small></div><div class="track" role="img" aria-label="Rapid: 0.05 s"><div class="fill short" style="width:0.80%;background:#10b981"></div><div class="val" style="left:calc(0.80% + 10px)">0.05 s</div><div class="p95" style="left:calc(0.70% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row" id="delay-bar-mix"><div class="bar-name">Mix<small>Large model + pause detection<br>95th percentile 1.68 s</small></div><div class="track" role="img" aria-label="Mix: 1.24 s"><div class="fill short" style="width:12.40%;background:#a78bfa"></div><div class="val" style="left:calc(16.80% + 10px)">1.24 s</div><div class="p95" style="left:calc(16.80% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row ref" id="delay-bar-ref-cart"><div class="bar-name">Human captioner (CART)<small>2014 study, mean latency</small></div><div class="track" role="img" aria-label="Human captioner (CART): 4.2 s"><div class="fill ref" style="width:42.00%;background:#64748b">4.2 s</div></div></div>
+        <div class="bar-row ref" id="delay-bar-ref-asr-2014"><div class="bar-name">Automatic captions, 2014<small>2014 study, per-word latency</small></div><div class="track" role="img" aria-label="Automatic captions, 2014: 7.9 s"><div class="fill ref" style="width:79.00%;background:#64748b">7.9 s</div></div></div>
+        <div class="axis"><span></span><div class="ticks"><span>0 s</span><span>2.5 s</span><span>5 s</span><span>7.5 s</span><span>10 s</span></div></div></div>
       <p class="legend" id="delay-legend">Rapid shows words almost immediately and refines them as it hears more. Mix waits for a natural pause before it commits a phrase, which is why it is later but more accurate. Reference points: a professional human captioner (CART) averaged 4.2 s, and automatic captions of the day averaged 7.9 s per word, in a 2014 classroom study by Kushalnagar, Lasecki and Bigham (<a href="https://roc-hci.com/wp-content/uploads/classroomcaption.pdf" target="_blank" rel="noopener" style="color:var(--brand-accent)">ACM Transactions on Accessible Computing</a>). Today&rsquo;s cloud services are faster than that; we have not measured them.</p></div>
   </section>
 
@@ -162,29 +284,70 @@
     <h2 id="footprint-heading">Footprint on the device</h2>
     <p class="sub" id="footprint-explainer">Peak memory of the app process while captioning, as a share of this Mac&rsquo;s 16&nbsp;GB, and average processor use as a share of one core.</p>
     <div class="cols" id="footprint-charts">
-      <div class="glass" id="memory-chart"><h3>Peak memory (share of 16 GB)</h3><div class="bars" id="memory-bars"></div></div>
-      <div class="glass" id="cpu-chart"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpu-bars"></div></div>
+      <div class="glass" id="memory-chart"><h3>Peak memory (share of 16 GB)</h3><div class="bars" id="memory-bars">
+        <div class="bar-row" id="memory-bar-rapid"><div class="bar-name">Rapid<small>0.5% of 16 GB</small></div><div class="track" role="img" aria-label="Rapid: 74 MB *"><div class="fill short" style="width:0.80%;background:#10b981"></div><div class="val" style="left:calc(0.80% + 10px)">74 MB *</div></div></div>
+        <div class="bar-row" id="memory-bar-mix"><div class="bar-name">Mix<small>4.9% of 16 GB</small></div><div class="track" role="img" aria-label="Mix: 800 MB"><div class="fill short" style="width:4.88%;background:#a78bfa"></div><div class="val" style="left:calc(4.88% + 10px)">800 MB</div></div></div>
+        <div class="axis"><span></span><div class="ticks"><span>0</span><span>4 GB</span><span>8 GB</span><span>12 GB</span><span>16 GB</span></div></div></div></div>
+      <div class="glass" id="cpu-chart"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpu-bars">
+        <div class="bar-row" id="cpu-bar-rapid"><div class="bar-name">Rapid<small>System speech service</small></div><div class="track" role="img" aria-label="Rapid: 7% *"><div class="fill short" style="width:7.00%;background:#10b981"></div><div class="val" style="left:calc(7.00% + 10px)">7% *</div></div></div>
+        <div class="bar-row" id="cpu-bar-mix"><div class="bar-name">Mix<small>Large model + pause detection</small></div><div class="track" role="img" aria-label="Mix: 10%"><div class="fill short" style="width:10.00%;background:#a78bfa"></div><div class="val" style="left:calc(10.00% + 10px)">10%</div></div></div>
+        <div class="axis"><span></span><div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div></div></div>
     </div>
     <p class="note" id="footprint-note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
     <h3 id="power-while-captioning" style="margin:26px 0 8px">Power while captioning</h3>
     <p class="sub" id="power-explainer">Average power drawn by the whole Mac while each engine captioned the clip, measured with Apple&rsquo;s powermetrics tool. The Neural Engine is Apple&rsquo;s low-power accelerator for machine learning.</p>
-    <div class="glass tablewrap" id="power-table-box" style="padding:6px 6px 0;"><table id="power-table"></table></div>
+    <div class="glass tablewrap" id="power-table-box" style="padding:6px 6px 0;"><table id="power-table"><thead><tr><th class="l">Engine</th><th class="">Neural Engine average</th><th class="">Neural Engine peak</th><th class="">CPU average</th><th class="">GPU average</th><th class="">All compute, average</th><th class="">Energy over the clip</th></tr></thead><tbody><tr id="power-row-rapid"><td class="eng l"><i style="background:#10b981"></i>Rapid</td><td class="">7 mW</td><td class="">20 mW</td><td class="">112 mW</td><td class="">1 mW</td><td class="">121 mW</td><td class="">21 J</td></tr><tr id="power-row-mix"><td class="eng l"><i style="background:#a78bfa"></i>Mix</td><td class="">63 mW</td><td class="">628 mW</td><td class="">164 mW</td><td class="">1 mW</td><td class="">228 mW</td><td class="">40 J</td></tr></tbody></table></div>
     <p class="note" id="power-note">Rapid averaged about 121 mW across CPU, GPU and Neural Engine; Mix about 228 mW, of which 63 mW was the Neural Engine. Figures are absolute averages for the whole machine from a single run, so they include whatever else the Mac was doing in the background, and Rapid&rsquo;s includes the system speech service that runs outside the app.</p>
   </section>
 
   <section id="all-the-numbers">
     <h2 id="all-the-numbers-heading">All the numbers</h2>
     <p class="sub" id="all-the-numbers-explainer">Both engines ran on the same audio, in the same session, on the same machine. We ran the clip 2 times: word error rate was Rapid 4.8% and Mix 2.8%, average caption delay 0.05 s and 1.24&ndash;1.25 s. The table shows one of the runs.</p>
-    <div class="glass tablewrap" id="numbers-table-box" style="padding:6px 6px 0;"><table id="numbers-table"></table></div>
+    <div class="glass tablewrap" id="numbers-table-box" style="padding:6px 6px 0;"><table id="numbers-table"><thead><tr><th class="l">Engine</th><th class="l">Model</th><th class="">Word accuracy</th><th class="">Word error rate</th><th class="">Words wrong / missed / extra</th><th class="">First caption</th><th class="">Delay avg</th><th class="">Delay p95</th><th class="">Delay max</th><th class="">Caption complete after speech ends</th><th class="">Load time</th><th class="">Peak memory</th><th class="">CPU avg</th></tr></thead><tbody><tr id="numbers-row-rapid"><td class="eng l"><i style="background:#10b981"></i>Rapid</td><td class="l">System speech service (iOS / macOS 26+)</td><td class="">95.2%</td><td class="">4.8%</td><td class="">23 / 4 / 0</td><td class="">1.14 s</td><td class="">0.05 s</td><td class="">0.07 s</td><td class="">1.2 s</td><td class="">0.10 s</td><td class="">0.9 s</td><td class="">74 MB *</td><td class="">7% *</td></tr><tr id="numbers-row-mix"><td class="eng l"><i style="background:#a78bfa"></i>Mix</td><td class="l">Large on-device model + voice-activity detection</td><td class="">97.2%</td><td class="">2.8%</td><td class="">11 / 4 / 1</td><td class="">5.33 s</td><td class="">1.24 s</td><td class="">1.68 s</td><td class="">1.7 s</td><td class="">0.08 s</td><td class="">1.0 s</td><td class="">800 MB</td><td class="">10%</td></tr></tbody></table></div>
+  </section>
+
+  <section id="methodology">
+    <h2 id="methodology-heading">Methodology</h2>
+    <div class="cols" id="methodology-boxes" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+      <div class="glass" id="method-audio"><h3>The audio</h3><ul>
+        <li>Public NASA footage: the Artemis II post-splashdown news conference, from 6:38 to 9:31 (173 s). Several speakers, technical terms and unusual names; a clean broadcast feed.</li>
+        <li>The clip is decoded to 16 kHz mono and streamed in 100&nbsp;ms chunks at exactly real-time speed (1&times;), followed by three seconds of silence so the last words can finish.</li>
+        <li>This is a replay of a clean file through the engine code, not a microphone in a room, so absolute delay and resource figures in the app can differ somewhat.</li></ul></div>
+      <div class="glass" id="method-engines"><h3>The engines</h3><ul>
+        <li>The same code paths the app runs when listening live: <b>Rapid</b> uses the operating system&rsquo;s speech service; <b>Mix</b> uses a large on-device model that waits for natural pauses to commit a phrase.</li>
+        <li>Models are downloaded and warmed up before the run, as in the app&rsquo;s setup screen; load time is reported separately.</li>
+        <li>Caption delay: for every caption update, how far the newest word in it was behind the audio, that is, how long after it was spoken it appeared. The 95th percentile is the slower moments.</li></ul></div>
+      <div class="glass" id="method-scoring"><h3>The scoring</h3><ul>
+        <li>The reference transcript started from the video&rsquo;s automatic captions and was corrected by hand against the recording.</li>
+        <li>Case, punctuation and numbers are normalised; words are aligned with a word-level edit distance; score = (wrong + missed + extra) &divide; reference words. The exact rules are in the scoring script below.</li>
+        <li>Accepted spellings and about 25 unintelligible words are marked in the reference (see &ldquo;What counted as correct&rdquo;).</li></ul></div>
+      <div class="glass" id="method-machine"><h3>The machine</h3><ul>
+        <li>Apple M4 Mac mini, 16 GB unified memory, macOS 27, Low Power Mode off, mains power.</li>
+        <li>Memory and CPU are of the app process; power is whole-machine, from Apple&rsquo;s powermetrics tool, in a separate run of the same clip.</li>
+        <li>The clip was run 2 times; accuracy was identical each time.</li></ul></div>
+    </div>
+
+    <h3 id="reproduce" style="margin:26px 0 8px">Reproduce it</h3>
+    <div class="glass" id="reproduce-steps"><ol style="padding-left:20px;color:var(--text-muted)">
+      <li>Download the audio of <a href="https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s" target="_blank" rel="noopener" style="color:var(--brand-accent)">the NASA video</a> and cut 6:38&ndash;9:31, for example <code>yt-dlp -x --audio-format wav &lt;video-url&gt;</code> then <code>ffmpeg -ss 398 -t 173 -i video.wav clip.wav</code>.</li>
+      <li>Caption the clip with the engine you want to test, at real-time speed, and save its final text to <code>hypothesis.txt</code>.</li>
+      <li>Download <a href="data/nasa-reference-transcript.txt" style="color:var(--brand-accent)">the reference transcript</a> and <a href="data/score_wer.py" style="color:var(--brand-accent)">the scoring script</a>, then run <code>python3 score_wer.py nasa-reference-transcript.txt hypothesis.txt</code>.</li>
+      <li>The script prints word accuracy and word error rate with and without filler sounds, and the wrong / missed / extra counts. Our engines score the figures above; yours will score what it scores.</li></ol></div>
+
+    <h3 id="data-downloads" style="margin:26px 0 8px">Data and files</h3>
+    <div class="glass" id="data-downloads-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><a href="data/nasa-benchmark-results.json" style="color:var(--brand-accent)">nasa-benchmark-results.json</a>: every number on this page, with the run details.</li>
+      <li><a href="data/nasa-benchmark-results.csv" style="color:var(--brand-accent)">nasa-benchmark-results.csv</a>: the same, one row per engine.</li>
+      <li><a href="data/nasa-reference-transcript.txt" style="color:var(--brand-accent)">nasa-reference-transcript.txt</a>: the corrected reference. <code>{a|b}</code> lists accepted spellings, <code>{x|~}</code> may be skipped, and <code>*</code> is a wildcard for one unintelligible word.</li>
+      <li><a href="data/score_wer.py" style="color:var(--brand-accent)">score_wer.py</a>: the scoring script (Python 3, no packages needed).</li></ul></div>
+
+    <h3 id="cite" style="margin:26px 0 8px">Cite this page</h3>
+    <div class="glass" id="cite-box"><p style="color:var(--text-muted)">ConferenceCaptioning. &ldquo;Live captioning accuracy and delay benchmark: on-device engines on a NASA news conference.&rdquo; October 2026. <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/benchmark/</a></p></div>
   </section>
 
   <section id="how-to-read">
     <h2 id="how-to-read-heading">How to read this</h2>
     <div class="cols" id="how-to-read-boxes">
-      <div class="glass" id="what-was-measured"><h3>What was measured</h3><ul>
-        <li>2 minutes 53 seconds of continuous English speech from a live news conference, played at real-time speed in 100 ms chunks.</li>
-        <li>Each engine runs the same segmentation and decoding logic the app uses when listening live.</li>
-        <li>Models are downloaded and warmed up first, as in the app&rsquo;s setup screen; load time is reported separately.</li></ul></div>
       <div class="glass" id="what-it-does-not-tell-you"><h3>What it does not tell you</h3><ul>
         <li>One clip and one machine. Repeating the same engine gave the same word error rate, but other speakers and rooms will differ, so treat small gaps as a tie.</li>
         <li>A clean broadcast feed. Room noise, distant microphones and heavy accents will move every number.</li>
@@ -193,6 +356,14 @@
         <li><b>Rapid</b>: fastest captions and lightest on memory and power; needs iOS or macOS 26.</li>
         <li><b>Mix</b>: top accuracy, works on older systems (iOS 17 / macOS 14), captions about a second later.</li></ul></div>
     </div>
+  </section>
+
+  <section id="changelog">
+    <h2 id="changelog-heading">Changelog</h2>
+    <div class="glass" id="changelog-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><b>October 5, 2026</b>: added the methodology, reproduction steps, data downloads and this changelog; numbers are now in the page itself.</li>
+      <li><b>October 5, 2026</b>: replaced the September test (a different, noisier clip with four engines) with this NASA news conference clip and the Rapid and Mix engines; reference accepts spelling variants; added power measurements.</li>
+      <li><b>September 30, 2026</b>: first published benchmark.</li></ul></div>
   </section>
 
   <section class="cta" id="contact-cta">
@@ -212,83 +383,9 @@
 </div>
 
 <script>
-const DATA = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":4.8,"werStrict":5.8,"sub":23,"del":4,"ins":0,"errors":27,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"endings":3,"sounds":10,"small":8},"model":"System speech service (iOS / macOS 26+)","loadSeconds":0.9},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":2.8,"werStrict":2.8,"sub":11,"del":4,"ins":1,"errors":16,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"endings":3,"sounds":3,"small":6},"model":"Large on-device model + voice-activity detection","loadSeconds":1.0}];
-const POWER = {"Rapid":{"aneMean":7,"anePeak":20,"aneEnergy":1.3,"cpu":112,"gpu":1,"totalMw":121,"totalJ":21,"durationS":176},"Mix":{"aneMean":63,"anePeak":628,"aneEnergy":11.2,"cpu":164,"gpu":1,"totalMw":228,"totalJ":40,"durationS":176}};
-const CATS = [["names", "Names and titles", "Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling."], ["endings", "Word endings", "&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural."], ["sounds", "Similar-sounding words", "A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;."], ["small", "Words dropped, added or swapped", "Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra."]];
-const MAC_MEMORY_MB = 16384;
-const $ = (id) => document.getElementById(id);
-const fmt = (v, d = 1) => v === null || v === undefined ? 'n/a' : Number(v).toFixed(d);
-const slug = (r) => r.id.toLowerCase();
-
-// Bars: value / max of the track. rows may carry a `ref` flag (grey striped reference bar).
-function bars(el, prefix, rows, value, label, max, opts = {}) {
-  el.innerHTML = rows.map((r) => `
-    <div class="bar-row${r.ref ? ' ref' : ''}" id="${prefix}-${r.key || slug(r)}">
-      <div class="bar-name">${r.id}<small>${opts.sub ? opts.sub(r) : r.family}</small></div>
-      <div class="track" role="img" aria-label="${r.id}: ${label(r)}">
-        ${(() => { const pct = Math.max(0.8, Math.min(100, (value(r) / max) * 100)); const short = pct < 24;
-          const markerPct = opts.marker && !r.ref ? (opts.marker(r) / max) * 100 : 0;
-          return `<div class="fill${short ? ' short' : ''}${r.ref ? ' ref' : ''}" data-w="${pct}" style="background:${r.color || '#64748b'}">${short ? '' : label(r)}</div>` +
-            (short ? `<div class="val" style="left:calc(${Math.max(pct, markerPct)}% + 10px)">${label(r)}</div>` : ''); })()}
-        ${opts.marker && !r.ref ? `<div class="p95" data-l="${(opts.marker(r) / max) * 100}" title="95th percentile"></div>` : ''}
-      </div>
-    </div>`).join('') + (opts.axis ? `<div class="axis"><span></span><div class="ticks">${opts.axis.map((t) => `<span>${t}</span>`).join('')}</div></div>` : '');
-}
-
-function table(id, head, rows, leftCols = [0], rowIds = []) {
-  $(id).innerHTML = '<thead><tr>' + head.map((h, i) => `<th class="${leftCols.includes(i) ? 'l' : ''}">${h}</th>`).join('') + '</tr></thead><tbody>' +
-    rows.map((r, n) => `<tr${rowIds[n] ? ` id="${rowIds[n]}"` : ''}>` + r.map((c, i) => `<td class="${i === 0 ? 'eng ' : ''}${leftCols.includes(i) ? 'l' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
-}
-const dot = (r) => `<i style="background:${r.color}"></i>${r.id}`;
-const star = (r) => (r.outOfProcess ? ' *' : '');
-const acc = (wer) => 100 - wer;
-
-function kpis() {
-  const best = (f) => DATA.reduce((a, b) => (f(b) < f(a) ? b : a));
-  const wer = best((r) => r.wer), lag = best((r) => r.lagMean);
-  const cards = [
-    ['kpi-accuracy', 'Most accurate', fmt(acc(wer.wer)) + '%', wer.id + ' &middot; word accuracy (' + fmt(wer.wer) + '% word error rate)'],
-    ['kpi-speed', 'Fastest captions', fmt(lag.lagMean, 2) + ' s', lag.id + ' &middot; average delay'],
-    ['kpi-words', 'Words checked', String(DATA[0].refWords), 'in ' + fmt(DATA[0].audioSeconds, 0) + ' s of real-time speech'],
-    ['kpi-privacy', 'Privacy', 'On-device', 'audio never leaves the device; both engines transcribe locally'],
-  ];
-  $('key-numbers').innerHTML = cards.map((c) => `<div class="glass kpi" id="${c[0]}"><div class="label">${c[1]}</div><div class="value">${c[2]}</div><div class="who">${c[3]}</div></div>`).join('');
-}
-
-kpis();
-bars($('accuracy-bars'), 'accuracy-bar', DATA, (r) => acc(r.wer), (r) => fmt(acc(r.wer)) + '%', 100,
-  { sub: (r) => `${r.family}<br>${fmt(r.wer)}% word error rate<br>${fmt(acc(r.werStrict))}% accuracy counting every word`, axis: ['0%', '25%', '50%', '75%', '100%'] });
-table('accuracy-table', ['Engine', 'Words in reference', 'Wrong', 'Missed', 'Extra', 'Total errors', 'Word accuracy', 'Word error rate', 'Accuracy, every word'],
-  DATA.map((r) => [dot(r), r.refWords, r.sub, r.del, r.ins, r.errors, fmt(acc(r.wer)) + '%', fmt(r.wer) + '%', fmt(acc(r.werStrict)) + '%']), [0], DATA.map((r) => 'accuracy-row-' + slug(r)));
-$('error-types-table').innerHTML = '<thead><tr><th class="l">Kind of error</th><th class="l">What it looks like</th>' + DATA.map((r) => `<th>${r.id}</th>`).join('') + '</tr></thead><tbody>' +
-  CATS.map((c) => `<tr id="error-type-${c[0]}"><td class="eng l">${c[1]}</td><td class="l" style="white-space:normal;min-width:260px;color:var(--text-muted)">${c[2]}</td>` + DATA.map((r) => `<td>${r.categories[c[0]]}</td>`).join('') + '</tr>').join('') +
-  '<tr id="error-type-total"><td class="eng l">Total</td><td class="l"></td>' + DATA.map((r) => `<td><b>${r.errors}</b></td>`).join('') + '</tr></tbody>';
-
-const REFS = [
-  { id: 'Human captioner (CART)', key: 'ref-cart', family: '2014 study, mean latency', lagMean: 4.2, ref: true },
-  { id: 'Automatic captions, 2014', key: 'ref-asr-2014', family: '2014 study, per-word latency', lagMean: 7.9, ref: true },
-];
-bars($('delay-bars'), 'delay-bar', [...DATA, ...REFS], (r) => r.lagMean, (r) => fmt(r.lagMean, r.ref ? 1 : 2) + ' s', 10,
-  { marker: (r) => r.lagP95, sub: (r) => r.ref ? r.family : `${r.family}<br>95th percentile ${fmt(r.lagP95, 2)} s`, axis: ['0 s', '2.5 s', '5 s', '7.5 s', '10 s'] });
-bars($('memory-bars'), 'memory-bar', DATA, (r) => r.peakMB, (r) => r.peakMB + ' MB' + star(r), MAC_MEMORY_MB, { sub: (r) => `${fmt(r.peakMB / MAC_MEMORY_MB * 100)}% of 16 GB`, axis: ['0', '4 GB', '8 GB', '12 GB', '16 GB'] });
-bars($('cpu-bars'), 'cpu-bar', DATA, (r) => r.cpuMean, (r) => r.cpuMean + '%' + star(r), 100, { axis: ['0%', '25%', '50%', '75%', '100%'] });
-
-if (POWER && $('power-table')) {
-  table('power-table', ['Engine', 'Neural Engine average', 'Neural Engine peak', 'CPU average', 'GPU average', 'All compute, average', 'Energy over the clip'],
-    DATA.map((r) => { const w = POWER[r.id]; return [dot(r), w.aneMean + ' mW', w.anePeak + ' mW', w.cpu + ' mW', w.gpu + ' mW', w.totalMw + ' mW', w.totalJ + ' J']; }), [0], DATA.map((r) => 'power-row-' + slug(r)));
-}
-table('numbers-table', ['Engine', 'Model', 'Word accuracy', 'Word error rate', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Caption complete after speech ends', 'Load time', 'Peak memory', 'CPU avg'],
-  DATA.map((r) => [dot(r), r.model, fmt(acc(r.wer)) + '%', fmt(r.wer) + '%', `${r.sub} / ${r.del} / ${r.ins}`, fmt(r.firstCaption, 2) + ' s', fmt(r.lagMean, 2) + ' s', fmt(r.lagP95, 2) + ' s',
-    fmt(r.lagMax, 1) + ' s', fmt(r.finalLatency, 2) + ' s', fmt(r.loadSeconds, 1) + ' s', r.peakMB + ' MB' + star(r), r.cpuMean + '%' + star(r)]), [0, 1], DATA.map((r) => 'numbers-row-' + slug(r)));
-
 // Clickable section anchors on headings, and an ids overlay (?ids) for pointing at elements.
-document.querySelectorAll('h2[id], h3[id]').forEach((h) => { h.insertAdjacentHTML('beforeend', `<a class="anchor" href="#${h.id}" aria-label="Link to this section">#</a>`); });
+document.querySelectorAll('h2[id], h3[id]').forEach(function (h) { h.insertAdjacentHTML('beforeend', '<a class="anchor" href="#' + h.id + '" aria-label="Link to this section">#</a>'); });
 if (/[?&]ids\b/.test(location.search)) document.body.classList.add('show-ids');
-requestAnimationFrame(() => setTimeout(() => {
-  document.querySelectorAll('.fill').forEach((el) => { el.style.width = el.dataset.w + '%'; });
-  document.querySelectorAll('.p95').forEach((el) => { el.style.left = 'calc(' + el.dataset.l + '% - 1px)'; });
-  if (location.hash && $(location.hash.slice(1))) $(location.hash.slice(1)).scrollIntoView();
-}, 60));
 </script>
     <!--Start of Tawk.to Script-->
     <script defer type="text/javascript">

@@ -1,0 +1,94 @@
+{
+  "title": "ConferenceCaptioning live captioning benchmark: NASA Artemis II news conference",
+  "page": "https://conferencecaptioning.com/benchmark/",
+  "source_video": "https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s",
+  "updated": "2026-10-05",
+  "clip": {
+    "start": "6:38",
+    "end": "9:31",
+    "seconds": 173,
+    "language": "en",
+    "reference_words": 562
+  },
+  "machine": {
+    "chip": "Apple M4",
+    "memory_gb": 16,
+    "os": "macOS 27",
+    "playback": "1x real time, 100 ms chunks"
+  },
+  "runs": 2,
+  "engines": [
+    {
+      "engine": "Rapid",
+      "description": "System speech service (iOS / macOS 26+)",
+      "word_accuracy_pct": 95.2,
+      "word_error_rate_pct": 4.8,
+      "accuracy_counting_filler_sounds_pct": 94.2,
+      "words_wrong": 23,
+      "words_missed": 4,
+      "words_extra": 0,
+      "total_errors": 27,
+      "error_categories": {
+        "names": 6,
+        "endings": 3,
+        "sounds": 10,
+        "small": 8
+      },
+      "first_caption_s": 1.14,
+      "delay_mean_s": 0.05,
+      "delay_p95_s": 0.07,
+      "delay_max_s": 1.2,
+      "caption_complete_after_speech_ends_s": 0.1,
+      "model_load_s": 0.9,
+      "peak_memory_mb_in_app_process": 74,
+      "cpu_avg_pct_of_one_core": 7,
+      "runs_out_of_process": true,
+      "power_whole_machine": {
+        "neural_engine_avg_mw": 7,
+        "neural_engine_peak_mw": 20,
+        "cpu_avg_mw": 112,
+        "gpu_avg_mw": 1,
+        "all_compute_avg_mw": 121,
+        "energy_over_clip_j": 21
+      }
+    },
+    {
+      "engine": "Mix",
+      "description": "Large on-device model + voice-activity detection",
+      "word_accuracy_pct": 97.2,
+      "word_error_rate_pct": 2.8,
+      "accuracy_counting_filler_sounds_pct": 97.2,
+      "words_wrong": 11,
+      "words_missed": 4,
+      "words_extra": 1,
+      "total_errors": 16,
+      "error_categories": {
+        "names": 4,
+        "endings": 3,
+        "sounds": 3,
+        "small": 6
+      },
+      "first_caption_s": 5.33,
+      "delay_mean_s": 1.24,
+      "delay_p95_s": 1.68,
+      "delay_max_s": 1.7,
+      "caption_complete_after_speech_ends_s": 0.08,
+      "model_load_s": 1.0,
+      "peak_memory_mb_in_app_process": 800,
+      "cpu_avg_pct_of_one_core": 10,
+      "runs_out_of_process": false,
+      "power_whole_machine": {
+        "neural_engine_avg_mw": 63,
+        "neural_engine_peak_mw": 628,
+        "cpu_avg_mw": 164,
+        "gpu_avg_mw": 1,
+        "all_compute_avg_mw": 228,
+        "energy_over_clip_j": 40
+      }
+    }
+  ],
+  "notes": [
+    "Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost.",
+    "Power figures are whole-machine averages from a single run and include background activity."
+  ]
+}

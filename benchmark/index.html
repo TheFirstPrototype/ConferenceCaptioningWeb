@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>On-Device Captioning Benchmark | ConferenceCaptioning</title>
-  <meta name="description" content="Real-time accuracy, caption delay and resource use of ConferenceCaptioning's on-device speech engines, measured on a 2-minute live-speech clip.">
+  <meta name="description" content="Real-time accuracy, caption delay and resource use of ConferenceCaptioning&#39;s on-device speech engines, measured on a live NASA news conference.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://conferencecaptioning.com/benchmark/">
   <meta property="og:title" content="On-Device Captioning Benchmark | ConferenceCaptioning">
-  <meta property="og:description" content="How accurate and how fast are on-device live captions? Real-time results for four engines.">
+  <meta property="og:description" content="How accurate and how fast are on-device live captions? Real-time results measured on a NASA news conference.">
   <meta name="twitter:card" content="summary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,81 +85,31 @@
     <a class="back" href="https://conferencecaptioning.com/">conferencecaptioning.com</a>
   </header>
 
-  <div class="eyebrow">Benchmark &middot; September 2026</div>
+  <div class="eyebrow">Benchmark &middot; October 2026</div>
   <h1>Live captions, <span>measured in real time.</span></h1>
-  <p class="lede">We streamed a two-minute clip of natural speech through each of ConferenceCaptioning's on-device engines at real-time speed, the way a microphone would, and compared the captions with a human-checked, word-for-word transcript. Nothing left the device.</p>
+  <p class="lede">We streamed 2 minutes 53 seconds of a real NASA news conference through ConferenceCaptioning&rsquo;s on-device engines at real-time speed, the way a microphone would, and compared the captions with a corrected, word-for-word transcript. Several speakers, technical vocabulary and unusual names. Nothing left the device.</p>
   <div class="chips">
     <span class="chip">Apple M4</span><span class="chip">16 GB unified memory</span><span class="chip">macOS 27</span>
-    <span class="chip">1&times; real-time playback</span><span class="chip">126 s of continuous speech</span><span class="chip">English</span>
+    <span class="chip">1&times; real-time playback</span><span class="chip">173 s of continuous speech</span><span class="chip">English</span>
+  </div>
+
+  <div class="glass" style="margin-top:22px">
+    <p><b>Check it yourself.</b> The audio is NASA&rsquo;s <a href="https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s" target="_blank" rel="noopener" style="color:var(--brand-accent)">Artemis II post-splashdown news conference (April 10, 2026)</a>. Open it at <b>6:38</b> (the link jumps there); the test runs from 6:38 to 9:31, from &ldquo;They are Amit Kshatriya&hellip;&rdquo; to &ldquo;&hellip;I&rsquo;ll hand it over to Dr. Glaze.&rdquo; Press play and watch our captions beside it.</p>
   </div>
 
   <div class="kpis" id="kpis"></div>
 
   <section>
     <h2>Accuracy</h2>
-    <p class="sub">Word error rate against a human-checked, word-for-word reference, lower is better. Case, punctuation and number formatting are ignored, as are filler sounds (&ldquo;uh&rdquo;, &ldquo;mhm&rdquo;, &ldquo;hmm&rdquo;), and a few equivalent spellings count as correct (&ldquo;cuz&rdquo;, &ldquo;cause&rdquo; and &ldquo;because&rdquo;). Every other missed, wrong or extra word counts.</p>
+    <p class="sub">Word error rate against a corrected, word-for-word reference: <b>(wrong + missed + extra words) &divide; words in the reference</b>. Lower is better, and 5% means about one word in twenty is off. The reference has 562 words (not counting filler sounds).</p>
     <div class="glass"><div class="bars" id="werBars"></div>
-      <p class="legend">The small line under each engine is the stricter score that also counts filler sounds. Spoken back-channels like &ldquo;Yeah&rdquo; and &ldquo;Woo&rdquo; still count against every engine in both.</p></div>
-  </section>
-
-  <section>
-    <h2>Caption delay</h2>
-    <p class="sub">How long after a word was spoken it appeared on screen. The bar is the average; the white marker is the 95th percentile, the delay you would notice on a slow moment.</p>
-    <div class="glass"><div class="bars" id="lagBars"></div>
-      <p class="legend">Basic and Standard confirm a word only after it repeats across two decoding passes, which trades a little delay for stable text. Mix waits for a natural pause before it commits a phrase.</p></div>
-  </section>
-
-  <section>
-    <h2>Footprint on the device</h2>
-    <p class="sub">Peak memory of the app process while captioning, and average processor use (100% is one core).</p>
-    <div class="cols">
-      <div class="glass"><h3>Peak memory (MB)</h3><div class="bars" id="memBars"></div></div>
-      <div class="glass"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpuBars"></div></div>
-    </div>
-    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
-  </section>
-
-  <section>
-    <h2>Neural Engine</h2>
-    <p class="sub">Apple&rsquo;s Neural Engine (ANE) is a low-power accelerator for machine-learning models. We checked whether each engine uses it and whether other processor choices would be faster.</p>
-    <div class="cols">
-      <div class="glass"><h3>Which chip runs the model</h3><ul>
-        <li><b>Basic and Standard:</b> both stages of the model run on the Neural Engine by default.</li>
-        <li><b>Mix:</b> the main model stage loads on CPU + Neural Engine; we confirmed this at load time.</li>
-        <li><b>Rapid:</b> run by the operating system, so which chip it uses is not visible to the app.</li>
-        <li><b>Power, measured system-wide</b> while the engines ran: the Neural Engine sat at 0&nbsp;mW when idle and averaged roughly 50&ndash;70&nbsp;mW (peaks under 1&nbsp;W), against about 0.7&ndash;1.2&nbsp;W for the CPU, so it carries only about 4&ndash;9% of the compute power.</li></ul></div>
-      <div class="glass"><h3>Would other processors be faster?</h3>
-        <div class="tablewrap" style="padding:0"><table id="computeTable" style="min-width:0"></table></div>
-        <p class="note">Standard engine, same clip. Time per decoding pass and CPU time used over the run.</p></div>
-    </div>
-    <p class="note">The Neural Engine is already the fastest and lightest option we tried. Caption delay is set mostly by waiting for stable text, not by compute, so moving more work onto it would mainly save energy and CPU rather than shorten delays. Per-engine energy figures will be added once measured engine by engine.</p>
-  </section>
-
-  <section>
-    <h2>All the numbers</h2>
-    <p class="sub">Every engine ran on the same audio, in the same session, on the same machine.</p>
-    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="table"></table></div>
-  </section>
-
-<!-- press-conference:start -->
-  <section id="press">
-    <h2>A second test: a live press conference</h2>
-    <p class="sub">A clean recording is the easy case, so we also ran a very different one: a NASA news conference with several speakers, technical vocabulary and unusual names. We streamed 2 minutes 53 seconds of it through the engines at real-time speed, exactly like the first test, and scored the captions against a corrected transcript.</p>
-    <div class="glass">
-      <p style="margin-bottom:10px"><b>Check it yourself.</b> The audio is NASA&rsquo;s <a href="https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s" target="_blank" rel="noopener" style="color:var(--brand-accent)">Artemis II post-splashdown news conference (April 10, 2026)</a>. Open it at <b>6:38</b> (the link jumps there); the test runs from 6:38 to 9:31, from &ldquo;They are Amit Kshatriya&hellip;&rdquo; to &ldquo;&hellip;I&rsquo;ll hand it over to Dr. Glaze.&rdquo; Press play on the video and watch our captions beside it.</p>
-      <div class="kpis" id="pressKpis" style="margin-top:14px"></div>
-    </div>
-
-    <h3 style="margin:26px 0 8px">Word error rate in detail</h3>
-    <p class="sub">Word error rate is the share of the reference words that came out wrong: <b>(wrong + missed + extra words) &divide; words in the reference</b>. Lower is better, and 5% means about one word in twenty is off. The reference has 562 words (not counting filler sounds).</p>
-    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressWerTable"></table></div>
-    <div class="glass" style="margin-top:16px"><div class="bars" id="pressWerBars"></div>
-      <p class="legend">Filler sounds (&ldquo;uh&rdquo;, &ldquo;um&rdquo;) are ignored in the main score, as on the rest of this page. The small line under each engine is the stricter score that counts them too.</p></div>
+      <p class="legend">Filler sounds (&ldquo;uh&rdquo;, &ldquo;um&rdquo;) are ignored in the main score. The small line under each engine is the stricter score that counts them too.</p></div>
+    <div class="glass tablewrap" style="padding:6px 6px 0;margin-top:16px"><table id="werTable"></table></div>
 
     <h3 style="margin:26px 0 8px">What the errors were</h3>
     <p class="sub">We sorted every counted error into what actually went wrong, so you can see whether a score reflects hard names and word endings or real mistakes.</p>
-    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressCatTable" style="min-width:0"></table></div>
-    <p class="note">Examples of the errors: &ldquo;Amit Kshatriya&rdquo; heard as &ldquo;Amet Shatriya&rdquo; or &ldquo;Ahmed Shatriya&rdquo;, &ldquo;touched&rdquo; written as &ldquo;touch&rdquo;, &ldquo;packed&rdquo; heard as &ldquo;peck&rdquo;. Names like these are the hardest part of any live captioning job, which is why we kept them in the score.</p>
+    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="catTable" style="min-width:0"></table></div>
+    <p class="note">Examples: &ldquo;Amit Kshatriya&rdquo; heard as &ldquo;Amet Shatriya&rdquo; or &ldquo;Ahmed Shatriya&rdquo;, &ldquo;touched&rdquo; written as &ldquo;touch&rdquo;, &ldquo;packed&rdquo; heard as &ldquo;peck&rdquo;. Names like these are the hardest part of any live captioning job, which is why we kept them in the score.</p>
 
     <div class="cols" style="margin-top:16px">
       <div class="glass"><h3>What counted as correct</h3><ul>
@@ -172,36 +122,49 @@
         <li>Filler sounds count only in the stricter score under each bar.</li>
         <li>The reference started from the video&rsquo;s automatic captions and was corrected by hand against the recording.</li></ul></div>
     </div>
+  </section>
 
-    <h3 style="margin:26px 0 8px">Speed and footprint on this clip</h3>
-    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressPerfTable"></table></div>
+  <section>
+    <h2>Caption delay</h2>
+    <p class="sub">How long after a word was spoken it appeared on screen. The bar is the average; the white marker is the 95th percentile, the delay you would notice on a slow moment.</p>
+    <div class="glass"><div class="bars" id="lagBars"></div>
+      <p class="legend">Rapid shows words almost immediately and refines them as it hears more. Mix waits for a natural pause before it commits a phrase, which is why it is later but more accurate.</p></div>
+  </section>
+
+  <section>
+    <h2>Footprint on the device</h2>
+    <p class="sub">Peak memory of the app process while captioning, and average processor use (100% is one core).</p>
+    <div class="cols">
+      <div class="glass"><h3>Peak memory (MB)</h3><div class="bars" id="memBars"></div></div>
+      <div class="glass"><h3>Average CPU (% of one core)</h3><div class="bars" id="cpuBars"></div></div>
+    </div>
+    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost.</p>
     <h3 style="margin:26px 0 8px">Power while captioning</h3>
     <p class="sub">Average power drawn by the whole Mac while each engine captioned the clip, measured with Apple&rsquo;s powermetrics tool. The Neural Engine is Apple&rsquo;s low-power accelerator for machine learning.</p>
-    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressPowerTable"></table></div>
+    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="powerTable"></table></div>
     <p class="note">Rapid averaged about 121 mW across CPU, GPU and Neural Engine; Mix about 228 mW, of which 63 mW was the Neural Engine. Figures are absolute averages for the whole machine from a single run, so they include whatever else the Mac was doing in the background, and Rapid&rsquo;s includes the system speech service that runs outside the app.</p>
-    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost. CPU is the app&rsquo;s processor use (100% is one core) while captioning. We ran this clip 2 times; word error rate was Rapid 4.8% and Mix 2.8%, and average caption delay 0.05 s and 1.24&ndash;1.25 s. The table shows one of the runs. Power figures come from a separate run of the same clip.</p>
-    <div class="glass cols" style="margin-top:16px;display:block"><h3>The honest summary</h3><ul>
-      <li>Mix was the most accurate here at 2.8% (16 errors in 562 words); Rapid was close behind at 4.8% (27 errors) and showed captions about 25&times; sooner on average (0.05 s against 1.24 s).</li>
-      <li>7 of Mix&rsquo;s 16 errors and 9 of Rapid&rsquo;s 27 were names or word-ending differences; the rest were similar-sounding words and short dropped or swapped words.</li>
-      <li>One clip, one Mac, English, a clean broadcast feed. Room noise, distant microphones and heavy accents will move every number, and we have not compared other captioning products on this clip, only our own engines.</li></ul></div>
   </section>
-  <!-- press-conference:end -->
+
+  <section>
+    <h2>All the numbers</h2>
+    <p class="sub">Both engines ran on the same audio, in the same session, on the same machine. We ran the clip 2 times: word error rate was Rapid 4.8% and Mix 2.8%, average caption delay 0.05 s and 1.24&ndash;1.25 s. The table shows one of the runs.</p>
+    <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="table"></table></div>
+  </section>
 
   <section>
     <h2>How to read this</h2>
     <div class="cols">
       <div class="glass"><h3>What was measured</h3><ul>
-        <li>Two minutes of continuous, natural English speech, played at real-time speed in 100 ms chunks.</li>
+        <li>2 minutes 53 seconds of continuous English speech from a live news conference, played at real-time speed in 100 ms chunks.</li>
         <li>Each engine runs the same segmentation and decoding logic the app uses when listening live.</li>
         <li>Models are downloaded and warmed up first, as in the app&rsquo;s setup screen; load time is reported separately.</li></ul></div>
       <div class="glass"><h3>What it does not tell you</h3><ul>
-        <li>One clip and one machine. Repeating the same engine varies by about 1&ndash;2 points of WER and a few tenths of a second, so treat small gaps as a tie.</li>
-        <li>Clean studio audio. Room noise, distant microphones and accents will move every number.</li>
-        <li>English only. Other languages are not covered here.</li></ul></div>
+        <li>One clip and one machine. Repeating the same engine gave the same word error rate, but other speakers and rooms will differ, so treat small gaps as a tie.</li>
+        <li>A clean broadcast feed. Room noise, distant microphones and heavy accents will move every number.</li>
+        <li>English only, and only our own engines: we have not compared other captioning products on this clip.</li></ul></div>
       <div class="glass"><h3>Choosing an engine</h3><ul>
-        <li><b>Rapid</b>: fastest captions and lightest on memory; needs iOS or macOS 26.</li>
-        <li><b>Mix</b>: top accuracy, works on older systems, slightly later captions.</li>
-        <li><b>Standard / Basic</b>: well under half of Mix&rsquo;s peak memory, for lower-memory devices; Standard is the more accurate of the two.</li></ul></div>
+        <li><b>Rapid</b>: fastest captions and lightest on memory and power; needs iOS or macOS 26.</li>
+        <li><b>Mix</b>: top accuracy, works on older systems (iOS 17 / macOS 14), captions about a second later.</li></ul></div>
     </div>
   </section>
 
@@ -212,7 +175,9 @@
 </div>
 
 <script>
-const DATA = [{"id":"Rapid","model":"System speech service (iOS / macOS 26+)","family":"System speech service","color":"#10b981","wer":7.0,"werStrict":8.0,"sub":18,"del":5,"ins":3,"refWords":371,"firstCaption":1.13,"lagMean":0.05,"lagP50":0.02,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.09,"infMean":null,"infP95":null,"rtf":null,"loadSeconds":0.8,"modelMB":0,"peakMB":120,"cpuMean":6,"outOfProcess":true,"power":null},{"id":"Mix","model":"Large on-device model + voice-activity detection","family":"Large model + pause detection","color":"#a78bfa","wer":6.5,"werStrict":7.2,"sub":10,"del":11,"ins":3,"refWords":371,"firstCaption":3.26,"lagMean":1.26,"lagP50":1.16,"lagP95":1.71,"lagMax":1.7,"finalLatency":0.08,"infMean":0.25,"infP95":0.47,"rtf":0.042,"loadSeconds":13.5,"modelMB":625,"peakMB":783,"cpuMean":9,"outOfProcess":false,"power":null},{"id":"Standard","model":"Mid-size on-device model","family":"Mid-size model","color":"#38bdf8","wer":9.2,"werStrict":10.4,"sub":18,"del":13,"ins":3,"refWords":371,"firstCaption":1.26,"lagMean":0.87,"lagP50":0.29,"lagP95":3.45,"lagMax":11.2,"finalLatency":0.15,"infMean":0.15,"infP95":0.34,"rtf":0.143,"loadSeconds":9.1,"modelMB":260,"peakMB":380,"cpuMean":14,"outOfProcess":false,"power":null},{"id":"Basic","model":"Compact on-device model","family":"Compact model","color":"#f59e0b","wer":20.5,"werStrict":21.5,"sub":31,"del":43,"ins":2,"refWords":371,"firstCaption":1.21,"lagMean":0.49,"lagP50":0.21,"lagP95":2.16,"lagMax":6.7,"finalLatency":0.17,"infMean":0.13,"infP95":0.22,"rtf":0.122,"loadSeconds":6.3,"modelMB":115,"peakMB":272,"cpuMean":14,"outOfProcess":false,"power":null}];
+const DATA = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":4.8,"werStrict":5.8,"sub":23,"del":4,"ins":0,"errors":27,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"endings":3,"sounds":10,"small":8},"model":"System speech service (iOS / macOS 26+)","loadSeconds":0.9},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":2.8,"werStrict":2.8,"sub":11,"del":4,"ins":1,"errors":16,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"endings":3,"sounds":3,"small":6},"model":"Large on-device model + voice-activity detection","loadSeconds":1.0}];
+const POWER = {"Rapid":{"aneMean":7,"anePeak":20,"aneEnergy":1.3,"cpu":112,"gpu":1,"totalMw":121,"totalJ":21,"durationS":176},"Mix":{"aneMean":63,"anePeak":628,"aneEnergy":11.2,"cpu":164,"gpu":1,"totalMw":228,"totalJ":40,"durationS":176}};
+const CATS = [["names", "Names and titles", "Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling."], ["endings", "Word endings", "&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural."], ["sounds", "Similar-sounding words", "A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;."], ["small", "Words dropped, added or swapped", "Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra."]];
 const $ = (id) => document.getElementById(id);
 const fmt = (v, d = 1) => v === null || v === undefined ? 'n/a' : Number(v).toFixed(d);
 
@@ -230,94 +195,48 @@ function bars(el, rows, value, label, max, opts = {}) {
 }
 
 function kpis() {
-  const best = (f, dir = 1) => DATA.reduce((a, b) => (f(b) * dir < f(a) * dir ? b : a));
+  const best = (f) => DATA.reduce((a, b) => (f(b) < f(a) ? b : a));
   const wer = best((r) => r.wer), lag = best((r) => r.lagMean);
-  const rtfs = DATA.filter((r) => r.rtf).map((r) => r.rtf);
-  const faster = Math.floor(1 / Math.max(...rtfs));
-  const cards = [
-    ['Most accurate', wer.wer.toFixed(1) + '%', wer.id + ' &middot; ' + wer.model + ' (' + wer.werStrict.toFixed(1) + '% counting every word)'],
-    ['Fastest captions', lag.lagMean.toFixed(2) + ' s', lag.id + ' &middot; average delay'],
-    ['Real-time headroom', '&ge; ' + faster + '&times;', 'every engine that reports it decodes at least ' + faster + '&times; faster than speech'],
-    ['Privacy', 'On-device', 'audio never leaves the device; all four engines transcribe locally'],
-  ];
-  $('kpis').innerHTML = cards.map((c) => `<div class="glass kpi"><div class="label">${c[0]}</div><div class="value">${c[1]}</div><div class="who">${c[2]}</div></div>`).join('');
+  $('kpis').innerHTML = [
+    ['Most accurate', fmt(wer.wer) + '%', wer.id + ' &middot; ' + fmt(wer.werStrict) + '% counting every word'],
+    ['Fastest captions', fmt(lag.lagMean, 2) + ' s', lag.id + ' &middot; average delay'],
+    ['Words checked', String(DATA[0].refWords), 'in ' + fmt(DATA[0].audioSeconds, 0) + ' s of real-time speech'],
+    ['Privacy', 'On-device', 'audio never leaves the device; both engines transcribe locally'],
+  ].map((c) => `<div class="glass kpi"><div class="label">${c[0]}</div><div class="value">${c[1]}</div><div class="who">${c[2]}</div></div>`).join('');
 }
 
-function table() {
-  const head = ['Engine', 'Model', 'WER', 'WER, every word', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Decode per audio sec', 'Load time', 'Model memory', 'Peak memory', 'CPU avg'];
-  const rows = DATA.map((r) => [
-    `<i style="background:${r.color}"></i>${r.id}`, r.model, fmt(r.wer) + '%', fmt(r.werStrict) + '%', `${r.sub} / ${r.del} / ${r.ins}`,
-    fmt(r.firstCaption, 2) + ' s', fmt(r.lagMean, 2) + ' s', fmt(r.lagP95, 2) + ' s', fmt(r.lagMax, 1) + ' s',
-    r.rtf ? fmt(r.rtf, 2) + ' s' : 'n/a', fmt(r.loadSeconds, 1) + ' s', r.outOfProcess ? '*' : r.modelMB + ' MB',
-    r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''),
-  ]);
-  $('table').innerHTML = '<thead><tr>' + head.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+function table(id, head, rows) {
+  $(id).innerHTML = '<thead><tr>' + head.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
     rows.map((r) => '<tr>' + r.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
 }
+const dot = (r) => `<i style="background:${r.color}"></i>${r.id}`;
+const star = (r) => (r.outOfProcess ? ' *' : '');
 
-const maxWer = Math.ceil(Math.max(...DATA.map((r) => r.wer)) / 5) * 5;
-bars($('werBars'), DATA, (r) => r.wer, (r) => r.wer.toFixed(1) + '%', maxWer, { std: true });
+kpis();
+const maxWer = Math.max(5, Math.ceil(Math.max(...DATA.map((r) => r.wer)) / 2) * 2);
+bars($('werBars'), DATA, (r) => r.wer, (r) => fmt(r.wer) + '%', maxWer, { std: true });
+table('werTable', ['Engine', 'Words in reference', 'Wrong', 'Missed', 'Extra', 'Total errors', 'WER', 'WER, every word'],
+  DATA.map((r) => [dot(r), r.refWords, r.sub, r.del, r.ins, r.errors, fmt(r.wer) + '%', fmt(r.werStrict) + '%']));
+$('catTable').innerHTML = '<thead><tr><th>Kind of error</th><th>What it looks like</th>' + DATA.map((r) => `<th>${r.id}</th>`).join('') + '</tr></thead><tbody>' +
+  CATS.map((c) => `<tr><td class="eng">${c[1]}</td><td style="text-align:left;white-space:normal;min-width:260px;color:var(--text-muted)">${c[2]}</td>` + DATA.map((r) => `<td>${r.categories[c[0]]}</td>`).join('') + '</tr>').join('') +
+  '<tr><td class="eng">Total</td><td></td>' + DATA.map((r) => `<td><b>${r.errors}</b></td>`).join('') + '</tr></tbody>';
+
 const maxLag = Math.max(...DATA.map((r) => Math.max(r.lagMean, r.lagP95))) * 1.08;
-bars($('lagBars'), DATA, (r) => r.lagMean, (r) => r.lagMean.toFixed(2) + ' s', maxLag, { marker: (r) => r.lagP95 });
-bars($('memBars'), DATA, (r) => r.peakMB, (r) => r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.peakMB)) * 1.05);
-bars($('cpuBars'), DATA, (r) => r.cpuMean, (r) => r.cpuMean + '%' + (r.outOfProcess ? ' *' : ''), Math.max(...DATA.map((r) => r.cpuMean)) * 1.15);
-const COMPUTE = [
-  { name: 'Neural Engine (default)', pass: 0.109, cpu: 13.2, wer: 11.8 },
-  { name: 'All processors', pass: 0.155, cpu: 18.9, wer: 12.4 },
-  { name: 'GPU', pass: 0.204, cpu: 26.3, wer: 16.7 },
-  { name: 'Neural Engine + GPU mix', pass: 0.224, cpu: 26.8, wer: 13.4 },
-];
-$('computeTable').innerHTML = '<thead><tr><th>Processor</th><th>Per pass</th><th>CPU time</th></tr></thead><tbody>' +
-  COMPUTE.map((c) => `<tr><td>${c.name}</td><td>${c.pass.toFixed(3)} s</td><td>${c.cpu.toFixed(1)} s</td></tr>`).join('') + '</tbody>';
-kpis(); table();
+bars($('lagBars'), DATA, (r) => r.lagMean, (r) => fmt(r.lagMean, 2) + ' s', maxLag, { marker: (r) => r.lagP95 });
+bars($('memBars'), DATA, (r) => r.peakMB, (r) => r.peakMB + ' MB' + star(r), Math.max(...DATA.map((r) => r.peakMB)) * 1.05);
+bars($('cpuBars'), DATA, (r) => r.cpuMean, (r) => r.cpuMean + '%' + star(r), Math.max(...DATA.map((r) => r.cpuMean)) * 1.15);
+
+if (POWER && $('powerTable')) {
+  table('powerTable', ['Engine', 'Neural Engine average', 'Neural Engine peak', 'CPU average', 'GPU average', 'All compute, average', 'Energy over the clip'],
+    DATA.map((r) => { const w = POWER[r.id]; return [dot(r), w.aneMean + ' mW', w.anePeak + ' mW', w.cpu + ' mW', w.gpu + ' mW', w.totalMw + ' mW', w.totalJ + ' J']; }));
+}
+table('table', ['Engine', 'Model', 'WER', 'WER, every word', 'Words wrong / missed / extra', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Caption complete after speech ends', 'Load time', 'Peak memory', 'CPU avg'],
+  DATA.map((r) => [dot(r), r.model, fmt(r.wer) + '%', fmt(r.werStrict) + '%', `${r.sub} / ${r.del} / ${r.ins}`, fmt(r.firstCaption, 2) + ' s', fmt(r.lagMean, 2) + ' s', fmt(r.lagP95, 2) + ' s',
+    fmt(r.lagMax, 1) + ' s', fmt(r.finalLatency, 2) + ' s', fmt(r.loadSeconds, 1) + ' s', r.peakMB + ' MB' + star(r), r.cpuMean + '%' + star(r)]));
 requestAnimationFrame(() => setTimeout(() => {
   document.querySelectorAll('.fill').forEach((el) => { el.style.width = el.dataset.w + '%'; });
   document.querySelectorAll('.p95').forEach((el) => { el.style.left = 'calc(' + el.dataset.l + '% - 1px)'; });
 }, 60));
-</script>
-<script id="press-script">
-(function () {
-  const P = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":4.8,"werStrict":5.8,"sub":23,"del":4,"ins":0,"errors":27,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"endings":3,"sounds":10,"small":8}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":2.8,"werStrict":2.8,"sub":11,"del":4,"ins":1,"errors":16,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"endings":3,"sounds":3,"small":6}}];
-  const R = null;
-  const W = {"Rapid":{"aneMean":7,"anePeak":20,"aneEnergy":1.3,"cpu":112,"gpu":1,"totalMw":121,"totalJ":21,"durationS":176},"Mix":{"aneMean":63,"anePeak":628,"aneEnergy":11.2,"cpu":164,"gpu":1,"totalMw":228,"totalJ":40,"durationS":176}};
-  const $p = (id) => document.getElementById(id);
-  const f = (v, d = 1) => Number(v).toFixed(d);
-  const best = (fn) => P.reduce((a, b) => (fn(b) < fn(a) ? b : a));
-  const w = best((r) => r.wer), l = best((r) => r.lagMean);
-  $p('pressKpis').innerHTML = [
-    ['Most accurate', f(w.wer) + '%', w.id + ' &middot; ' + f(w.werStrict) + '% counting every word'],
-    ['Fastest captions', f(l.lagMean, 2) + ' s', l.id + ' &middot; average delay'],
-    ['Words checked', String(P[0].refWords), 'in ' + f(P[0].audioSeconds, 0) + ' s of real-time speech'],
-  ].map((c) => `<div class="glass kpi"><div class="label">${c[0]}</div><div class="value">${c[1]}</div><div class="who">${c[2]}</div></div>`).join('');
-
-  const head = ['Engine', 'Words in reference', 'Wrong', 'Missed', 'Extra', 'Total errors', 'WER', 'WER, every word'];
-  const rows = P.map((r) => [`<i style="background:${r.color}"></i>${r.id}`, r.refWords, r.sub, r.del, r.ins, r.errors, f(r.wer) + '%', f(r.werStrict) + '%']);
-  $p('pressWerTable').innerHTML = '<thead><tr>' + head.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
-    rows.map((x) => '<tr>' + x.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
-
-  const maxWer = Math.max(5, Math.ceil(Math.max(...P.map((r) => r.wer)) / 2) * 2);
-  bars($p('pressWerBars'), P, (r) => r.wer, (r) => f(r.wer) + '%', maxWer, { std: true });
-
-  const CATS = [["names", "Names and titles", "Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling."], ["endings", "Word endings", "&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural."], ["sounds", "Similar-sounding words", "A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;."], ["small", "Words dropped, added or swapped", "Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra."]];
-  $p('pressCatTable').innerHTML = '<thead><tr><th>Kind of error</th><th>What it looks like</th>' + P.map((r) => `<th>${r.id}</th>`).join('') + '</tr></thead><tbody>' +
-    CATS.map((c) => `<tr><td class="eng">${c[1]}</td><td style="text-align:left;white-space:normal;min-width:260px;color:var(--text-muted)">${c[2]}</td>` + P.map((r) => `<td>${r.categories[c[0]]}</td>`).join('') + '</tr>').join('') +
-    '<tr><td class="eng">Total</td><td></td>' + P.map((r) => `<td><b>${r.errors}</b></td>`).join('') + '</tr></tbody>';
-
-  const ph = ['Engine', 'First caption', 'Delay avg', 'Delay p95', 'Delay max', 'Caption complete after speech ends', 'Peak memory', 'CPU avg'];
-  const pr = P.map((r) => [`<i style="background:${r.color}"></i>${r.id}`, f(r.firstCaption, 2) + ' s', f(r.lagMean, 2) + ' s', f(r.lagP95, 2) + ' s', f(r.lagMax, 1) + ' s',
-    f(r.finalLatency, 2) + ' s', r.peakMB + ' MB' + (r.outOfProcess ? ' *' : ''), r.cpuMean + '%' + (r.outOfProcess ? ' *' : '')]);
-  $p('pressPerfTable').innerHTML = '<thead><tr>' + ph.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
-    pr.map((x) => '<tr>' + x.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
-  if (W && $p('pressPowerTable')) {
-    const wh = ['Engine', 'Neural Engine average', 'Neural Engine peak', 'CPU average', 'GPU average', 'All compute, average', 'Energy over the clip'];
-    const wr = P.map((r) => { const w = W[r.id]; return [`<i style="background:${r.color}"></i>${r.id}`, w.aneMean + ' mW', w.anePeak + ' mW', w.cpu + ' mW', w.gpu + ' mW', w.totalMw + ' mW', w.totalJ + ' J']; });
-    $p('pressPowerTable').innerHTML = '<thead><tr>' + wh.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
-      wr.map((x) => '<tr>' + x.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
-  }
-  requestAnimationFrame(() => setTimeout(() => {
-    document.querySelectorAll('#press .fill').forEach((el) => { el.style.width = el.dataset.w + '%'; });
-  }, 80));
-})();
 </script>
 </body>
 </html>

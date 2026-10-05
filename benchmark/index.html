@@ -175,12 +175,12 @@
     <h3 style="margin:26px 0 8px">Speed and footprint on this clip</h3>
     <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressPerfTable"></table></div>
     <h3 style="margin:26px 0 8px">Power while captioning</h3>
-    <p class="sub">Measured for the whole Mac with Apple&rsquo;s powermetrics tool while each engine captioned the clip, minus the power of the same Mac sitting idle. The Neural Engine is Apple&rsquo;s low-power accelerator for machine learning.</p>
+    <p class="sub">Average power drawn by the whole Mac while each engine captioned the clip, measured with Apple&rsquo;s powermetrics tool. The Neural Engine is Apple&rsquo;s low-power accelerator for machine learning.</p>
     <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressPowerTable"></table></div>
-    <p class="note">Mix kept the Neural Engine busy (about 66 mW on average) and added about 42 mW of CPU power, roughly 108 mW of extra compute in all; Rapid, run by the operating system, added about 1323 mW of CPU power, roughly 1336 mW in all. System-wide measurement from a single run; Rapid&rsquo;s figure includes the system speech service that runs outside the app.</p>
-    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost. CPU is the app&rsquo;s processor use (100% is one core) while captioning. We ran the test twice; the repeat gave Rapid 5.0% and Mix 3.6% word error rate (first run 5.0% and 3.6%), with average caption delay of 0.05 s and 1.25 s. The table shows the first run. Power figures come from a separate run of the same clip.</p>
+    <p class="note">Rapid averaged about 121 mW across CPU, GPU and Neural Engine; Mix about 228 mW, of which 63 mW was the Neural Engine. Figures are absolute averages for the whole machine from a single run, so they include whatever else the Mac was doing in the background, and Rapid&rsquo;s includes the system speech service that runs outside the app.</p>
+    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost. CPU is the app&rsquo;s processor use (100% is one core) while captioning. We ran this clip 3 times; word error rate was Rapid 5.0% and Mix 3.6%, and average caption delay 0.05 s and 1.22&ndash;1.25 s. The table shows one of the runs. Power figures come from a separate run of the same clip.</p>
     <div class="glass cols" style="margin-top:16px;display:block"><h3>The honest summary</h3><ul>
-      <li>Mix was the most accurate here at 3.6% (20 errors in 562 words); Rapid was close behind at 5.0% (28 errors) and showed captions about 24&times; sooner on average (0.05 s against 1.22 s).</li>
+      <li>Mix was the most accurate here at 3.6% (20 errors in 562 words); Rapid was close behind at 5.0% (28 errors) and showed captions about 25&times; sooner on average (0.05 s against 1.24 s).</li>
       <li>11 of Mix&rsquo;s 20 errors and 10 of Rapid&rsquo;s 28 were names, spelling or word-ending differences; the rest were similar-sounding words and short dropped or swapped words.</li>
       <li>One clip, one Mac, English, a clean broadcast feed. Room noise, distant microphones and heavy accents will move every number, and we have not compared other captioning products on this clip, only our own engines.</li></ul></div>
   </section>
@@ -276,9 +276,9 @@ requestAnimationFrame(() => setTimeout(() => {
 </script>
 <script id="press-script">
 (function () {
-  const P = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":5.0,"werStrict":6.0,"sub":23,"del":4,"ins":1,"errors":28,"refWords":562,"hypWords":543,"firstCaption":1.12,"lagMean":0.05,"lagP95":0.07,"lagMax":1.3,"finalLatency":0.1,"peakMB":175,"modelMB":0,"cpuMean":5,"cpuSeconds":9.3,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"written":1,"endings":3,"sounds":9,"small":9}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":3.6,"werStrict":3.5,"sub":14,"del":5,"ins":1,"errors":20,"refWords":562,"hypWords":555,"firstCaption":5.27,"lagMean":1.22,"lagP95":1.7,"lagMax":1.8,"finalLatency":0.09,"peakMB":795,"modelMB":580,"cpuMean":9,"cpuSeconds":16.2,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"written":4,"endings":3,"sounds":3,"small":6}}];
-  const R = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":5.0,"werStrict":6.0,"sub":23,"del":4,"ins":1,"errors":28,"refWords":562,"hypWords":543,"firstCaption":1.13,"lagMean":0.05,"lagP95":0.07,"lagMax":1.3,"finalLatency":0.1,"peakMB":71,"modelMB":1,"cpuMean":5,"cpuSeconds":9.7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"written":1,"endings":3,"sounds":9,"small":9}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":3.6,"werStrict":3.5,"sub":14,"del":5,"ins":1,"errors":20,"refWords":562,"hypWords":555,"firstCaption":5.28,"lagMean":1.25,"lagP95":1.69,"lagMax":1.8,"finalLatency":0.05,"peakMB":804,"modelMB":699,"cpuMean":9,"cpuSeconds":16.5,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"written":4,"endings":3,"sounds":3,"small":6}}];
-  const W = {"Rapid":{"aneMean":13,"anePeak":63,"aneActive":100,"aneEnergy":2.3,"cpuAbove":1323,"gpuAbove":0,"extraMw":1336,"extraJ":235.0,"durationS":176},"Mix":{"aneMean":66,"anePeak":666,"aneActive":88,"aneEnergy":11.6,"cpuAbove":42,"gpuAbove":0,"extraMw":108,"extraJ":19.0,"durationS":176}};
+  const P = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":5.0,"werStrict":6.0,"sub":23,"del":4,"ins":1,"errors":28,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"cpuSeconds":12.7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"written":1,"endings":3,"sounds":9,"small":9}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":3.6,"werStrict":3.5,"sub":14,"del":5,"ins":1,"errors":20,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"cpuSeconds":18.5,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"written":4,"endings":3,"sounds":3,"small":6}}];
+  const R = null;
+  const W = {"Rapid":{"aneMean":7,"anePeak":20,"aneEnergy":1.3,"cpu":112,"gpu":1,"totalMw":121,"totalJ":21,"durationS":176},"Mix":{"aneMean":63,"anePeak":628,"aneEnergy":11.2,"cpu":164,"gpu":1,"totalMw":228,"totalJ":40,"durationS":176}};
   const $p = (id) => document.getElementById(id);
   const f = (v, d = 1) => Number(v).toFixed(d);
   const best = (fn) => P.reduce((a, b) => (fn(b) < fn(a) ? b : a));
@@ -308,8 +308,8 @@ requestAnimationFrame(() => setTimeout(() => {
   $p('pressPerfTable').innerHTML = '<thead><tr>' + ph.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
     pr.map((x) => '<tr>' + x.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
   if (W && $p('pressPowerTable')) {
-    const wh = ['Engine', 'Neural Engine average', 'Neural Engine peak', 'Neural Engine energy', 'CPU above idle', 'GPU above idle', 'All compute above idle', 'Energy over the clip'];
-    const wr = P.map((r) => { const w = W[r.id]; return [`<i style="background:${r.color}"></i>${r.id}`, w.aneMean + ' mW', w.anePeak + ' mW', f(w.aneEnergy) + ' J', w.cpuAbove + ' mW', w.gpuAbove + ' mW', w.extraMw + ' mW', w.extraJ + ' J']; });
+    const wh = ['Engine', 'Neural Engine average', 'Neural Engine peak', 'CPU average', 'GPU average', 'All compute, average', 'Energy over the clip'];
+    const wr = P.map((r) => { const w = W[r.id]; return [`<i style="background:${r.color}"></i>${r.id}`, w.aneMean + ' mW', w.anePeak + ' mW', w.cpu + ' mW', w.gpu + ' mW', w.totalMw + ' mW', w.totalJ + ' J']; });
     $p('pressPowerTable').innerHTML = '<thead><tr>' + wh.map((h) => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
       wr.map((x) => '<tr>' + x.map((c, i) => `<td class="${i === 0 ? 'eng' : ''}">${c}</td>`).join('') + '</tr>').join('') + '</tbody>';
   }

@@ -157,13 +157,14 @@
       <p class="legend">Filler sounds (&ldquo;uh&rdquo;, &ldquo;um&rdquo;) are ignored in the main score, as on the rest of this page. The small line under each engine is the stricter score that counts them too.</p></div>
 
     <h3 style="margin:26px 0 8px">What the errors were</h3>
-    <p class="sub">We sorted every counted error into what actually went wrong, so you can see whether a score reflects hard names and spelling or real mistakes.</p>
+    <p class="sub">We sorted every counted error into what actually went wrong, so you can see whether a score reflects hard names and word endings or real mistakes.</p>
     <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressCatTable" style="min-width:0"></table></div>
-    <p class="note">Examples of the errors: &ldquo;Amit Kshatriya&rdquo; heard as &ldquo;Amet Shatriya&rdquo; or &ldquo;Ahmed Shatriya&rdquo;, &ldquo;Dr.&rdquo; written as &ldquo;doctor&rdquo;, &ldquo;packed&rdquo; heard as &ldquo;peck&rdquo;. Names like these are the hardest part of any live captioning job, which is why we kept them in the score.</p>
+    <p class="note">Examples of the errors: &ldquo;Amit Kshatriya&rdquo; heard as &ldquo;Amet Shatriya&rdquo; or &ldquo;Ahmed Shatriya&rdquo;, &ldquo;touched&rdquo; written as &ldquo;touch&rdquo;, &ldquo;packed&rdquo; heard as &ldquo;peck&rdquo;. Names like these are the hardest part of any live captioning job, which is why we kept them in the score.</p>
 
     <div class="cols" style="margin-top:16px">
       <div class="glass"><h3>What counted as correct</h3><ul>
         <li>Case, punctuation and number formatting (&ldquo;25,000 ft&rdquo; or &ldquo;twenty-five thousand feet&rdquo;).</li>
+        <li>The same word written differently: &ldquo;Dr.&rdquo; or &ldquo;doctor&rdquo;, &ldquo;programs&rdquo; or &ldquo;programmes&rdquo;, &ldquo;we were&rdquo; or &ldquo;we&rsquo;re&rdquo;, &ldquo;it&rdquo; or &ldquo;it&rsquo;s&rdquo;.</li>
         <li>Words the speaker said twice by accident (&ldquo;then then take questions&rdquo;, &ldquo;as soon as as soon as&rdquo;): the engine may caption them once or twice.</li>
         <li>A few stretches no listener can make out on the recording: two place names (&ldquo;Michoud&rdquo;, &ldquo;Bremen&rdquo;), a third in &ldquo;Teams at Stennis&rdquo;, the surname &ldquo;Radigan&rdquo;, one garbled phrase (&ldquo;&hellip;in an incredible way&rdquo;) and a speaker&rsquo;s self-correction (&ldquo;That is&hellip; that is a thousand people&rdquo;). We marked those spots as wildcards in the reference, about 25 words in all.</li></ul></div>
       <div class="glass"><h3>What still counted</h3><ul>
@@ -178,10 +179,10 @@
     <p class="sub">Average power drawn by the whole Mac while each engine captioned the clip, measured with Apple&rsquo;s powermetrics tool. The Neural Engine is Apple&rsquo;s low-power accelerator for machine learning.</p>
     <div class="glass tablewrap" style="padding:6px 6px 0;"><table id="pressPowerTable"></table></div>
     <p class="note">Rapid averaged about 121 mW across CPU, GPU and Neural Engine; Mix about 228 mW, of which 63 mW was the Neural Engine. Figures are absolute averages for the whole machine from a single run, so they include whatever else the Mac was doing in the background, and Rapid&rsquo;s includes the system speech service that runs outside the app.</p>
-    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost. CPU is the app&rsquo;s processor use (100% is one core) while captioning. We ran this clip 3 times; word error rate was Rapid 5.0% and Mix 3.6%, and average caption delay 0.05 s and 1.22&ndash;1.25 s. The table shows one of the runs. Power figures come from a separate run of the same clip.</p>
+    <p class="note">* Rapid runs in a system service outside the app, so its in-app memory and CPU understate its real cost. CPU is the app&rsquo;s processor use (100% is one core) while captioning. We ran this clip 2 times; word error rate was Rapid 4.8% and Mix 2.8%, and average caption delay 0.05 s and 1.24&ndash;1.25 s. The table shows one of the runs. Power figures come from a separate run of the same clip.</p>
     <div class="glass cols" style="margin-top:16px;display:block"><h3>The honest summary</h3><ul>
-      <li>Mix was the most accurate here at 3.6% (20 errors in 562 words); Rapid was close behind at 5.0% (28 errors) and showed captions about 25&times; sooner on average (0.05 s against 1.24 s).</li>
-      <li>11 of Mix&rsquo;s 20 errors and 10 of Rapid&rsquo;s 28 were names, spelling or word-ending differences; the rest were similar-sounding words and short dropped or swapped words.</li>
+      <li>Mix was the most accurate here at 2.8% (16 errors in 562 words); Rapid was close behind at 4.8% (27 errors) and showed captions about 25&times; sooner on average (0.05 s against 1.24 s).</li>
+      <li>7 of Mix&rsquo;s 16 errors and 9 of Rapid&rsquo;s 27 were names or word-ending differences; the rest were similar-sounding words and short dropped or swapped words.</li>
       <li>One clip, one Mac, English, a clean broadcast feed. Room noise, distant microphones and heavy accents will move every number, and we have not compared other captioning products on this clip, only our own engines.</li></ul></div>
   </section>
   <!-- press-conference:end -->
@@ -276,7 +277,7 @@ requestAnimationFrame(() => setTimeout(() => {
 </script>
 <script id="press-script">
 (function () {
-  const P = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":5.0,"werStrict":6.0,"sub":23,"del":4,"ins":1,"errors":28,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"cpuSeconds":12.7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"written":1,"endings":3,"sounds":9,"small":9}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":3.6,"werStrict":3.5,"sub":14,"del":5,"ins":1,"errors":20,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"cpuSeconds":18.5,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"written":4,"endings":3,"sounds":3,"small":6}}];
+  const P = [{"id":"Rapid","family":"System speech service","color":"#10b981","wer":4.8,"werStrict":5.8,"sub":23,"del":4,"ins":0,"errors":27,"refWords":562,"hypWords":543,"firstCaption":1.14,"lagMean":0.05,"lagP95":0.07,"lagMax":1.2,"finalLatency":0.1,"peakMB":74,"modelMB":1,"cpuMean":7,"outOfProcess":true,"audioSeconds":173,"categories":{"names":6,"endings":3,"sounds":10,"small":8}},{"id":"Mix","family":"Large model + pause detection","color":"#a78bfa","wer":2.8,"werStrict":2.8,"sub":11,"del":4,"ins":1,"errors":16,"refWords":562,"hypWords":555,"firstCaption":5.33,"lagMean":1.24,"lagP95":1.68,"lagMax":1.7,"finalLatency":0.08,"peakMB":800,"modelMB":699,"cpuMean":10,"outOfProcess":false,"audioSeconds":173,"categories":{"names":4,"endings":3,"sounds":3,"small":6}}];
   const R = null;
   const W = {"Rapid":{"aneMean":7,"anePeak":20,"aneEnergy":1.3,"cpu":112,"gpu":1,"totalMw":121,"totalJ":21,"durationS":176},"Mix":{"aneMean":63,"anePeak":628,"aneEnergy":11.2,"cpu":164,"gpu":1,"totalMw":228,"totalJ":40,"durationS":176}};
   const $p = (id) => document.getElementById(id);
@@ -297,7 +298,7 @@ requestAnimationFrame(() => setTimeout(() => {
   const maxWer = Math.max(5, Math.ceil(Math.max(...P.map((r) => r.wer)) / 2) * 2);
   bars($p('pressWerBars'), P, (r) => r.wer, (r) => f(r.wer) + '%', maxWer, { std: true });
 
-  const CATS = [["names", "Names and titles", "Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling."], ["written", "Same words, written differently", "&ldquo;Dr.&rdquo; vs &ldquo;doctor&rdquo;, &ldquo;programs&rdquo; vs &ldquo;programmes&rdquo;, &ldquo;we were&rdquo; vs &ldquo;we&rsquo;re&rdquo;."], ["endings", "Word endings", "&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural."], ["sounds", "Similar-sounding words", "A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;."], ["small", "Words dropped, added or swapped", "Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra."]];
+  const CATS = [["names", "Names and titles", "Speaker names such as Amit Kshatriya, Howard Hu and Shawn, written differently from the NASA spelling."], ["endings", "Word endings", "&ldquo;touched&rdquo; vs &ldquo;touch&rdquo;, &ldquo;return&rdquo; vs &ldquo;returned&rdquo;, singular vs plural."], ["sounds", "Similar-sounding words", "A different word that sounds close, such as &ldquo;saved&rdquo; vs &ldquo;shaped&rdquo; or &ldquo;rode&rdquo; vs &ldquo;wrote&rdquo;."], ["small", "Words dropped, added or swapped", "Mostly short words such as &ldquo;the&rdquo;, &ldquo;that&rdquo; or &ldquo;it&rdquo; that were missed, swapped or extra."]];
   $p('pressCatTable').innerHTML = '<thead><tr><th>Kind of error</th><th>What it looks like</th>' + P.map((r) => `<th>${r.id}</th>`).join('') + '</tr></thead><tbody>' +
     CATS.map((c) => `<tr><td class="eng">${c[1]}</td><td style="text-align:left;white-space:normal;min-width:260px;color:var(--text-muted)">${c[2]}</td>` + P.map((r) => `<td>${r.categories[c[0]]}</td>`).join('') + '</tr>').join('') +
     '<tr><td class="eng">Total</td><td></td>' + P.map((r) => `<td><b>${r.errors}</b></td>`).join('') + '</tr></tbody>';

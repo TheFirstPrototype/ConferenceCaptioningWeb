@@ -3,6 +3,13 @@
   "page": "https://conferencecaptioning.com/benchmark/",
   "source_video": "https://www.youtube.com/watch?v=Ir2X1-FjDxg&t=398s",
   "updated": "2026-10-05",
+  "license": {
+    "data": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "ConferenceCaptioning, https://conferencecaptioning.com/benchmark/",
+    "scoring_script": "MIT"
+  },
+  "author": "Saamer Mansoor",
   "clip": {
     "start": "6:38",
     "end": "9:31",

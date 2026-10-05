@@ -34,9 +34,17 @@
     "url": "https://conferencecaptioning.com/benchmark/",
     "image": "https://conferencecaptioning.com/benchmark/og-image.png",
     "author": {
-      "@type": "Organization",
-      "name": "ConferenceCaptioning",
-      "url": "https://conferencecaptioning.com"
+      "@type": "Person",
+      "name": "Saamer Mansoor",
+      "url": "https://www.linkedin.com/in/saamer",
+      "sameAs": [
+        "https://www.linkedin.com/in/saamer"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ConferenceCaptioning",
+        "url": "https://conferencecaptioning.com"
+      }
     },
     "publisher": {
       "@type": "Organization",
@@ -54,11 +62,19 @@
     "name": "ConferenceCaptioning live captioning benchmark: NASA Artemis II news conference",
     "description": "Word accuracy, caption delay, memory, CPU and power of two on-device live-captioning engines streamed in real time over 2 minutes 53 seconds of a public NASA news conference, with the corrected reference transcript and scoring script.",
     "url": "https://conferencecaptioning.com/benchmark/",
-    "creator": {
-      "@type": "Organization",
-      "name": "ConferenceCaptioning",
-      "url": "https://conferencecaptioning.com"
-    },
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": [
+      {
+        "@type": "Person",
+        "name": "Saamer Mansoor",
+        "url": "https://www.linkedin.com/in/saamer"
+      },
+      {
+        "@type": "Organization",
+        "name": "ConferenceCaptioning",
+        "url": "https://conferencecaptioning.com"
+      }
+    ],
     "datePublished": "2026-10-05",
     "dateModified": "2026-10-05",
     "inLanguage": "en",
@@ -187,7 +203,20 @@
 
 
 
+
+
     /* --- additions: anchors, element ids, scales, CTA --- */
+    header.site-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; padding: 22px 0 14px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 18px; }
+    header.site-header .brand img { height: 30px; display: block; }
+    #site-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; }
+    #site-nav a { font-size: .86rem; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+    #site-nav a:hover, #site-nav a.current { color: #fff; }
+    #site-nav a.nav-cta { color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: 6px 16px; font-weight: 600; }
+    #site-nav a.nav-cta:hover { background: rgba(255,255,255,.1); }
+    footer#site-footer { display: block; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; }
+    .footer-links a { color: var(--brand-accent); text-decoration: none; font-size: .85rem; }
+    .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--text-muted); font-size: .8rem; }
     [id] { scroll-margin-top: 24px; }
     th:first-child, td:first-child, th.l, td.l { text-align: left; }
     .byline { font-size: .85rem; color: var(--text-muted); margin: 6px 0 14px; }
@@ -220,14 +249,24 @@
 </head>
 <body>
 <div class="wrap">
-  <header class="top">
-    <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" onerror="this.style.display='none'">
-    <a class="back" href="https://conferencecaptioning.com/">conferencecaptioning.com</a>
+<header class="top site-header" id="site-header">
+    <a class="brand" href="https://conferencecaptioning.com/" id="site-logo"><img src="https://conferencecaptioning.com/images/logo-white.svg" alt="Conference Captioning company logo" width="188" height="37" onerror="this.style.display='none'"></a>
+    <nav aria-label="Main" id="site-nav">
+      <a href="https://conferencecaptioning.com/">Home</a>
+      <a href="https://conferencecaptioning.com/#features">Features</a>
+      <a href="https://conferencecaptioning.com/#pricing">Pricing</a>
+      <a href="https://conferencecaptioning.com/blog/index.html">Blog</a>
+      <a href="https://conferencecaptioning.com/av-production.html">AV Engineers</a>
+      <a href="https://conferencecaptioning.com/event-organizers.html">Event Planners</a>
+      <a href="https://conferencecaptioning.com/church-live-translation-transcription.html">Churches</a>
+      <a href="https://conferencecaptioning.com/benchmark/" aria-current="page" class="current">Benchmark</a>
+      <a href="https://app.conferencecaptioning.com" class="nav-cta" data-cta="benchmark-nav-start-free">Start free</a>
+    </nav>
   </header>
 
   <div class="eyebrow" id="eyebrow">Benchmark &middot; October 2026</div>
   <h1 id="title">Live captions, <span>measured in real time.</span></h1>
-  <p class="byline" id="byline">Published by the ConferenceCaptioning team &middot; Updated <time datetime="2026-10-05">October 5, 2026</time> &middot; <a href="#methodology">Method</a> &middot; <a href="#data-downloads">Data</a> &middot; <a href="#changelog">Changelog</a></p>
+  <p class="byline" id="byline">By <a href="https://www.linkedin.com/in/saamer" rel="author noopener" target="_blank">Saamer Mansoor</a>, ConferenceCaptioning &middot; Updated <time datetime="2026-10-05">October 5, 2026</time> &middot; <a href="#methodology">Method</a> &middot; <a href="#data-downloads">Data</a> &middot; <a href="#changelog">Changelog</a></p>
   <p class="lede" id="intro">We streamed 2 minutes 53 seconds of a real NASA news conference through ConferenceCaptioning&rsquo;s on-device engines at real-time speed, the way a microphone would, and compared the captions with a corrected, word-for-word transcript. Several speakers, technical vocabulary and unusual names. Nothing left the device.</p>
   <div class="chips" id="test-setup">
     <span class="chip">Apple M4</span><span class="chip">16 GB unified memory</span><span class="chip">macOS 27</span>
@@ -341,8 +380,15 @@
       <li><a href="data/nasa-reference-transcript.txt" style="color:var(--brand-accent)">nasa-reference-transcript.txt</a>: the corrected reference. <code>{a|b}</code> lists accepted spellings, <code>{x|~}</code> may be skipped, and <code>*</code> is a wildcard for one unintelligible word.</li>
       <li><a href="data/score_wer.py" style="color:var(--brand-accent)">score_wer.py</a>: the scoring script (Python 3, no packages needed).</li></ul></div>
 
+
+    <h3 id="license" style="margin:26px 0 8px">License</h3>
+    <div class="glass" id="license-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><b>Data and reference transcript:</b> <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" style="color:var(--brand-accent)">Creative Commons Attribution 4.0 (CC BY 4.0)</a>. Share and adapt them, including commercially, as long as you credit ConferenceCaptioning and link to <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/benchmark/</a>.</li>
+      <li><b>Scoring script:</b> MIT License, &copy; 2026 ConferenceCaptioning (the licence text is at the top of <code>score_wer.py</code>).</li>
+      <li><b>The audio:</b> NASA&rsquo;s footage, which NASA says is generally not subject to copyright (see <a href="https://www.nasa.gov/nasa-brand-center/images-and-media/" target="_blank" rel="noopener" style="color:var(--brand-accent)">NASA&rsquo;s media usage guidelines</a>). We do not host it, we link to the original video. Our reference transcript is a corrected, annotated transcription of the words spoken in it.</li></ul></div>
+
     <h3 id="cite" style="margin:26px 0 8px">Cite this page</h3>
-    <div class="glass" id="cite-box"><p style="color:var(--text-muted)">ConferenceCaptioning. &ldquo;Live captioning accuracy and delay benchmark: on-device engines on a NASA news conference.&rdquo; October 2026. <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/benchmark/</a></p></div>
+    <div class="glass" id="cite-box"><p style="color:var(--text-muted)">Saamer Mansoor, ConferenceCaptioning. &ldquo;Live captioning accuracy and delay benchmark: on-device engines on a NASA news conference.&rdquo; October 2026. <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/benchmark/</a></p></div>
   </section>
 
   <section id="how-to-read">
@@ -376,9 +422,21 @@
     </div>
   </section>
 
-  <footer>
-    <span>Questions or want to run it on your own audio? <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a></span>
-    <span>&copy; ConferenceCaptioning</span>
+  <footer id="site-footer">
+    <nav aria-label="Footer" id="footer-links" class="footer-links">
+      <a href="https://conferencecaptioning.com/brand-toolkit/">Brand Toolkit</a>
+      <a href="https://conferencecaptioning.com/privacy-policy.html">Privacy Policy</a>
+      <a href="https://conferencecaptioning.com/terms-and-conditions.html">Terms &amp; Conditions</a>
+      <a href="https://conferencecaptioning.com/benchmark/">Live Captioning Benchmark</a>
+      <a href="https://github.com/TheFirstPrototype" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/showcase/BeAware4Deaf" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://vimeo.com/950840441" target="_blank" rel="noopener">Vimeo</a>
+      <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>
+    </nav>
+    <div class="footer-meta" id="footer-meta">
+      <span>&copy; ConferenceCaptioning 2026 &middot; by the team behind BeAware</span>
+      <span>Made with love for the a11y community.</span>
+    </div>
   </footer>
 </div>
 

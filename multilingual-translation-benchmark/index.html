@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning</title>
+  <meta name="description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <link rel="canonical" href="https://conferencecaptioning.com/multilingual-translation-benchmark/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ConferenceCaptioning">
+  <meta property="og:url" content="https://conferencecaptioning.com/multilingual-translation-benchmark/">
+  <meta property="og:title" content="Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning">
+  <meta property="og:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning">
+  <meta name="twitter:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Live translation speed benchmark: five languages at once",
+    "description": "Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.",
+    "url": "https://conferencecaptioning.com/multilingual-translation-benchmark/",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": [
+      {
+        "@type": "Person",
+        "name": "Saamer Mansoor",
+        "url": "https://www.linkedin.com/in/saamer"
+      },
+      {
+        "@type": "Organization",
+        "name": "ConferenceCaptioning",
+        "url": "https://conferencecaptioning.com"
+      }
+    ],
+    "datePublished": "2026-10-05",
+    "dateModified": "2026-10-05",
+    "inLanguage": "en",
+    "keywords": [
+      "live translation",
+      "real-time translation",
+      "multilingual captions",
+      "latency",
+      "on-device AI",
+      "accessibility"
+    ],
+    "measurementTechnique": "Scripted English transcript delivered at 3 words per second; time from each word's creation to its appearance in the on-screen translation",
+    "variableMeasured": [
+      "translation delay per word",
+      "translation call time",
+      "CPU use",
+      "memory"
+    ],
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://conferencecaptioning.com/multilingual-translation-benchmark/data/translation-benchmark-results.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://conferencecaptioning.com/multilingual-translation-benchmark/data/translation-benchmark-results.csv"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ConferenceCaptioning",
+        "item": "https://conferencecaptioning.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Live captioning benchmark",
+        "item": "https://conferencecaptioning.com/benchmark/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Translation speed benchmark",
+        "item": "https://conferencecaptioning.com/multilingual-translation-benchmark/"
+      }
+    ]
+  }
+]
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-navy: #193C5D; --brand-accent: #38bdf8; --brand-emerald: #10b981; --brand-amber: #f59e0b;
+      --bg-dark: #0c1824; --bg-surface: rgba(25, 60, 93, 0.48); --border-subtle: rgba(255,255,255,0.14);
+      --border-focus: rgba(56,189,248,0.5); --text-white: #fff; --text-muted: #94a3b8; --text-subtle: #64748b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans); color: var(--text-white); background: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% -5%, #1c456b 0%, var(--bg-dark) 62%);
+      background-attachment: fixed; -webkit-font-smoothing: antialiased; line-height: 1.5;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 72px; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0 8px; }
+    header.top img { height: 26px; opacity: .92; }
+    header.top a.back { font-family: var(--font-mono); font-size: .78rem; color: var(--text-muted); text-decoration: none; letter-spacing: .06em; }
+    header.top a.back:hover { color: var(--brand-accent); }
+    .eyebrow { font-family: var(--font-mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; color: var(--brand-accent); }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; margin: 10px 0 14px; }
+    h1 span { background: linear-gradient(90deg, #38bdf8, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lede { color: var(--text-muted); font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 760px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 6px; }
+    .chip { font-family: var(--font-mono); font-size: .72rem; padding: 5px 11px; border-radius: 999px; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.32); color: var(--brand-accent); }
+    section { margin-top: 56px; }
+    h2 { font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .sub { color: var(--text-muted); max-width: 780px; margin-bottom: 22px; }
+    .glass { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 22px 24px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 12px 30px -8px rgba(0,0,0,.5); }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 34px; }
+    .kpi .label { font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--text-muted); }
+    .kpi .value { font-size: clamp(1.7rem, 3.2vw, 2.35rem); white-space: nowrap; font-weight: 800; letter-spacing: -0.03em; margin: 6px 0 2px; }
+    .kpi .who { font-size: .9rem; color: var(--text-muted); }
+    .bars { display: grid; gap: 14px; }
+    .bar-row { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 14px; }
+    .bar-name { font-weight: 600; font-size: .95rem; }
+    .bar-name small { display: block; font-weight: 400; color: var(--text-muted); font-size: .75rem; }
+    .track { position: relative; height: 34px; border-radius: 9px; background: rgba(255,255,255,.06); overflow: hidden; }
+    .fill { height: 100%; border-radius: 9px; width: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+      font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #06121d; transition: width 900ms cubic-bezier(.16,1,.3,1); min-width: 0; }
+    .val { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #fff; white-space: nowrap; }
+    .p95 { position: absolute; top: 5px; bottom: 5px; width: 3px; border-radius: 2px; background: #fff; opacity: .85; }
+    .legend { font-size: .8rem; color: var(--text-muted); margin-top: 12px; }
+    .legend b { color: #fff; }
+    .note { font-size: .82rem; color: var(--text-subtle); margin-top: 10px; }
+    .tablewrap { overflow-x: auto; border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: .88rem; }
+    th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid rgba(255,255,255,.08); white-space: nowrap; }
+    
+    th { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); font-weight: 500; }
+    td.eng { font-weight: 600; }
+    td.eng i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .cols h3 { font-size: 1rem; margin-bottom: 6px; }
+    .cols p, .cols li { color: var(--text-muted); font-size: .92rem; }
+    .cols ul { padding-left: 18px; }
+    footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; color: var(--text-muted); font-size: .85rem; }
+    footer a { color: var(--brand-accent); text-decoration: none; }
+    @media (max-width: 640px) { .bar-row { grid-template-columns: 1fr; gap: 6px; } }
+    @media (prefers-reduced-motion: reduce) { .fill { transition: none; } html { scroll-behavior: auto; } }
+
+
+
+
+
+
+    /* --- additions: anchors, element ids, scales, CTA --- */
+    header.site-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; padding: 22px 0 14px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 18px; }
+    header.site-header .brand img { height: 30px; display: block; }
+    #site-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; }
+    #site-nav a { font-size: .86rem; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+    #site-nav a:hover, #site-nav a.current { color: #fff; }
+    #site-nav a.nav-cta { color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: 6px 16px; font-weight: 600; }
+    #site-nav a.nav-cta:hover { background: rgba(255,255,255,.1); }
+    footer#site-footer { display: block; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; }
+    .footer-links a { color: var(--brand-accent); text-decoration: none; font-size: .85rem; }
+    .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--text-muted); font-size: .8rem; }
+    [id] { scroll-margin-top: 24px; }
+    th:first-child, td:first-child, th.l, td.l { text-align: left; }
+    .byline { font-size: .85rem; color: var(--text-muted); margin: 6px 0 14px; }
+    .byline a { color: var(--brand-accent); text-decoration: none; }
+    code { font-family: var(--font-mono); font-size: .85em; background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 5px; color: #e2e8f0; }
+    .anchor { margin-left: 8px; font-family: var(--font-mono); font-size: .8em; color: var(--text-subtle); text-decoration: none; opacity: 0; transition: opacity .15s; }
+    h2:hover .anchor, h3:hover .anchor, .anchor:focus { opacity: 1; }
+    .anchor:hover { color: var(--brand-accent); }
+    .axis { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: center; margin-top: 2px; }
+    .axis .ticks { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: .68rem; color: var(--text-subtle); padding: 0 2px; }
+    @media (max-width: 640px) { .axis { grid-template-columns: 1fr; } .axis > span:first-child { display: none; } }
+    .fill { transition: none; }
+    .fill.short { padding: 0; border-radius: 4px; }
+    .fill.ref { background: repeating-linear-gradient(45deg, rgba(148,163,184,.55), rgba(148,163,184,.55) 6px, rgba(148,163,184,.3) 6px, rgba(148,163,184,.3) 12px) !important; color: #fff; }
+    .bar-row.ref .bar-name { color: var(--text-muted); }
+    .cta { margin-top: 56px; padding: 32px clamp(20px, 4vw, 40px); border-radius: 20px; background: var(--brand-navy); border: 1px solid var(--border-subtle); }
+    .cta h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .cta p { color: #cbd5e1; max-width: 720px; margin-bottom: 20px; }
+    .cta .row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .cta .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer; border: 1px solid rgba(255,255,255,.4); color: #fff; background: transparent; font-family: inherit; }
+    .cta .btn:hover { background: rgba(255,255,255,.1); }
+    .cta .btn.primary { background: #fff; color: var(--brand-navy); border-color: #fff; }
+    .cta .btn.primary:hover { background: #e2e8f0; }
+    /* Append ?ids to the URL to outline every element and show its id (handy when reporting issues). */
+    body.show-ids [id] { outline: 1px dashed rgba(56,189,248,.55); position: relative; }
+    body.show-ids [id]::before { content: '#' attr(id); position: absolute; top: 0; left: 0; background: #38bdf8; color: #04121f; font: 600 10px/1.4 var(--font-mono); padding: 0 4px; z-index: 60; pointer-events: none; }
+    body.show-ids tr[id]::before, body.show-ids td[id]::before, body.show-ids th[id]::before { display: none; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header class="top site-header" id="site-header">
+    <a class="brand" href="https://conferencecaptioning.com/" id="site-logo"><img src="https://conferencecaptioning.com/images/logo-white.svg" alt="Conference Captioning company logo" width="188" height="37" onerror="this.style.display='none'"></a>
+    <nav aria-label="Main" id="site-nav">
+      <a href="https://conferencecaptioning.com/">Home</a>
+      <a href="https://conferencecaptioning.com/#features">Features</a>
+      <a href="https://conferencecaptioning.com/#pricing">Pricing</a>
+      <a href="https://conferencecaptioning.com/blog/index.html">Blog</a>
+      <a href="https://conferencecaptioning.com/av-production.html">AV Engineers</a>
+      <a href="https://conferencecaptioning.com/event-organizers.html">Event Planners</a>
+      <a href="https://conferencecaptioning.com/church-live-translation-transcription.html">Churches</a>
+      <a href="https://conferencecaptioning.com/benchmark/">Benchmark</a>
+      <a href="https://app.conferencecaptioning.com" class="nav-cta" data-cta="benchmark-nav-start-free">Start free</a>
+    </nav>
+  </header>
+
+  
+  <div class="eyebrow" id="eyebrow">Benchmark &middot; October 2026</div>
+  <h1 id="title">Live translation, <span>five languages at once.</span></h1>
+  <p class="byline" id="byline">By <a href="https://www.linkedin.com/in/saamer" rel="author noopener" target="_blank">Saamer Mansoor</a>, ConferenceCaptioning &middot; Updated <time datetime="2026-10-05">October 5, 2026</time> &middot; <a href="#methodology">Method</a> &middot; <a href="#data-downloads">Data</a> &middot; <a href="#changelog">Changelog</a></p>
+  <p class="lede" id="intro">Captions are only useful to a multilingual audience if the translations keep up with the speaker. We fed an English transcript at conversational speed (3 words per second) into ConferenceCaptioning&rsquo;s fastest translation mode, <b>Blazing</b>, with one to five target languages running together, and timed how long each word took to appear in every language on screen. Translation runs on the device; nothing is sent to a translation service.</p>
+  <div class="chips" id="test-setup">
+    <span class="chip">10-core Apple silicon Mac</span><span class="chip">16 GB memory</span><span class="chip">English to Spanish, French, German, Japanese, Portuguese (Brazil)</span>
+    <span class="chip">3 words per second</span><span class="chip">1&ndash;5 languages at once</span><span class="chip">30 timed runs</span>
+  </div>
+
+  <div class="kpis" id="key-numbers"><div class="glass kpi" id="kpi-delay"><div class="label">Average delay, 5 languages</div><div class="value">0.27 s</div><div class="who">Blazing &middot; per translated word, 95th percentile 0.54 s</div></div><div class="glass kpi" id="kpi-worst"><div class="label">Slowest single word</div><div class="value">0.61 s</div><div class="who">across every run and language count</div></div><div class="glass kpi" id="kpi-words"><div class="label">Words timed</div><div class="value">8,840</div><div class="who">across 30 timed runs of 40 s each</div></div><div class="glass kpi" id="kpi-privacy"><div class="label">Privacy</div><div class="value">On-device</div><div class="who">translation runs locally; text is not sent to a translation service</div></div></div>
+
+  <section id="summary">
+    <h2 id="summary-heading">The short version</h2>
+    <div class="glass" id="summary-box"><p style="color:var(--text-muted)">With five languages translating together, the average word appeared on screen <b>0.27 s</b> after it was available, <b>0.54 s</b> for 95 out of 100 words, and the slowest word in any run took <b>0.61 s</b>. Adding languages from one to five changed the average delay only slightly (see the table), because each translation takes a few tens of milliseconds on the device. That is well under a second, so for this part of the pipeline &ldquo;five languages in under a second&rdquo; holds. It is <b>not</b> the delay an audience sees end to end: it excludes speech recognition, which comes first (see <a href="#what-is-not-measured">what is not measured</a>).</p></div>
+  </section>
+
+  <section id="translation-delay">
+    <h2 id="translation-delay-heading">Translation delay</h2>
+    <p class="sub" id="translation-delay-explainer">Time from the moment a word became available in the transcript to the moment its translation was on screen, averaged over every word, with the line marking the 95th percentile. Lower is better. Blazing is the sky-blue bars; grey bars are our other on-device translation mode (Native Translation) for scale.</p>
+    <div class="glass" id="delay-chart"><div class="bars" id="delay-bars">
+        <div class="bar-row" id="delay-bar-1"><div class="bar-name">1 language<small>Blazing &middot; 95th percentile 0.40 s</small></div><div class="track" role="img" aria-label="1 language: 0.25 s"><div class="fill short" style="width:6.21%;background:#38bdf8"></div><div class="val" style="left:calc(10.00% + 10px)">0.25 s</div><div class="p95" style="left:calc(10.00% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row" id="delay-bar-2"><div class="bar-name">2 languages<small>Blazing &middot; 95th percentile 0.47 s</small></div><div class="track" role="img" aria-label="2 languages: 0.25 s"><div class="fill short" style="width:6.21%;background:#38bdf8"></div><div class="val" style="left:calc(11.78% + 10px)">0.25 s</div><div class="p95" style="left:calc(11.78% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row" id="delay-bar-3"><div class="bar-name">3 languages<small>Blazing &middot; 95th percentile 0.48 s</small></div><div class="track" role="img" aria-label="3 languages: 0.25 s"><div class="fill short" style="width:6.20%;background:#38bdf8"></div><div class="val" style="left:calc(11.94% + 10px)">0.25 s</div><div class="p95" style="left:calc(11.94% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row" id="delay-bar-4"><div class="bar-name">4 languages<small>Blazing &middot; 95th percentile 0.54 s</small></div><div class="track" role="img" aria-label="4 languages: 0.25 s"><div class="fill short" style="width:6.24%;background:#38bdf8"></div><div class="val" style="left:calc(13.40% + 10px)">0.25 s</div><div class="p95" style="left:calc(13.40% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row" id="delay-bar-5"><div class="bar-name">5 languages<small>Blazing &middot; 95th percentile 0.54 s</small></div><div class="track" role="img" aria-label="5 languages: 0.27 s"><div class="fill short" style="width:6.65%;background:#38bdf8"></div><div class="val" style="left:calc(13.46% + 10px)">0.27 s</div><div class="p95" style="left:calc(13.46% - 1px)" title="95th percentile"></div></div></div>
+        <div class="bar-row ref" id="delay-bar-native-1"><div class="bar-name">Native Translation, 1 language<small>same Mac, different harness, about</small></div><div class="track" role="img" aria-label="Native Translation, 1 language: 1.40 s"><div class="fill ref" style="width:35.00%;background:#64748b">1.40 s</div></div></div>
+        <div class="bar-row ref" id="delay-bar-native-2"><div class="bar-name">Native Translation, 4 languages<small>same Mac, different harness, about</small></div><div class="track" role="img" aria-label="Native Translation, 4 languages: 3.50 s"><div class="fill ref" style="width:87.50%;background:#64748b">3.50 s</div></div></div>
+      </div>
+      <p class="legend" id="delay-legend">Bars run from 0 to 4 seconds. The grey Native Translation bars come from an earlier test on the same Mac with a different harness (<code>translation_benchmark_report.md</code> in our repository), so compare the shape, not the last digit.</p></div>
+  </section>
+
+  <section id="all-the-numbers">
+    <h2 id="all-the-numbers-heading">All the numbers</h2>
+    <p class="sub" id="all-the-numbers-explainer">Polling every 500 ms (the default). Each row pools 6 runs of 40 measured seconds (the first 10 s of each 50 s run are warm-up and discarded), across continuous speech and speech with a 2 s pause after every sentence. &ldquo;Call time&rdquo; is how long one translation request took.</p>
+    <div class="glass tablewrap" id="numbers-table-box" style="padding:6px 6px 0;"><table id="numbers-table"><thead><tr><th class="l">Languages</th><th class="">Mean delay</th><th class="">Median</th><th class="">95th pct</th><th class="">Slowest</th><th class="">Call time (mean)</th><th class="">Call time (95th)</th><th class="">Avg CPU</th><th class="">Peak memory</th><th class="">Runs</th></tr></thead><tbody><tr id="numbers-row-1"><td class="eng l">1 language</td><td class="">0.25 s</td><td class="">0.20 s</td><td class="">0.40 s</td><td class="">0.54 s</td><td class="">22 ms</td><td class="">34 ms</td><td class="">15%</td><td class="">1.3 GB</td><td class="">6</td></tr><tr id="numbers-row-2"><td class="eng l">2 languages</td><td class="">0.25 s</td><td class="">0.21 s</td><td class="">0.47 s</td><td class="">0.56 s</td><td class="">28 ms</td><td class="">50 ms</td><td class="">14%</td><td class="">1.2 GB</td><td class="">6</td></tr><tr id="numbers-row-3"><td class="eng l">3 languages</td><td class="">0.25 s</td><td class="">0.22 s</td><td class="">0.48 s</td><td class="">0.58 s</td><td class="">38 ms</td><td class="">65 ms</td><td class="">14%</td><td class="">1.3 GB</td><td class="">6</td></tr><tr id="numbers-row-4"><td class="eng l">4 languages</td><td class="">0.25 s</td><td class="">0.23 s</td><td class="">0.54 s</td><td class="">0.59 s</td><td class="">45 ms</td><td class="">78 ms</td><td class="">14%</td><td class="">1.3 GB</td><td class="">6</td></tr><tr id="numbers-row-5"><td class="eng l">5 languages</td><td class="">0.27 s</td><td class="">0.24 s</td><td class="">0.54 s</td><td class="">0.61 s</td><td class="">51 ms</td><td class="">90 ms</td><td class="">14%</td><td class="">1.4 GB</td><td class="">6</td></tr></tbody></table></div>
+    <p class="note" id="numbers-note">CPU is the translation process as a share of one core. Memory is the whole translation process including its language models. Continuous and paused speech gave the same result at 5 languages (mean 0.27 s and 0.25 s). Errors across all timed runs: 0.</p>
+    <h3 id="faster-polling" style="margin:26px 0 8px">With a faster refresh</h3>
+    <p class="sub" id="faster-polling-explainer">The refresh rate is a setting. At 200 ms instead of 500 ms the same test gave:</p>
+    <div class="glass tablewrap" id="poll200-table-box" style="padding:6px 6px 0;"><table id="poll200-table"><thead><tr><th class="l">Languages</th><th class="">Mean delay</th><th class="">95th pct</th><th class="">Slowest</th></tr></thead><tbody><tr id="poll200-row-1"><td class="eng l">1 language</td><td class="">0.14 s</td><td class="">0.22 s</td><td class="">0.24 s</td></tr><tr id="poll200-row-3"><td class="eng l">3 languages</td><td class="">0.17 s</td><td class="">0.26 s</td><td class="">0.28 s</td></tr><tr id="poll200-row-5"><td class="eng l">5 languages</td><td class="">0.17 s</td><td class="">0.28 s</td><td class="">0.36 s</td></tr></tbody></table></div>
+  </section>
+
+  <section id="what-is-not-measured">
+    <h2 id="what-is-not-measured-heading">What is not measured</h2>
+    <div class="cols" id="not-measured-boxes">
+      <div class="glass" id="not-measured"><h3>Not in these numbers</h3><ul>
+        <li><b>Speech recognition.</b> The transcript here is scripted. In a live event the words first have to be recognised, which takes between 0.05 s and about 1.2 s depending on the engine (see the <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">captioning benchmark</a>). Add that to the delay above for the full speaker-to-screen time.</li>
+        <li><b>Delivery to the audience.</b> Sending results to attendees&rsquo; phones and the attendee refresh interval come on top.</li>
+        <li><b>Real audio, other languages and other machines.</b> One transcript, five target languages, one Mac. Quality of the translations was not scored here.</li></ul></div>
+      <div class="glass" id="how-to-read-this"><h3>How to read the delay</h3><ul>
+        <li>The delay is measured per word: each word&rsquo;s age when it first appears in the translated text. Words that arrive early in a refresh wait longer than the last one, which is included.</li>
+        <li>Runs where something else heavy was using the Mac are excluded (3 of 39 runs) so the figures reflect the engine, not background load.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="methodology">
+    <h2 id="methodology-heading">Methodology</h2>
+    <div class="cols" id="methodology-boxes" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+      <div class="glass" id="method-input"><h3>The input</h3><ul>
+        <li>A fixed English transcript (a public speech) released word by word at 3 words per second, about 180 words per minute, a brisk conference pace.</li>
+        <li>Two patterns: continuous speech, and a 2 s pause after every sentence.</li></ul></div>
+      <div class="glass" id="method-translation"><h3>The translation</h3><ul>
+        <li>Blazing, ConferenceCaptioning&rsquo;s fastest on-device translation mode, on the same translation page attendees and stage screens use.</li>
+        <li>Target languages added in the order Spanish, French, German, Japanese, Portuguese (Brazil).</li></ul></div>
+      <div class="glass" id="method-timing"><h3>The timing</h3><ul>
+        <li>Each word&rsquo;s creation time is known from the script. Its delay is the time until it is visible in the translated text on screen.</li>
+        <li>50 s per run, first 10 s discarded; 3 repeats per setting; poll interval 500 ms (and 200 ms in the second table).</li></ul></div>
+      <div class="glass" id="method-machine"><h3>The machine</h3><ul>
+        <li>10-core Apple silicon Mac, 16 GB, macOS 27.</li>
+        <li>Nothing else was run on purpose during the final runs; runs that were disturbed are excluded and counted above.</li></ul></div>
+    </div>
+    <h3 id="data-downloads" style="margin:26px 0 8px">Data and files</h3>
+    <div class="glass" id="data-downloads-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><a href="data/translation-benchmark-results.json" style="color:var(--brand-accent)">translation-benchmark-results.json</a> and <a href="data/translation-benchmark-results.csv" style="color:var(--brand-accent)">.csv</a>: every run, with delay statistics per language count.</li></ul></div>
+    <h3 id="license" style="margin:26px 0 8px">License</h3>
+    <div class="glass" id="license-box"><p style="color:var(--text-muted)">The data is licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" style="color:var(--brand-accent)">CC BY 4.0</a>: share and adapt it, including commercially, with credit to ConferenceCaptioning and a link to <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/multilingual-translation-benchmark/</a>.</p></div>
+    <h3 id="cite" style="margin:26px 0 8px">Cite this page</h3>
+    <div class="glass" id="cite-box"><p style="color:var(--text-muted)">Saamer Mansoor, ConferenceCaptioning. &ldquo;Live translation speed benchmark: five languages at once.&rdquo; October 2026. <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/multilingual-translation-benchmark/</a></p></div>
+  </section>
+
+  <section id="changelog">
+    <h2 id="changelog-heading">Changelog</h2>
+    <div class="glass" id="changelog-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><b>October 5, 2026</b>: first published.</li></ul></div>
+  </section>
+
+  <section class="cta" id="contact-cta">
+    <h2 id="contact-cta-heading">Need several languages in the room?</h2>
+    <p>Tell us your languages, your venue and how attendees will follow along and we&rsquo;ll help you plan the setup.</p>
+    <div class="row" id="contact-cta-buttons">
+      <button type="button" id="cta-ask" class="btn primary" onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}">Ask a technical question</button>
+      <a id="cta-benchmark" class="btn" href="https://conferencecaptioning.com/benchmark/">Captioning benchmark &rarr;</a>
+      <a id="cta-start-free" class="btn" href="https://app.conferencecaptioning.com" data-cta="translation-benchmark-start-free">Start free &rarr;</a>
+    </div>
+  </section>
+
+  <footer id="site-footer">
+    <nav aria-label="Footer" id="footer-links" class="footer-links">
+      <a href="https://conferencecaptioning.com/brand-toolkit/">Brand Toolkit</a>
+      <a href="https://conferencecaptioning.com/privacy-policy.html">Privacy Policy</a>
+      <a href="https://conferencecaptioning.com/terms-and-conditions.html">Terms &amp; Conditions</a>
+      <a href="https://conferencecaptioning.com/benchmark/">Live Captioning Benchmark</a>
+      <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/">Translation Benchmark</a>
+      <a href="https://github.com/TheFirstPrototype" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/showcase/BeAware4Deaf" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://vimeo.com/950840441" target="_blank" rel="noopener">Vimeo</a>
+      <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>
+    </nav>
+    <div class="footer-meta" id="footer-meta">
+      <span>&copy; ConferenceCaptioning 2026 &middot; by the team behind BeAware</span>
+      <span>Made with love for the a11y community.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Clickable section anchors on headings, and an ids overlay (?ids) for pointing at elements.
+document.querySelectorAll('h2[id], h3[id]').forEach(function (h) { h.insertAdjacentHTML('beforeend', '<a class="anchor" href="#' + h.id + '" aria-label="Link to this section">#</a>'); });
+if (/[?&]ids\b/.test(location.search)) document.body.classList.add('show-ids');
+</script>
+    <!--Start of Tawk.to Script-->
+    <script defer type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67291e984304e3196add0224/1ibs9v0u1';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>

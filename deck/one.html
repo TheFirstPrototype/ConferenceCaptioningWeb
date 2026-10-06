@@ -41,10 +41,14 @@ li::before{content:"";position:absolute;left:0;top:13px;width:16px;height:16px;b
 .flow i{font-style:normal;color:var(--acc);font-size:34px}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .tile{background:var(--accsoft);border-radius:16px;padding:16px 10px;text-align:center}
-.tile b{display:block;font-size:50px;line-height:1.05;color:var(--acc)}
+.tile b{display:block;font-size:44px;line-height:1.05;color:var(--acc)}
 .tile span{font-size:21px;color:var(--mute)}
+.reach{display:grid;grid-template-columns:.7fr .7fr 1.6fr;gap:12px}
+.reach b{display:block;font-size:38px;line-height:1.05;color:var(--ink)}
+.reach span{font-size:20px;color:var(--mute)}
+.hl{color:var(--ink);font-weight:600;font-size:22px;line-height:1.3}
 .trac{display:grid;grid-template-columns:.8fr 1.2fr;gap:12px 20px}
-.trac b{font-size:42px;line-height:1.1;color:var(--ink)}
+.trac b{font-size:34px;line-height:1.1;color:var(--ink)}
 .trac span{font-weight:500;color:var(--mute);font-size:22px;display:block}
 footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
 .f{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px 28px;display:flex;flex-direction:column;gap:6px}
@@ -67,8 +71,8 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
 <div id="stage">
   <header>
     <div class="brand"><img src="../images/logo-white.svg" alt="ConferenceCaptioning"></div>
-    <h1>Live captions and translation for every Michigan event.</h1>
-    <div class="sub">Scan a QR code. No app. No hardware. 70+ languages.</div>
+    <h1>AI Infrastructure for Event Accessibility &amp; Inclusion</h1>
+    <div class="sub">Attendees just scan a QR code. Organizers run the AI on their own device, not a data center. 70+ languages.</div>
   </header>
 
   <main>
@@ -100,11 +104,13 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
         <div class="tile"><b>0.05s</b><span>caption delay</span></div>
         <div class="tile"><b>0.5s</b><span>failover</span></div>
       </div>
-      <div class="cap">Open benchmark on a live NASA press conference, run on-device. Data CC BY 4.0, scorer MIT.</div>
+      <div class="cap">Open on-device benchmark: live NASA press conference.</div>
+      <div class="reach"><div><b>6+</b><span>countries</span></div><div><b>20+</b><span>cities</span></div><div><b>1M+</b><span>words transcribed + translated</span></div></div>
       <div class="trac">
-        <div><b class="arr">$30K</b><span>annual recurring revenue</span></div>
+        <div><b class="arr">$30K</b><span>ARR</span></div>
         <div><b class="arr">YMCA, Apple</b><span>among our customers</span></div>
       </div>
+      <div class="cap hl">Works offline: no $2,500&ndash;5,000 internet line. Recommended by Google AI search for in-person conference captioning.</div>
     </section>
   </main>
 
@@ -115,7 +121,7 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
     <div class="f"><div class="lab">Business model</div><p>Events: $150/hr<br>Unlimited: $400/mo, annual, for-profits<br>Non-profit discounts by need</p></div>
     <div class="f ask">
       <div><div class="lab">The ask</div><p>Raising $1.25M<br><span style="font-size:22px;font-weight:500">Sales 45% &middot; Product 35% &middot; Ops 20%</span></p><a href="https://conferencecaptioning.com/">conferencecaptioning.com</a></div>
-      <svg class="qr" id="qr" viewBox="0 0 1 1" aria-label="QR code to conferencecaptioning.com"></svg>
+      <img class="qr" src="https://conferencecaptioning.com/qr.svg" alt="QR code to conferencecaptioning.com">
     </div>
   </footer>
 </div>
@@ -127,10 +133,9 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
 <b>Solution.</b> Scan a QR code and you're in. Live captions and translation in 70+ languages, no app, no hardware. OBS, Zoom, venue screens, a shareable transcript link.<br>
 <b>Proof.</b> Open benchmark on a live NASA press conference, on-device: 97.2% word accuracy, 0.05 s delay, failover in as little as half a second. Methodology, data and scorer are public.<br>
 <b>Why Michigan.</b> Universities, auto and manufacturing, one of the largest Arab-American communities, and ADA obligations across schools, churches and municipalities.<br>
-<b>Ask.</b> Raising $1.25M: 45% sales, 35% product, 20% operations and compliance. We have $30K ARR, with YMCA and Apple among our customers. Pricing: $150/hr for events, $400/month unlimited on an annual commitment for for-profits, with non-profit discounts. Start with a pilot in your network.
+<b>Ask.</b> We have captioned and translated in 6+ countries and 20+ cities, over a million words. Because the AI runs on the organizer's own device, it works offline, so events skip the $2,500 to $5,000 dedicated internet line. Raising $1.25M: 45% sales, 35% product, 20% operations and compliance. We have $30K ARR, with YMCA and Apple among our customers. Pricing: $150/hr for events, $400/month unlimited on an annual commitment for for-profits, with non-profit discounts. Start with a pilot in your network.
 </div>
 
-<script src="../js/qrcode.min.js" onerror="this.remove()"></script>
 <script>
 (function(){
   var st=document.getElementById('stage');
@@ -146,13 +151,6 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
   else{var i=0;(function next(){var L=lines[i++%lines.length],n=0;tr.textContent='';
     (function ty(){t.textContent=L[0].slice(0,++n);if(n<L[0].length)setTimeout(ty,45);else{tr.textContent=L[1];setTimeout(next,2600)}})()})()}
 
-  try{
-    var q=qrcode(0,'M');q.addData('https://conferencecaptioning.com/');q.make();
-    var n=q.getModuleCount(),svg=document.getElementById('qr'),d='';
-    svg.setAttribute('viewBox','0 0 '+n+' '+n);
-    for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(q.isDark(r,c))d+='M'+c+' '+r+'h1v1h-1z';
-    svg.innerHTML='<path d="'+d+'" fill="#0f172a"/>';
-  }catch(e){document.getElementById('qr').style.display='none'}
 })();
 </script>
 </body>

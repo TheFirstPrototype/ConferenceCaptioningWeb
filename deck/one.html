@@ -21,7 +21,9 @@ main{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:24px;min-height:0}
 .col{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px 32px;display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0}
 .col.mid{background:rgba(30,58,138,.55);border-color:transparent;align-items:center}
 .lab{font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
-.big{font-size:96px;line-height:1;font-weight:800;color:var(--acc)}
+.big{font-size:84px;line-height:1;font-weight:800;color:var(--acc)}
+.big2{font-size:24px;white-space:nowrap;color:var(--mute)}
+.big2 b{font-size:46px;color:var(--acc);margin-right:10px;vertical-align:-4px}
 .cap{font-size:24px;color:var(--mute)}
 ul{list-style:none;display:flex;flex-direction:column;gap:14px}
 li{font-size:27px;font-weight:600;padding-left:34px;position:relative}
@@ -72,12 +74,12 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
   <main>
     <section class="col">
       <div class="lab">The problem</div>
-      <div class="big">1.9M</div>
-      <div class="cap">Michigan residents are deaf or hard of hearing <span class="ph">[verify source]</span></div>
+      <div class="big">733K</div>
+      <div class="cap">deaf or hard of hearing in Michigan (state survey)</div>
+      <div class="big2"><b>1.06M</b>speak another language at home</div>
       <ul>
         <li>Human captioners are costly, booked weeks ahead</li>
-        <li>No live translation</li>
-        <li>Arabic, Spanish and Asian communities shut out</li>
+        <li>No live translation for Spanish, Arabic, Chinese speakers</li>
       </ul>
     </section>
 
@@ -86,7 +88,7 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
       <div class="vid">
         <video src="bali-summit.mp4" poster="bali-summit-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Bali summit stage with screens showing live captions"></video>
         <div class="live">LIVE</div>
-        <div class="bar"><span id="typed"></span><small id="tr"></small></div>
+        <!-- <div class="bar"><span id="typed"></span><small id="tr"></small></div> -->
       </div>
       <div class="flow"><span>Speak</span><i>&rsaquo;</i><span>Caption + Translate</span><i>&rsaquo;</i><span>Phone, OBS, Zoom, link</span></div>
     </section>
@@ -112,7 +114,7 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
     <div class="f"><div class="lab">Why Michigan</div><p>Universities, auto and manufacturing, a large Arab-American community, ADA-driven public sector.</p></div>
     <div class="f"><div class="lab">Business model</div><p>Events: $150/hr<br>Unlimited: $400/mo, annual, for-profits<br>Non-profit discounts by need</p></div>
     <div class="f ask">
-      <div><div class="lab">The ask</div><p>Raising $1.25M for <span class="ph">[use of funds]</span></p><a href="https://conferencecaptioning.com/">conferencecaptioning.com</a></div>
+      <div><div class="lab">The ask</div><p>Raising $1.25M<br><span style="font-size:22px;font-weight:500">Sales 45% &middot; Product 35% &middot; Ops 20%</span></p><a href="https://conferencecaptioning.com/">conferencecaptioning.com</a></div>
       <svg class="qr" id="qr" viewBox="0 0 1 1" aria-label="QR code to conferencecaptioning.com"></svg>
     </div>
   </footer>
@@ -120,12 +122,12 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
 
 <div id="notes">
 <b>2-minute script (press N to hide)</b><br><br>
-<b>Hook.</b> Michigan has about 1.9 million people who are deaf or hard of hearing. Live events either pay for a human captioner or have no captions at all.<br>
+<b>Hook.</b> Michigan's own state survey counts about 733,000 deaf or hard-of-hearing residents, and over a million people speak another language at home. Live events either pay for a human captioner or have no captions at all.<br>
 <b>Problem.</b> Human captioning is expensive, booked weeks ahead, and can't translate. Michigan's Arabic, Spanish and Asian communities can barely follow a live event in their language.<br>
 <b>Solution.</b> Scan a QR code and you're in. Live captions and translation in 70+ languages, no app, no hardware. OBS, Zoom, venue screens, a shareable transcript link.<br>
 <b>Proof.</b> Open benchmark on a live NASA press conference, on-device: 97.2% word accuracy, 0.05 s delay, failover in as little as half a second. Methodology, data and scorer are public.<br>
 <b>Why Michigan.</b> Universities, auto and manufacturing, one of the largest Arab-American communities, and ADA obligations across schools, churches and municipalities.<br>
-<b>Ask.</b> Raising $1.25M for [use of funds]. We have $30K ARR, with YMCA and Apple among our customers. Pricing: $150/hr for events, $400/month unlimited on an annual commitment for for-profits, with non-profit discounts. Start with a pilot in your network.
+<b>Ask.</b> Raising $1.25M: 45% sales, 35% product, 20% operations and compliance. We have $30K ARR, with YMCA and Apple among our customers. Pricing: $150/hr for events, $400/month unlimited on an annual commitment for for-profits, with non-profit discounts. Start with a pilot in your network.
 </div>
 
 <script src="../js/qrcode.min.js" onerror="this.remove()"></script>

@@ -37,10 +37,10 @@
                 </div>
             </div>
             <div class="flex items-center space-x-3">
-                <span id="live-indicator" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                    <span class="w-2 h-2 mr-1.5 bg-green-500 rounded-full animate-pulse"></span> Live API Connected
+                <span id="live-indicator" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                    <span class="w-2 h-2 mr-1.5 bg-gray-400 rounded-full"></span> Connecting...
                 </span>
-                <button onclick="fetchAllData()" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+                <button id="refresh-btn" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
                     <i data-lucide="refresh-cw" class="w-3.5 h-3.5 mr-1.5"></i> Refresh
                 </button>
             </div>
@@ -49,6 +49,12 @@
 
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-8">
+
+        <!-- Error banner -->
+        <div id="error-banner" class="hidden bg-red-50 border border-red-200 text-red-800 rounded-xl px-4 py-3 text-sm flex items-start space-x-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+            <span id="error-text"></span>
+        </div>
 
         <!-- Actionable Insights Banner -->
         <section id="insights-section" class="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl shadow-xl text-white p-6 relative overflow-hidden">
@@ -63,7 +69,7 @@
                 <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/15">
                     <div class="text-blue-200 text-xs uppercase font-semibold tracking-wider mb-1">Top Traffic Driver</div>
                     <div id="insight-top-source" class="text-base font-bold truncate">Analyzing...</div>
-                    <div id="insight-top-source-sub" class="text-xs text-gray-300 mt-1">Calculated from recent hits</div>
+                    <div id="insight-top-source-sub" class="text-xs text-gray-300 mt-1">Calculated from the selected timeframe</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/15">
                     <div class="text-blue-200 text-xs uppercase font-semibold tracking-wider mb-1">Geographic Hotspot</div>
@@ -79,46 +85,74 @@
         </section>
 
         <!-- Filter Control Panel -->
-        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 space-y-4">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <!-- Time Filters -->
-                <div class="flex flex-wrap items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2" id="time-buttons">
                     <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-1">Timeframe:</span>
-                    <button onclick="setTimeFilter('1h')" data-time="1h" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 hover:bg-gray-100">Last Hour</button>
-                    <button onclick="setTimeFilter('24h')" data-time="24h" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 hover:bg-gray-100">Last 24 Hours</button>
-                    <button onclick="setTimeFilter('7d')" data-time="7d" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-brand-600 text-white border-transparent">Last 7 Days</button>
-                    <button onclick="setTimeFilter('30d')" data-time="30d" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 hover:bg-gray-100">Last 30 Days</button>
-                    <button onclick="setTimeFilter('all')" data-time="all" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 hover:bg-gray-100">All Time</button>
+                    <button data-time="1h" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">Last Hour</button>
+                    <button data-time="24h" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">Last 24 Hours</button>
+                    <button data-time="7d" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">Last 7 Days</button>
+                    <button data-time="30d" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">Last 30 Days</button>
+                    <button data-time="all" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">All Time</button>
+                    <button data-time="custom" class="time-btn px-3 py-1.5 text-xs font-medium rounded-lg border">Custom</button>
                 </div>
 
                 <!-- Grouping Options -->
                 <div class="flex items-center space-x-3">
                     <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Group By:</span>
-                    <select id="group-by-select" onchange="renderDashboard()" class="text-xs border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:ring-brand-500 focus:border-brand-500">
+                    <select id="group-by-select" class="text-xs border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:ring-brand-500 focus:border-brand-500">
                         <option value="raw">None (Raw Hits)</option>
                         <option value="url">Specific URL</option>
                         <option value="domain">Root Domain</option>
+                        <option value="stream">Stream</option>
                         <option value="city">City / Location</option>
+                        <option value="referral">Referral Source</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Search bar -->
-            <div class="mt-4 pt-4 border-t border-gray-100 flex items-center">
-                <div class="relative flex-grow">
+            <!-- Custom date range -->
+            <div id="custom-range" class="hidden flex flex-wrap items-center gap-3 text-xs">
+                <label class="text-gray-500 font-semibold uppercase tracking-wider">From
+                    <input type="date" id="custom-from" class="ml-2 border border-gray-300 rounded-lg px-2 py-1 text-xs normal-case font-normal text-gray-800">
+                </label>
+                <label class="text-gray-500 font-semibold uppercase tracking-wider">To
+                    <input type="date" id="custom-to" class="ml-2 border border-gray-300 rounded-lg px-2 py-1 text-xs normal-case font-normal text-gray-800">
+                </label>
+                <span class="text-gray-400">The end date is included.</span>
+            </div>
+
+            <!-- Filters -->
+            <div class="pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-3">
+                <div class="relative md:col-span-2">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                         <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
-                    <input type="text" id="search-input" oninput="renderDashboard()" placeholder="Search by keyword across websites, locations, referrals..." class="block w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500">
+                    <input type="text" id="search-input" placeholder="Search websites, locations, referrals..." class="block w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500">
+                </div>
+                <select id="domain-select" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-brand-500 focus:border-brand-500">
+                    <option value="">All domains</option>
+                </select>
+                <input type="text" id="city-input" placeholder="City / region contains..." class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500">
+                <input type="text" id="referral-input" placeholder="Referral contains..." class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500 md:col-span-2">
+                <div class="md:col-span-2 flex items-center justify-end gap-2">
+                    <button id="clear-filters" class="px-3 py-2 text-xs font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">Clear filters</button>
+                    <button id="export-csv" class="inline-flex items-center px-3 py-2 text-xs font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700">
+                        <i data-lucide="download" class="w-3.5 h-3.5 mr-1.5"></i> Export CSV
+                    </button>
                 </div>
             </div>
         </section>
+
+        <!-- KPI cards -->
+        <section id="kpi-grid" class="grid grid-cols-2 lg:grid-cols-6 gap-4"></section>
 
         <!-- Charts Grid -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                 <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center">
-                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-brand-600"></i> Traffic Trend Over Time
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2 text-brand-600"></i> <span id="trend-title">Traffic Trend Over Time</span>
                 </h3>
                 <div class="h-64 relative">
                     <canvas id="trendChart"></canvas>
@@ -134,29 +168,70 @@
             </div>
         </section>
 
+        <!-- Period comparison -->
+        <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 space-y-5" id="compare-section">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                <div>
+                    <h3 class="text-sm font-bold text-gray-800 flex items-center">
+                        <i data-lucide="git-compare" class="w-4 h-4 mr-2 text-brand-600"></i> Compare Periods
+                    </h3>
+                    <p class="text-xs text-gray-500 mt-1">Uses its own periods (not the timeframe above) but respects the search and filters.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 text-xs">
+                    <select id="cmp-preset" class="border border-gray-300 rounded-lg px-3 py-1.5 bg-white focus:ring-brand-500 focus:border-brand-500">
+                        <option value="thisMonth">This month vs last month</option>
+                        <option value="thisWeek">This week vs last week</option>
+                        <option value="today">Today vs yesterday</option>
+                        <option value="thisQuarter">This quarter vs last quarter</option>
+                        <option value="thisYear">This year vs last year</option>
+                        <option value="last7Days">Last 7 days vs previous 7</option>
+                        <option value="last30Days">Last 30 days vs previous 30</option>
+                        <option value="last90Days">Last 90 days vs previous 90</option>
+                        <option value="custom">Custom periods...</option>
+                    </select>
+                    <label id="cmp-lfl-label" class="inline-flex items-center gap-1.5 text-gray-600" title="Compare against the same elapsed part of the previous period (e.g. the 5th of this month vs the 1st-5th of last month)">
+                        <input type="checkbox" id="cmp-lfl" checked> Same elapsed period
+                    </label>
+                </div>
+            </div>
+
+            <div id="cmp-custom" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="border border-gray-200 rounded-lg p-3 space-y-2">
+                    <div class="font-semibold text-gray-600 uppercase tracking-wider">Period A (current)</div>
+                    <div class="flex items-center gap-2"><input type="date" id="cmp-a-from" class="border border-gray-300 rounded-lg px-2 py-1"> to <input type="date" id="cmp-a-to" class="border border-gray-300 rounded-lg px-2 py-1"></div>
+                </div>
+                <div class="border border-gray-200 rounded-lg p-3 space-y-2">
+                    <div class="font-semibold text-gray-600 uppercase tracking-wider">Period B (compared with)</div>
+                    <div class="flex items-center gap-2"><input type="date" id="cmp-b-from" class="border border-gray-300 rounded-lg px-2 py-1"> to <input type="date" id="cmp-b-to" class="border border-gray-300 rounded-lg px-2 py-1"></div>
+                </div>
+            </div>
+
+            <div id="cmp-labels" class="text-xs text-gray-500"></div>
+            <div id="cmp-kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+            <div class="h-72 relative"><canvas id="compareChart"></canvas></div>
+
+            <div id="cmp-movers" class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+        </section>
+
         <!-- Main Data Table Section -->
         <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div class="p-5 border-b border-gray-200 flex justify-between items-center">
                 <div>
-                    <h3 class="text-sm font-bold text-gray-800">Analytics Dataset</h3>
+                    <h3 class="text-sm font-bold text-gray-800" id="table-title">Analytics Dataset</h3>
                     <p class="text-xs text-gray-500" id="table-record-count">Showing 0 records</p>
                 </div>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200 text-left text-xs">
-                    <thead class="bg-gray-50 text-gray-500 font-semibold uppercase tracking-wider">
-                        <tr>
-                            <th class="px-6 py-3">Timestamp / Created At</th>
-                            <th class="px-6 py-3">Location (City, State, Country)</th>
-                            <th class="px-6 py-3">Website / Target Path</th>
-                            <th class="px-6 py-3">Referral</th>
-                            <th class="px-6 py-3 text-right">Actions / Telemetry</th>
-                        </tr>
-                    </thead>
+                    <thead id="data-table-head" class="bg-gray-50 text-gray-500 font-semibold uppercase tracking-wider"></thead>
                     <tbody id="data-table-body" class="divide-y divide-gray-200 bg-white">
                         <!-- Populated dynamically via JS -->
                     </tbody>
                 </table>
+            </div>
+            <div id="load-more-wrap" class="hidden p-4 border-t border-gray-100 text-center">
+                <button id="load-more" class="px-4 py-2 text-xs font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">Load more</button>
             </div>
         </section>
     </main>
@@ -169,399 +244,587 @@
                     <i data-lucide="radio" class="w-5 h-5 text-red-500 animate-pulse"></i>
                     <h3 id="modal-stream-title" class="font-bold text-sm">Stream Telemetry</h3>
                 </div>
-                <button onclick="closeStreamModal()" class="text-gray-400 hover:text-white">
+                <button id="modal-close-x" class="text-gray-400 hover:text-white">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
             <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto" id="modal-stream-body">
-                <!-- Stream info dynamically populated -->
                 <div class="flex justify-center py-12">
                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
                 </div>
             </div>
             <div class="bg-gray-50 px-6 py-3 border-t border-gray-200 flex justify-end">
-                <button onclick="closeStreamModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-xs font-medium hover:bg-gray-300">Close</button>
+                <button id="modal-close" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-xs font-medium hover:bg-gray-300">Close</button>
             </div>
         </div>
     </div>
 
     <!-- Application Logic Script -->
     <script>
-        let rawData = [];
-        let currentTimeFilter = '7d';
-        let trendChartInstance = null;
-        let domainChartInstance = null;
+        // ---------------------------------------------------------------------------------------------
+        // Configuration. `?api=https://localhost:5001` points the page at a local API for development.
+        // ---------------------------------------------------------------------------------------------
+        const API_BASE = (new URLSearchParams(location.search).get('api') || 'https://api.deafassistant.com').replace(/\/$/, '');
+        const TZ_OFFSET = -new Date().getTimezoneOffset(); // minutes east of UTC, so the server buckets days in the viewer's clock
+        const PAGE_SIZE = 500;
+        const EXPORT_PAGE = 5000;
+        const EXPORT_MAX_PAGES = 5;
 
-        // On Load
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            fetchAllData();
-        });
+        const state = {
+            range: '7d', from: '', to: '',
+            domain: '', city: '', referral: '', q: '',
+            groupBy: 'raw',
+            rows: [], total: 0, hasMore: false,
+            summary: null,
+            domainOptions: [],
+            cmp: { preset: 'thisMonth', likeForLike: true, aFrom: '', aTo: '', bFrom: '', bTo: '' }
+        };
+        let trendChart = null, domainChart = null, compareChart = null;
+        const inflight = {};   // one in-flight request per kind; a newer request cancels the older one
 
-        async function fetchAllData() {
-            const indicator = document.getElementById('live-indicator');
-            indicator.innerHTML = `<span class="w-2 h-2 mr-1.5 bg-yellow-500 rounded-full animate-ping"></span> Fetching API...`;
-            
+        // ---------------------------------------------------------------------------------------------
+        // Helpers
+        // ---------------------------------------------------------------------------------------------
+        const $ = id => document.getElementById(id);
+        const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        // Values come from a public logging endpoint, so never trust them: escape for HTML, allow only http(s) links.
+        const safeUrl = u => /^https?:\/\//i.test(u || '') ? u : '#';
+        const fmt = n => Number(n ?? 0).toLocaleString();
+        const fmt1 = n => Number(n ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
+        // The API sends 7 fractional-second digits; keep milliseconds so every browser parses it.
+        const toDate = s => new Date(String(s).replace(/(\.\d{3})\d+/, '$1'));
+        const pct = (n, d) => d ? Math.round((n / d) * 1000) / 10 : 0;
+
+        function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+        async function apiGet(kind, path, params) {
+            if (inflight[kind]) inflight[kind].abort();
+            const controller = new AbortController();
+            inflight[kind] = controller;
+            const url = `${API_BASE}/analytics/${path}?${params.toString()}`;
+            const res = await fetch(url, { signal: controller.signal });
+            if (!res.ok) throw new Error(`${path} failed (${res.status}): ${(await res.text()).slice(0, 200)}`);
+            return res.json();
+        }
+
+        function showError(msg) {
+            $('error-text').textContent = msg;
+            $('error-banner').classList.remove('hidden');
+        }
+        function clearError() { $('error-banner').classList.add('hidden'); }
+        function setIndicator(kind, text) {
+            const cls = { ok: ['bg-green-100 text-green-800', 'bg-green-500'], busy: ['bg-yellow-100 text-yellow-800', 'bg-yellow-500 animate-ping'], err: ['bg-red-100 text-red-800', 'bg-red-500'] }[kind];
+            const el = $('live-indicator');
+            el.className = `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cls[0]}`;
+            el.innerHTML = `<span class="w-2 h-2 mr-1.5 ${cls[1]} rounded-full"></span> ${esc(text)}`;
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Request parameters
+        // ---------------------------------------------------------------------------------------------
+        function windowParams(p) {
+            switch (state.range) {
+                case '1h': p.set('hours', 1); break;
+                case '24h': p.set('hours', 24); break;
+                case '7d': p.set('days', 7); break;
+                case '30d': p.set('days', 30); break;
+                case 'all': p.set('days', 0); break;
+                case 'custom':
+                    if (state.from) p.set('from', state.from);
+                    if (state.to) p.set('to', state.to);
+                    if (!state.from && !state.to) p.set('days', 30);
+                    break;
+            }
+        }
+        function filterParams(p) {
+            if (state.domain) p.set('domain', state.domain);
+            if (state.city.trim()) p.set('city', state.city.trim());
+            if (state.referral.trim()) p.set('referral', state.referral.trim());
+            if (state.q.trim()) p.set('q', state.q.trim());
+        }
+        function baseParams() {
+            const p = new URLSearchParams();
+            p.set('tzOffsetMinutes', TZ_OFFSET);
+            filterParams(p);
+            return p;
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Loading
+        // ---------------------------------------------------------------------------------------------
+        async function loadAll() {
+            setIndicator('busy', 'Fetching analytics...');
+            clearError();
             try {
-                const response = await fetch('https://api.deafassistant.com/analytics/GetAll');
-                if (!response.ok) throw new Error('Network response was not ok');
-                rawData = await response.json();
-                
-                indicator.innerHTML = `<span class="w-2 h-2 mr-1.5 bg-green-500 rounded-full"></span> Live API Connected (${rawData.length} records)`;
-                renderDashboard();
-            } catch (error) {
-                console.error('Failed to fetch analytics data:', error);
-                indicator.innerHTML = `<span class="w-2 h-2 mr-1.5 bg-red-500 rounded-full"></span> API Error (Fallback to Mock)`;
-                // Fallback mock payload structure for preview safety
-                rawData = [
-                    { id: 1, createdAt: new Date().toISOString(), cityStateCountry: "Detroit, Michigan, US", website: "https://deafassistant.com/velocity/", referral: "" },
-                    { id: 2, createdAt: new Date(Date.now() - 3600000).toISOString(), cityStateCountry: "Ashburn, Virginia, US", website: "https://deafassistant.com/sebstream", referral: "google.com" },
-                    { id: 3, createdAt: new Date(Date.now() - 86400000).toISOString(), cityStateCountry: "Omaha, Nebraska, US", website: "https://conferencecaptioning.com/blog/test", referral: "" }
-                ];
-                renderDashboard();
+                await Promise.all([loadSummary(), loadRecords(true), loadCompare()]);
+                setIndicator('ok', `Live API Connected (${fmt(state.summary ? state.summary.totalHits : 0)} hits in view)`);
+            } catch (e) {
+                if (e.name === 'AbortError') return; // superseded by a newer request
+                console.error(e);
+                setIndicator('err', 'API error');
+                showError(`Could not load analytics: ${e.message}`);
             }
         }
 
-        function setTimeFilter(filter) {
-            currentTimeFilter = filter;
-            document.querySelectorAll('.time-btn').forEach(btn => {
-                if (btn.dataset.time === filter) {
-                    btn.className = "time-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-brand-600 text-white border-transparent shadow-sm";
-                } else {
-                    btn.className = "time-btn px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-700";
-                }
-            });
-            renderDashboard();
+        async function loadSummary() {
+            const p = baseParams();
+            windowParams(p);
+            p.set('top', 50);
+            state.summary = await apiGet('summary', 'Summary', p);
+            if (!state.domain) state.domainOptions = state.summary.topDomains.map(d => d.key);
+            renderInsights();
+            renderKpis();
+            renderCharts();
+            renderDomainOptions();
+            if (state.groupBy !== 'raw') renderTable();
         }
 
-        function filterDataByTime(data) {
-            if (currentTimeFilter === 'all') return data;
-            const now = new Date();
-            let threshold = new Date();
+        async function loadRecords(reset) {
+            if (state.groupBy !== 'raw') { $('load-more-wrap').classList.add('hidden'); return; }
+            const p = baseParams();
+            windowParams(p);
+            p.set('limit', PAGE_SIZE);
+            p.set('offset', reset ? 0 : state.rows.length);
+            const page = await apiGet('records', 'Records', p);
+            state.rows = reset ? page.rows : state.rows.concat(page.rows);
+            state.total = page.total;
+            state.hasMore = page.hasMore;
+            renderTable();
+        }
 
-            switch(currentTimeFilter) {
-                case '1h': threshold.setHours(now.getHours() - 1); break;
-                case '24h': threshold.setHours(now.getHours() - 24); break;
-                case '7d': threshold.setDate(now.getDate() - 7); break;
-                case '30d': threshold.setDate(now.getDate() - 30); break;
+        async function loadCompare() {
+            const c = state.cmp;
+            const p = baseParams();
+            p.set('preset', c.preset);
+            p.set('likeForLike', c.likeForLike);
+            if (c.preset === 'custom') {
+                if (!(c.aFrom && c.aTo && c.bFrom && c.bTo)) { renderCompare(null); return; }
+                p.set('aFrom', c.aFrom); p.set('aTo', c.aTo); p.set('bFrom', c.bFrom); p.set('bTo', c.bTo);
             }
-
-            return data.filter(item => new Date(item.createdAt) >= threshold);
+            p.set('top', 8);
+            renderCompare(await apiGet('compare', 'Compare', p));
         }
 
-        function getDomainFromUrl(url) {
-            try {
-                const parsed = new URL(url);
-                return parsed.hostname;
-            } catch {
-                return url.split('/')[0] || 'Unknown';
-            }
-        }
-
-        function extractStreamName(url) {
-            if (!url) return null;
-            // Match patterns like deafassistant.com/sebstream or custom routes
-            const match = url.match(/\/([a-zA-Z0-9_-]+)(?:\/|$)$/);
-            // Ignore generic endings if needed, or filter standard words
-            const commonPaths = ['blog', 'about', 'contact', 'velocity', 'analytics', 'GetAll'];
-            if (match && match[1] && !commonPaths.includes(match[1].toLowerCase()) && url.includes('deafassistant.com/')) {
-                // If it looks like a stream route (adjust heuristic based on your actual stream structure)
-                return match[1];
-            }
-            // Explicit override rule if URL contains 'sebstream' or similar keywords
-            if (url.includes('sebstream')) return 'sebstream';
-            return null;
-        }
-
-        function renderDashboard() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const groupBy = document.getElementById('group-by-select').value;
-
-            // 1. Time Filter
-            let filtered = filterDataByTime(rawData);
-
-            // 2. Search Text Filter
-            if (searchTerm) {
-                filtered = filtered.filter(item => 
-                    (item.website && item.website.toLowerCase().includes(searchTerm)) ||
-                    (item.cityStateCountry && item.cityStateCountry.toLowerCase().includes(searchTerm)) ||
-                    (item.referral && item.referral.toLowerCase().includes(searchTerm))
-                );
-            }
-
-            updateInsights(filtered);
-            renderTable(filtered, groupBy);
-            renderCharts(filtered);
-        }
-
-        function updateInsights(data) {
-            if (!data.length) {
-                document.getElementById('insight-top-source').innerText = "No data available";
-                document.getElementById('insight-top-geo').innerText = "No data available";
-                document.getElementById('insight-streams-count').innerText = "0 streams identified";
+        // ---------------------------------------------------------------------------------------------
+        // Rendering: insights, KPIs, charts
+        // ---------------------------------------------------------------------------------------------
+        function renderInsights() {
+            const s = state.summary;
+            if (!s.totalHits) {
+                $('insight-top-source').innerText = 'No data available';
+                $('insight-top-source-sub').innerText = 'Nothing recorded in this timeframe';
+                $('insight-top-geo').innerText = 'No data available';
+                $('insight-top-geo-sub').innerText = 'Primary region of engagement';
+                $('insight-streams-count').innerText = '0 streams identified';
+                $('insight-streams-sub').innerText = 'No stream pages visited in this timeframe';
                 return;
             }
-
-            // Top Source Domain
-            const domainCounts = {};
-            const geoCounts = {};
-            let streamCandidates = new Set();
-
-            data.forEach(item => {
-                const dom = getDomainFromUrl(item.website);
-                domainCounts[dom] = (domainCounts[dom] || 0) + 1;
-
-                if (item.cityStateCountry) {
-                    geoCounts[item.cityStateCountry] = (geoCounts[item.cityStateCountry] || 0) + 1;
-                }
-
-                const stream = extractStreamName(item.website);
-                if (stream) streamCandidates.add(stream);
-            });
-
-            const topDomain = Object.keys(domainCounts).reduce((a, b) => domainCounts[a] > domainCounts[b] ? a : b, 'N/A');
-            const topGeo = Object.keys(geoCounts).reduce((a, b) => geoCounts[a] > geoCounts[b] ? a : b, 'N/A');
-
-            document.getElementById('insight-top-source').innerText = topDomain;
-            document.getElementById('insight-top-source-sub').innerText = `${domainCounts[topDomain]} hits recorded`;
-
-            document.getElementById('insight-top-geo').innerText = topGeo;
-            document.getElementById('insight-top-geo-sub').innerText = `${geoCounts[topGeo] || 0} visits from this region`;
-
-            document.getElementById('insight-streams-count').innerText = `${streamCandidates.size} Potential Active Streams`;
-            document.getElementById('insight-streams-sub').innerText = streamCandidates.size > 0 ? "Click stream buttons in table to audit status" : "No active stream slugs detected in timeframe";
+            const d = s.topDomains[0], g = s.topCities[0];
+            $('insight-top-source').innerText = d ? d.key : 'N/A';
+            $('insight-top-source-sub').innerText = d ? `${fmt(d.hits)} hits recorded (${pct(d.hits, s.totalHits)}%)` : '';
+            $('insight-top-geo').innerText = g ? g.key : 'N/A';
+            $('insight-top-geo-sub').innerText = g ? `${fmt(g.hits)} visits from this region` : '';
+            $('insight-streams-count').innerText = `${s.uniqueStreams} Active ${s.uniqueStreams === 1 ? 'Stream' : 'Streams'} Detected`;
+            $('insight-streams-sub').innerText = s.uniqueStreams ? 'Click a stream in the table to audit its status' : 'No stream pages visited in this timeframe';
         }
 
-        function renderTable(data, groupBy) {
-            const tbody = document.getElementById('data-table-body');
-            document.getElementById('table-record-count').innerText = `Showing ${data.length} records`;
-            tbody.innerHTML = '';
-
-            let processedData = [...data];
-
-            // Handle Grouping aggregations for table presentation
-            if (groupBy === 'domain' || groupBy === 'city' || groupBy === 'url') {
-                const groups = {};
-                processedData.forEach(item => {
-                    let key = item.website;
-                    if (groupBy === 'domain') key = getDomainFromUrl(item.website);
-                    if (groupBy === 'city') key = item.cityStateCountry || 'Unknown Location';
-                    
-                    if (!groups[key]) groups[key] = { count: 0, lastSeen: item.createdAt, sample: item };
-                    groups[key].count++;
-                    if (new Date(item.createdAt) > new Date(groups[key].lastSeen)) {
-                        groups[key].lastSeen = item.createdAt;
-                        groups[key].sample = item;
-                    }
-                });
-
-                processedData = Object.entries(groups).map(([key, val]) => ({
-                    id: 'Group',
-                    createdAt: val.lastSeen,
-                    cityStateCountry: val.sample.cityStateCountry,
-                    website: groupBy === 'domain' || groupBy === 'city' ? `Grouped By: ${key} (${val.count} hits)` : key,
-                    rawWebsite: val.sample.website,
-                    referral: `${val.count} total hits`,
-                    isGrouped: true
-                }));
-            }
-
-            if (processedData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>`;
-                return;
-            }
-
-            processedData.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-50 transition-colors";
-
-                const dateStr = new Date(item.createdAt).toLocaleString();
-                const targetUrl = item.isGrouped ? item.rawWebsite : item.website;
-                const streamName = extractStreamName(targetUrl);
-
-                tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-600">${dateStr}</td>
-                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${item.cityStateCountry || 'Unknown'}</td>
-                    <td class="px-6 py-4 text-gray-700 max-w-xs truncate" title="${item.website}">
-                        <a href="${item.isGrouped ? item.rawWebsite : item.website}" target="_blank" class="text-brand-600 hover:underline">${item.website}</a>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-500">${item.referral || '-'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right">
-                        ${streamName ? `
-                            <button onclick="openStreamModal('${streamName}')" class="inline-flex items-center px-2.5 py-1 bg-red-50 text-red-700 hover:bg-red-100 rounded-md text-xs font-medium transition-colors">
-                                <i data-lucide="radio" class="w-3 h-3 mr-1 text-red-500 animate-pulse"></i> Stream: ${streamName}
-                            </button>
-                        ` : `<span class="text-gray-300 text-xs">-</span>`}
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-            lucide.createIcons();
+        function kpiCard(label, value, sub) {
+            return `<div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+                <div class="text-[10px] uppercase font-semibold tracking-wider text-gray-400">${esc(label)}</div>
+                <div class="text-2xl font-bold text-gray-900 mt-1">${esc(value)}</div>
+                <div class="text-[11px] text-gray-500 mt-0.5">${esc(sub || '')}</div></div>`;
+        }
+        function renderKpis() {
+            const s = state.summary;
+            $('kpi-grid').innerHTML = [
+                kpiCard('Total hits', fmt(s.totalHits), `${s.bucket} buckets`),
+                kpiCard('Avg per day', fmt1(s.avgHitsPerDay), 'across the timeframe'),
+                kpiCard('Unique pages', fmt(s.uniqueWebsites), `${fmt(s.uniqueDomains)} domains`),
+                kpiCard('Locations', fmt(s.uniqueCities), 'distinct cities'),
+                kpiCard('Streams', fmt(s.uniqueStreams), 'with visits'),
+                kpiCard('Referred', `${pct(s.referredHits, s.totalHits)}%`, `${fmt(s.directHits)} direct hits`)
+            ].join('');
         }
 
-        function renderCharts(data) {
-            // Trend chart data prep (group by date string YYYY-MM-DD)
-            const dateCounts = {};
-            const domainCounts = {};
+        function bucketLabel(label, bucket) {
+            if (bucket === 'hour') return label.slice(11, 16) === '00:00' ? label.slice(5, 10) + ' 00:00' : label.slice(11, 16);
+            if (bucket === 'month') return label;
+            return label.slice(5); // MM-dd
+        }
 
-            data.forEach(item => {
-                const dateKey = item.createdAt ? item.createdAt.split('T')[0] : 'Unknown';
-                dateCounts[dateKey] = (dateCounts[dateKey] || 0) + 1;
+        function renderCharts() {
+            const s = state.summary;
+            $('trend-title').innerText = `Traffic Trend (hits per ${s.bucket})`;
 
-                const dom = getDomainFromUrl(item.website);
-                domainCounts[dom] = (domainCounts[dom] || 0) + 1;
-            });
-
-            // Sort dates chronologically
-            const sortedDates = Object.keys(dateCounts).sort();
-            const trendValues = sortedDates.map(d => dateCounts[d]);
-
-            // Top 5 domains for pie chart
-            const sortedDomains = Object.entries(domainCounts).sort((a,b) => b[1] - a[1]).slice(0, 5);
-            const domainLabels = sortedDomains.map(d => d[0]);
-            const domainValues = sortedDomains.map(d => d[1]);
-
-            // Render Trend Chart
-            const ctxTrend = document.getElementById('trendChart').getContext('2d');
-            if (trendChartInstance) trendChartInstance.destroy();
-            trendChartInstance = new Chart(ctxTrend, {
+            if (trendChart) trendChart.destroy();
+            trendChart = new Chart($('trendChart').getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: sortedDates,
-                    datasets: [{
-                        label: 'Hits',
-                        data: trendValues,
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    labels: s.trend.map(t => bucketLabel(t.bucket, s.bucket)),
+                    datasets: [{ label: 'Hits', data: s.trend.map(t => t.hits), borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.3, pointRadius: s.trend.length > 60 ? 0 : 2 }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: true, ticks: { precision:0 } } }
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: items => s.trend[items[0].dataIndex].bucket } } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } }, x: { ticks: { maxTicksLimit: 12 } } }
                 }
             });
 
-            // Render Domain Chart
-            const ctxDomain = document.getElementById('domainChart').getContext('2d');
-            if (domainChartInstance) domainChartInstance.destroy();
-            domainChartInstance = new Chart(ctxDomain, {
+            const top = s.topDomains.slice(0, 5);
+            if (domainChart) domainChart.destroy();
+            domainChart = new Chart($('domainChart').getContext('2d'), {
                 type: 'doughnut',
-                data: {
-                    labels: domainLabels,
-                    datasets: [{
-                        data: domainValues,
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
-                }
+                data: { labels: top.map(d => d.key), datasets: [{ data: top.map(d => d.hits), backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } } }
             });
         }
 
-        // Stream Modal Logic
+        function renderDomainOptions() {
+            const select = $('domain-select');
+            const options = state.domainOptions.slice();
+            if (state.domain && !options.includes(state.domain)) options.unshift(state.domain);
+            select.innerHTML = '<option value="">All domains</option>' + options.map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join('');
+            select.value = state.domain;
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Rendering: comparison
+        // ---------------------------------------------------------------------------------------------
+        function deltaBadge(d, invert) {
+            if (!d) return '';
+            if (d.previous === 0 && d.current === 0) return '<span class="text-gray-400 text-xs">no change</span>';
+            if (d.previous === 0) return '<span class="text-xs font-semibold text-blue-600">new</span>';
+            const up = d.change > 0, flat = d.change === 0;
+            const good = invert ? !up : up;
+            const color = flat ? 'text-gray-500' : good ? 'text-green-600' : 'text-red-600';
+            const arrow = flat ? '' : up ? '&#9650; ' : '&#9660; ';
+            return `<span class="text-xs font-semibold ${color}">${arrow}${esc(flat ? '0%' : Math.abs(d.changePct).toFixed(1) + '%')}</span>`;
+        }
+
+        function cmpKpi(label, d, formatter) {
+            const f = formatter || fmt;
+            return `<div class="border border-gray-200 rounded-xl p-4">
+                <div class="text-[10px] uppercase font-semibold tracking-wider text-gray-400">${esc(label)}</div>
+                <div class="flex items-baseline gap-2 mt-1"><span class="text-2xl font-bold text-gray-900">${esc(f(d.current))}</span>${deltaBadge(d)}</div>
+                <div class="text-[11px] text-gray-500 mt-0.5">was ${esc(f(d.previous))}</div></div>`;
+        }
+
+        const STATUS = {
+            new: ['New', 'bg-blue-50 text-blue-700'], gone: ['Gone', 'bg-gray-100 text-gray-600'],
+            up: ['Up', 'bg-green-50 text-green-700'], down: ['Down', 'bg-red-50 text-red-700'], flat: ['Flat', 'bg-gray-50 text-gray-500']
+        };
+        function moversTable(title, rows) {
+            const body = rows.length ? rows.map(m => {
+                const [text, cls] = STATUS[m.status];
+                const change = (m.change > 0 ? '+' : '') + fmt(m.change);
+                return `<tr class="border-t border-gray-100">
+                    <td class="py-2 pr-3 text-gray-800 truncate max-w-[16rem]" title="${esc(m.key)}">${esc(m.key)}</td>
+                    <td class="py-2 px-2 text-right tabular-nums">${fmt(m.current)}</td>
+                    <td class="py-2 px-2 text-right tabular-nums text-gray-500">${fmt(m.previous)}</td>
+                    <td class="py-2 px-2 text-right tabular-nums">${esc(change)}${m.changePct == null ? '' : ` <span class="text-gray-400">(${m.changePct > 0 ? '+' : ''}${m.changePct}%)</span>`}</td>
+                    <td class="py-2 pl-2 text-right"><span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${cls}">${text}</span></td></tr>`;
+            }).join('') : '<tr><td colspan="5" class="py-4 text-center text-gray-400">Nothing to compare</td></tr>';
+            return `<div><h4 class="text-xs font-bold text-gray-700 mb-2">${esc(title)}</h4>
+                <table class="w-full text-xs"><thead><tr class="text-gray-400 uppercase text-[10px]"><th class="text-left font-semibold pb-1">Name</th><th class="text-right font-semibold pb-1 px-2">Now</th><th class="text-right font-semibold pb-1 px-2">Before</th><th class="text-right font-semibold pb-1 px-2">Change</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`;
+        }
+
+        function renderCompare(c) {
+            if (compareChart) { compareChart.destroy(); compareChart = null; }
+            if (!c) {
+                $('cmp-labels').textContent = 'Pick both periods to compare.';
+                $('cmp-kpis').innerHTML = ''; $('cmp-movers').innerHTML = '';
+                return;
+            }
+            // `to` is exclusive and already in the viewer's clock: if it is exactly midnight the last day included is the day before.
+            const lastDay = to => {
+                const [y, m, d] = to.slice(0, 10).split('-').map(Number);
+                const midnight = /T00:00:00(\.0+)?$/.test(to);
+                const dt = new Date(y, m - 1, d - (midnight ? 1 : 0));
+                return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+            };
+            const range = p => `${p.from.slice(0, 10)} to ${lastDay(p.to)}`;
+            $('cmp-labels').innerHTML = `<span class="font-semibold text-brand-700">${esc(c.current.label)}</span> (${esc(range(c.current))}) vs <span class="font-semibold text-gray-700">${esc(c.previous.label)}</span> (${esc(range(c.previous))})`;
+            $('cmp-kpis').innerHTML = [
+                cmpKpi('Total hits', c.deltas.totalHits),
+                cmpKpi('Avg hits / day', c.deltas.avgHitsPerDay, fmt1),
+                cmpKpi('Active streams', c.deltas.uniqueStreams),
+                cmpKpi('Locations', c.deltas.uniqueCities),
+                cmpKpi('Unique pages', c.deltas.uniqueWebsites),
+                cmpKpi('Domains', c.deltas.uniqueDomains),
+                cmpKpi('Referred hits', c.deltas.referredHits),
+                cmpKpi('Direct hits', c.deltas.directHits)
+            ].join('');
+
+            const bucket = c.current.bucket;
+            const unit = { hour: 'Hour', day: 'Day', week: 'Week', month: 'Month' }[bucket];
+            compareChart = new Chart($('compareChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: c.alignedTrend.map(p => `${unit} ${p.index + 1}`),
+                    datasets: [
+                        { label: c.current.label, data: c.alignedTrend.map(p => p.current), borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.08)', fill: true, tension: 0.25, spanGaps: false, pointRadius: c.alignedTrend.length > 60 ? 0 : 2 },
+                        { label: c.previous.label, data: c.alignedTrend.map(p => p.previous), borderColor: '#9ca3af', borderDash: [6, 4], tension: 0.25, spanGaps: false, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } },
+                        tooltip: { callbacks: { afterTitle: items => { const p = c.alignedTrend[items[0].dataIndex]; return [p.currentBucket && `Current: ${p.currentBucket}`, p.previousBucket && `Before: ${p.previousBucket}`].filter(Boolean); } } } },
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } }, x: { ticks: { maxTicksLimit: 14 } } }
+                }
+            });
+
+            $('cmp-movers').innerHTML = moversTable('Streams that moved most', c.movers.streams) + moversTable('Domains that moved most', c.movers.domains)
+                + moversTable('Locations that moved most', c.movers.cities) + moversTable('Referral sources that moved most', c.movers.referrals);
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Rendering: table
+        // ---------------------------------------------------------------------------------------------
+        function streamOf(url) {
+            try {
+                const u = new URL(url);
+                if (!/(^|\.)deafassistant\.com$/.test(u.hostname)) return null;
+                const first = u.pathname.split('/').filter(Boolean)[0];
+                if (!first || ['blog', 'about', 'contact', 'analytics', 'privacy', 'terms', 'images', 'js', 'css', 'favicon', 'networking'].includes(first.toLowerCase())) return null;
+                return /^[A-Za-z0-9_-]+$/.test(first) ? first.toLowerCase() : null;
+            } catch { return null; }
+        }
+
+        const GROUPS = {
+            url: ['Specific URL', 'Page', s => s.topWebsites],
+            domain: ['Root Domain', 'Domain', s => s.topDomains],
+            stream: ['Stream', 'Stream', s => s.topStreams],
+            city: ['City / Location', 'Location', s => s.topCities],
+            referral: ['Referral Source', 'Referrer', s => s.topReferrals]
+        };
+
+        function renderTable() {
+            const head = $('data-table-head'), body = $('data-table-body');
+            body.innerHTML = '';
+
+            if (state.groupBy !== 'raw') {
+                const [title, col, pick] = GROUPS[state.groupBy];
+                const s = state.summary, list = pick(s);
+                $('table-title').innerText = `Top ${title}s`;
+                $('table-record-count').innerText = `${fmt(list.length)} shown of ${fmt(s.totalHits)} hits in the timeframe`;
+                $('load-more-wrap').classList.add('hidden');
+                head.innerHTML = `<tr><th class="px-6 py-3">${esc(col)}</th><th class="px-6 py-3 text-right">Hits</th><th class="px-6 py-3 w-1/3">Share</th><th class="px-6 py-3 text-right">Actions</th></tr>`;
+                if (!list.length) { body.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
+                const max = list[0].hits || 1;
+                list.forEach(item => {
+                    const stream = state.groupBy === 'stream' ? item.key : (state.groupBy === 'url' ? streamOf(item.key) : null);
+                    const tr = document.createElement('tr');
+                    tr.className = 'hover:bg-gray-50 transition-colors';
+                    const label = state.groupBy === 'url' ? `<a href="${esc(safeUrl(item.key))}" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline">${esc(item.key)}</a>` : esc(item.key);
+                    tr.innerHTML = `<td class="px-6 py-3 text-gray-800 max-w-md truncate" title="${esc(item.key)}">${label}</td>
+                        <td class="px-6 py-3 text-right tabular-nums font-medium">${fmt(item.hits)}</td>
+                        <td class="px-6 py-3"><div class="flex items-center gap-2"><div class="h-2 rounded bg-brand-500" style="width:${Math.max(2, item.hits / max * 100)}%"></div><span class="text-gray-500">${pct(item.hits, s.totalHits)}%</span></div></td>
+                        <td class="px-6 py-3 text-right">${stream ? streamButton(stream) : '<span class="text-gray-300 text-xs">-</span>'}</td>`;
+                    body.appendChild(tr);
+                });
+                wireStreamButtons();
+                return;
+            }
+
+            $('table-title').innerText = 'Analytics Dataset';
+            $('table-record-count').innerText = `Showing ${fmt(state.rows.length)} of ${fmt(state.total)} records (newest first)`;
+            head.innerHTML = `<tr><th class="px-6 py-3">Timestamp / Created At</th><th class="px-6 py-3">Location (City, State, Country)</th><th class="px-6 py-3">Website / Target Path</th><th class="px-6 py-3">Referral</th><th class="px-6 py-3 text-right">Actions / Telemetry</th></tr>`;
+            $('load-more-wrap').classList.toggle('hidden', !state.hasMore);
+            if (!state.rows.length) { body.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
+
+            const frag = document.createDocumentFragment();
+            state.rows.forEach(item => {
+                const stream = streamOf(item.website);
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 transition-colors';
+                tr.innerHTML = `<td class="px-6 py-4 whitespace-nowrap text-gray-600">${esc(toDate(item.createdAt).toLocaleString())}</td>
+                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${esc(item.cityStateCountry || 'Unknown')}</td>
+                    <td class="px-6 py-4 text-gray-700 max-w-xs truncate" title="${esc(item.website)}"><a href="${esc(safeUrl(item.website))}" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline">${esc(item.website)}</a></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-500">${esc(item.referral || '-')}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right">${stream ? streamButton(stream) : '<span class="text-gray-300 text-xs">-</span>'}</td>`;
+                frag.appendChild(tr);
+            });
+            body.appendChild(frag);
+            wireStreamButtons();
+        }
+
+        function streamButton(stream) {
+            return `<button data-stream="${esc(stream)}" class="stream-btn inline-flex items-center px-2.5 py-1 bg-red-50 text-red-700 hover:bg-red-100 rounded-md text-xs font-medium transition-colors">
+                <i data-lucide="radio" class="w-3 h-3 mr-1 text-red-500 animate-pulse"></i> Stream: ${esc(stream)}</button>`;
+        }
+        function wireStreamButtons() {
+            document.querySelectorAll('.stream-btn').forEach(b => { b.onclick = () => openStreamModal(b.dataset.stream); });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // CSV export (current window + filters, up to EXPORT_PAGE * EXPORT_MAX_PAGES rows)
+        // ---------------------------------------------------------------------------------------------
+        const csvCell = v => {
+            let s = String(v ?? '');
+            if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; // stop spreadsheet formula injection from attacker-supplied values
+            return `"${s.replace(/"/g, '""')}"`;
+        };
+        async function exportCsv() {
+            const btn = $('export-csv');
+            btn.disabled = true;
+            try {
+                let rows = [], offset = 0, total = 0;
+                for (let i = 0; i < EXPORT_MAX_PAGES; i++) {
+                    const p = baseParams();
+                    windowParams(p);
+                    p.set('limit', EXPORT_PAGE); p.set('offset', offset);
+                    const page = await apiGet('export', 'Records', p);
+                    rows = rows.concat(page.rows); total = page.total;
+                    if (!page.hasMore) break;
+                    offset = rows.length;
+                }
+                const lines = ['createdAt,city,website,referral'].concat(rows.map(r => [r.createdAt, r.cityStateCountry, r.website, r.referral].map(csvCell).join(',')));
+                const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `analytics-${new Date().toISOString().slice(0, 10)}.csv`;
+                document.body.appendChild(a); a.click(); a.remove();
+                if (rows.length < total) showError(`Exported the newest ${fmt(rows.length)} of ${fmt(total)} records. Narrow the timeframe or filters to export the rest.`);
+            } catch (e) {
+                if (e.name !== 'AbortError') showError(`Export failed: ${e.message}`);
+            } finally { btn.disabled = false; }
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Controls
+        // ---------------------------------------------------------------------------------------------
+        function styleTimeButtons() {
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.className = 'time-btn px-3 py-1.5 text-xs font-medium rounded-lg border ' + (btn.dataset.time === state.range
+                    ? 'bg-brand-600 text-white border-transparent shadow-sm' : 'border-gray-300 hover:bg-gray-100 text-gray-700');
+            });
+            $('custom-range').classList.toggle('hidden', state.range !== 'custom');
+        }
+
+        function syncUrl() {
+            const p = new URLSearchParams(location.search);
+            const set = (k, v, dflt) => { if (v && v !== dflt) p.set(k, v); else p.delete(k); };
+            set('range', state.range, '7d'); set('from', state.from); set('to', state.to);
+            set('domain', state.domain); set('city', state.city.trim()); set('referral', state.referral.trim()); set('q', state.q.trim());
+            set('group', state.groupBy, 'raw'); set('cmp', state.cmp.preset, 'thisMonth');
+            history.replaceState(null, '', `${location.pathname}${p.toString() ? '?' + p : ''}`);
+        }
+
+        function filtersChanged() { syncUrl(); loadAll(); }
+        const filtersChangedDebounced = debounce(filtersChanged, 350);
+
+        function readInitialState() {
+            const p = new URLSearchParams(location.search);
+            if (['1h', '24h', '7d', '30d', 'all', 'custom'].includes(p.get('range'))) state.range = p.get('range');
+            state.from = p.get('from') || ''; state.to = p.get('to') || '';
+            if ((state.from || state.to) && !p.get('range')) state.range = 'custom';
+            state.domain = p.get('domain') || ''; state.city = p.get('city') || ''; state.referral = p.get('referral') || ''; state.q = p.get('q') || '';
+            if (GROUPS[p.get('group')]) state.groupBy = p.get('group');
+            if ($('cmp-preset').querySelector(`option[value="${p.get('cmp')}"]`)) state.cmp.preset = p.get('cmp');
+            $('custom-from').value = state.from; $('custom-to').value = state.to;
+            $('group-by-select').value = state.groupBy; $('search-input').value = state.q;
+            $('city-input').value = state.city; $('referral-input').value = state.referral;
+            $('cmp-preset').value = state.cmp.preset;
+            $('cmp-custom').classList.toggle('hidden', state.cmp.preset !== 'custom');
+            renderDomainOptions();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            readInitialState();
+            styleTimeButtons();
+
+            document.querySelectorAll('.time-btn').forEach(btn => btn.addEventListener('click', () => {
+                state.range = btn.dataset.time; styleTimeButtons(); filtersChanged();
+            }));
+            $('custom-from').addEventListener('change', e => { state.from = e.target.value; if (state.range === 'custom') filtersChanged(); });
+            $('custom-to').addEventListener('change', e => { state.to = e.target.value; if (state.range === 'custom') filtersChanged(); });
+            $('group-by-select').addEventListener('change', e => { state.groupBy = e.target.value; syncUrl(); if (state.groupBy === 'raw') loadRecords(true).catch(onLoadError); else renderTable(); });
+            $('search-input').addEventListener('input', e => { state.q = e.target.value; filtersChangedDebounced(); });
+            $('city-input').addEventListener('input', e => { state.city = e.target.value; filtersChangedDebounced(); });
+            $('referral-input').addEventListener('input', e => { state.referral = e.target.value; filtersChangedDebounced(); });
+            $('domain-select').addEventListener('change', e => { state.domain = e.target.value; filtersChanged(); });
+            $('clear-filters').addEventListener('click', () => {
+                state.domain = state.city = state.referral = state.q = '';
+                $('search-input').value = $('city-input').value = $('referral-input').value = '';
+                filtersChanged();
+            });
+            $('refresh-btn').addEventListener('click', loadAll);
+            $('export-csv').addEventListener('click', exportCsv);
+            $('load-more').addEventListener('click', () => loadRecords(false).catch(onLoadError));
+
+            $('cmp-preset').addEventListener('change', e => {
+                state.cmp.preset = e.target.value;
+                $('cmp-custom').classList.toggle('hidden', state.cmp.preset !== 'custom');
+                $('cmp-lfl-label').classList.toggle('hidden', state.cmp.preset === 'custom');
+                syncUrl(); loadCompare().catch(onLoadError);
+            });
+            $('cmp-lfl').addEventListener('change', e => { state.cmp.likeForLike = e.target.checked; loadCompare().catch(onLoadError); });
+            [['cmp-a-from', 'aFrom'], ['cmp-a-to', 'aTo'], ['cmp-b-from', 'bFrom'], ['cmp-b-to', 'bTo']].forEach(([id, key]) =>
+                $(id).addEventListener('change', e => { state.cmp[key] = e.target.value; loadCompare().catch(onLoadError); }));
+
+            $('modal-close').addEventListener('click', closeStreamModal);
+            $('modal-close-x').addEventListener('click', closeStreamModal);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStreamModal(); });
+
+            loadAll();
+        });
+
+        function onLoadError(e) {
+            if (e.name === 'AbortError') return;
+            console.error(e);
+            showError(`Could not load analytics: ${e.message}`);
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // Stream modal (live telemetry from LiteGetStream)
+        // ---------------------------------------------------------------------------------------------
         async function openStreamModal(streamName) {
-            const modal = document.getElementById('stream-modal');
-            const modalBody = document.getElementById('modal-stream-body');
-            const modalTitle = document.getElementById('modal-stream-title');
-            
+            const modal = $('stream-modal'), modalBody = $('modal-stream-body');
             modal.classList.remove('hidden');
-            modalTitle.innerText = `Stream Telemetry: ${streamName}`;
-            modalBody.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-12 space-y-3">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div>
-                    <p class="text-xs text-gray-500">Querying LiteGetStream API...</p>
-                </div>
-            `;
+            $('modal-stream-title').innerText = `Stream Telemetry: ${streamName}`;
+            modalBody.innerHTML = `<div class="flex flex-col items-center justify-center py-12 space-y-3"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-600"></div><p class="text-xs text-gray-500">Querying LiteGetStream API...</p></div>`;
 
             try {
-                const res = await fetch(`https://api.deafassistant.com/stream/LiteGetStream?streamName=${encodeURIComponent(streamName)}`);
+                const res = await fetch(`${API_BASE}/stream/LiteGetStream?streamName=${encodeURIComponent(streamName)}`);
                 if (!res.ok) throw new Error('Failed to fetch stream details');
-                const streamData = await res.json();
+                const d = await res.json();
 
-                // Compute time since last transcription timestamp
-                let timeAgoText = "Unknown timestamp";
-                if (streamData.timestamp) {
-                    const diffMs = Date.now() - new Date(streamData.timestamp).getTime();
-                    const diffMins = Math.floor(diffMs / 60000);
-                    const diffHours = Math.floor(diffMins / 60);
-                    const diffDays = Math.floor(diffHours / 24);
-
-                    if (diffMins < 1) timeAgoText = "Just now (< 1 min ago)";
-                    else if (diffMins < 60) timeAgoText = `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
-                    else if (diffHours < 24) timeAgoText = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-                    else timeAgoText = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                let timeAgoText = 'Unknown timestamp';
+                if (d.timestamp && !d.timestamp.startsWith('0001')) {
+                    const mins = Math.floor((Date.now() - toDate(d.timestamp).getTime()) / 60000), hours = Math.floor(mins / 60), days = Math.floor(hours / 24);
+                    if (mins < 1) timeAgoText = 'Just now (< 1 min ago)';
+                    else if (mins < 60) timeAgoText = `${mins} minute${mins > 1 ? 's' : ''} ago`;
+                    else if (hours < 24) timeAgoText = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                    else timeAgoText = `${days} day${days > 1 ? 's' : ''} ago`;
                 }
+                const live = d.isActivelyStreaming;
+                const preview = (text, empty) => text ? esc(text.length > 600 ? '...' + text.slice(-600) : text) : `<span class="text-gray-500">${empty}</span>`;
 
-                modalBody.innerHTML = `
-                    <div class="space-y-4 text-xs">
-                        <!-- Status Bar -->
-                        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            <div>
-                                <span class="text-gray-400 block uppercase font-semibold text-[10px]">Live State</span>
-                                <span class="inline-flex items-center mt-1 font-bold ${streamData.isActivelyStreaming ? 'text-green-600' : 'text-red-500'}">
-                                    <span class="w-2 h-2 rounded-full mr-1.5 ${streamData.isActivelyStreaming ? 'bg-green-500 animate-pulse' : 'bg-red-500'}"></span>
-                                    ${streamData.isActivelyStreaming ? 'Actively Streaming' : 'Inactive / Idle'}
-                                </span>
-                            </div>
-                            <div>
-                                <span class="text-gray-400 block uppercase font-semibold text-[10px]">Last Transcribed Activity</span>
-                                <span class="font-bold text-gray-800 mt-1 block">${timeAgoText}</span>
-                                <span class="text-[10px] text-gray-400">${streamData.timestamp ? new Date(streamData.timestamp).toLocaleString() : 'N/A'}</span>
-                            </div>
-                        </div>
-
-                        <!-- Languages & Meta -->
-                        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            <div>
-                                <span class="text-gray-400 block uppercase font-semibold text-[10px]">Input Language</span>
-                                <span class="font-semibold text-gray-700">${streamData.inputLanguage || 'N/A'}</span>
-                            </div>
-                            <div>
-                                <span class="text-gray-400 block uppercase font-semibold text-[10px]">Target Output Language</span>
-                                <span class="font-semibold text-gray-700">${streamData.outputLanguage || 'N/A'}</span>
-                            </div>
-                        </div>
-
-                        <!-- Latest Transcript Snippet -->
-                        <div>
-                            <label class="block font-semibold text-gray-700 mb-1">Latest Transcript Preview:</label>
-                            <div class="bg-gray-900 text-gray-100 p-3 rounded-xl font-mono text-[11px] max-h-32 overflow-y-auto leading-relaxed">
-                                ${streamData.transcript || '<span class="text-gray-500">No transcription content recorded yet.</span>'}
-                            </div>
-                        </div>
-
-                        <!-- Latest Translation Snippet -->
-                        <div>
-                            <label class="block font-semibold text-gray-700 mb-1">Latest Translation Preview:</label>
-                            <div class="bg-blue-950 text-blue-100 p-3 rounded-xl font-mono text-[11px] max-h-32 overflow-y-auto leading-relaxed">
-                                ${streamData.translation || '<span class="text-blue-400">No translation output generated yet.</span>'}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                modalBody.innerHTML = `<div class="space-y-4 text-xs">
+                    <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <div><span class="text-gray-400 block uppercase font-semibold text-[10px]">Live State</span>
+                            <span class="inline-flex items-center mt-1 font-bold ${live ? 'text-green-600' : 'text-red-500'}"><span class="w-2 h-2 rounded-full mr-1.5 ${live ? 'bg-green-500 animate-pulse' : 'bg-red-500'}"></span>${live ? 'Actively Streaming' : 'Inactive / Idle'}</span></div>
+                        <div><span class="text-gray-400 block uppercase font-semibold text-[10px]">Last Transcribed Activity</span>
+                            <span class="font-bold text-gray-800 mt-1 block">${esc(timeAgoText)}</span>
+                            <span class="text-[10px] text-gray-400">${d.timestamp ? esc(toDate(d.timestamp).toLocaleString()) : 'N/A'}</span></div></div>
+                    <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <div><span class="text-gray-400 block uppercase font-semibold text-[10px]">Input Language</span><span class="font-semibold text-gray-700">${esc(d.inputLanguage || 'N/A')}</span></div>
+                        <div><span class="text-gray-400 block uppercase font-semibold text-[10px]">Target Output Language</span><span class="font-semibold text-gray-700">${esc(d.outputLanguage || 'N/A')}</span></div></div>
+                    <div><label class="block font-semibold text-gray-700 mb-1">Latest Transcript Preview:</label>
+                        <div class="bg-gray-900 text-gray-100 p-3 rounded-xl font-mono text-[11px] max-h-32 overflow-y-auto leading-relaxed">${preview(d.transcript, 'No transcription content recorded yet.')}</div></div>
+                    <div><label class="block font-semibold text-gray-700 mb-1">Latest Translation Preview:</label>
+                        <div class="bg-blue-950 text-blue-100 p-3 rounded-xl font-mono text-[11px] max-h-32 overflow-y-auto leading-relaxed">${preview(d.translation, 'No translation output generated yet.')}</div></div></div>`;
             } catch (err) {
                 console.error(err);
-                modalBody.innerHTML = `
-                    <div class="p-6 text-center text-red-600">
-                        <i data-lucide="alert-triangle" class="w-8 h-8 mx-auto mb-2 text-red-500"></i>
-                        <p class="font-bold text-sm">Failed to retrieve stream telemetrics.</p>
-                        <p class="text-xs text-gray-500 mt-1">The stream server may be offline or unreachable for name: <b>${streamName}</b></p>
-                    </div>
-                `;
-                lucide.createIcons();
+                modalBody.innerHTML = `<div class="p-6 text-center text-red-600"><p class="font-bold text-sm">Failed to retrieve stream telemetrics.</p>
+                    <p class="text-xs text-gray-500 mt-1">The stream server may be offline or unreachable for name: <b>${esc(streamName)}</b></p></div>`;
             }
         }
 
-        function closeStreamModal() {
-            document.getElementById('stream-modal').classList.add('hidden');
-        }
+        function closeStreamModal() { $('stream-modal').classList.add('hidden'); }
     </script>
 </body>
 </html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConferenceCaptioning Investor Slide</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--mute:#475569;--line:#e2e8f0;--acc:#2563eb;--accsoft:#dbeafe;--head:#0f172a;--headink:#fff;--ph:#fde047;--phink:#422006}
+@media (prefers-color-scheme:dark){:root{--bg:#020617;--card:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#1e293b;--acc:#60a5fa;--accsoft:#1e3a8a;--head:#1e293b;--headink:#fff}}
+@page{size:landscape;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;display:grid;grid-template-rows:176px minmax(0,1fr) 88px 200px;gap:18px;padding:24px 48px}
+.ph{background:var(--ph);color:var(--phink);padding:0 6px;border-radius:6px}
+header{background:var(--head);color:var(--headink);border-radius:24px;padding:20px 48px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.brand{font-size:24px;font-weight:700;letter-spacing:.04em;color:#93c5fd;text-transform:uppercase}
+h1{font-size:58px;line-height:1.05;font-weight:800}
+.sub{font-size:28px;color:#cbd5e1}
+main{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:24px;min-height:0}
+.col{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px 32px;display:flex;flex-direction:column;gap:14px;overflow:hidden;min-height:0}
+.col.mid{background:var(--accsoft);border-color:transparent;align-items:center}
+.lab{font-size:22px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.big{font-size:96px;line-height:1;font-weight:800;color:var(--acc)}
+.cap{font-size:24px;color:var(--mute)}
+ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+li{font-size:27px;font-weight:600;padding-left:34px;position:relative}
+li::before{content:"";position:absolute;left:0;top:13px;width:16px;height:16px;border-radius:50%;background:var(--acc)}
+.phone{width:360px;flex:1;min-height:0;max-height:330px;background:#0f172a;border-radius:44px;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;border:6px solid #1e293b}
+.live{font-size:20px;color:#f87171;font-weight:700;margin-bottom:auto;display:flex;align-items:center;gap:8px}
+.live::before{content:"";width:12px;height:12px;border-radius:50%;background:#ef4444;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.25}}
+.bar{background:#000;color:#fff;border-radius:16px;padding:14px 18px;font-size:24px;line-height:1.25;font-weight:600}
+.bar small{display:block;color:#93c5fd;font-size:19px;margin-top:8px;font-weight:500}
+#typed::after{content:"|";animation:p 1s infinite}
+.flow{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:700;text-align:center}
+.flow span{background:var(--card);border-radius:14px;padding:14px 18px}
+.flow i{font-style:normal;color:var(--acc);font-size:34px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{background:var(--accsoft);border-radius:16px;padding:16px 10px;text-align:center}
+.tile b{display:block;font-size:50px;line-height:1.05;color:var(--acc)}
+.tile span{font-size:21px;color:var(--mute)}
+.trac{display:grid;grid-template-columns:.8fr 1.2fr;gap:12px 20px}
+.trac b{font-size:42px;line-height:1.1;color:var(--ink)}
+.trac span{font-weight:500;color:var(--mute);font-size:22px;display:block}
+footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:16px 28px;display:flex;flex-direction:column;gap:6px}
+.logos{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:0 28px}
+.logos .lab{white-space:nowrap;font-size:20px;line-height:1.2}
+.logos .row{flex:1;display:flex;justify-content:space-between;align-items:center;gap:12px;height:100%;padding:12px 0}
+.logos img{max-height:100%;max-width:120px;object-fit:contain}
+.f p{font-size:24px;font-weight:600;line-height:1.3}
+.f.ask{background:var(--head);color:var(--headink);border:0;flex-direction:row;align-items:center;gap:24px}
+.f.ask .lab{color:#93c5fd}
+.f.ask div{display:flex;flex-direction:column;gap:10px;flex:1}
+.f.ask a{font-size:24px;color:#93c5fd;text-decoration:none}
+.qr{width:150px;height:150px;background:#fff;border-radius:12px;padding:8px}
+#notes{display:none;position:fixed;left:5vw;right:5vw;bottom:4vh;max-height:70vh;overflow:auto;background:#000e;color:#fff;border-radius:16px;padding:24px 28px;font-size:20px;line-height:1.5;z-index:9}
+#notes.on{display:block}
+@media print{html,body{overflow:visible}#notes{display:none!important}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <header>
+    <div class="brand">ConferenceCaptioning</div>
+    <h1>Live captions and translation for every Michigan event.</h1>
+    <div class="sub">Scan a QR code. No app. No hardware. 70+ languages.</div>
+  </header>
+
+  <main>
+    <section class="col">
+      <div class="lab">The problem</div>
+      <div class="big">1.9M</div>
+      <div class="cap">Michigan residents are deaf or hard of hearing <span class="ph">[verify source]</span></div>
+      <ul>
+        <li>Human captioners are costly, booked weeks ahead</li>
+        <li>No live translation</li>
+        <li>Arabic, Spanish and Asian communities shut out</li>
+      </ul>
+    </section>
+
+    <section class="col mid">
+      <div class="lab">The solution</div>
+      <div class="phone">
+        <div class="live">LIVE</div>
+        <div class="bar"><span id="typed"></span><small id="tr"></small></div>
+      </div>
+      <div class="flow"><span>Speak</span><i>&rsaquo;</i><span>Caption + Translate</span><i>&rsaquo;</i><span>Phone, OBS, Zoom, link</span></div>
+    </section>
+
+    <section class="col">
+      <div class="lab">Proof and traction</div>
+      <div class="tiles">
+        <div class="tile"><b>97.2%</b><span>word accuracy</span></div>
+        <div class="tile"><b>0.05s</b><span>caption delay</span></div>
+        <div class="tile"><b>0.5s</b><span>failover</span></div>
+      </div>
+      <div class="cap">Open benchmark on a live NASA press conference, run on-device. Data CC BY 4.0, scorer MIT.</div>
+      <div class="trac">
+        <div><b class="arr">$30K</b><span>annual recurring revenue</span></div>
+        <div><b class="arr">YMCA, Apple</b><span>among our customers</span></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="logos"><div class="lab">Trusted by</div><div class="row"><img src="../images/slider/unnamed.png" alt="Client logo"><img src="../images/slider/unnamed-2.png" alt="Client logo"><img src="../images/slider/unnamed-3.png" alt="Client logo"><img src="../images/slider/unnamed-4.png" alt="Client logo"><img src="../images/slider/unnamed-5.png" alt="Client logo"><img src="../images/slider/unnamed-6.png" alt="Client logo"><img src="../images/slider/unnamed-7.png" alt="Client logo"><img src="../images/slider/unnamed-8.png" alt="Client logo"><img src="../images/slider/unnamed-9.png" alt="Client logo"><img src="../images/slider/unnamed-10.png" alt="Client logo"></div></div>
+
+  <footer>
+    <div class="f"><div class="lab">Why Michigan</div><p>Universities, auto and manufacturing, a large Arab-American community, ADA-driven public sector.</p></div>
+    <div class="f"><div class="lab">Business model</div><p>Events: $150/hr<br>Unlimited: $400/mo, annual, for-profits<br>Non-profit discounts by need</p></div>
+    <div class="f ask">
+      <div><div class="lab">The ask</div><p>Raising $1.25M for <span class="ph">[use of funds]</span></p><a href="https://conferencecaptioning.com/">conferencecaptioning.com</a></div>
+      <svg class="qr" id="qr" viewBox="0 0 1 1" aria-label="QR code to conferencecaptioning.com"></svg>
+    </div>
+  </footer>
+</div>
+
+<div id="notes">
+<b>2-minute script (press N to hide)</b><br><br>
+<b>Hook.</b> Michigan has about 1.9 million people who are deaf or hard of hearing. Live events either pay for a human captioner or have no captions at all.<br>
+<b>Problem.</b> Human captioning is expensive, booked weeks ahead, and can't translate. Michigan's Arabic, Spanish and Asian communities can barely follow a live event in their language.<br>
+<b>Solution.</b> Scan a QR code and you're in. Live captions and translation in 70+ languages, no app, no hardware. OBS, Zoom, venue screens, a shareable transcript link.<br>
+<b>Proof.</b> Open benchmark on a live NASA press conference, on-device: 97.2% word accuracy, 0.05 s delay, failover in as little as half a second. Methodology, data and scorer are public.<br>
+<b>Why Michigan.</b> Universities, auto and manufacturing, one of the largest Arab-American communities, and ADA obligations across schools, churches and municipalities.<br>
+<b>Ask.</b> Raising $1.25M for [use of funds]. We have $30K ARR, with YMCA and Apple among our customers. Pricing: $150/hr for events, $400/month unlimited on an annual commitment for for-profits, with non-profit discounts. Start with a pilot in your network.
+</div>
+
+<script src="../js/qrcode.min.js" onerror="this.remove()"></script>
+<script>
+(function(){
+  var st=document.getElementById('stage');
+  function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform='translate(-50%,-50%) scale('+s+')'}
+  addEventListener('resize',fit);fit();
+  addEventListener('keydown',function(e){if(e.key==='n'||e.key==='N')document.getElementById('notes').classList.toggle('on')});
+
+  var lines=[["Welcome everyone, our first speaker is on stage.","Bienvenidos a todos, nuestro primer orador está en el escenario."],
+             ["Captions are live on your phone.","مباشر على هاتفك"],
+             ["No app. No hardware.","Sin aplicación. Sin hardware."]];
+  var t=document.getElementById('typed'),tr=document.getElementById('tr'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(still){t.textContent=lines[0][0];tr.textContent=lines[0][1];t.style.setProperty('--x','');}
+  else{var i=0;(function next(){var L=lines[i++%lines.length],n=0;tr.textContent='';
+    (function ty(){t.textContent=L[0].slice(0,++n);if(n<L[0].length)setTimeout(ty,45);else{tr.textContent=L[1];setTimeout(next,2600)}})()})()}
+
+  try{
+    var q=qrcode(0,'M');q.addData('https://conferencecaptioning.com/');q.make();
+    var n=q.getModuleCount(),svg=document.getElementById('qr'),d='';
+    svg.setAttribute('viewBox','0 0 '+n+' '+n);
+    for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(q.isDark(r,c))d+='M'+c+' '+r+'h1v1h-1z';
+    svg.innerHTML='<path d="'+d+'" fill="#0f172a"/>';
+  }catch(e){document.getElementById('qr').style.display='none'}
+})();
+</script>
+</body>
+</html>

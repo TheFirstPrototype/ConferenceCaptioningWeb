@@ -91,7 +91,7 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
       <div class="lab">The solution</div>
       <div class="vid">
         <video src="bali-summit.mp4" poster="bali-summit-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Bali summit stage with screens showing live captions"></video>
-        <div class="live">LIVE</div>
+        <div class="live">LIVE &middot; Bali, Indonesia &middot; 10,000+ attendees</div>
         <!-- <div class="bar"><span id="typed"></span><small id="tr"></small></div> -->
       </div>
       <div class="flow"><span>Speak</span><i>&rsaquo;</i><span>Caption + Translate</span><i>&rsaquo;</i><span>Screen Projection</span></div>
@@ -143,9 +143,9 @@ footer{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:24px}
   addEventListener('resize',fit);fit();
   addEventListener('keydown',function(e){if(e.key==='n'||e.key==='N')document.getElementById('notes').classList.toggle('on')});
 
-  var lines=[["Welcome everyone, our first speaker is on stage.","Bienvenidos a todos, nuestro primer orador está en el escenario."],
-             ["Captions are live on your phone.","مباشر على هاتفك"],
-             ["No app. No hardware.","Sin aplicación. Sin hardware."]];
+  var lines=[["Welcome everyone, our first speaker is on stage.","Mandarin \u00b7 Bahasa \u00b7 Thai \u00b7 English, on screen at the same time"],
+             ["Captions are live on your phone.","Same words, in the language you choose"],
+             ["Scan the QR code. Read in your language.","10,000+ people. One speaker. Four languages."]];
   var t=document.getElementById('typed'),tr=document.getElementById('tr'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(still){t.textContent=lines[0][0];tr.textContent=lines[0][1];t.style.setProperty('--x','');}
   else{var i=0;(function next(){var L=lines[i++%lines.length],n=0;tr.textContent='';

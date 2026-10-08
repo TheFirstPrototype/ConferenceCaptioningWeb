@@ -4,28 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning</title>
-  <meta name="description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <meta name="description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, the translation step added 0.27 s on average (0.54 s at the 95th percentile). From speech to the OBS overlay, words appeared on average within 0.9 s with five languages at the fastest refresh setting. Method and data included.">
   <link rel="canonical" href="https://conferencecaptioning.com/multilingual-translation-benchmark/">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="ConferenceCaptioning">
   <meta property="og:url" content="https://conferencecaptioning.com/multilingual-translation-benchmark/">
   <meta property="og:title" content="Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning">
-  <meta property="og:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <meta property="og:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, the translation step added 0.27 s on average (0.54 s at the 95th percentile). From speech to the OBS overlay, words appeared on average within 0.9 s with five languages at the fastest refresh setting. Method and data included.">
   <meta property="og:image" content="https://conferencecaptioning.com/multilingual-translation-benchmark/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:image" content="https://conferencecaptioning.com/multilingual-translation-benchmark/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Live Translation Speed Benchmark: 5 Languages at Once | ConferenceCaptioning">
-  <meta name="twitter:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.">
+  <meta name="twitter:description" content="Measured on a 10-core Apple silicon Mac: with five target languages translating at once, the translation step added 0.27 s on average (0.54 s at the 95th percentile). From speech to the OBS overlay, words appeared on average within 0.9 s with five languages at the fastest refresh setting. Method and data included.">
   <script type="application/ld+json">
 [
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Live translation speed benchmark: five languages at once",
-    "description": "Measured on a 10-core Apple silicon Mac: with five target languages translating at once, each on-screen translation stayed within 0.27 s of the spoken word on average and 0.54 s at the 95th percentile. Method and data included.",
+    "description": "Measured on a 10-core Apple silicon Mac: with five target languages translating at once, the translation step added 0.27 s on average (0.54 s at the 95th percentile). From speech to the OBS overlay, words appeared on average within 0.9 s with five languages at the fastest refresh setting. Method and data included.",
     "url": "https://conferencecaptioning.com/multilingual-translation-benchmark/",
     "image": "https://conferencecaptioning.com/multilingual-translation-benchmark/og-image.png",
     "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -170,6 +170,7 @@
 
 
 
+
     /* --- additions: anchors, element ids, scales, CTA --- */
     header.site-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; padding: 22px 0 14px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 18px; }
     header.site-header .brand img { height: 30px; display: block; }
@@ -238,11 +239,27 @@
     <span class="chip">3 words per second</span><span class="chip">1&ndash;5 languages at once</span><span class="chip">30 timed runs</span>
   </div>
 
-  <div class="kpis" id="key-numbers"><div class="glass kpi" id="kpi-delay"><div class="label">Average delay, 5 languages</div><div class="value">0.27 s</div><div class="who">Blazing &middot; per translated word, 95th percentile 0.54 s</div></div><div class="glass kpi" id="kpi-worst"><div class="label">Slowest single word</div><div class="value">0.61 s</div><div class="who">across every run and language count</div></div><div class="glass kpi" id="kpi-words"><div class="label">Words timed</div><div class="value">8,840</div><div class="who">across 30 timed runs of 40 s each</div></div><div class="glass kpi" id="kpi-privacy"><div class="label">Privacy</div><div class="value">On-device</div><div class="who">translation runs locally; text is not sent to a translation service</div></div></div>
+  <div class="kpis" id="key-numbers"><div class="glass kpi" id="kpi-delay"><div class="label">Translation step, 5 languages</div><div class="value">0.27 s</div><div class="who">Blazing &middot; per translated word, 95th percentile 0.54 s</div></div><div class="glass kpi" id="kpi-e2e"><div class="label">Speech to OBS overlay</div><div class="value">0.9 s</div><div class="who">average, 5 languages, fastest refresh (100 ms), speech recognition included</div></div><div class="glass kpi" id="kpi-words"><div class="label">Words timed</div><div class="value">8,840</div><div class="who">across 30 timed runs of 40 s each</div></div><div class="glass kpi" id="kpi-privacy"><div class="label">Privacy</div><div class="value">On-device</div><div class="who">translation runs locally; text is not sent to a translation service</div></div></div>
 
   <section id="summary">
     <h2 id="summary-heading">The short version</h2>
-    <div class="glass" id="summary-box"><p style="color:var(--text-muted)">With five languages translating together, the average word appeared on screen <b>0.27 s</b> after it was available, <b>0.54 s</b> for 95 out of 100 words, and the slowest word in any run took <b>0.61 s</b>. Adding languages from one to five changed the average delay only slightly (see the table), because each translation takes a few tens of milliseconds on the device. That is well under a second, so for this part of the pipeline &ldquo;five languages in under a second&rdquo; holds. With the refresh interval turned down to 50 ms, five languages averaged <b>0.08 s</b> (see <a href="#faster-polling">faster refresh</a>), at the cost of more processor time. It is <b>not</b> the delay an audience sees end to end: it excludes speech recognition, which comes first (see <a href="#what-is-not-measured">what is not measured</a>).</p></div>
+    <div class="glass" id="summary-box"><p style="color:var(--text-muted)">With five languages translating together, the average word appeared on screen <b>0.27 s</b> after it was available, <b>0.54 s</b> for 95 out of 100 words, and the slowest word in any run took <b>0.61 s</b>. Adding languages from one to five changed the average delay only slightly (see the table), because each translation takes a few tens of milliseconds on the device. That is well under a second, so for this part of the pipeline &ldquo;five languages in under a second&rdquo; holds. With the refresh interval turned down to 50 ms, five languages averaged <b>0.08 s</b> (see <a href="#faster-polling">faster refresh</a>), at the cost of more processor time. This is the translation step only; the delay from speech to the screen, with speech recognition included, is in <a href="#speech-to-screen">the next section</a>.</p></div>
+  </section>
+
+  <section id="speech-to-screen">
+    <h2 id="speech-to-screen-heading">From speech to the OBS overlay</h2>
+    <p class="sub" id="speech-to-screen-explainer">The test that matters most for an event: how long after a word is spoken does it show on the page you put into OBS, a vMix browser source or a stage display? We replayed a recorded news conference through the same local pages the app serves, with the on-device speech recognizer in the loop, and timed every word from the moment it was spoken to the moment it was visible in the overlay (including the scroll animation). Translations were timed the same way, in the last of the translated languages, which is the slowest one.</p>
+    <div class="glass tablewrap" id="speech-to-screen-table-box" style="padding:6px 6px 0;"><table id="speech-to-screen-table"><thead><tr><th class="l">Refresh setting</th><th class="">Captions only</th><th class="">1 language</th><th class="">3 languages</th><th class="">5 languages</th></tr></thead><tbody><tr id="e2e-row-500"><td class="eng l">Default (500 ms)</td><td class="">1.3 s <small style="color:var(--text-muted)">(95%: 1.9 s)</small></td><td class="">1.5 s <small style="color:var(--text-muted)">(95%: 2.3 s)</small></td><td class="">1.6 s <small style="color:var(--text-muted)">(95%: 2.3 s)</small></td><td class="">1.8 s <small style="color:var(--text-muted)">(95%: 2.4 s)</small></td></tr><tr id="e2e-row-250"><td class="eng l">Faster (250 ms)</td><td class="">0.9 s <small style="color:var(--text-muted)">(95%: 1.5 s)</small></td><td class="">1.1 s <small style="color:var(--text-muted)">(95%: 1.6 s)</small></td><td class="">1.1 s <small style="color:var(--text-muted)">(95%: 1.7 s)</small></td><td class="">1.2 s <small style="color:var(--text-muted)">(95%: 1.7 s)</small></td></tr><tr id="e2e-row-100"><td class="eng l">Fastest (100 ms)</td><td class="">0.7 s <small style="color:var(--text-muted)">(95%: 1.3 s)</small></td><td class="">0.8 s <small style="color:var(--text-muted)">(95%: 1.3 s)</small></td><td class="">0.8 s <small style="color:var(--text-muted)">(95%: 1.4 s)</small></td><td class="">0.9 s <small style="color:var(--text-muted)">(95%: 1.4 s)</small></td></tr></tbody></table></div>
+    <p class="note" id="speech-to-screen-note">Average time from a word being spoken to it being visible, with the 95th percentile in brackets. &ldquo;Refresh setting&rdquo; is how often both the translation page and the overlay check for new text (the <code>pollInterval</code> option in the Caption URL Generator); 60 s per run, 3 runs per setting, first 10 s discarded.</p>
+    <div class="glass" id="speech-to-screen-summary" style="margin-top:16px"><h3>What this means</h3><ul>
+      <li><b>At the fastest setting (100 ms), words appear on average within 0.7 s of being spoken for captions and 0.9 s with five translated languages</b>, and 95% of words within 1.4 s.</li>
+      <li>At the default setting the average is 1.3 s for captions and 1.8 s for five languages, so we do not claim &ldquo;under a second&rdquo; for the default.</li>
+      <li>Roughly 0.5 s of every figure is the speech recognizer itself (the Rapid engine); the rest is the pipeline, which the refresh setting controls. Faster refresh uses more processor time (browser CPU rose from about 21% to 31% of one core for one language).</li>
+      <li>Languages add little: going from one to five languages adds about 0.1 s at the fastest setting and 0.2 s at the default.</li></ul></div>
+    <div class="glass" id="speech-to-screen-limits" style="margin-top:16px"><h3>What this does not include</h3><ul>
+      <li>The microphone, the room and the sound mixer: the audio is a clean recording played at real-time speed, and a recorded recognizer run is replayed so every setting sees the same speech. Real rooms add noise that makes recognition less accurate, not necessarily slower.</li>
+      <li>OBS itself: it adds about one video frame (17&ndash;33 ms) on top. Attendee phones and the cloud stream are separate paths and are not measured here.</li>
+      <li>One clip (a clean press conference), one Mac (Apple M4), English into Spanish, French, German, Japanese and Portuguese. Only words with a known spoken time (about 60% of the clip) are timed.</li></ul></div>
   </section>
 
   <section id="translation-delay">
@@ -284,7 +301,7 @@
     <h2 id="what-is-not-measured-heading">What is not measured</h2>
     <div class="cols" id="not-measured-boxes">
       <div class="glass" id="not-measured"><h3>Not in these numbers</h3><ul>
-        <li><b>Speech recognition.</b> The transcript here is scripted. In a live event the words first have to be recognised, which takes between 0.05 s and about 1.2 s depending on the engine (see the <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">captioning benchmark</a>). Add that to the delay above for the full speaker-to-screen time.</li>
+        <li><b>Speech recognition (in this section).</b> The transcript here is scripted. In a live event the words first have to be recognised, which takes about 0.5 s on average for our fastest engine (Rapid) and several seconds for the more accurate Mix engine on continuous speech (see the <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">captioning benchmark</a>). The <a href="#speech-to-screen">speech-to-screen section</a> includes it.</li>
         <li><b>Delivery to the audience.</b> Sending results to attendees&rsquo; phones and the attendee refresh interval come on top.</li>
         <li><b>Real audio, other languages and other machines.</b> One transcript, five target languages, one Mac. Quality of the translations was not scored here.</li></ul></div>
       <div class="glass" id="how-to-read-this"><h3>How to read the delay</h3><ul>
@@ -311,7 +328,8 @@
     </div>
     <h3 id="data-downloads" style="margin:26px 0 8px">Data and files</h3>
     <div class="glass" id="data-downloads-box"><ul style="padding-left:20px;color:var(--text-muted)">
-      <li><a href="data/translation-benchmark-results.json" style="color:var(--brand-accent)">translation-benchmark-results.json</a> and <a href="data/translation-benchmark-results.csv" style="color:var(--brand-accent)">.csv</a>: every run, with delay statistics per language count.</li></ul></div>
+      <li><a href="data/translation-benchmark-results.json" style="color:var(--brand-accent)">translation-benchmark-results.json</a> and <a href="data/translation-benchmark-results.csv" style="color:var(--brand-accent)">.csv</a>: every translation-step run, with delay statistics per language count, plus the language groups and the speech-to-screen summary.</li>
+      <li><a href="data/speech-to-screen-results.csv" style="color:var(--brand-accent)">speech-to-screen-results.csv</a>: the table in &ldquo;From speech to the OBS overlay&rdquo;.</li></ul></div>
     <h3 id="license" style="margin:26px 0 8px">License</h3>
     <div class="glass" id="license-box"><p style="color:var(--text-muted)">The data is licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank" style="color:var(--brand-accent)">CC BY 4.0</a>: share and adapt it, including commercially, with credit to ConferenceCaptioning and a link to <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/" style="color:var(--brand-accent)">https://conferencecaptioning.com/multilingual-translation-benchmark/</a>.</p></div>
     <h3 id="cite" style="margin:26px 0 8px">Cite this page</h3>
@@ -321,6 +339,7 @@
   <section id="changelog">
     <h2 id="changelog-heading">Changelog</h2>
     <div class="glass" id="changelog-box"><ul style="padding-left:20px;color:var(--text-muted)">
+      <li><b>October 8, 2026</b>: added &ldquo;From speech to the OBS overlay&rdquo;, timing words from speech to the overlay with speech recognition included.</li>
       <li><b>October 5, 2026</b>: first published.</li></ul></div>
   </section>
 

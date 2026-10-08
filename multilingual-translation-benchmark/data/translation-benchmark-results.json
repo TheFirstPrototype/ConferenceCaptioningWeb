@@ -1252,5 +1252,139 @@
    "Uzbek",
    "Yoruba"
   ]
- }
+ },
+ "speech_to_screen": [
+  {
+   "refresh_ms": 500,
+   "mode": "caption",
+   "languages": 0,
+   "words_timed": 342,
+   "delay_mean_s": 1.2954675321523208,
+   "delay_p95_s": 1.86089990234375,
+   "delay_max_s": 2.080699951171875,
+   "browser_cpu_pct_of_one_core": 4.373717948717949,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 500,
+   "mode": "translation",
+   "languages": 1,
+   "words_timed": 342,
+   "delay_mean_s": 1.5195481863635325,
+   "delay_p95_s": 2.255800048828125,
+   "delay_max_s": 2.490800048828125,
+   "browser_cpu_pct_of_one_core": 21.260256410256407,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 500,
+   "mode": "translation",
+   "languages": 3,
+   "words_timed": 342,
+   "delay_mean_s": 1.5807993942171508,
+   "delay_p95_s": 2.348300048828125,
+   "delay_max_s": 2.708699951171875,
+   "browser_cpu_pct_of_one_core": 24.97564102564103,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 500,
+   "mode": "translation",
+   "languages": 5,
+   "words_timed": 338,
+   "delay_mean_s": 1.7642955163357523,
+   "delay_p95_s": 2.3665,
+   "delay_max_s": 2.55439990234375,
+   "browser_cpu_pct_of_one_core": 24.674358974358977,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 250,
+   "mode": "caption",
+   "languages": 0,
+   "words_timed": 342,
+   "delay_mean_s": 0.9250973899796694,
+   "delay_p95_s": 1.48489990234375,
+   "delay_max_s": 1.5615,
+   "browser_cpu_pct_of_one_core": 5.888461538461538,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 250,
+   "mode": "translation",
+   "languages": 1,
+   "words_timed": 342,
+   "delay_mean_s": 1.0853175120214271,
+   "delay_p95_s": 1.6412998046875,
+   "delay_max_s": 1.816300048828125,
+   "browser_cpu_pct_of_one_core": 24.203205128205134,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 250,
+   "mode": "translation",
+   "languages": 3,
+   "words_timed": 346,
+   "delay_mean_s": 1.064726005774702,
+   "delay_p95_s": 1.663,
+   "delay_max_s": 1.956699951171875,
+   "browser_cpu_pct_of_one_core": 32.44423076923077,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 250,
+   "mode": "translation",
+   "languages": 5,
+   "words_timed": 342,
+   "delay_mean_s": 1.1959825275264984,
+   "delay_p95_s": 1.683900146484375,
+   "delay_max_s": 1.81810009765625,
+   "browser_cpu_pct_of_one_core": 28.357051282051284,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 100,
+   "mode": "caption",
+   "languages": 0,
+   "words_timed": 342,
+   "delay_mean_s": 0.6856415059050621,
+   "delay_p95_s": 1.250300048828125,
+   "delay_max_s": 1.365300048828125,
+   "browser_cpu_pct_of_one_core": 10.844871794871795,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 100,
+   "mode": "translation",
+   "languages": 1,
+   "words_timed": 342,
+   "delay_mean_s": 0.776945937128792,
+   "delay_p95_s": 1.338199951171875,
+   "delay_max_s": 1.4537998046875,
+   "browser_cpu_pct_of_one_core": 31.242307692307687,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 100,
+   "mode": "translation",
+   "languages": 3,
+   "words_timed": 342,
+   "delay_mean_s": 0.835377230103253,
+   "delay_p95_s": 1.367300048828125,
+   "delay_max_s": 1.547300048828125,
+   "browser_cpu_pct_of_one_core": 40.07948717948718,
+   "runs": 3
+  },
+  {
+   "refresh_ms": 100,
+   "mode": "translation",
+   "languages": 5,
+   "words_timed": 346,
+   "delay_mean_s": 0.8945045582324785,
+   "delay_p95_s": 1.37939990234375,
+   "delay_max_s": 1.5827998046875,
+   "browser_cpu_pct_of_one_core": 36.79358974358974,
+   "runs": 3
+  }
+ ]
 }

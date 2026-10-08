@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConferenceCaptioning Community Postcard</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+/* A6 landscape = a quarter of an A4 sheet: 148 x 105 mm */
+:root{--blk:#0b1220;--ink:#0f172a;--mute:#475569;--acc:#60a5fa;--accd:#1d4ed8;--ph:#fde047;--phink:#422006}
+@page{size:148mm 105mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#cbd5e1;color:var(--ink)}
+.wrap{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;padding:24px}
+.lbl{width:100%;text-align:center;font-size:14px;color:#334155;margin-bottom:-12px}
+.card{width:148mm;height:105mm;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.25);zoom:1.7}
+@media print{body{background:#fff}.wrap{display:block;padding:0}.lbl{display:none}.card{zoom:1;box-shadow:none;page-break-after:always;break-after:page}}
+.ph{background:var(--ph);color:var(--phink);padding:0 1mm;border-radius:1mm}
+.dark{background:var(--blk);color:#fff}
+.pane{padding:6mm 6mm;display:flex;flex-direction:column;min-height:0}
+
+/* FRONT left */
+.logo{height:7mm;width:auto;align-self:flex-start}
+.fl{align-items:center;text-align:center;justify-content:space-between}
+.fl h1{font-size:15pt;line-height:1.1;font-weight:800;margin-top:2mm}
+.fl h1 span{color:var(--acc)}
+.qrbox{background:#fff;border-radius:4mm;padding:2.5mm;width:36mm;height:36mm}
+.qrbox img{width:100%;height:100%;display:block}
+.fl .sub{font-size:8pt;line-height:1.3;color:#cbd5e1}
+.fl .url{font-size:8.5pt;font-weight:700;color:var(--acc);letter-spacing:.02em}
+
+/* FRONT right */
+.fr{position:relative;padding:0;background:#000 url('bali-summit-poster.jpg') center/cover no-repeat}
+.fr::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.85))}
+.fr .cap{position:absolute;left:5mm;right:5mm;bottom:5mm;z-index:1;color:#fff}
+.fr .tag{display:inline-block;background:rgba(0,0,0,.65);font-size:6.5pt;font-weight:700;padding:.8mm 2mm;border-radius:99px;margin-bottom:2mm;letter-spacing:.04em}
+.fr .tag::before{content:"";display:inline-block;width:1.6mm;height:1.6mm;border-radius:50%;background:#ef4444;margin-right:1.2mm}
+.fr .big{font-size:14pt;font-weight:800;line-height:1.1}
+.fr .small{font-size:7.5pt;margin-top:1.5mm;color:#e2e8f0}
+
+/* BACK left */
+.bl{justify-content:flex-start;gap:3mm}
+.bl h2{font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--accd);font-weight:800}
+.steps{list-style:none;display:flex;flex-direction:column;gap:1.8mm}
+.steps li{display:flex;gap:2.5mm;align-items:center;font-size:9.5pt;font-weight:700;line-height:1.15}
+.steps b{flex:none;width:5.5mm;height:5.5mm;border-radius:50%;background:var(--accd);color:#fff;display:grid;place-items:center;font-size:8pt}
+.tips{display:flex;flex-direction:column;gap:2mm;border-top:.3mm solid #e2e8f0;padding-top:2.5mm}
+.tip{font-size:7.5pt;line-height:1.3;color:var(--ink)}
+.tip b{font-weight:800}
+.bl .foot{margin-top:auto;font-size:6.5pt;color:var(--mute)}
+
+/* BACK right */
+.br{gap:2.6mm}
+.br h2{font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);font-weight:800}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5mm}
+.stat{background:rgba(96,165,250,.16);border-radius:2mm;padding:1.8mm 1mm;text-align:center}
+.stat b{display:block;font-size:12pt;line-height:1;font-weight:800;color:var(--acc)}
+.stat span{font-size:5.8pt;color:#cbd5e1;line-height:1.1;display:block;margin-top:.6mm}
+.hook{font-size:9pt;font-weight:800;line-height:1.25}
+.pts{list-style:none;display:flex;flex-direction:column;gap:1.4mm}
+.pts li{font-size:7.5pt;line-height:1.3;padding-left:4mm;position:relative;color:#e2e8f0}
+.pts li::before{content:"";position:absolute;left:0;top:1.1mm;width:1.8mm;height:1.8mm;border-radius:50%;background:var(--acc)}
+.proof{font-size:7.5pt;line-height:1.35;color:#e2e8f0}
+.proof b{color:#fff}
+.ask{background:#fff;color:var(--ink);border-radius:3mm;padding:2.5mm 3mm}
+.ask .a1{font-size:9pt;font-weight:800;line-height:1.2}
+.ask .a2{font-size:7pt;color:var(--mute);margin-top:.8mm}
+.inv{margin-top:auto;display:flex;gap:3mm;align-items:center}
+.iq{flex:none;width:19mm;height:19mm;border:.35mm dashed #94a3b8;border-radius:2mm;display:grid;place-items:center;text-align:center;font-size:5.5pt;color:#94a3b8;background:#fff1}
+.inv .t{font-size:7.5pt;line-height:1.3}
+.inv .t b{display:block;font-size:9pt;color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="lbl">FRONT &middot; A6 landscape (148 &times; 105 mm), a quarter of an A4 sheet &middot; print at 100%</div>
+  <section class="card" id="front">
+    <div class="pane dark fl">
+      <img class="logo" src="../images/logo-white.svg" alt="ConferenceCaptioning">
+      <h1>You&rsquo;re in the room.<br><span>Scan to see it live.</span></h1>
+      <div class="qrbox"><img src="https://conferencecaptioning.com/qr.svg" alt="QR code: live captions and translation"></div>
+      <div class="sub">Live captions in 70+ languages.<br>No app. Pick your language.</div>
+      <div class="url">ConferenceCaptioning.com</div>
+    </div>
+    <div class="pane fr">
+      <div class="cap">
+        <div class="tag">LIVE &middot; BALI, INDONESIA</div>
+        <div class="big">10,000+ people.<br>One speaker. Four languages.</div>
+        <div class="small">Mandarin &middot; Bahasa &middot; Thai &middot; English, on screen at once.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lbl">BACK</div>
+  <section class="card" id="back">
+    <div class="pane bl">
+      <h2>How to use it</h2>
+      <ol class="steps">
+        <li><b>1</b>Scan the QR code</li>
+        <li><b>2</b>Tap &ldquo;Get Live Captions&rdquo;</li>
+        <li><b>3</b>Pick your language from the menu</li>
+      </ol>
+      <div class="tips">
+        <div class="tip"><b>Bluetooth hearing aids:</b> tap the menu, then &ldquo;Unmute&rdquo;, to hear the room in your aids.</div>
+        <div class="tip"><b>Low vision:</b> tap the menu and choose dark mode.</div>
+      </div>
+      <div class="foot">The AI runs on the organizer&rsquo;s own device and works offline.</div>
+    </div>
+    <div class="pane dark br">
+      <h2>Bring it to your event</h2>
+      <div class="hook">Live captions and translation for meetings, dinners, conferences, worship and city events.</div>
+      <ul class="pts">
+        <li>70+ languages, so every guest can follow along</li>
+        <li>Works offline, no special internet needed</li>
+        <li>Non-profit and community pricing available</li>
+      </ul>
+      <div class="proof">Used by the <b>YMCA</b>, <b>Apple</b> and organizers in <b>6+ countries</b>.</div>
+      <div class="inv">
+        <div class="iq"><span class="ph">[contact QR]</span></div>
+        <div class="t"><b>Want to partner? Say hello.</b><span class="ph">[email]</span> &middot; <span class="ph">[phone]</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

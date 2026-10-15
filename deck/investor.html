@@ -13,9 +13,9 @@
         extend: {
           colors: {
             brand: {
-              bg: '#193C5D',
-              dark: '#10273D',
-              surface: '#1F476D',
+              bg: '#05080c',
+              dark: '#000000',
+              surface: '#12181f',
               card: 'rgba(25, 60, 93, 0.7)',
               accent: '#00D2FF',
               accentHover: '#38BDF8',
@@ -36,7 +36,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #10273D;
+      background-color: #000;
       color: #FFFFFF;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
@@ -45,14 +45,26 @@
     
     /* Presentation Viewport Aspect */
     .deck-container {
-      background: radial-gradient(circle at 50% 15%, #234d75 0%, #193C5D 65%, #0e2133 100%);
+      background: radial-gradient(circle at 50% 10%, #0d1a26 0%, #05080c 60%, #000 100%);
       background-size: cover;
       background-position: center;
       transition: background-image 0.3s;
     }
     .logo-strip img { max-height: 44px; max-width: 80px; object-fit: contain; }
-    .logo-chip { background: rgba(255,255,255,.12); border-radius: 12px; padding: 10px 14px; display:flex; align-items:center; justify-content:center; height: 64px; }
-    .logo-chip img { max-height: 44px; max-width: 130px; object-fit: contain; }
+    .logo-chip { background: rgba(255,255,255,.12); border-radius: 10px; padding: 6px 10px; display:flex; align-items:center; justify-content:center; height: 48px; }
+    .logo-chip img { max-height: 32px; max-width: 100%; object-fit: contain; }
+    .slide { position: relative; z-index: 1; }
+
+    /* Staggered reveal: each element fades up in sequence */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+      to   { opacity: 1; transform: none; filter: blur(0); }
+    }
+    .slide.active .reveal {
+      animation: rise .8s cubic-bezier(.16, 1, .3, 1) both;
+      animation-delay: calc(var(--i, 0) * 500ms + 80ms);
+    }
+    @media (prefers-reduced-motion: reduce) { .slide.active .reveal { animation: none; } }
 
     .slide {
       display: none;
@@ -67,14 +79,14 @@
 
     /* Custom Glassmorphism */
     .glass-panel {
-      background: rgba(31, 71, 109, 0.45);
+      background: rgba(255, 255, 255, 0.045);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(56, 189, 248, 0.18);
     }
     
     .glass-card {
-      background: rgba(22, 53, 82, 0.65);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -141,6 +153,12 @@
 
   <main id="deckMain" class="flex-1 w-full deck-container relative flex items-center justify-center p-6 md:p-10 lg:p-12 overflow-hidden">
 
+    <!-- Slide 15 background: english.gif at 2x speed, black tint -->
+    <div id="finalBg" class="absolute inset-0 hidden" style="z-index:0">
+      <video id="finalBgVideo" src="english-2x.mp4" muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+      <div class="absolute inset-0 bg-black/75"></div>
+    </div>
+
     <!-- 1 TITLE -->
     <section class="slide active flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full" data-slide="1">
       <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" class="h-14 mx-auto mb-8">
@@ -151,6 +169,7 @@
       <div class="mt-10 pt-6 border-t border-white/10">
         <p class="text-xl font-semibold text-white tracking-wide">Saamer Mansoor</p>
         <p class="text-sm font-mono text-cyan-400 uppercase tracking-widest mt-1">Founder &amp; CEO</p>
+        <p class="text-base font-mono text-white/80 mt-4">saamer@conferencecaptioning.com &nbsp;&bull;&nbsp; conferencecaptioning.com</p>
       </div>
     </section>
 
@@ -225,7 +244,7 @@
           <h3 class="text-2xl font-bold text-white mb-2">The fastest translator</h3>
           <p class="text-white/80 text-lg">70+ languages on screen at the same time, under a second behind the speaker.</p>
         </div>
-        <div class="glass-panel rounded-2xl p-7 border-l-4 border-l-emerald-400 bg-brand-surface/70">
+        <div class="glass-panel rounded-2xl p-7 border-l-4 border-l-emerald-400 bg-white/[0.07]">
           <div class="text-xs font-mono text-emerald-300 uppercase mb-2">3</div>
           <h3 class="text-2xl font-bold text-white mb-2">AI on a device you own</h3>
           <p class="text-white/80 text-lg">A Mac or iPad the organizer already has. No data center. No dedicated line.</p>
@@ -322,17 +341,17 @@
         <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Paying customers across six countries, with no sales team.</h2>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
-        <div class="glass-panel p-6 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">$30K</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">annual revenue</div></div>
-        <div class="glass-panel p-6 rounded-2xl text-center border-t-2 border-blue-400"><div class="text-5xl font-extrabold text-white metric-number">6+</div><div class="text-xs font-mono uppercase text-blue-300 mt-1">countries</div></div>
-        <div class="glass-panel p-6 rounded-2xl text-center border-t-2 border-emerald-400"><div class="text-5xl font-extrabold text-white metric-number">20+</div><div class="text-xs font-mono uppercase text-emerald-300 mt-1">cities</div></div>
-        <div class="glass-panel p-6 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">1M+</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">words captioned &amp; translated</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">$30K</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">annual revenue</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-blue-400"><div class="text-5xl font-extrabold text-white metric-number">6+</div><div class="text-xs font-mono uppercase text-blue-300 mt-1">countries</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-emerald-400"><div class="text-5xl font-extrabold text-white metric-number">20+</div><div class="text-xs font-mono uppercase text-emerald-300 mt-1">cities</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">1M+</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">words captioned &amp; translated</div></div>
       </div>
-      <div class="glass-card rounded-2xl p-5 border border-white/10">
-        <div class="text-xs font-mono text-white/50 uppercase tracking-wider mb-3">Trusted by &mdash; including the YMCA and Apple</div>
-        <div class="grid grid-cols-5 md:grid-cols-10 gap-3">
-          <div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-2.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-3.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-4.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-5.png" alt=""></div>
-          <div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-6.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-7.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-8.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-9.png" alt=""></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-10.png" alt=""></div>
-        </div>
+      <div class="text-xs font-mono text-white/50 uppercase tracking-wider">Trusted by &mdash; including the YMCA and Apple</div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div class="glass-card rounded-xl p-3 md:col-span-2"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">Venues &amp; hotels</div><div class="grid grid-cols-1 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed.png" alt="Ernest N. Morial Convention Center"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-18.png" alt="Omni Hotels &amp; Resorts"></div></div></div>
+        <div class="glass-card rounded-xl p-3 md:col-span-3"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">AV companies</div><div class="grid grid-cols-2 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-16.png" alt="Animatic Media"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-13.png" alt="ConcertPlus"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-10.png" alt="Fivestar AV"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-5.png" alt="Elysium Experience"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-7.png" alt="Audio enhancement"></div></div></div>
+        <div class="glass-card rounded-xl p-3 md:col-span-5"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">Non-profits &amp; associations</div><div class="grid grid-cols-4 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-4.png" alt="YMCA"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-17.png" alt="American Arab Chamber of Commerce"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-11.png" alt="Canadian Chiropractic Association"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-6.png" alt="Techtown Detroit"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-9.png" alt="WeTech Alliance"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-14.png" alt="Portland Backpack"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-15.png" alt="National Oral Health Conference"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-12.png" alt="Travelability"></div></div></div>
+        <div class="glass-card rounded-xl p-3 md:col-span-2"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">Education, culture &amp; faith</div><div class="grid grid-cols-1 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-3.png" alt="Michigan State University"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-2.png" alt="Sundance Film Festival"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-8.png" alt="Chesapeake church"></div></div></div>
       </div>
     </section>
 
@@ -358,7 +377,7 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
         <div class="glass-panel rounded-2xl p-7 border-t-2 border-white/20"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Events</div><div class="text-5xl font-extrabold text-white metric-number">$150<span class="text-xl font-medium text-white/60">/hr</span></div><p class="text-white/80 mt-3">Pay per event. The easiest first purchase.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-2 border-cyan-400 bg-brand-surface/70"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Unlimited</div><div class="text-5xl font-extrabold text-white metric-number">$400<span class="text-xl font-medium text-white/60">/mo</span></div><p class="text-white/80 mt-3">Annual plan ($4,800/yr) for corporations and AV companies.</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-2 border-cyan-400 bg-white/[0.07]"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Unlimited</div><div class="text-5xl font-extrabold text-white metric-number">$400<span class="text-xl font-medium text-white/60">/mo</span></div><p class="text-white/80 mt-3">Annual plan ($4,800/yr) for corporations and AV companies.</p></div>
         <div class="glass-panel rounded-2xl p-7 border-t-2 border-emerald-400"><div class="text-xs font-mono text-emerald-300 mb-2 uppercase font-bold">Non-profit</div><div class="text-4xl font-extrabold text-white mb-1">Discounted</div><p class="text-white/80 mt-3">Priced by need. They become our references and our community.</p></div>
       </div>
       <div class="glass-card rounded-xl p-4 text-center border border-cyan-400/20"><p class="text-white/90">Today's $30K is roughly half subscriptions, half events. <span class="text-cyan-300 font-semibold">On-device AI means no per-minute GPU bill</span>, so heavy use doesn't erode margin.</p></div>
@@ -426,7 +445,7 @@
       <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" class="h-14 mx-auto mb-8">
       <blockquote class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">Everyone deserves to understand the room they're in.</blockquote>
       <p class="text-2xl text-cyan-200/90 font-light max-w-2xl mx-auto mb-8">With your support, we'll make that true.</p>
-      <div class="glass-panel p-8 rounded-3xl border border-cyan-400/30 max-w-lg w-full">
+      <div class="glass-panel p-8 rounded-3xl border border-cyan-400/30 max-w-lg w-full" style="background:rgba(0,0,0,.55)">
         <h3 class="text-2xl font-bold text-white">Saamer Mansoor</h3>
         <p class="text-cyan-400 font-mono text-sm uppercase tracking-widest mt-1 mb-4">Founder &amp; CEO</p>
         <div class="flex flex-col gap-2 text-base font-mono text-white/90">
@@ -434,6 +453,7 @@
           <a href="https://conferencecaptioning.com" target="_blank" class="hover:text-cyan-300">ConferenceCaptioning.com</a>
         </div>
       </div>
+      <p class="text-sm text-white/70 mt-6">Background: live captioning at the NJEA Convention, Harrah's Resort, Atlantic City, NJ &middot; August 2026</p>
     </section>
 
   </main>
@@ -473,9 +493,9 @@
     let secondsElapsed = 0;
 
     // Section backgrounds (images from the site, darkened for legibility)
-    const overlay = 'linear-gradient(180deg, rgba(14,33,51,.78), rgba(14,33,51,.88))';
+    const overlay = 'linear-gradient(270deg, rgba(0,0,0,.12), rgba(0,0,0,.92))';
     const bg = n => `${overlay}, url('https://conferencecaptioning.com/images/full-width-images/section-bg-${n}.jpg')`;
-    const slideBg = { 1: bg(22), 2: bg(18), 3: bg(15), 7: bg(22), 10: bg(18), 13: bg(15), 14: bg(22), 15: bg(18) };
+    const slideBg = { 1: bg(22), 2: bg(18), 3: bg(15), 7: bg(22), 10: bg(18), 13: bg(15), 14: bg(22) };
 
     // Speaker notes: about 10 minutes total (sum of target times)
     const speakerNotes = {
@@ -503,7 +523,7 @@
         <p class="mt-2">"The organizer didn't have to pay thousands for a dedicated internet line. Audio never leaves the room. And if a device fails, the backup takes over in as little as half a second."</p>
         <p class="mt-2">"It's also why our cost to serve is so low."</p>` },
       8: { title: "Slide 8: Proof", time: "40 seconds", notes: `
-        <p>"Customers trust us because our testing methodoly and result numbers are public. This is a live NASA press conference, run on-device: 97.2% word accuracy, about half a second average delay. From speech to captions to translations to appearing on screen, under one second."</p>` },
+        <p>"Customers trust us because our testing methodology and result numbers are public. This is a live NASA press conference, run on-device: 97.2% word accuracy, about half a second average delay. From speech to captions to translations to appearing on screen, under one second."</p>` },
       9: { title: "Slide 9: Traction", time: "50 seconds", notes: `
         <p>"Our paying customers span six countries and twenty cities, over a million words so far. Clients include the YMCA and Apple."</p>
         <p class="mt-2">"We've made $30,000 in annual revenue without a sales team."</p>` },
@@ -535,6 +555,23 @@
       }
     }
 
+    // Tag elements for the staggered reveal (flatten wrappers and grids one level)
+    function setupReveal() {
+      document.querySelectorAll('.slide').forEach(sec => {
+        const items = [];
+        const walk = (el, depth) => {
+          Array.from(el.children).forEach(c => {
+            const isGrid = /(^|\s)grid(\s|$)/.test(c.className);
+            const isPlain = !c.className;
+            if ((isGrid || isPlain) && depth < 2 && c.children.length) walk(c, depth + 1);
+            else items.push(c);
+          });
+        };
+        walk(sec, 0);
+        items.forEach((el, i) => { el.classList.add('reveal'); el.style.setProperty('--i', i); });
+      });
+    }
+
     function updateView() {
       document.querySelectorAll('.slide').forEach(s => {
         s.classList.toggle('active', parseInt(s.getAttribute('data-slide')) === currentSlide);
@@ -542,6 +579,10 @@
       document.getElementById('currentSlideNum').textContent = currentSlide;
       const main = document.getElementById('deckMain');
       main.style.backgroundImage = slideBg[currentSlide] || '';
+      const fin = document.getElementById('finalBg'), fv = document.getElementById('finalBgVideo');
+      const onFinal = currentSlide === totalSlides;
+      fin.classList.toggle('hidden', !onFinal);
+      if (onFinal) fv.play().catch(() => {}); else fv.pause();
       const buttons = document.getElementById('slideIndicators').children;
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].className = (i + 1 === currentSlide)
@@ -616,6 +657,7 @@
     });
 
     createIndicators();
+    setupReveal();
     updateView();
     startTimer();
   </script>

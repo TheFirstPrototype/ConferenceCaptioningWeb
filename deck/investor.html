@@ -54,6 +54,16 @@
     .logo-chip { background: rgba(255,255,255,.12); border-radius: 10px; padding: 6px 10px; display:flex; align-items:center; justify-content:center; height: 48px; }
     .logo-chip img { max-height: 32px; max-width: 100%; object-fit: contain; }
     .slide { position: relative; z-index: 1; }
+    .eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.15rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #38bdf8; }
+    /* Traffic-light ratings */
+    .dot { display:inline-block; width:14px; height:14px; border-radius:50%; margin-right:10px; vertical-align:-1px; }
+    .dot.g { background:#22c55e; box-shadow:0 0 10px #22c55e88; }
+    .dot.y { background:#facc15; box-shadow:0 0 10px #facc1588; }
+    .dot.r { background:#ef4444; box-shadow:0 0 10px #ef444488; }
+    .cell { padding: 1rem 1.25rem; color:#fff; }
+    .cell.g { background: rgba(34,197,94,.16); }
+    .cell.y { background: rgba(250,204,21,.16); }
+    .cell.r { background: rgba(239,68,68,.18); }
 
     /* Staggered reveal: each element fades up in sequence */
     @keyframes rise {
@@ -137,7 +147,7 @@
       <div class="flex items-center gap-2">
         <span class="text-white/60 font-mono text-xs">Slide</span>
         <span id="currentSlideNum" class="font-mono text-cyan-400 font-bold text-sm">1</span>
-        <span class="text-white/40 text-xs font-mono">/ 15</span>
+        <span class="text-white/40 text-xs font-mono">/ 18</span>
       </div>
       <div class="flex items-center gap-1.5 pl-2 border-l border-white/15">
         <button onclick="toggleSpeakerNotes()" id="notesBtn" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium bg-brand-surface hover:bg-brand-surface/90 border border-white/10 text-white/80 hover:text-white transition">
@@ -174,179 +184,237 @@
     </section>
 
     <!-- 2 HOOK -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="2">
-      <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-2 font-semibold">The Problem</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">At every event, some people<br><span class="text-cyan-300">can't fully take part.</span></h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-8 border-t-4 border-cyan-400">
-          <div class="text-6xl font-extrabold text-cyan-300 metric-number">37M</div>
-          <p class="text-xl font-semibold text-white mt-2">US adults report trouble hearing</p>
-          <p class="text-white/70 mt-2">They sit in the same room and miss the same keynote.</p>
-        </div>
-        <div class="glass-panel rounded-2xl p-8 border-t-4 border-blue-400">
-          <div class="text-6xl font-extrabold text-blue-300 metric-number">68M</div>
-          <p class="text-xl font-semibold text-white mt-2">US residents speak another language at home</p>
-          <p class="text-white/70 mt-2">And every global event has attendees who think in a language other than the stage's.</p>
-        </div>
-      </div>
-      <div class="glass-card rounded-xl p-5 text-center border border-white/10">
-        <p class="text-white/90 text-lg">Rooms like this weren't built for them. <span class="text-cyan-300 font-semibold">Everyone deserves to understand the room they're in.</span></p>
-      </div>
+    <section class="slide flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full gap-6" data-slide="2">
+      <div class="eyebrow">Have you ever been to an event and&hellip;</div>
+      <p class="text-4xl md:text-6xl font-extrabold text-white leading-tight">couldn't hear the speaker?</p>
+      <p class="text-4xl md:text-6xl font-extrabold text-white leading-tight">couldn't understand their language?</p>
+      <p class="text-4xl md:text-6xl font-extrabold text-white/60 leading-tight">just nodded along?</p>
+      <p class="text-3xl md:text-5xl font-extrabold text-cyan-300 mt-6">We solve that.</p>
     </section>
 
-    <!-- 3 STATUS QUO -->
+    <!-- 3 PEOPLE: REAL EVENT -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="3">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-2 font-semibold">Why It's Still Unsolved</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">The two existing options both break at the event.</h2>
+        <div class="eyebrow mb-2">Real events</div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Every attendee reads along. <span class="text-cyan-300">Live.</span></h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
-        <div class="glass-panel rounded-2xl p-8 border-t-2 border-t-cyan-400">
-          <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold tracking-wider rounded-md uppercase">Human captioners</span>
-          <h3 class="text-2xl font-bold text-white mt-4 mb-4">Accurate, but doesn't scale</h3>
-          <ul class="space-y-3 text-white/90 text-lg">
-            <li><span class="text-red-400 font-bold mr-2">✕</span>Costly, and booked weeks ahead</li>
-            <li><span class="text-red-400 font-bold mr-2">✕</span>One person, one language</li>
-            <li><span class="text-red-400 font-bold mr-2">✕</span>No backup if they drop or get sick</li>
-          </ul>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
+        <div class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-cyan-400/25 bg-black min-h-0">
+          <img src="IMG_1067.gif" alt="Live event with captions on both stage screens" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute left-4 top-3 text-sm font-bold text-white bg-black/60 px-3 py-1 rounded-full">Live captions on both stage screens</div>
         </div>
-        <div class="glass-panel rounded-2xl p-8 border-t-2 border-t-blue-400">
-          <span class="px-3 py-1 bg-blue-500/20 text-blue-300 text-xs font-mono font-bold tracking-wider rounded-md uppercase">Cloud AI</span>
-          <h3 class="text-2xl font-bold text-white mt-4 mb-4">Fast, but fragile</h3>
-          <ul class="space-y-3 text-white/90 text-lg">
-            <li><span class="text-red-400 font-bold mr-2">✕</span>Needs a dedicated internet line: <strong>$2,500&ndash;$5,000</strong> per event</li>
-            <li><span class="text-red-400 font-bold mr-2">✕</span>Ballroom Wi-Fi drops, so captions drop</li>
-            <li><span class="text-red-400 font-bold mr-2">✕</span>Audio leaves the building, which many organizers can't allow</li>
-          </ul>
+        <div class="lg:col-span-4 flex flex-col justify-center gap-4">
+          <blockquote class="glass-panel rounded-2xl p-6 border-l-4 border-l-cyan-400">
+            <p class="text-2xl font-semibold text-white leading-snug italic">&ldquo;It seems like a no-brainer for every conference to use this technology.&rdquo;</p>
+            <footer class="text-sm text-white/70 mt-3">Tom Phillips, Faculty<br>Apple Developer Academy Detroit</footer>
+          </blockquote>
         </div>
-      </div>
-      <div class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-center">
-        <p class="text-white/90 text-lg"><span class="text-red-400 font-semibold">Result:</span> most events skip it, or deliver one language to one audience.</p>
       </div>
     </section>
 
-    <!-- 4 SOLUTION: THREE BECOME ONE -->
+    <!-- 4 PEOPLE: BALI -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="4">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-2 font-semibold">The Solution</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Three things built as one product.</h2>
+        <div class="eyebrow mb-2">Bali, Indonesia</div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">10,000 people. One English speaker. <span class="text-cyan-300">Four languages.</span></h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-7 border-l-4 border-l-cyan-400">
-          <div class="text-xs font-mono text-cyan-300 uppercase mb-2">1</div>
-          <h3 class="text-2xl font-bold text-white mb-2">Certified live captioner</h3>
-          <p class="text-white/80 text-lg">Human-grade captioning accuracy, backed by certified professionals when you need them.</p>
-        </div>
-        <div class="glass-panel rounded-2xl p-7 border-l-4 border-l-blue-400">
-          <div class="text-xs font-mono text-blue-300 uppercase mb-2">2</div>
-          <h3 class="text-2xl font-bold text-white mb-2">The fastest translator</h3>
-          <p class="text-white/80 text-lg">70+ languages on screen at the same time, under a second behind the speaker.</p>
-        </div>
-        <div class="glass-panel rounded-2xl p-7 border-l-4 border-l-emerald-400 bg-white/[0.07]">
-          <div class="text-xs font-mono text-emerald-300 uppercase mb-2">3</div>
-          <h3 class="text-2xl font-bold text-white mb-2">AI on a device you own</h3>
-          <p class="text-white/80 text-lg">A Mac or iPad the organizer already has. No data center. No dedicated line.</p>
-        </div>
-      </div>
-      <div class="glass-card rounded-xl p-5 text-center border border-cyan-400/30">
-        <p class="text-white text-xl font-semibold">One product: <span class="text-cyan-300">ConferenceCaptioning</span>, built for event producers &amp; meeting planners.</p>
-      </div>
-    </section>
-
-    <!-- 5 BALI DEMO -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="5">
-      <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Live In The Field</div>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">10,000 people. One English speaker. Four languages on screen.</h2>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 min-h-0 flex-1">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
         <div class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-cyan-400/25 bg-black min-h-0">
           <video src="bali-summit.mp4" poster="bali-summit-poster.jpg" autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover"></video>
-          <div class="absolute left-4 top-3 text-xs font-bold text-white bg-black/60 px-3 py-1 rounded-full flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>LIVE &middot; Bali, Indonesia &middot; 10,000+ attendees</div>
+          <div class="absolute left-4 top-3 text-sm font-bold text-white bg-black/60 px-3 py-1 rounded-full flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>LIVE &middot; 10,000+ attendees</div>
         </div>
-        <div class="lg:col-span-4 flex flex-col justify-center gap-3">
-          <div class="glass-panel rounded-xl p-4"><div class="text-xs font-mono text-cyan-300 mb-1">ON SCREEN, AT THE SAME TIME</div><p class="text-white text-xl font-semibold">Mandarin &middot; Bahasa &middot; Thai &middot; English</p></div>
-          <div class="glass-panel rounded-xl p-4"><p class="text-white/85">An experience that wasn't possible at this scale before, run from the organizer's own device.</p></div>
-          <div class="flex items-center gap-2 text-sm font-bold text-white text-center">
-            <span class="glass-card rounded-lg px-3 py-2">Speak</span><span class="text-cyan-400">&rsaquo;</span>
-            <span class="glass-card rounded-lg px-3 py-2">Caption + Translate</span><span class="text-cyan-400">&rsaquo;</span>
-            <span class="glass-card rounded-lg px-3 py-2">Screens</span>
+        <div class="lg:col-span-4 flex flex-col gap-4 min-h-0">
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black flex-1 min-h-0">
+            <img src="multilingual3.gif" alt="Multilingual captions on stage screens" class="absolute inset-0 w-full h-full object-cover">
           </div>
+          <div class="glass-panel rounded-xl p-4"><p class="text-white text-xl font-semibold">Mandarin &middot; Bahasa &middot; Thai &middot; English</p><p class="text-white/70 text-base mt-1">on screen at the same time</p></div>
         </div>
       </div>
     </section>
 
-    <!-- 6 ATTENDEE EXPERIENCE -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="6">
+    <!-- 5 PEOPLE: QR -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="5">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">The Experience</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Attendees scan a QR code. That's it.</h2>
+        <div class="eyebrow mb-2">The attendee experience</div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Scan a QR code. <span class="text-cyan-300">Read in your language.</span></h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto items-center min-h-0">
-        <div class="md:col-span-4 flex justify-center">
-          <div class="rounded-[2rem] border-4 border-white/20 overflow-hidden bg-black shadow-2xl" style="height:48vh; aspect-ratio:9/19;">
-            <video src="attendee.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
+        <div class="md:col-span-6 relative rounded-2xl overflow-hidden border border-white/10 bg-black min-h-0">
+          <img src="https://conferencecaptioning.com/images/promo-4.jpg" alt="QR code sign at a live event" class="absolute inset-0 w-full h-full object-cover">
         </div>
-        <div class="md:col-span-8 grid grid-cols-1 gap-4">
-          <div class="glass-panel rounded-2xl p-6 border-l-4 border-l-cyan-400"><h3 class="text-xl font-bold text-white mb-1">For the attendee</h3><p class="text-white/85">Read live captions on the venue screens, or on your own phone in the language you choose. No app. No headset. No one singled out.</p></div>
-          <div class="glass-panel rounded-2xl p-6 border-l-4 border-l-blue-400"><h3 class="text-xl font-bold text-white mb-1">For the organizer</h3><p class="text-white/85">Plug in your existing sound board. Captions and translations are on stage in minutes, on a device you already own.</p></div>
-          <div class="glass-panel rounded-2xl p-6 border-l-4 border-l-emerald-400"><h3 class="text-xl font-bold text-white mb-1">For the AV crew</h3><p class="text-white/85">No rebuilt AV stack. We become one more line on their checklist.</p></div>
+        <div class="md:col-span-3 relative rounded-2xl overflow-hidden border border-white/10 bg-black min-h-0">
+          <img src="https://conferencecaptioning.com/images/promo-5.jpg" alt="Attendee reading live captions on a phone" class="absolute inset-0 w-full h-full object-cover">
+        </div>
+        <div class="md:col-span-3 relative rounded-2xl overflow-hidden border border-white/10 bg-black min-h-0">
+          <video src="attendee.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover"></video>
+        </div>
+      </div>
+      <p class="text-center text-2xl font-semibold text-white">No app. No headset. <span class="text-cyan-300">Any phone.</span></p>
+    </section>
+
+    <!-- 6 PROBLEM -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="6">
+      <div class="p-4 mb-6 rounded-xl bg-red-600 text-white text-center shadow-lg shadow-red-900/40">
+        <p class="text-2xl font-extrabold tracking-wide">TODAY'S STATUS QUO: most events skip it.</p>
+      </div>
+      <div>
+        <div class="eyebrow text-lg mb-2">The core problem</div>
+        <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">Live events leave people out.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
+        <div class="glass-panel rounded-2xl p-8 border-t-4 border-cyan-400">
+          <div class="text-7xl font-extrabold text-cyan-300 metric-number">37M</div>
+          <p class="text-2xl font-semibold text-white mt-2">US adults have trouble hearing</p>
+        </div>
+        <div class="glass-panel rounded-2xl p-8 border-t-4 border-blue-400">
+          <div class="text-7xl font-extrabold text-blue-300 metric-number">68M</div>
+          <p class="text-2xl font-semibold text-white mt-2">US residents speak another language at home</p>
         </div>
       </div>
     </section>
 
-    <!-- 7 ETHICAL ON-DEVICE AI -->
+    <!-- 7 WHY EXISTING OPTIONS FAIL -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="7">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Why It Works Differently</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Ethical AI. No data center.<br><span class="text-cyan-300">Completely offline.</span></h2>
+        <div class="eyebrow text-lg mb-2">Why it's still unsolved</div>
+        <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">Both options break at the event.</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-cyan-400"><div class="text-3xl font-extrabold text-cyan-300 mb-2">Offline</div><p class="text-white/85">The AI runs on the organizer's Mac or iPad. Wi-Fi can drop and captions keep going.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-blue-400"><div class="text-3xl font-extrabold text-blue-300 mb-2">$0 line</div><p class="text-white/85">No $2,500&ndash;$5,000 dedicated internet line, and audio never leaves the room.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-emerald-400"><div class="text-3xl font-extrabold text-emerald-300 mb-2">0.5s failover</div><p class="text-white/85">A backup device takes over in as little as half a second, with no dropped attendee streams.</p></div>
-      </div>
-      <div class="glass-card rounded-xl p-4 text-center border border-cyan-400/30">
-        <p class="text-white/90">Less energy. Less data exposure. Lower cost to serve. <span class="text-cyan-300 font-semibold">The ethical choice is also the structurally cheaper one.</span></p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
+        <div class="glass-panel rounded-2xl p-8 border-t-4 border-cyan-400">
+          <h3 class="text-3xl font-bold text-white mb-5">Human captioners</h3>
+          <ul class="space-y-4 text-white text-2xl">
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Costly</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Booked weeks ahead</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>No backup</li>
+          </ul>
+        </div>
+        <div class="glass-panel rounded-2xl p-8 border-t-4 border-blue-400">
+          <h3 class="text-3xl font-bold text-white mb-5">Cloud AI</h3>
+          <ul class="space-y-4 text-white text-2xl">
+            <li><span class="text-red-500 font-bold mr-3">✕</span>$2,500&ndash;$5,000 internet line</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Dies when Wi-Fi dies</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Audio leaves the room</li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- 8 PROOF -->
+    <!-- 8 VALUE PROPOSITION -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="8">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Proof</div>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Customers trust it because the numbers are public.</h2>
+        <div class="eyebrow text-lg mb-2">Our value proposition</div>
+        <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">We fix each one.</h2>
+      </div>
+      <div class="grid grid-cols-1 gap-4 my-auto">
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Costly, booked ahead</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Software. $150/hr. Book today.</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">$2,500+ internet line</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Works with no internet</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">One language</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>70+ languages at once</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">No backup</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Backup takes over in 0.5s</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Audio sent to the cloud</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Audio never leaves the room</div></div>
+      </div>
+    </section>
+
+    <!-- 9 PRODUCT + OUTPUT -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="9">
+      <div>
+        <div class="eyebrow text-lg mb-2">The product</div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">One tap to start. <span class="text-cyan-300">Captions everywhere.</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-3 flex-1 min-h-0">
+        <div class="flex flex-col gap-2 min-h-0">
+          <div class="text-lg font-bold text-cyan-300">1 &middot; Organizer taps Start</div>
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-white flex-1 min-h-0"><img src="https://conferencecaptioning.com/images/promo-3.png" alt="Organizer app with start button and QR code" class="absolute inset-0 w-full h-full object-contain"></div>
+        </div>
+        <div class="flex flex-col gap-2 min-h-0">
+          <div class="text-lg font-bold text-cyan-300">2 &middot; Captions hit the stage</div>
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black flex-1 min-h-0"><img src="english.gif" alt="NJEA Convention captions overlaid on the stage video" class="absolute inset-0 w-full h-full object-cover"></div>
+        </div>
+        <div class="flex flex-col gap-2 min-h-0">
+          <div class="text-lg font-bold text-cyan-300">3 &middot; Phones read in any language</div>
+          <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black flex-1 min-h-0"><video src="attendee.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover"></video></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 ARCHITECTURE -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="10">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="eyebrow text-lg mb-2">How it works</div>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">All AI runs on <span class="text-cyan-300">one device in the room.</span></h2>
+        </div>
+        <div class="shrink-0 px-4 py-2 rounded-full border-2 border-amber-400 text-amber-300 font-bold tracking-wide text-sm">PATENT PENDING</div>
+      </div>
+
+      <div class="grid grid-cols-12 gap-3 items-center my-auto">
+        <div class="col-span-2 glass-card rounded-2xl p-4 text-center">
+          <div class="text-4xl mb-1">🎤</div>
+          <div class="text-lg font-bold text-white">Speaker</div>
+          <div class="text-sm text-white/60">sound board audio</div>
+        </div>
+        <div class="col-span-1 text-center text-cyan-400 text-4xl">&rarr;</div>
+        <div class="col-span-5 rounded-2xl p-4 border-2 border-dashed border-cyan-400 bg-cyan-400/5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-base font-bold text-cyan-300 uppercase tracking-wider">On-device &middot; Mac or iPad</div>
+            <div class="text-sm font-bold text-emerald-300">No internet</div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="rounded-xl bg-white/10 p-3"><div class="text-2xl font-extrabold text-white">1</div><div class="text-base font-semibold text-white">Speech to text</div></div>
+            <div class="rounded-xl bg-white/10 p-3"><div class="text-2xl font-extrabold text-white">2</div><div class="text-base font-semibold text-white">Translate</div></div>
+            <div class="rounded-xl bg-white/10 p-3"><div class="text-2xl font-extrabold text-white">3</div><div class="text-base font-semibold text-white">Send</div></div>
+          </div>
+          <div class="mt-3 text-center text-2xl font-extrabold text-cyan-300">Under 1 second</div>
+        </div>
+        <div class="col-span-1 text-center text-cyan-400 text-4xl">&rarr;</div>
+        <div class="col-span-3 flex flex-col gap-2">
+          <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">🖥️ Venue screens</div>
+          <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: English</div>
+          <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: Español</div>
+          <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: 中文</div>
+          <div class="text-center text-sm text-cyan-300 font-semibold">Each person picks 1 of 70+ languages</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-amber-400"><div class="text-xl font-extrabold text-white">Patent-pending pipeline</div><div class="text-sm text-white/70">our technical moat</div></div>
+        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-emerald-400"><div class="text-xl font-extrabold text-white">Backup device in 0.5s</div><div class="text-sm text-white/70">a second device takes over automatically</div></div>
+        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-cyan-400"><div class="text-xl font-extrabold text-white">No data center</div><div class="text-sm text-white/70">audio never leaves the room</div></div>
+      </div>
+    </section>
+
+    <!-- 11 PROOF -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="11">
+      <div>
+        <div class="eyebrow text-lg mb-2">Proof</div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white">Tested in public. Numbers published.</h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
         <div class="lg:col-span-7 relative rounded-2xl overflow-hidden border border-cyan-400/25 bg-black min-h-0">
-          <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/gF1GJmRAGzM?autoplay=1&mute=1&controls=0&loop=1&playlist=gF1GJmRAGzM&playsinline=1&modestbranding=1&rel=0" title="Live benchmark" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          <div class="absolute left-3 top-3 text-xs font-bold text-white bg-black/60 px-3 py-1 rounded-full">Open benchmark: live NASA press conference, on-device</div>
+          <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/gF1GJmRAGzM?autoplay=1&mute=1&controls=0&loop=1&playlist=gF1GJmRAGzM&playsinline=1&modestbranding=1&rel=0" title="Live public test" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div class="absolute left-3 top-3 text-sm font-bold text-white bg-black/60 px-3 py-1 rounded-full">Public test: live NASA press conference</div>
         </div>
         <div class="lg:col-span-5 grid grid-cols-2 gap-4 content-center">
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-4xl font-extrabold text-cyan-300 metric-number">97.2%</div><div class="text-xs font-mono uppercase text-white/70 mt-1">word accuracy</div></div>
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-4xl font-extrabold text-cyan-300 metric-number">&lt;1s</div><div class="text-xs font-mono uppercase text-white/70 mt-1">speech to screen, translated</div></div>
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-4xl font-extrabold text-emerald-300 metric-number">0.5s</div><div class="text-xs font-mono uppercase text-white/70 mt-1">average caption delay</div></div>
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-4xl font-extrabold text-emerald-300 metric-number">70+</div><div class="text-xs font-mono uppercase text-white/70 mt-1">languages</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-cyan-300 metric-number">97.2%</div><div class="text-sm font-mono uppercase text-white/70 mt-1">words correct</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-cyan-300 metric-number">&lt;1s</div><div class="text-sm font-mono uppercase text-white/70 mt-1">speech to translation on screen</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">0.5s</div><div class="text-sm font-mono uppercase text-white/70 mt-1">backup takes over</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">70+</div><div class="text-sm font-mono uppercase text-white/70 mt-1">languages</div></div>
         </div>
       </div>
     </section>
 
-    <!-- 9 TRACTION -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="9">
+    <!-- 12 TRACTION -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="12">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Traction</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Paying customers across six countries, with no sales team.</h2>
+        <div class="eyebrow text-lg mb-2">Traction</div>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Paying customers in six countries. <span class="text-cyan-300">No sales team.</span></h2>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
-        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">$30K</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">annual revenue</div></div>
-        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-blue-400"><div class="text-5xl font-extrabold text-white metric-number">6+</div><div class="text-xs font-mono uppercase text-blue-300 mt-1">countries</div></div>
-        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-emerald-400"><div class="text-5xl font-extrabold text-white metric-number">20+</div><div class="text-xs font-mono uppercase text-emerald-300 mt-1">cities</div></div>
-        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">1M+</div><div class="text-xs font-mono uppercase text-cyan-300 mt-1">words captioned &amp; translated</div></div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">$30K</div><div class="text-sm font-mono uppercase text-cyan-300 mt-1">annual revenue</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-blue-400"><div class="text-5xl font-extrabold text-white metric-number">6+</div><div class="text-sm font-mono uppercase text-blue-300 mt-1">countries</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-emerald-400"><div class="text-5xl font-extrabold text-white metric-number">20+</div><div class="text-sm font-mono uppercase text-emerald-300 mt-1">cities</div></div>
+        <div class="glass-panel p-4 rounded-2xl text-center border-t-2 border-cyan-400"><div class="text-5xl font-extrabold text-white metric-number">1M+</div><div class="text-sm font-mono uppercase text-cyan-300 mt-1">words captioned &amp; translated</div></div>
       </div>
-      <div class="text-xs font-mono text-white/50 uppercase tracking-wider">Trusted by &mdash; including the YMCA and Apple</div>
+      <div class="text-sm font-mono text-white/60 uppercase tracking-wider">Trusted by &mdash; including the YMCA and Apple</div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
         <div class="glass-card rounded-xl p-3 md:col-span-2"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">Venues &amp; hotels</div><div class="grid grid-cols-1 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed.png" alt="Ernest N. Morial Convention Center"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-18.png" alt="Omni Hotels &amp; Resorts"></div></div></div>
         <div class="glass-card rounded-xl p-3 md:col-span-3"><div class="text-[11px] font-mono text-cyan-300 uppercase tracking-wider mb-2">AV companies</div><div class="grid grid-cols-2 gap-2"><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-16.png" alt="Animatic Media"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-13.png" alt="ConcertPlus"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-10.png" alt="Fivestar AV"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-5.png" alt="Elysium Experience"></div><div class="logo-chip"><img src="https://conferencecaptioning.com/images/slider/unnamed-7.png" alt="Audio enhancement"></div></div></div>
@@ -355,93 +423,112 @@
       </div>
     </section>
 
-    <!-- 10 GO TO MARKET -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="10">
+    <!-- 13 MARKET -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="13">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">How We Sell</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Two in five demos become customers.</h2>
+        <div class="eyebrow text-lg mb-2">Market opportunity</div>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Every event with a stage and a screen.</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-cyan-400"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Multiplier</div><h3 class="text-2xl font-bold text-white mb-2">AV companies</h3><p class="text-white/80">They add us to their checklist and upsell every client they have. One partner brings repeat events with different organizers.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-blue-400"><div class="text-xs font-mono text-blue-300 mb-2 uppercase font-bold">Direct</div><h3 class="text-2xl font-bold text-white mb-2">Event organizers</h3><p class="text-white/80">Non-profits, associations, city governments and corporate teams that need compliance and reach.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-emerald-400"><div class="text-xs font-mono text-emerald-300 mb-2 uppercase font-bold">Inbound</div><h3 class="text-2xl font-bold text-white mb-2">Search</h3><p class="text-white/80">Recommended by Google AI search for captioning in-person conferences, which means high-intent demos at low acquisition cost.</p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+        <div class="glass-panel rounded-2xl p-7 border-t-4 border-cyan-400">
+          <div class="text-3xl font-extrabold text-cyan-300 mb-2">Laws require it</div>
+          <p class="text-2xl text-white">ADA &middot; Section 508 &middot; EU Accessibility Act</p>
+          <p class="text-xl text-white/70 mt-3">37M US adults have trouble hearing</p>
+        </div>
+        <div class="glass-panel rounded-2xl p-7 border-t-4 border-blue-400">
+          <div class="text-3xl font-extrabold text-blue-300 mb-2">Audiences are global</div>
+          <p class="text-2xl text-white">More languages in every room</p>
+          <p class="text-xl text-white/70 mt-3">68M US residents speak another language at home</p>
+        </div>
       </div>
-      <div class="glass-card rounded-xl p-4 text-center border border-white/10"><p class="text-white/90">Everything so far came without a sales team. <span class="text-cyan-300 font-semibold">The raise adds the first one.</span></p></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card rounded-xl p-4 border-t-2 border-cyan-400"><div class="text-sm font-mono font-bold text-cyan-300 uppercase">Now</div><div class="text-xl font-bold text-white">Conferences &amp; summits</div></div>
+        <div class="glass-card rounded-xl p-4 border-t-2 border-blue-400"><div class="text-sm font-mono font-bold text-blue-300 uppercase">Next</div><div class="text-xl font-bold text-white">Universities, government, employers</div></div>
+        <div class="glass-card rounded-xl p-4 border-t-2 border-emerald-400"><div class="text-sm font-mono font-bold text-emerald-300 uppercase">Then</div><div class="text-xl font-bold text-white">Classrooms, worship, civic meetings</div></div>
+      </div>
     </section>
 
-    <!-- 11 BUSINESS MODEL -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="11">
-      <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Business Model</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Events bring us in. Subscriptions keep us.</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-7 border-t-2 border-white/20"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Events</div><div class="text-5xl font-extrabold text-white metric-number">$150<span class="text-xl font-medium text-white/60">/hr</span></div><p class="text-white/80 mt-3">Pay per event. The easiest first purchase.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-2 border-cyan-400 bg-white/[0.07]"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Unlimited</div><div class="text-5xl font-extrabold text-white metric-number">$400<span class="text-xl font-medium text-white/60">/mo</span></div><p class="text-white/80 mt-3">Annual plan ($4,800/yr) for corporations and AV companies.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-2 border-emerald-400"><div class="text-xs font-mono text-emerald-300 mb-2 uppercase font-bold">Non-profit</div><div class="text-4xl font-extrabold text-white mb-1">Discounted</div><p class="text-white/80 mt-3">Priced by need. They become our references and our community.</p></div>
-      </div>
-      <div class="glass-card rounded-xl p-4 text-center border border-cyan-400/20"><p class="text-white/90">Today's $30K is roughly half subscriptions, half events. <span class="text-cyan-300 font-semibold">On-device AI means no per-minute GPU bill</span>, so heavy use doesn't erode margin.</p></div>
-    </section>
-
-    <!-- 12 COMPETITION -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="12">
-      <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Competition</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Built for the live room, not the video call.</h2>
+    <!-- 14 COMPETITION -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="14">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <div class="eyebrow text-lg mb-2">Competition</div>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Built for the live room.</h2>
+        </div>
+        <div class="flex items-center gap-4 text-sm text-white/80 shrink-0"><span><i class="dot g"></i>Good</span><span><i class="dot y"></i>Okay</span><span><i class="dot r"></i>Bad</span></div>
       </div>
       <div class="glass-panel rounded-2xl overflow-hidden my-auto border border-white/10">
-        <table class="w-full text-left text-base">
-          <thead><tr class="bg-black/40 border-b border-white/10 text-white/70 font-mono text-xs uppercase">
-            <th class="py-3 px-5"></th><th class="py-3 px-5 text-cyan-300 font-bold bg-cyan-950/40">ConferenceCaptioning</th><th class="py-3 px-5">Human captioners</th><th class="py-3 px-5">Cloud AI</th></tr></thead>
-          <tbody class="divide-y divide-white/5 font-medium">
-            <tr><td class="py-3 px-5 text-white">Works offline</td><td class="py-3 px-5 text-emerald-400 font-bold bg-cyan-950/20">&check; Yes</td><td class="py-3 px-5 text-white/60">Depends on a person</td><td class="py-3 px-5 text-white/50">✕ Needs internet</td></tr>
-            <tr><td class="py-3 px-5 text-white">Languages at once</td><td class="py-3 px-5 text-emerald-400 font-bold bg-cyan-950/20">&check; 70+</td><td class="py-3 px-5 text-white/50">✕ One</td><td class="py-3 px-5 text-white/80">&check; Many</td></tr>
-            <tr><td class="py-3 px-5 text-white">Backup built in</td><td class="py-3 px-5 text-emerald-400 font-bold bg-cyan-950/20">&check; 0.5s failover</td><td class="py-3 px-5 text-white/50">✕ Rarely</td><td class="py-3 px-5 text-white/50">✕ Usually not</td></tr>
-            <tr><td class="py-3 px-5 text-white">Audio stays on site</td><td class="py-3 px-5 text-emerald-400 font-bold bg-cyan-950/20">&check; Yes</td><td class="py-3 px-5 text-white/80">&check; Yes</td><td class="py-3 px-5 text-white/50">✕ Sent to cloud</td></tr>
-            <tr><td class="py-3 px-5 text-white">Cost to serve</td><td class="py-3 px-5 text-emerald-400 font-bold bg-cyan-950/20">Near zero</td><td class="py-3 px-5 text-white/50">Hourly labor</td><td class="py-3 px-5 text-white/50">Per-minute compute</td></tr>
+        <table class="w-full text-left text-xl">
+          <thead><tr class="bg-black/50 border-b border-white/10 text-white/70 font-mono text-sm uppercase">
+            <th class="py-3 px-5"></th><th class="py-3 px-5 text-cyan-300 font-bold">ConferenceCaptioning</th><th class="py-3 px-5">Human captioners</th><th class="py-3 px-5">Cloud AI</th></tr></thead>
+          <tbody class="divide-y divide-white/10 font-semibold">
+            <tr><td class="py-4 px-5 text-white">Works with no internet</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell y"><i class="dot y"></i>Depends</td><td class="cell r"><i class="dot r"></i>No</td></tr>
+            <tr><td class="py-4 px-5 text-white">Languages at once</td><td class="cell g"><i class="dot g"></i>70+</td><td class="cell r"><i class="dot r"></i>1</td><td class="cell g"><i class="dot g"></i>Many</td></tr>
+            <tr><td class="py-4 px-5 text-white">Backup if it fails</td><td class="cell g"><i class="dot g"></i>0.5s</td><td class="cell r"><i class="dot r"></i>Rare</td><td class="cell y"><i class="dot y"></i>Varies</td></tr>
+            <tr><td class="py-4 px-5 text-white">Audio stays in the room</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell r"><i class="dot r"></i>No</td></tr>
+            <tr><td class="py-4 px-5 text-white">Cost per event</td><td class="cell g"><i class="dot g"></i>Low</td><td class="cell r"><i class="dot r"></i>High</td><td class="cell y"><i class="dot y"></i>Medium</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="glass-card rounded-xl p-4 text-center border border-cyan-400/30"><p class="text-white font-semibold">Our moat is the combination: <span class="text-cyan-300 font-mono">on-device AI</span> + <span class="text-cyan-300 font-mono">sub-second speed</span> + <span class="text-cyan-300 font-mono">failover</span> + <span class="text-cyan-300 font-mono">AV-channel distribution</span>.</p></div>
     </section>
 
-    <!-- 13 VISION -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="13">
+    <!-- 15 BUSINESS MODEL -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="15">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">Where This Goes</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Events are the wedge. Every live room is the market.</h2>
+        <div class="eyebrow text-lg mb-2">Business model</div>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Events bring us in. Subscriptions keep us.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-cyan-400"><div class="text-xs font-mono text-cyan-300 mb-2 uppercase font-bold">Now</div><h3 class="text-2xl font-bold text-white mb-2">Conferences &amp; summits</h3><p class="text-white/80">Sold through AV companies and directly to organizers, in 6+ countries.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-blue-400"><div class="text-xs font-mono text-blue-300 mb-2 uppercase font-bold">Next</div><h3 class="text-2xl font-bold text-white mb-2">Institutions with a mandate</h3><p class="text-white/80">Universities, government meetings and large employers, where accessibility is a legal requirement.</p></div>
-        <div class="glass-panel rounded-2xl p-7 border-t-4 border-emerald-400"><div class="text-xs font-mono text-emerald-300 mb-2 uppercase font-bold">Then</div><h3 class="text-2xl font-bold text-white mb-2">Communities</h3><p class="text-white/80">Classrooms, places of worship and civic gatherings, wherever people share a room and not a language.</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-2 border-white/20"><div class="text-sm font-mono text-cyan-300 mb-2 uppercase font-bold">Events</div><div class="text-6xl font-extrabold text-white metric-number">$150<span class="text-2xl font-medium text-white/60">/hr</span></div><p class="text-xl text-white/80 mt-3">Pay per event</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-2 border-cyan-400 bg-white/[0.07]"><div class="text-sm font-mono text-cyan-300 mb-2 uppercase font-bold">Unlimited</div><div class="text-6xl font-extrabold text-white metric-number">$400<span class="text-2xl font-medium text-white/60">/mo</span></div><p class="text-xl text-white/80 mt-3">Annual plan, $4,800/yr</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-2 border-emerald-400"><div class="text-sm font-mono text-emerald-300 mb-2 uppercase font-bold">Non-profit</div><div class="text-5xl font-extrabold text-white">Discounted</div><p class="text-xl text-white/80 mt-3">Priced by need</p></div>
       </div>
-      <div class="glass-card rounded-xl p-4 text-center border border-white/10"><p class="text-white/90">The same on-device engine serves every step. <span class="text-cyan-300 font-semibold">We expand by adding rooms, not rebuilding product.</span></p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="glass-card rounded-xl p-4 border border-emerald-400/30"><div class="text-sm font-mono font-bold text-emerald-300 uppercase mb-1">Cheap for us</div><p class="text-xl text-white">AI compute runs on the customer's device, so no cloud bill per minute.</p></div>
+        <div class="glass-card rounded-xl p-4 border border-amber-400/40"><div class="text-sm font-mono font-bold text-amber-300 uppercase mb-1">Costs us</div><p class="text-xl text-white">Certified captioners and our support crew. People, not servers, are our main cost.</p></div>
+      </div>
     </section>
 
-    <!-- 14 ASK -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="14">
+    <!-- 16 GO TO MARKET -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="16">
       <div>
-        <div class="text-cyan-400 text-xs font-mono uppercase tracking-widest mb-1 font-semibold">The Ask</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">Raising $1.25M to go from $30K to $500K ARR in 18 months.</h2>
+        <div class="eyebrow text-lg mb-2">How we sell</div>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Two in five demos become customers.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        <div class="glass-panel rounded-2xl p-7 border-t-4 border-cyan-400"><div class="text-sm font-mono text-cyan-300 mb-2 uppercase font-bold">Multiplier</div><h3 class="text-3xl font-bold text-white mb-2">AV companies</h3><p class="text-xl text-white/80">One partner brings repeat events with different organizers.</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-4 border-blue-400"><div class="text-sm font-mono text-blue-300 mb-2 uppercase font-bold">Direct</div><h3 class="text-3xl font-bold text-white mb-2">Event organizers</h3><p class="text-xl text-white/80">Non-profits, associations, governments, corporations.</p></div>
+        <div class="glass-panel rounded-2xl p-7 border-t-4 border-emerald-400"><div class="text-sm font-mono text-emerald-300 mb-2 uppercase font-bold">Inbound</div><h3 class="text-3xl font-bold text-white mb-2">Search</h3><p class="text-xl text-white/80">Recommended by Google AI search for in-person conference captioning.</p></div>
+      </div>
+      <blockquote class="glass-card rounded-xl p-4 border-l-4 border-l-cyan-400">
+        <p class="text-xl text-white italic">&ldquo;Easy to use and simple to integrate into our existing setup.&rdquo;</p>
+        <footer class="text-sm text-white/70 mt-1">Michael Goggins, AV Professional, Michigan State University</footer>
+      </blockquote>
+    </section>
+
+    <!-- 17 ASK -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="17">
+      <div>
+        <div class="eyebrow text-lg mb-2">The ask</div>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">$1.25M to reach $500K in yearly revenue in 18 months.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto items-stretch">
         <div class="md:col-span-5 glass-panel rounded-2xl p-7 border-2 border-cyan-400 text-center flex flex-col justify-center">
-          <div class="text-xs font-mono text-cyan-300 uppercase font-bold tracking-wider mb-2">Seed Round</div>
-          <div class="text-6xl font-black text-white metric-number mb-2">$1.25M</div>
-          <p class="text-white/70">Target: 15&times; revenue growth</p>
+          <div class="text-sm font-mono text-cyan-300 uppercase font-bold tracking-wider mb-2">Seed round</div>
+          <div class="text-7xl font-black text-white metric-number mb-2">$1.25M</div>
+          <p class="text-xl text-white/80">$30K &rarr; $500K ARR</p>
+          <p class="text-sm text-white/60 mt-1">ARR = annual recurring revenue: subscriptions and repeat contracts</p>
         </div>
-        <div class="md:col-span-7 glass-panel rounded-2xl p-7 border border-white/10 flex flex-col justify-center gap-4">
-          <div><div class="flex justify-between text-white font-semibold"><span>Sales &amp; marketing</span><span class="text-cyan-300">50%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-cyan-400 rounded" style="width:50%"></div></div><p class="text-white/60 text-sm mt-1">Our first sales team and AV-partner program</p></div>
-          <div><div class="flex justify-between text-white font-semibold"><span>Product</span><span class="text-blue-300">25%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-blue-400 rounded" style="width:25%"></div></div><p class="text-white/60 text-sm mt-1">More languages, faster, on more devices</p></div>
-          <div><div class="flex justify-between text-white font-semibold"><span>Operations &amp; compliance</span><span class="text-emerald-300">25%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-emerald-400 rounded" style="width:25%"></div></div><p class="text-white/60 text-sm mt-1">What large buyers require before they sign</p></div>
+        <div class="md:col-span-7 glass-panel rounded-2xl p-7 border border-white/10 flex flex-col justify-center gap-5">
+          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Sales &amp; marketing</span><span class="text-cyan-300">50%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-cyan-400 rounded" style="width:50%"></div></div></div>
+          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Product</span><span class="text-blue-300">25%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-blue-400 rounded" style="width:25%"></div></div></div>
+          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Operations &amp; compliance</span><span class="text-emerald-300">25%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-emerald-400 rounded" style="width:25%"></div></div><p class="text-sm text-white/60 mt-1">What large buyers require before they sign</p></div>
         </div>
       </div>
-      <div class="text-center py-1"><p class="text-sm text-cyan-300 font-mono">Proven product. Proven conversion. The raise adds the sales engine.</p></div>
     </section>
 
-    <!-- 15 CLOSE -->
-    <section class="slide flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full" data-slide="15">
+    <!-- 18 CLOSE -->
+    <section class="slide flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full" data-slide="18">
       <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" class="h-14 mx-auto mb-8">
       <blockquote class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">Everyone deserves to understand the room they're in.</blockquote>
       <p class="text-2xl text-cyan-200/90 font-light max-w-2xl mx-auto mb-8">With your support, we'll make that true.</p>
@@ -449,8 +536,8 @@
         <h3 class="text-2xl font-bold text-white">Saamer Mansoor</h3>
         <p class="text-cyan-400 font-mono text-sm uppercase tracking-widest mt-1 mb-4">Founder &amp; CEO</p>
         <div class="flex flex-col gap-2 text-base font-mono text-white/90">
-          <a href="mailto:hello@conferencecaptioning.com" class="hover:text-cyan-300 underline underline-offset-4">hello@conferencecaptioning.com</a>
-          <a href="https://conferencecaptioning.com" target="_blank" class="hover:text-cyan-300">ConferenceCaptioning.com</a>
+          <a href="mailto:saamer@conferencecaptioning.com" class="hover:text-cyan-300 underline underline-offset-4">saamer@conferencecaptioning.com</a>
+          <a href="https://conferencecaptioning.com" target="_blank" class="hover:text-cyan-300">conferencecaptioning.com</a>
         </div>
       </div>
       <p class="text-sm text-white/70 mt-6">Background: live captioning at the NJEA Convention, Harrah's Resort, Atlantic City, NJ &middot; August 2026</p>
@@ -486,7 +573,7 @@
   </aside>
 
   <script>
-    const totalSlides = 15;
+    const totalSlides = 18;
     let currentSlide = 1;
     let notesOpen = false;
     let timerRunning = true;
@@ -495,50 +582,59 @@
     // Section backgrounds (images from the site, darkened for legibility)
     const overlay = 'linear-gradient(270deg, rgba(0,0,0,.12), rgba(0,0,0,.92))';
     const bg = n => `${overlay}, url('https://conferencecaptioning.com/images/full-width-images/section-bg-${n}.jpg')`;
-    const slideBg = { 1: bg(22), 2: bg(18), 3: bg(15), 7: bg(22), 10: bg(18), 13: bg(15), 14: bg(22) };
+    const slideBg = { 1: bg(22), 2: bg(18), 6: bg(15), 13: bg(18), 17: bg(22) };
 
     // Speaker notes: about 10 minutes total (sum of target times)
     const speakerNotes = {
-      1: { title: "Slide 1: Title", time: "20 seconds", notes: `
-        <p>"Hi, I'm Saamer, founder of ConferenceCaptioning. Every once in a while a product comes along that changes how a room works. We're building that for events."</p>` },
-      2: { title: "Slide 2: The problem", time: "45 seconds", notes: `
-        <p>"At every event, there are people who can't fully participate. About 37 million US adults have trouble hearing. 68 million US residents speak another language at home. And that's before we count international attendees."</p>
-        <p class="mt-2">"Rooms like this weren't built for them."</p>
-        <p class="mt-2 text-white/50 text-xs italic">Verify the 37M (NIDCD/CDC) and 68M (Census ACS) figures before presenting. Swap in the numbers for your audience's region if useful.</p>` },
-      3: { title: "Slide 3: Why it's unsolved", time: "40 seconds", notes: `
-        <p>"There are two options today. Human captioners are accurate, but they're costly, booked weeks ahead, and there's no backup if one drops."</p>
-        <p class="mt-2">"Cloud AI is fast, but it needs a dedicated internet line, $2,500 to $5,000 for an event. If ballroom Wi-Fi drops, so do the captions."</p>
-        <p class="mt-2">"So most events skip it."</p>` },
-      4: { title: "Slide 4: Three become one", time: "45 seconds", notes: `
-        <p>"So we built three things: a certified live captioner. The world's fastest language translator. And an AI that runs on a device you already own."</p>
-        <p class="mt-2">"These aren't three products. It's one. We call it ConferenceCaptioning, built for event producers and meeting planners."</p>` },
-      5: { title: "Slide 5: Bali demo", time: "55 seconds", notes: `
-        <p class="text-white/50 text-xs italic">Let the video play for a few seconds first.</p>
-        <p class="mt-2">"This is Bali, Indonesia. Ten thousand people from around the world. One speaker, speaking in English. The screens beside him show Mandarin, Bahasa, Thai and English, all at the same time."</p>
+      1: { title: "Slide 1: Title", time: "15 seconds", notes: `
+        <p>"Hi, I'm Saamer, founder of ConferenceCaptioning. Every once in a while, a product comes along that changes how a room works."</p>` },
+      2: { title: "Slide 2: Hook", time: "30 seconds", notes: `
+        <p class="text-white/50 text-xs italic">Read each line slowly. Pause after every question.</p>
+        <p class="mt-2">"Have you ever been to an event and couldn't hear the speaker? Or couldn't understand their language? Or just nodded along and pretended you followed?"</p>
+        <p class="mt-2">"Millions of people do that at every event. We solve that."</p>` },
+      3: { title: "Slide 3: Real events", time: "25 seconds", notes: `
+        <p>"This is a real event. Captions on both stage screens, and the whole audience reads along live."</p>
+        <p class="mt-2">"Tom Phillips, faculty at Apple Developer Academy Detroit, told us it's a no-brainer for every conference."</p>
+        <p class="mt-2 text-white/50 text-xs italic">Optional: add one real attendee story here (for example a hard-of-hearing guest at a YMCA event) if you have a name and permission.</p>` },
+      4: { title: "Slide 4: Bali", time: "35 seconds", notes: `
+        <p>"This is Bali, Indonesia. Ten thousand people from around the world. One speaker, speaking in English. The screens beside him show Mandarin, Bahasa, Thai and English, all at the same time."</p>
         <p class="mt-2">"That wasn't possible at this scale before. The organizer ran it from their own device."</p>` },
-      6: { title: "Slide 6: Attendee experience", time: "40 seconds", notes: `
-        <p>"For the attendee it's a QR code. No app, no headset, no one singled out. For the organizer, it's their existing sound board. For the AV crew, it's one more line on their checklist."</p>` },
-      7: { title: "Slide 7: Ethical on-device AI", time: "45 seconds", notes: `
-        <p>"This is ethical AI. No data centers. It runs on the organizer's own device, completely offline."</p>
-        <p class="mt-2">"The organizer didn't have to pay thousands for a dedicated internet line. Audio never leaves the room. And if a device fails, the backup takes over in as little as half a second."</p>
-        <p class="mt-2">"It's also why our cost to serve is so low."</p>` },
-      8: { title: "Slide 8: Proof", time: "40 seconds", notes: `
-        <p>"Customers trust us because our testing methodology and result numbers are public. This is a live NASA press conference, run on-device: 97.2% word accuracy, about half a second average delay. From speech to captions to translations to appearing on screen, under one second."</p>` },
-      9: { title: "Slide 9: Traction", time: "50 seconds", notes: `
-        <p>"Our paying customers span six countries and twenty cities, over a million words so far. Clients include the YMCA and Apple."</p>
+      5: { title: "Slide 5: QR code", time: "25 seconds", notes: `
+        <p>"For attendees, it's one QR code. No app, no headset, any phone. They pick their language and read along."</p>` },
+      6: { title: "Slide 6: The core problem", time: "35 seconds", notes: `
+        <p>"Today's status quo: most events skip it. In the US alone, 37 million adults have trouble hearing and 68 million people speak another language at home. They're in every audience."</p>
+        <p class="mt-2 text-white/50 text-xs italic">Verify 37M (NIDCD/CDC) and 68M (Census ACS) before presenting.</p>` },
+      7: { title: "Slide 7: Why existing options fail", time: "30 seconds", notes: `
+        <p>"There are two options. Human captioners are costly, booked weeks ahead, and have no backup. Cloud AI needs a dedicated internet line, two and a half to five thousand dollars, and when the Wi-Fi dies, the captions die. Your audio also leaves the room."</p>` },
+      8: { title: "Slide 8: Value proposition", time: "40 seconds", notes: `
+        <p>"We fix each one. Software at $150 an hour, bookable today. Works with no internet. 70-plus languages at once. If a device fails, a backup takes over in half a second. And audio never leaves the room."</p>
+        <p class="mt-2 text-white/50 text-xs italic">"On-device" means the AI runs on a Mac or iPad in the room, not in a data center.</p>` },
+      9: { title: "Slide 9: Product & output", time: "35 seconds", notes: `
+        <p>"Here's the product. The organizer taps Start. Captions appear on the stage, this is the NJEA Convention. And every attendee's phone shows it in the language they choose."</p>` },
+      10: { title: "Slide 10: How it works", time: "55 seconds", notes: `
+        <p>"Here's how it works. Audio comes from the sound board into one Mac or iPad in the room. Everything happens on that device: speech to text, translation, and sending it out. No internet. Under one second."</p>
+        <p class="mt-2">"Then it goes to the venue screens and to every phone, and each person picks one of 70-plus languages."</p>
+        <p class="mt-2">"This pipeline is patent pending. That's our technical moat: doing captions and translation, under a second, with no internet. If a device fails, a second device takes over automatically in half a second."</p>
+        <p class="mt-2 text-white/50 text-xs italic">Confirm "patent pending" status and wording before presenting.</p>` },
+      11: { title: "Slide 11: Proof", time: "35 seconds", notes: `
+        <p>"Customers trust us because our testing is public. This is a live NASA press conference, run on-device: 97.2% of words correct, and from speech to translation on screen in under one second."</p>` },
+      12: { title: "Slide 12: Traction", time: "40 seconds", notes: `
+        <p>"Our paying customers span six countries and twenty cities, over a million words so far. Venues, AV companies, non-profits, universities. Clients include the YMCA and Apple."</p>
         <p class="mt-2">"We've made $30,000 in annual revenue without a sales team."</p>` },
-      10: { title: "Slide 10: How we sell", time: "45 seconds", notes: `
+      13: { title: "Slide 13: Market", time: "35 seconds", notes: `
+        <p>"Two forces drive demand: laws that require accessibility, and audiences that are more global every year. Our market is every event with a stage and a screen."</p>
+        <p class="mt-2">"We start with conferences and summits, then move to universities, government and employers, then classrooms, places of worship and civic meetings. Same product, more rooms."</p>
+        <p class="mt-2 text-white/50 text-xs italic">No dollar market size is on this slide yet. Add a sourced bottom-up number if you have one.</p>` },
+      14: { title: "Slide 14: Competition", time: "30 seconds", notes: `
+        <p>"Green is good, yellow is okay, red is bad. Human captioners can't do many languages and rarely have a backup. Cloud AI needs internet and sends your audio out. We're the only one that's green across the board."</p>` },
+      15: { title: "Slide 15: Business model", time: "35 seconds", notes: `
+        <p>"Events are $150 an hour. Unlimited is $400 a month on an annual plan. Non-profits get discounts based on need."</p>
+        <p class="mt-2">"The AI itself is cheap to run, because it's on the customer's device. But we do pay for certified captioners and our support crew. People are our main cost, and that's what we're building around."</p>` },
+      16: { title: "Slide 16: How we sell", time: "30 seconds", notes: `
         <p>"Two in five demos become customers. AV companies add us to their checklist and upsell us to every client they have, so one partner brings repeat events with different organizers. We also show up in Google AI search recommendations for captioning in-person conferences."</p>` },
-      11: { title: "Slide 11: Business model", time: "40 seconds", notes: `
-        <p>"Events are $150 an hour. Unlimited is $400 a month on an annual plan, which is $4,800 a year. Non-profits get discounts based on need."</p>
-        <p class="mt-2">"Today's revenue is about half subscriptions and half events. Because the AI is on-device, heavy usage doesn't create a GPU bill."</p>` },
-      12: { title: "Slide 12: Competition", time: "40 seconds", notes: `
-        <p>"Human captioners don't scale. Cloud AI breaks when the internet does, and the audio leaves the building. We're built for the live room: offline, sub-second, with failover, and sold through the AV channel."</p>` },
-      13: { title: "Slide 13: Vision", time: "40 seconds", notes: `
-        <p>"Events are the wedge. Next are institutions with an accessibility mandate: universities, government, large employers. Then communities: classrooms, places of worship, civic gatherings. Same engine, more rooms."</p>` },
-      14: { title: "Slide 14: The ask", time: "50 seconds", notes: `
-        <p>"We want to go from $30,000 to half a million in revenue in eighteen months. That's why we're raising $1.25 million. Half for sales. A quarter for product. The rest to meet what big buyers require."</p>` },
-      15: { title: "Slide 15: Close", time: "20 seconds", notes: `
+      17: { title: "Slide 17: The ask", time: "45 seconds", notes: `
+        <p>"We want to go from $30,000 to half a million in yearly recurring revenue in eighteen months. That's why we're raising $1.25 million. Half for sales. A quarter for product. The rest to meet what big buyers require."</p>` },
+      18: { title: "Slide 18: Close", time: "15 seconds", notes: `
         <p>"Everyone deserves to understand the room they're in. With your support, we're going to make that true. Thank you."</p>
         <p class="mt-2 text-white/50 text-xs italic">Leave this slide up during Q&amp;A.</p>` }
     };
@@ -658,6 +754,8 @@
 
     createIndicators();
     setupReveal();
+    const hashSlide = parseInt(location.hash.slice(1));
+    if (hashSlide >= 1 && hashSlide <= totalSlides) currentSlide = hashSlide;
     updateView();
     startTimer();
   </script>

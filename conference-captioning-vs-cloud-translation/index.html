@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On-Device vs Cloud Live Captioning and Translation for Events | ConferenceCaptioning</title>
+  <meta name="description" content="A plain comparison of on-device and cloud live captioning for in-person events: internet needs, delay, audio path, hardware and when each one fits.">
+  <link rel="canonical" href="https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ConferenceCaptioning">
+  <meta property="og:url" content="https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/">
+  <meta property="og:title" content="On-Device vs Cloud Live Captioning and Translation for Events | ConferenceCaptioning">
+  <meta property="og:description" content="A plain comparison of on-device and cloud live captioning for in-person events: internet needs, delay, audio path, hardware and when each one fits.">
+  <meta property="og:image" content="https://conferencecaptioning.com/benchmark/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="On-Device vs Cloud Live Captioning and Translation for Events | ConferenceCaptioning">
+  <meta name="twitter:description" content="A plain comparison of on-device and cloud live captioning for in-person events: internet needs, delay, audio path, hardware and when each one fits.">
+  <meta name="twitter:image" content="https://conferencecaptioning.com/benchmark/og-image.png">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "On-Device vs Cloud Live Captioning and Translation for Events",
+    "description": "A plain comparison of on-device and cloud live captioning for in-person events: internet needs, delay, audio path, hardware and when each one fits.",
+    "datePublished": "2026-10-12",
+    "dateModified": "2026-10-12",
+    "inLanguage": "en",
+    "mainEntityOfPage": "https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/",
+    "url": "https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/",
+    "image": "https://conferencecaptioning.com/benchmark/og-image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Saamer Mansoor",
+      "url": "https://www.linkedin.com/in/saamer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "ConferenceCaptioning",
+        "url": "https://conferencecaptioning.com"
+      }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ConferenceCaptioning",
+      "url": "https://conferencecaptioning.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://conferencecaptioning.com/images/logo-white.svg"
+      }
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is on-device captioning better than cloud captioning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the event. On-device captioning is stronger when the event is in person, the internet is unreliable or expensive, or you want audio to stay in the room. Cloud services are stronger when most viewers are remote, when you want no hardware on site, or when you need a human interpreter or stenographer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does on-device captioning have lower latency than cloud?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It removes the network round trip, which is usually the part that varies. In our published benchmark, captions on a Mac appeared in under a second with no internet needed. We have not benchmarked other vendors, so we do not publish comparison numbers against them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does the audio go with on-device captioning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Speech recognition and translation run on the organizer’s device, so the audio does not need to be sent to a cloud service to produce captions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What hardware do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Mac, iPad or iPhone for the captioning (a Windows PC can use our Chrome extension) and audio from your mixer. We recommend showing captions on the room’s screens. A router is only needed if attendees will also read on their own phones. A second device is recommended as a backup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I choose a cloud captioning or interpretation service instead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Choose cloud when your audience is mainly remote or hybrid, when you cannot place a device and a network in the room, or when you need a certified human interpreter or captioner for legal or regulatory reasons."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ConferenceCaptioning",
+        "item": "https://conferencecaptioning.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "On-device vs cloud",
+        "item": "https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/"
+      }
+    ]
+  }
+]
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-navy: #193C5D; --brand-accent: #38bdf8; --brand-emerald: #10b981; --brand-amber: #f59e0b;
+      --bg-dark: #0c1824; --bg-surface: rgba(25, 60, 93, 0.48); --border-subtle: rgba(255,255,255,0.14);
+      --border-focus: rgba(56,189,248,0.5); --text-white: #fff; --text-muted: #94a3b8; --text-subtle: #64748b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans); color: var(--text-white); background: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% -5%, #1c456b 0%, var(--bg-dark) 62%);
+      background-attachment: fixed; -webkit-font-smoothing: antialiased; line-height: 1.5;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 72px; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0 8px; }
+    header.top img { height: 26px; opacity: .92; }
+    header.top a.back { font-family: var(--font-mono); font-size: .78rem; color: var(--text-muted); text-decoration: none; letter-spacing: .06em; }
+    header.top a.back:hover { color: var(--brand-accent); }
+    .eyebrow { font-family: var(--font-mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; color: var(--brand-accent); }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.08; margin: 10px 0 14px; }
+    h1 span { background: linear-gradient(90deg, #38bdf8, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lede { color: var(--text-muted); font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 760px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 6px; }
+    .chip { font-family: var(--font-mono); font-size: .72rem; padding: 5px 11px; border-radius: 999px; background: rgba(56,189,248,.12); border: 1px solid rgba(56,189,248,.32); color: var(--brand-accent); }
+    section { margin-top: 56px; }
+    h2 { font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .sub { color: var(--text-muted); max-width: 780px; margin-bottom: 22px; }
+    .glass { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 22px 24px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 12px 30px -8px rgba(0,0,0,.5); }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 34px; }
+    .kpi .label { font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--text-muted); }
+    .kpi .value { font-size: clamp(1.7rem, 3.2vw, 2.35rem); white-space: nowrap; font-weight: 800; letter-spacing: -0.03em; margin: 6px 0 2px; }
+    .kpi .who { font-size: .9rem; color: var(--text-muted); }
+    .bars { display: grid; gap: 14px; }
+    .bar-row { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 14px; }
+    .bar-name { font-weight: 600; font-size: .95rem; }
+    .bar-name small { display: block; font-weight: 400; color: var(--text-muted); font-size: .75rem; }
+    .track { position: relative; height: 34px; border-radius: 9px; background: rgba(255,255,255,.06); overflow: hidden; }
+    .fill { height: 100%; border-radius: 9px; width: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+      font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #06121d; transition: width 900ms cubic-bezier(.16,1,.3,1); min-width: 0; }
+    .val { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; color: #fff; white-space: nowrap; }
+    .p95 { position: absolute; top: 5px; bottom: 5px; width: 3px; border-radius: 2px; background: #fff; opacity: .85; }
+    .legend { font-size: .8rem; color: var(--text-muted); margin-top: 12px; }
+    .legend b { color: #fff; }
+    .note { font-size: .82rem; color: var(--text-subtle); margin-top: 10px; }
+    .tablewrap { overflow-x: auto; border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: .88rem; }
+    th, td { padding: 12px 14px; text-align: right; border-bottom: 1px solid rgba(255,255,255,.08); white-space: nowrap; }
+    
+    th { font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); font-weight: 500; }
+    td.eng { font-weight: 600; }
+    td.eng i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .cols h3 { font-size: 1rem; margin-bottom: 6px; }
+    .cols p, .cols li { color: var(--text-muted); font-size: .92rem; }
+    .cols ul { padding-left: 18px; }
+    footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; color: var(--text-muted); font-size: .85rem; }
+    footer a { color: var(--brand-accent); text-decoration: none; }
+    @media (max-width: 640px) { .bar-row { grid-template-columns: 1fr; gap: 6px; } }
+    @media (prefers-reduced-motion: reduce) { .fill { transition: none; } html { scroll-behavior: auto; } }
+
+
+
+
+
+
+
+    /* --- additions: anchors, element ids, scales, CTA --- */
+    header.site-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px 24px; padding: 22px 0 14px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 18px; }
+    header.site-header .brand img { height: 30px; display: block; }
+    #site-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center; }
+    #site-nav a { font-size: .86rem; color: var(--text-muted); text-decoration: none; font-weight: 500; }
+    #site-nav a:hover, #site-nav a.current { color: #fff; }
+    #site-nav a.nav-cta { color: #fff; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: 6px 16px; font-weight: 600; }
+    #site-nav a.nav-cta:hover { background: rgba(255,255,255,.1); }
+    footer#site-footer { display: block; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-bottom: 14px; }
+    .footer-links a { color: var(--brand-accent); text-decoration: none; font-size: .85rem; }
+    .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; color: var(--text-muted); font-size: .8rem; }
+    [id] { scroll-margin-top: 24px; }
+    th:first-child, td:first-child, th.l, td.l { text-align: left; }
+    .byline { font-size: .85rem; color: var(--text-muted); margin: 6px 0 14px; }
+    .byline a { color: var(--brand-accent); text-decoration: none; }
+    code { font-family: var(--font-mono); font-size: .85em; background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 5px; color: #e2e8f0; }
+    .anchor { margin-left: 8px; font-family: var(--font-mono); font-size: .8em; color: var(--text-subtle); text-decoration: none; opacity: 0; transition: opacity .15s; }
+    h2:hover .anchor, h3:hover .anchor, .anchor:focus { opacity: 1; }
+    .anchor:hover { color: var(--brand-accent); }
+    .axis { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: center; margin-top: 2px; }
+    .axis .ticks { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: .68rem; color: var(--text-subtle); padding: 0 2px; }
+    @media (max-width: 640px) { .axis { grid-template-columns: 1fr; } .axis > span:first-child { display: none; } }
+    .fill { transition: none; }
+    .fill.short { padding: 0; border-radius: 4px; }
+    .fill.ref { background: repeating-linear-gradient(45deg, rgba(148,163,184,.55), rgba(148,163,184,.55) 6px, rgba(148,163,184,.3) 6px, rgba(148,163,184,.3) 12px) !important; color: #fff; }
+    .bar-row.ref .bar-name { color: var(--text-muted); }
+    .cta { margin-top: 56px; padding: 32px clamp(20px, 4vw, 40px); border-radius: 20px; background: var(--brand-navy); border: 1px solid var(--border-subtle); }
+    .cta h2 { font-size: 1.5rem; margin-bottom: 8px; }
+    .cta p { color: #cbd5e1; max-width: 720px; margin-bottom: 20px; }
+    .cta .row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .cta .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer; border: 1px solid rgba(255,255,255,.4); color: #fff; background: transparent; font-family: inherit; }
+    .cta .btn:hover { background: rgba(255,255,255,.1); }
+    .cta .btn.primary { background: #fff; color: var(--brand-navy); border-color: #fff; }
+    .cta .btn.primary:hover { background: #e2e8f0; }
+    /* Append ?ids to the URL to outline every element and show its id (handy when reporting issues). */
+    body.show-ids [id] { outline: 1px dashed rgba(56,189,248,.55); position: relative; }
+    body.show-ids [id]::before { content: '#' attr(id); position: absolute; top: 0; left: 0; background: #38bdf8; color: #04121f; font: 600 10px/1.4 var(--font-mono); padding: 0 4px; z-index: 60; pointer-events: none; }
+    body.show-ids tr[id]::before, body.show-ids td[id]::before, body.show-ids th[id]::before { display: none; }
+
+    .answer { font-size: 1.08rem; color: #e2e8f0; max-width: 820px; margin-top: 18px; }
+    .answer strong { color: #fff; }
+    .faq details { border-bottom: 1px solid rgba(255,255,255,.1); padding: 14px 0; }
+    .faq summary { cursor: pointer; font-weight: 600; font-size: 1.02rem; }
+    .faq p { color: var(--text-muted); margin-top: 8px; max-width: 820px; }
+    .steps { counter-reset: s; list-style: none; display: grid; gap: 12px; }
+    .steps li { counter-increment: s; color: var(--text-muted); padding-left: 44px; position: relative; }
+    .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: rgba(56,189,248,.16); border: 1px solid rgba(56,189,248,.4); color: var(--brand-accent); display: grid; place-items: center; font-family: var(--font-mono); font-size: .8rem; }
+    .steps b { color: #fff; }
+    td.tw, th.tw { white-space: normal; text-align: left; min-width: 180px; }
+    table.cmp { min-width: 640px; }
+    .vidbox { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+    .vidbox video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .screen-tag { position: absolute; top: 21%; z-index: 10; padding: 2px 8px; border-radius: 999px; background: rgba(10,23,38,.85); border: 1px solid var(--brand-accent); color: #fff; font-size: .72rem; font-weight: 600; line-height: 1.5; white-space: nowrap; }
+    .screen-tag.centered { transform: translateX(-50%); }
+    @media (max-width: 640px) { .screen-tag { font-size: 9px; padding: 0 5px; } }
+  </style>
+  <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="top site-header" id="site-header">
+    <a class="brand" href="https://conferencecaptioning.com/" id="site-logo"><img src="https://conferencecaptioning.com/images/logo-white.svg" alt="Conference Captioning company logo" width="188" height="37" onerror="this.style.display='none'"></a>
+    <nav aria-label="Main" id="site-nav">
+      <a href="https://conferencecaptioning.com/">Home</a>
+      <a href="https://conferencecaptioning.com/#features">Features</a>
+      <a href="https://conferencecaptioning.com/#pricing">Pricing</a>
+      <a href="https://conferencecaptioning.com/blog/index.html">Blog</a>
+      <a href="https://conferencecaptioning.com/av-production.html">AV Engineers</a>
+      <a href="https://conferencecaptioning.com/event-organizers.html">Event Planners</a>
+      <a href="https://conferencecaptioning.com/church-live-translation-transcription.html">Churches</a>
+      <a href="https://conferencecaptioning.com/benchmark/">Benchmark</a>
+      <a href="https://app.conferencecaptioning.com" class="nav-cta" data-cta="vs-cloud-nav-start-free">Start free</a>
+    </nav>
+  </header>
+
+  <div class="eyebrow">On-device vs cloud</div>
+  <h1 id="title">On-device or cloud captions: <span>which fits your event?</span></h1>
+  <p class="byline">By <a href="https://www.linkedin.com/in/saamer" rel="author noopener" target="_blank">Saamer Mansoor</a>, ConferenceCaptioning &middot; Updated <time datetime="2026-10-12">October 12, 2026</time></p>
+  <p class="lede">A neutral comparison of the two ways to caption and translate a live event, including when the cloud is the better choice.</p>
+  <p class="answer" id="short-answer"><strong>On-device captioning runs the AI on a computer in the room; cloud captioning runs it in a remote data center.</strong> For in-person events, on-device avoids the dependence on venue internet. For remote audiences or human interpretation, cloud or human services can be the better fit. ConferenceCaptioning is an on-device system.</p>
+
+  <section id="comparison">
+    <h2 id="comparison-heading">Side-by-side: how the two architectures differ</h2>
+    <p class="sub">This compares the two approaches in general, not any single vendor. We have only benchmarked our own engines.</p>
+    <div class="tablewrap glass"><table class="cmp"><thead><tr><th class="tw">&nbsp;</th><th class="tw">On-device (ConferenceCaptioning)</th><th class="tw">Cloud-based services</th></tr></thead><tbody><tr><td class="tw"><b>Where the AI runs</b></td><td class="tw">On the organizer&rsquo;s own device in the room</td><td class="tw">In a remote data center</td></tr><tr><td class="tw"><b>Internet during the event</b></td><td class="tw">Not needed for captions or translation</td><td class="tw">Required, and its quality sets the quality of the captions</td></tr><tr><td class="tw"><b>Main source of delay</b></td><td class="tw">Local processing on the device</td><td class="tw">Network round trip plus processing, which varies with congestion</td></tr><tr><td class="tw"><b>If the internet drops</b></td><td class="tw">Captions continue</td><td class="tw">Captions stop or degrade until it returns</td></tr><tr><td class="tw"><b>Audio path</b></td><td class="tw">Stays in the room for captioning and translation</td><td class="tw">Streams to a third-party server</td></tr><tr><td class="tw"><b>What you bring</b></td><td class="tw">A Mac, iPad or iPhone (or Windows with an extension), a screen or switcher, and a backup device; a router only for phones</td><td class="tw">Often only a browser and a good connection</td></tr><tr><td class="tw"><b>Extra venue cost</b></td><td class="tw">None for bandwidth</td><td class="tw">May need a dedicated internet line, commonly about $2,500&ndash;5,000 for large events</td></tr><tr><td class="tw"><b>Best for</b></td><td class="tw">In-person conferences, auditoriums, broadcasts, rooms with poor connectivity</td><td class="tw">Remote and hybrid audiences, events with no room for extra equipment</td></tr></tbody></table></div>
+  </section>
+
+  <section id="when-cloud">
+    <h2 id="when-cloud-heading">When a cloud service is the better choice</h2>
+    <p class="sub">We would rather you pick the right tool for your event.</p>
+    <div class="cols">
+      <div class="glass"><h3>Mostly remote audiences</h3><p>If people watch from many locations, a cloud service reaches them without a local network.</p></div>
+      <div class="glass"><h3>No room for equipment</h3><p>If you cannot place a device and a router in the room, a browser-only service is simpler.</p></div>
+      <div class="glass"><h3>Human interpreters or captioners</h3><p>Legal, medical or regulated settings may require a certified person, which AI captioning does not replace.</p></div>
+    </div>
+  </section>
+
+  <section id="our-evidence">
+    <h2 id="evidence-heading">What we have measured</h2>
+    <p class="sub">Our evidence covers our own on-device engines.</p>
+    <div class="glass"><p>On a live NASA news conference at real-time speed, the best engine scored <b>97.2% word accuracy</b>, with captions in under a second and no internet needed. The data and scoring code are open: <a href="https://conferencecaptioning.com/benchmark/" style="color:var(--brand-accent)">live captioning benchmark</a> &middot; <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/" style="color:var(--brand-accent)">multilingual translation benchmark</a>. For setup without venue internet, see <a href="https://conferencecaptioning.com/offline-event-translation/" style="color:var(--brand-accent)">offline event translation</a>.</p></div>
+  </section>
+
+  <section id="faq" class="faq">
+    <h2 id="faq-heading">Frequently asked questions</h2>
+    <details><summary>Is on-device captioning better than cloud captioning?</summary><p>It depends on the event. On-device captioning is stronger when the event is in person, the internet is unreliable or expensive, or you want audio to stay in the room. Cloud services are stronger when most viewers are remote, when you want no hardware on site, or when you need a human interpreter or stenographer.</p></details><details><summary>Does on-device captioning have lower latency than cloud?</summary><p>It removes the network round trip, which is usually the part that varies. In our published benchmark, captions on a Mac appeared in under a second with no internet needed. We have not benchmarked other vendors, so we do not publish comparison numbers against them.</p></details><details><summary>Where does the audio go with on-device captioning?</summary><p>Speech recognition and translation run on the organizer&rsquo;s device, so the audio does not need to be sent to a cloud service to produce captions.</p></details><details><summary>What hardware do I need?</summary><p>A Mac, iPad or iPhone for the captioning (a Windows PC can use our Chrome extension) and audio from your mixer. We recommend showing captions on the room&rsquo;s screens. A router is only needed if attendees will also read on their own phones. A second device is recommended as a backup.</p></details><details><summary>When should I choose a cloud captioning or interpretation service instead?</summary><p>Choose cloud when your audience is mainly remote or hybrid, when you cannot place a device and a network in the room, or when you need a certified human interpreter or captioner for legal or regulatory reasons.</p></details>
+  </section>
+
+  <div class="cta" id="contact-cta">
+    <h2 id="contact-cta-heading">Try it at your next event</h2>
+    <p>Start free in about 15 seconds, or book a demo and we will walk through your room, audio setup and languages.</p>
+    <div class="row">
+      <a class="btn primary" href="https://app.conferencecaptioning.com" data-cta="vs-cloud-start-free">Start free</a>
+      <a class="btn" href="https://conferencecaptioning.com/portal" data-cta="vs-cloud-demo">Book a demo</a>
+      <a class="btn" href="https://conferencecaptioning.com/benchmark/" data-cta="vs-cloud-benchmark">See the benchmark</a>
+    </div>
+  </div>
+
+<footer id="site-footer">
+    <nav aria-label="Footer" id="footer-links" class="footer-links">
+      <a href="https://conferencecaptioning.com/brand-toolkit/">Brand Toolkit</a>
+      <a href="https://conferencecaptioning.com/privacy-policy.html">Privacy Policy</a>
+      <a href="https://conferencecaptioning.com/terms-and-conditions.html">Terms &amp; Conditions</a>
+      <a href="https://conferencecaptioning.com/benchmark/">Live Captioning Benchmark</a>
+      <a href="https://conferencecaptioning.com/offline-event-translation/">Offline Event Translation</a>
+      <a href="https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/">On-Device vs Cloud</a>
+      <a href="https://conferencecaptioning.com/multilingual-translation-benchmark/">Translation Benchmark</a>
+      <a href="https://github.com/TheFirstPrototype" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/showcase/BeAware4Deaf" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://vimeo.com/950840441" target="_blank" rel="noopener">Vimeo</a>
+      <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>
+    </nav>
+    <div class="footer-meta" id="footer-meta">
+      <span>&copy; ConferenceCaptioning 2026 &middot; by the team behind BeAware</span>
+      <span>Made with love for the a11y community.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Clickable section anchors on headings, and an ids overlay (?ids) for pointing at elements.
+document.querySelectorAll('h2[id], h3[id]').forEach(function (h) { h.insertAdjacentHTML('beforeend', '<a class="anchor" href="#' + h.id + '" aria-label="Link to this section">#</a>'); });
+if (/[?&]ids\b/.test(location.search)) document.body.classList.add('show-ids');
+</script>
+    <!--Start of Tawk.to Script-->
+    <script defer type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67291e984304e3196add0224/1ibs9v0u1';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>

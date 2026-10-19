@@ -108,6 +108,9 @@
                         <option value="stream">Stream</option>
                         <option value="city">City / Location</option>
                         <option value="referral">Referral Source</option>
+                        <option value="device">Device Type</option>
+                        <option value="os">Operating System</option>
+                        <option value="browser">Browser</option>
                     </select>
                 </div>
             </div>
@@ -135,8 +138,20 @@
                     <option value="">All domains</option>
                 </select>
                 <input type="text" id="city-input" placeholder="City / region contains..." class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500">
-                <input type="text" id="referral-input" placeholder="Referral contains..." class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500 md:col-span-2">
-                <div class="md:col-span-2 flex items-center justify-end gap-2">
+                <input type="text" id="referral-input" placeholder="Referral contains..." class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:ring-brand-500 focus:border-brand-500">
+                <select id="device-select" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-brand-500 focus:border-brand-500">
+                    <option value="">All devices</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="tablet">Tablet</option>
+                    <option value="desktop">Desktop</option>
+                    <option value="bot">Bots</option>
+                </select>
+                <select id="visitor-select" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-brand-500 focus:border-brand-500">
+                    <option value="">New &amp; returning</option>
+                    <option value="new">New visitors only</option>
+                    <option value="returning">Returning visitors only</option>
+                </select>
+                <div class="md:col-span-4 flex items-center justify-end gap-2">
                     <button id="clear-filters" class="px-3 py-2 text-xs font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">Clear filters</button>
                     <button id="export-csv" class="inline-flex items-center px-3 py-2 text-xs font-medium rounded-lg bg-brand-600 text-white hover:bg-brand-700">
                         <i data-lucide="download" class="w-3.5 h-3.5 mr-1.5"></i> Export CSV
@@ -146,7 +161,7 @@
         </section>
 
         <!-- KPI cards -->
-        <section id="kpi-grid" class="grid grid-cols-2 lg:grid-cols-6 gap-4"></section>
+        <section id="kpi-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></section>
 
         <!-- Charts Grid -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -165,6 +180,24 @@
                 <div class="h-64 relative">
                     <canvas id="domainChart"></canvas>
                 </div>
+            </div>
+        </section>
+
+        <!-- Visitors & devices (hidden when the API predates visitor tracking, or nothing in view has it) -->
+        <section id="visitor-charts" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-800 mb-1 flex items-center">
+                    <i data-lucide="users" class="w-4 h-4 mr-2 text-brand-600"></i> New vs Returning Visitors
+                </h3>
+                <p id="visitor-note" class="text-[11px] text-gray-500 mb-3"></p>
+                <div class="h-56 relative"><canvas id="visitorChart"></canvas></div>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <h3 class="text-sm font-bold text-gray-800 mb-1 flex items-center">
+                    <i data-lucide="smartphone" class="w-4 h-4 mr-2 text-brand-600"></i> Device Types
+                </h3>
+                <p id="device-note" class="text-[11px] text-gray-500 mb-3"></p>
+                <div class="h-56 relative"><canvas id="deviceChart"></canvas></div>
             </div>
         </section>
 
@@ -272,14 +305,14 @@
 
         const state = {
             range: '7d', from: '', to: '',
-            domain: '', city: '', referral: '', q: '',
+            domain: '', city: '', referral: '', q: '', device: '', visitor: '',
             groupBy: 'raw',
             rows: [], total: 0, hasMore: false,
             summary: null,
             domainOptions: [],
             cmp: { preset: 'thisMonth', likeForLike: true, aFrom: '', aTo: '', bFrom: '', bTo: '' }
         };
-        let trendChart = null, domainChart = null, compareChart = null;
+        let trendChart = null, domainChart = null, compareChart = null, visitorChart = null, deviceChart = null;
         const inflight = {};   // one in-flight request per kind; a newer request cancels the older one
 
         // ---------------------------------------------------------------------------------------------
@@ -341,6 +374,8 @@
             if (state.city.trim()) p.set('city', state.city.trim());
             if (state.referral.trim()) p.set('referral', state.referral.trim());
             if (state.q.trim()) p.set('q', state.q.trim());
+            if (state.device) p.set('device', state.device);
+            if (state.visitor) p.set('visitor', state.visitor);
         }
         function baseParams() {
             const p = new URLSearchParams();
@@ -375,6 +410,7 @@
             renderInsights();
             renderKpis();
             renderCharts();
+            renderVisitorCharts();
             renderDomainOptions();
             if (state.groupBy !== 'raw') renderTable();
         }
@@ -436,14 +472,21 @@
         }
         function renderKpis() {
             const s = state.summary;
-            $('kpi-grid').innerHTML = [
+            const cards = [
                 kpiCard('Total hits', fmt(s.totalHits), `${s.bucket} buckets`),
                 kpiCard('Avg per day', fmt1(s.avgHitsPerDay), 'across the timeframe'),
                 kpiCard('Unique pages', fmt(s.uniqueWebsites), `${fmt(s.uniqueDomains)} domains`),
                 kpiCard('Locations', fmt(s.uniqueCities), 'distinct cities'),
                 kpiCard('Streams', fmt(s.uniqueStreams), 'with visits'),
                 kpiCard('Referred', `${pct(s.referredHits, s.totalHits)}%`, `${fmt(s.directHits)} direct hits`)
-            ].join('');
+            ];
+            // Visitor numbers only exist for hits from pages running the newer analyticsLite.js (and an API that returns them).
+            const known = (s.newVisitorHits ?? 0) + (s.returningVisitorHits ?? 0);
+            if (known) {
+                cards.push(kpiCard('Unique visitors', fmt(s.uniqueVisitors), 'distinct browsers'));
+                cards.push(kpiCard('Returning', `${pct(s.returningVisitorHits, known)}%`, `${fmt(s.returningVisitorHits)} of ${fmt(known)} hits with visitor info`));
+            }
+            $('kpi-grid').innerHTML = cards.join('');
         }
 
         function bucketLabel(label, bucket) {
@@ -475,6 +518,34 @@
             domainChart = new Chart($('domainChart').getContext('2d'), {
                 type: 'doughnut',
                 data: { labels: top.map(d => d.key), datasets: [{ data: top.map(d => d.hits), backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } } }
+            });
+        }
+
+        const VISITOR_COLORS = ['#3b82f6', '#10b981', '#d1d5db'];
+        const DEVICE_COLORS = { mobile: '#3b82f6', desktop: '#10b981', tablet: '#f59e0b', bot: '#9ca3af' };
+        function renderVisitorCharts() {
+            const s = state.summary;
+            const newHits = s.newVisitorHits ?? 0, returningHits = s.returningVisitorHits ?? 0;
+            const devices = (s.topDeviceTypes || []);
+            const known = newHits + returningHits, deviceKnown = devices.reduce((a, d) => a + d.hits, 0);
+            if (visitorChart) { visitorChart.destroy(); visitorChart = null; }
+            if (deviceChart) { deviceChart.destroy(); deviceChart = null; }
+            $('visitor-charts').classList.toggle('hidden', !known && !deviceKnown);
+            if (!known && !deviceKnown) return;
+
+            const unknown = s.totalHits - known;
+            $('visitor-note').textContent = `${fmt(s.uniqueVisitors ?? 0)} distinct browsers. ${fmt(unknown)} of ${fmt(s.totalHits)} hits have no visitor info (older pages).`;
+            visitorChart = new Chart($('visitorChart').getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: ['New', 'Returning', 'Unknown'], datasets: [{ data: [newHits, returningHits, unknown], backgroundColor: VISITOR_COLORS }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } } }
+            });
+
+            $('device-note').textContent = `${fmt(s.totalHits - deviceKnown)} of ${fmt(s.totalHits)} hits have no device info.`;
+            deviceChart = new Chart($('deviceChart').getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: devices.map(d => d.key), datasets: [{ data: devices.map(d => d.hits), backgroundColor: devices.map(d => DEVICE_COLORS[d.key] || '#8b5cf6') }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } } }
             });
         }
@@ -553,7 +624,7 @@
                 cmpKpi('Domains', c.deltas.uniqueDomains),
                 cmpKpi('Referred hits', c.deltas.referredHits),
                 cmpKpi('Direct hits', c.deltas.directHits)
-            ].join('');
+            ].concat(c.deltas.uniqueVisitors && (c.deltas.uniqueVisitors.current || c.deltas.uniqueVisitors.previous) ? [cmpKpi('Unique visitors', c.deltas.uniqueVisitors)] : []).join('');
 
             const bucket = c.current.bucket;
             const unit = { hour: 'Hour', day: 'Day', week: 'Week', month: 'Month' }[bucket];
@@ -596,7 +667,10 @@
             domain: ['Root Domain', 'Domain', s => s.topDomains],
             stream: ['Stream', 'Stream', s => s.topStreams],
             city: ['City / Location', 'Location', s => s.topCities],
-            referral: ['Referral Source', 'Referrer', s => s.topReferrals]
+            referral: ['Referral Source', 'Referrer', s => s.topReferrals],
+            device: ['Device Type', 'Device', s => s.topDeviceTypes || []],
+            os: ['Operating System', 'OS', s => s.topOperatingSystems || []],
+            browser: ['Browser', 'Browser', s => s.topBrowsers || []]
         };
 
         function renderTable() {
@@ -629,9 +703,9 @@
 
             $('table-title').innerText = 'Analytics Dataset';
             $('table-record-count').innerText = `Showing ${fmt(state.rows.length)} of ${fmt(state.total)} records (newest first)`;
-            head.innerHTML = `<tr><th class="px-6 py-3">Timestamp / Created At</th><th class="px-6 py-3">Location (City, State, Country)</th><th class="px-6 py-3">Website / Target Path</th><th class="px-6 py-3">Referral</th><th class="px-6 py-3 text-right">Actions / Telemetry</th></tr>`;
+            head.innerHTML = `<tr><th class="px-6 py-3">Timestamp / Created At</th><th class="px-6 py-3">Location (City, State, Country)</th><th class="px-6 py-3">Website / Target Path</th><th class="px-6 py-3">Referral</th><th class="px-6 py-3">Visitor</th><th class="px-6 py-3">Device</th><th class="px-6 py-3 text-right">Actions / Telemetry</th></tr>`;
             $('load-more-wrap').classList.toggle('hidden', !state.hasMore);
-            if (!state.rows.length) { body.innerHTML = '<tr><td colspan="5" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
+            if (!state.rows.length) { body.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
 
             const frag = document.createDocumentFragment();
             state.rows.forEach(item => {
@@ -642,11 +716,24 @@
                     <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${esc(item.cityStateCountry || 'Unknown')}</td>
                     <td class="px-6 py-4 text-gray-700 max-w-xs truncate" title="${esc(item.website)}"><a href="${esc(safeUrl(item.website))}" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline">${esc(item.website)}</a></td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-500">${esc(item.referral || '-')}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${visitorBadge(item.isReturning)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-600" title="${esc(item.visitorId || '')}">${esc(deviceLabel(item))}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">${stream ? streamButton(stream) : '<span class="text-gray-300 text-xs">-</span>'}</td>`;
                 frag.appendChild(tr);
             });
             body.appendChild(frag);
             wireStreamButtons();
+        }
+
+        // Rows from older pages have no visitor details (null/missing), so show a dash instead of guessing.
+        function visitorBadge(isReturning) {
+            if (isReturning === true) return '<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-700">Returning</span>';
+            if (isReturning === false) return '<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">New</span>';
+            return '<span class="text-gray-300">-</span>';
+        }
+        function deviceLabel(item) {
+            const parts = [item.deviceType, item.os, item.browser].filter(Boolean);
+            return parts.length ? parts.join(' · ') : '-';
         }
 
         function streamButton(stream) {
@@ -680,7 +767,7 @@
                     if (!page.hasMore) break;
                     offset = rows.length;
                 }
-                const lines = ['createdAt,city,website,referral'].concat(rows.map(r => [r.createdAt, r.cityStateCountry, r.website, r.referral].map(csvCell).join(',')));
+                const lines = ['createdAt,city,website,referral,visitorId,isReturning,deviceType,os,browser'].concat(rows.map(r => [r.createdAt, r.cityStateCountry, r.website, r.referral, r.visitorId, r.isReturning, r.deviceType, r.os, r.browser].map(csvCell).join(',')));
                 const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
@@ -708,6 +795,7 @@
             const set = (k, v, dflt) => { if (v && v !== dflt) p.set(k, v); else p.delete(k); };
             set('range', state.range, '7d'); set('from', state.from); set('to', state.to);
             set('domain', state.domain); set('city', state.city.trim()); set('referral', state.referral.trim()); set('q', state.q.trim());
+            set('device', state.device); set('visitor', state.visitor);
             set('group', state.groupBy, 'raw'); set('cmp', state.cmp.preset, 'thisMonth');
             history.replaceState(null, '', `${location.pathname}${p.toString() ? '?' + p : ''}`);
         }
@@ -721,6 +809,9 @@
             state.from = p.get('from') || ''; state.to = p.get('to') || '';
             if ((state.from || state.to) && !p.get('range')) state.range = 'custom';
             state.domain = p.get('domain') || ''; state.city = p.get('city') || ''; state.referral = p.get('referral') || ''; state.q = p.get('q') || '';
+            state.device = $('device-select').querySelector(`option[value="${p.get('device')}"]`) ? p.get('device') : '';
+            state.visitor = $('visitor-select').querySelector(`option[value="${p.get('visitor')}"]`) ? p.get('visitor') : '';
+            $('device-select').value = state.device; $('visitor-select').value = state.visitor;
             if (GROUPS[p.get('group')]) state.groupBy = p.get('group');
             if ($('cmp-preset').querySelector(`option[value="${p.get('cmp')}"]`)) state.cmp.preset = p.get('cmp');
             $('custom-from').value = state.from; $('custom-to').value = state.to;
@@ -746,9 +837,12 @@
             $('city-input').addEventListener('input', e => { state.city = e.target.value; filtersChangedDebounced(); });
             $('referral-input').addEventListener('input', e => { state.referral = e.target.value; filtersChangedDebounced(); });
             $('domain-select').addEventListener('change', e => { state.domain = e.target.value; filtersChanged(); });
+            $('device-select').addEventListener('change', e => { state.device = e.target.value; filtersChanged(); });
+            $('visitor-select').addEventListener('change', e => { state.visitor = e.target.value; filtersChanged(); });
             $('clear-filters').addEventListener('click', () => {
-                state.domain = state.city = state.referral = state.q = '';
+                state.domain = state.city = state.referral = state.q = state.device = state.visitor = '';
                 $('search-input').value = $('city-input').value = $('referral-input').value = '';
+                $('device-select').value = $('visitor-select').value = '';
                 filtersChanged();
             });
             $('refresh-btn').addEventListener('click', loadAll);

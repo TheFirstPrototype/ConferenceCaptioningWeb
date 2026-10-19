@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this benchmark data or scoring code, please cite it as below."
+title: "On-device live captioning and translation benchmarks for in-person events"
+abstract: "Open benchmark data and scoring scripts comparing word accuracy and caption delay of on-device speech recognition and translation for live events, tested on real-time audio. Maintained by ConferenceCaptioning.com. Data is licensed CC BY 4.0, scoring code MIT."
+type: dataset
+authors:
+  - family-names: Mansoor
+    given-names: Saamer
+    website: "https://www.linkedin.com/in/saamer"
+    affiliation: "ConferenceCaptioning"
+repository-code: "https://github.com/TheFirstPrototype"
+url: "https://conferencecaptioning.com/benchmark/"
+license: CC-BY-4.0
+date-released: 2026-10-05
+keywords:
+  - live captioning
+  - on-device speech recognition
+  - live translation
+  - word error rate
+  - accessibility
+  - events

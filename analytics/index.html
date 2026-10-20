@@ -111,6 +111,7 @@
                         <option value="device">Device Type</option>
                         <option value="os">Operating System</option>
                         <option value="browser">Browser</option>
+                        <option value="bot">Bot Name</option>
                     </select>
                 </div>
             </div>
@@ -670,7 +671,8 @@
             referral: ['Referral Source', 'Referrer', s => s.topReferrals],
             device: ['Device Type', 'Device', s => s.topDeviceTypes || []],
             os: ['Operating System', 'OS', s => s.topOperatingSystems || []],
-            browser: ['Browser', 'Browser', s => s.topBrowsers || []]
+            browser: ['Browser', 'Browser', s => s.topBrowsers || []],
+            bot: ['Bot Name', 'Bot', s => s.topBots || []]
         };
 
         function renderTable() {
@@ -732,7 +734,7 @@
             return '<span class="text-gray-300">-</span>';
         }
         function deviceLabel(item) {
-            const parts = [item.deviceType, item.os, item.browser].filter(Boolean);
+            const parts = [item.botName ? `bot (${item.botName})` : item.deviceType, item.os, item.browser].filter(Boolean);
             return parts.length ? parts.join(' · ') : '-';
         }
 
@@ -767,7 +769,7 @@
                     if (!page.hasMore) break;
                     offset = rows.length;
                 }
-                const lines = ['createdAt,city,website,referral,visitorId,isReturning,deviceType,os,browser'].concat(rows.map(r => [r.createdAt, r.cityStateCountry, r.website, r.referral, r.visitorId, r.isReturning, r.deviceType, r.os, r.browser].map(csvCell).join(',')));
+                const lines = ['createdAt,city,website,referral,visitorId,isReturning,deviceType,os,browser,botName'].concat(rows.map(r => [r.createdAt, r.cityStateCountry, r.website, r.referral, r.visitorId, r.isReturning, r.deviceType, r.os, r.browser, r.botName].map(csvCell).join(',')));
                 const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);

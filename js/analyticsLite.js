@@ -52,6 +52,7 @@ function sendLocationRequest(locationString) {
     payload.DeviceType = visitor.deviceType;
     payload.Os = visitor.os;
     payload.Browser = visitor.browser;
+    if (visitor.botName) payload.BotName = visitor.botName;
     postCall("https://api.deafassistant.com/analytics/NameEmailMessage", payload);
 }
 
@@ -116,7 +117,14 @@ function getDeviceInfo() {
     else if (isIpadOs || /iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) deviceType = "tablet";
     else if (/Mobi|iPhone|iPod|Android/i.test(ua) || (uaData && uaData.mobile)) deviceType = "mobile";
 
-    return { deviceType: deviceType, os: os, browser: browser };
+    // Which bot, when it announces itself ("Applebot/0.1" -> "Applebot"), so false positives can be spotted.
+    var botName = null;
+    if (deviceType === "bot") {
+        var m = ua.match(/[A-Za-z][A-Za-z0-9_.-]*?(?:bot|crawler|spider|crawling)[A-Za-z0-9_.-]*|HeadlessChrome/i);
+        botName = m ? m[0] : null;
+    }
+
+    return { deviceType: deviceType, os: os, browser: browser, botName: botName };
 }
 
 function getVisitorInfo() {
@@ -128,7 +136,8 @@ function getVisitorInfo() {
             isReturning: identity.isReturning,
             deviceType: device.deviceType,
             os: device.os,
-            browser: device.browser
+            browser: device.browser,
+            botName: device.botName
         };
     }
     return cachedVisitor;

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Re-versions every <script src="...analyticsLite.js?v=20261019"> so CDN and browser caches fetch the changed file.
+# Re-versions every <script src="...analyticsLite.js?v=20261019b"> so CDN and browser caches fetch the changed file.
 # Usage: ./bump-analytics-version.sh [version]   (default: today as YYYYMMDD)
 set -euo pipefail
 cd "$(dirname "$0")"

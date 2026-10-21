@@ -255,9 +255,14 @@
                     <h3 class="text-sm font-bold text-gray-800" id="table-title">Analytics Dataset</h3>
                     <p class="text-xs text-gray-500" id="table-record-count">Showing 0 records</p>
                 </div>
+                <div id="table-tools" class="hidden flex items-center gap-3 text-xs">
+                    <button id="clear-col-filters" class="hidden px-2.5 py-1.5 font-medium rounded-lg border border-brand-500 text-brand-700 bg-brand-50 hover:bg-blue-100">Clear column filters</button>
+                    <button id="reset-col-widths" class="px-2.5 py-1.5 font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" title="Drag a column's right edge to resize it; double-click the edge to reset just that column">Reset column widths</button>
+                </div>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 text-left text-xs">
+                <table id="data-table" class="min-w-full divide-y divide-gray-200 text-left text-xs">
+                    <colgroup id="data-table-cols"></colgroup>
                     <thead id="data-table-head" class="bg-gray-50 text-gray-500 font-semibold uppercase tracking-wider"></thead>
                     <tbody id="data-table-body" class="divide-y divide-gray-200 bg-white">
                         <!-- Populated dynamically via JS -->
@@ -269,6 +274,18 @@
             </div>
         </section>
     </main>
+
+    <!-- Column filter popover (Excel-style value checklist) -->
+    <div id="col-filter-pop" class="hidden fixed z-40 w-64 bg-white border border-gray-200 rounded-lg shadow-xl p-3 text-xs">
+        <div id="col-filter-title" class="font-semibold text-gray-700 mb-2"></div>
+        <input id="col-filter-search" type="text" placeholder="Search values..." class="block w-full px-2.5 py-1.5 mb-2 border border-gray-300 rounded-md text-xs focus:ring-brand-500 focus:border-brand-500">
+        <div class="flex items-center justify-between mb-1.5 text-brand-700">
+            <button id="col-filter-all" class="hover:underline">Select all</button>
+            <button id="col-filter-none" class="hover:underline">Clear</button>
+        </div>
+        <div id="col-filter-list" class="max-h-56 overflow-y-auto border border-gray-100 rounded-md divide-y divide-gray-50"></div>
+        <p id="col-filter-note" class="mt-2 text-[10px] text-gray-400"></p>
+    </div>
 
     <!-- Stream Telemetry Modal -->
     <div id="stream-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -311,6 +328,7 @@
             rows: [], total: 0, hasMore: false,
             summary: null,
             domainOptions: [],
+            colFilters: {},   // column key -> Set of values hidden by that column's filter
             cmp: { preset: 'thisMonth', likeForLike: true, aFrom: '', aTo: '', bFrom: '', bTo: '' }
         };
         let trendChart = null, domainChart = null, compareChart = null, visitorChart = null, deviceChart = null;
@@ -685,6 +703,7 @@
                 $('table-title').innerText = `Top ${title}s`;
                 $('table-record-count').innerText = `${fmt(list.length)} shown of ${fmt(s.totalHits)} hits in the timeframe`;
                 $('load-more-wrap').classList.add('hidden');
+                resetGroupedLayout();
                 head.innerHTML = `<tr><th class="px-6 py-3">${esc(col)}</th><th class="px-6 py-3 text-right">Hits</th><th class="px-6 py-3 w-1/3">Share</th><th class="px-6 py-3 text-right">Actions</th></tr>`;
                 if (!list.length) { body.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
                 const max = list[0].hits || 1;
@@ -704,28 +723,169 @@
             }
 
             $('table-title').innerText = 'Analytics Dataset';
-            $('table-record-count').innerText = `Showing ${fmt(state.rows.length)} of ${fmt(state.total)} records (newest first)`;
-            head.innerHTML = `<tr><th class="px-6 py-3">Timestamp / Created At</th><th class="px-6 py-3">Location (City, State, Country)</th><th class="px-6 py-3">Website / Target Path</th><th class="px-6 py-3">Referral</th><th class="px-6 py-3">Visitor</th><th class="px-6 py-3">Device</th><th class="px-6 py-3 text-right">Actions / Telemetry</th></tr>`;
+            applyRawLayout();
+            head.innerHTML = '<tr>' + COLUMNS.map(c => `<th class="relative px-4 py-3 ${c.right ? 'text-right' : ''} select-none" data-col="${c.key}">
+                <div class="flex items-center gap-1.5 ${c.right ? 'justify-end' : ''}"><span class="truncate" title="${esc(c.label)}">${esc(c.label)}</span>${c.noFilter ? '' : filterButton(c.key)}</div>
+                <div class="col-resize absolute top-0 right-0 h-full w-2 cursor-col-resize hover:bg-brand-500/40" data-col="${c.key}" title="Drag to resize. Double-click to reset."></div></th>`).join('') + '</tr>';
             $('load-more-wrap').classList.toggle('hidden', !state.hasMore);
-            if (!state.rows.length) { body.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-gray-400">No matching records found for the selected criteria.</td></tr>'; return; }
+
+            const rows = visibleRows();
+            const filtered = activeFilterCount() > 0;
+            $('table-record-count').innerText = filtered
+                ? `Showing ${fmt(rows.length)} of ${fmt(state.rows.length)} loaded records after column filters (${fmt(state.total)} match the filters above)`
+                : `Showing ${fmt(state.rows.length)} of ${fmt(state.total)} records (newest first)`;
+            $('table-tools').classList.remove('hidden');
+            $('clear-col-filters').classList.toggle('hidden', !filtered);
+            if (!rows.length) { body.innerHTML = `<tr><td colspan="${COLUMNS.length}" class="px-6 py-8 text-center text-gray-400">${filtered ? 'Every loaded record is hidden by a column filter.' : 'No matching records found for the selected criteria.'}</td></tr>`; return; }
 
             const frag = document.createDocumentFragment();
-            state.rows.forEach(item => {
-                const stream = streamOf(item.website);
+            rows.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-gray-50 transition-colors';
-                tr.innerHTML = `<td class="px-6 py-4 whitespace-nowrap text-gray-600">${esc(toDate(item.createdAt).toLocaleString())}</td>
-                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${esc(item.cityStateCountry || 'Unknown')}</td>
-                    <td class="px-6 py-4 text-gray-700 max-w-xs truncate" title="${esc(item.website)}"><a href="${esc(safeUrl(item.website))}" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline">${esc(item.website)}</a></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-500">${esc(item.referral || '-')}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${visitorBadge(item.isReturning)}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-gray-600" title="${esc(item.visitorId || '')}">${esc(deviceLabel(item))}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right">${stream ? streamButton(stream) : '<span class="text-gray-300 text-xs">-</span>'}</td>`;
+                tr.innerHTML = COLUMNS.map(c => `<td class="px-4 py-3 ${c.noClip ? '' : 'overflow-hidden text-ellipsis whitespace-nowrap'} ${c.right ? 'text-right' : ''} ${c.cls || ''}" ${c.noClip ? '' : `title="${esc(c.title ? c.title(item) : c.value(item))}"`}>${c.cell(item)}</td>`).join('');
                 frag.appendChild(tr);
             });
             body.appendChild(frag);
             wireStreamButtons();
         }
+
+        // ---------------------------------------------------------------------------------------------
+        // Raw-table columns: widths you can drag, and Excel-style per-column value filters.
+        // Filters apply to the records already loaded (use "Load more" to bring in older ones).
+        // ---------------------------------------------------------------------------------------------
+        const COLUMNS = [
+            { key: 'createdAt', label: 'Timestamp / Created At', width: 170, cls: 'text-gray-600',
+              value: r => toDate(r.createdAt).toLocaleDateString(), title: r => toDate(r.createdAt).toLocaleString(), cell: r => esc(toDate(r.createdAt).toLocaleString()) },
+            { key: 'city', label: 'Location (City, State, Country)', width: 220, cls: 'font-medium text-gray-900',
+              value: r => r.cityStateCountry || 'Unknown', cell: r => esc(r.cityStateCountry || 'Unknown') },
+            { key: 'website', label: 'Website / Target Path', width: 320, cls: 'text-gray-700',
+              value: r => r.website || '', cell: r => `<a href="${esc(safeUrl(r.website))}" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:underline">${esc(r.website)}</a>` },
+            { key: 'referral', label: 'Referral', width: 220, cls: 'text-gray-500',
+              value: r => r.referral || '-', cell: r => esc(r.referral || '-') },
+            { key: 'visitor', label: 'Visitor', width: 110,
+              value: r => r.isReturning === true ? 'Returning' : r.isReturning === false ? 'New' : 'Unknown', cell: r => visitorBadge(r.isReturning) },
+            { key: 'device', label: 'Device', width: 210, cls: 'text-gray-600',
+              value: r => deviceLabel(r), title: r => deviceLabel(r) + (r.visitorId ? `\nVisitor ${r.visitorId}` : ''), cell: r => esc(deviceLabel(r)) },
+            { key: 'actions', label: 'Actions / Telemetry', width: 170, right: true, noFilter: true, noClip: true,
+              value: () => '', cell: r => { const st = streamOf(r.website); return st ? streamButton(st) : '<span class="text-gray-300 text-xs">-</span>'; } }
+        ];
+
+        const WIDTHS_KEY = 'analytics.colWidths';
+        let colWidths = {};
+        try { colWidths = JSON.parse(localStorage.getItem(WIDTHS_KEY) || '{}') || {}; } catch { colWidths = {}; }
+        const colWidth = c => Math.max(60, Number(colWidths[c.key]) || c.width);
+        const saveWidths = () => { try { localStorage.setItem(WIDTHS_KEY, JSON.stringify(colWidths)); } catch { /* storage blocked: widths just won't persist */ } };
+
+        // Fixed layout so a column stays the width you set and long values are cut off (hover for the full text).
+        function applyRawLayout() {
+            const table = $('data-table');
+            table.classList.remove('min-w-full');
+            table.style.tableLayout = 'fixed';
+            $('data-table-cols').innerHTML = COLUMNS.map(c => `<col data-col="${c.key}" style="width:${colWidth(c)}px">`).join('');
+            updateTableWidth();
+        }
+        function resetGroupedLayout() {
+            const table = $('data-table');
+            table.classList.add('min-w-full');
+            table.style.tableLayout = ''; table.style.width = '';
+            $('data-table-cols').innerHTML = '';
+            $('table-tools').classList.add('hidden');
+        }
+        function updateTableWidth() { $('data-table').style.width = COLUMNS.reduce((sum, c) => sum + colWidth(c), 0) + 'px'; }
+
+        function setColWidth(key, width) {
+            const c = COLUMNS.find(x => x.key === key);
+            colWidths[key] = Math.max(60, Math.round(width));
+            const col = $('data-table-cols').querySelector(`col[data-col="${key}"]`);
+            if (col) col.style.width = colWidth(c) + 'px';
+            updateTableWidth();
+        }
+
+        let resizing = null;
+        document.addEventListener('pointerdown', e => {
+            const h = e.target.closest && e.target.closest('.col-resize');
+            if (!h) return;
+            const c = COLUMNS.find(x => x.key === h.dataset.col);
+            resizing = { key: c.key, startX: e.clientX, startWidth: colWidth(c) };
+            h.setPointerCapture(e.pointerId);
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+        document.addEventListener('pointermove', e => { if (resizing) setColWidth(resizing.key, resizing.startWidth + e.clientX - resizing.startX); });
+        const endResize = () => { if (!resizing) return; resizing = null; document.body.style.userSelect = ''; saveWidths(); };
+        document.addEventListener('pointerup', endResize);
+        document.addEventListener('pointercancel', endResize);
+        document.addEventListener('dblclick', e => {
+            const h = e.target.closest && e.target.closest('.col-resize');
+            if (!h) return;
+            delete colWidths[h.dataset.col]; saveWidths();
+            setColWidth(h.dataset.col, COLUMNS.find(x => x.key === h.dataset.col).width); delete colWidths[h.dataset.col];
+        });
+
+        // ---- Column value filters ----
+        const hidden = key => state.colFilters[key];
+        const activeFilterCount = () => Object.values(state.colFilters).filter(set => set && set.size).length;
+        // Rows passing every column filter except (optionally) one - that column's own list shows what the others leave.
+        function visibleRows(exceptKey) {
+            const active = COLUMNS.filter(c => c.key !== exceptKey && hidden(c.key) && hidden(c.key).size);
+            return active.length ? state.rows.filter(r => active.every(c => !hidden(c.key).has(c.value(r)))) : state.rows;
+        }
+        function filterButton(key) {
+            const on = hidden(key) && hidden(key).size;
+            return `<button class="col-filter-btn shrink-0 p-0.5 rounded hover:bg-gray-200 ${on ? 'text-brand-600' : 'text-gray-400'}" data-col="${key}" title="${on ? 'Filtered: ' + hidden(key).size + ' value(s) hidden' : 'Filter this column'}">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg></button>`;
+        }
+
+        let popKey = null;
+        const MAX_FILTER_VALUES = 300;
+        function renderFilterList() {
+            const c = COLUMNS.find(x => x.key === popKey);
+            const needle = $('col-filter-search').value.trim().toLowerCase();
+            const counts = new Map();
+            visibleRows(popKey).forEach(r => { const v = c.value(r); counts.set(v, (counts.get(v) || 0) + 1); });
+            // Values hidden by this filter but absent from the other filters' result still need a row, or they could never be re-shown.
+            (hidden(popKey) || new Set()).forEach(v => { if (!counts.has(v)) counts.set(v, 0); });
+            const all = [...counts.entries()].filter(([v]) => v.toLowerCase().includes(needle))
+                .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+            const shown = all.slice(0, MAX_FILTER_VALUES);
+            filterListValues = shown.map(([v]) => v);
+            $('col-filter-list').innerHTML = shown.length ? shown.map(([v, n], i) => `<label class="flex items-center gap-2 px-2 py-1 hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" data-i="${i}" ${hidden(popKey) && hidden(popKey).has(v) ? '' : 'checked'}>
+                <span class="truncate flex-1" title="${esc(v)}">${esc(v === '' ? '(blank)' : v)}</span><span class="text-gray-400 tabular-nums">${fmt(n)}</span></label>`).join('')
+                : '<div class="px-2 py-3 text-center text-gray-400">No values</div>';
+            $('col-filter-note').textContent = all.length > shown.length ? `Showing the ${MAX_FILTER_VALUES} most common of ${fmt(all.length)} values. Search to narrow.` : `${fmt(all.length)} value${all.length === 1 ? '' : 's'}. Uncheck to hide rows.`;
+        }
+        let filterListValues = [];
+
+        function openFilter(key, anchor) {
+            popKey = key;
+            const c = COLUMNS.find(x => x.key === key);
+            $('col-filter-title').textContent = c.label;
+            $('col-filter-search').value = '';
+            renderFilterList();
+            const pop = $('col-filter-pop');
+            pop.classList.remove('hidden');
+            const r = anchor.getBoundingClientRect();
+            pop.style.top = Math.min(r.bottom + 4, window.innerHeight - pop.offsetHeight - 8) + 'px';
+            pop.style.left = Math.max(8, Math.min(r.left, window.innerWidth - pop.offsetWidth - 8)) + 'px';
+            $('col-filter-search').focus();
+        }
+        function closeFilter() { popKey = null; $('col-filter-pop').classList.add('hidden'); }
+        function setHidden(values, hide) {
+            const set = state.colFilters[popKey] || (state.colFilters[popKey] = new Set());
+            values.forEach(v => hide ? set.add(v) : set.delete(v));
+            if (!set.size) delete state.colFilters[popKey];
+            renderTable();
+        }
+
+        document.addEventListener('click', e => {
+            const btn = e.target.closest && e.target.closest('.col-filter-btn');
+            if (btn) { popKey === btn.dataset.col ? closeFilter() : openFilter(btn.dataset.col, btn); return; }
+            if (popKey && !e.target.closest('#col-filter-pop')) closeFilter();
+        });
+        window.addEventListener('scroll', e => { if (popKey && !$('col-filter-pop').contains(e.target)) closeFilter(); }, true);
+        window.addEventListener('resize', closeFilter);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFilter(); });
 
         // Rows from older pages have no visitor details (null/missing), so show a dash instead of guessing.
         function visitorBadge(isReturning) {
@@ -810,7 +970,7 @@
             if (['1h', '24h', '7d', '30d', 'all', 'custom'].includes(p.get('range'))) state.range = p.get('range');
             state.from = p.get('from') || ''; state.to = p.get('to') || '';
             if ((state.from || state.to) && !p.get('range')) state.range = 'custom';
-            state.domain = p.get('domain') || ''; state.city = p.get('city') || ''; state.referral = p.get('referral') || ''; state.q = p.get('q') || '';
+            state.domain = p.get('domain') || ''; state.city = p.get('city') || ''; state.referral = p.get('referral') || ''; state.q = p.get('q') || p.get('search') || ''; // ?search= is an alias of ?q=
             state.device = $('device-select').querySelector(`option[value="${p.get('device')}"]`) ? p.get('device') : '';
             state.visitor = $('visitor-select').querySelector(`option[value="${p.get('visitor')}"]`) ? p.get('visitor') : '';
             $('device-select').value = state.device; $('visitor-select').value = state.visitor;
@@ -847,6 +1007,15 @@
                 $('device-select').value = $('visitor-select').value = '';
                 filtersChanged();
             });
+            $('col-filter-search').addEventListener('input', renderFilterList);
+            $('col-filter-list').addEventListener('change', e => {
+                const box = e.target.closest('input[data-i]');
+                if (box) setHidden([filterListValues[Number(box.dataset.i)]], !box.checked);
+            });
+            $('col-filter-all').addEventListener('click', () => { setHidden(filterListValues, false); renderFilterList(); });
+            $('col-filter-none').addEventListener('click', () => { setHidden(filterListValues, true); renderFilterList(); });
+            $('clear-col-filters').addEventListener('click', () => { state.colFilters = {}; closeFilter(); renderTable(); });
+            $('reset-col-widths').addEventListener('click', () => { colWidths = {}; saveWidths(); renderTable(); });
             $('refresh-btn').addEventListener('click', loadAll);
             $('export-csv').addEventListener('click', exportCsv);
             $('load-more').addEventListener('click', () => loadRecords(false).catch(onLoadError));

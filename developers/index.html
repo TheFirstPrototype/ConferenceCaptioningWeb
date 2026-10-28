@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer API | ConferenceCaptioning</title>
+  <meta name="description" content="Read your ConferenceCaptioning stream's live captions, saved transcripts and audience questions with a read-only developer API key.">
+  <link rel="canonical" href="https://conferencecaptioning.com/developers/">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ConferenceCaptioning">
+  <meta property="og:url" content="https://conferencecaptioning.com/developers/">
+  <meta property="og:title" content="Developer API | ConferenceCaptioning">
+  <meta property="og:description" content="Read your stream's live captions, saved transcripts and audience questions with a read-only developer API key.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "ConferenceCaptioning Developer API",
+    "description": "Read your ConferenceCaptioning stream's live captions, saved transcripts and audience questions with a read-only developer API key.",
+    "url": "https://conferencecaptioning.com/developers/",
+    "inLanguage": "en",
+    "author": { "@type": "Organization", "name": "ConferenceCaptioning", "url": "https://conferencecaptioning.com" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-accent: #38bdf8; --brand-amber: #f59e0b; --bg-dark: #0c1824; --bg-surface: rgba(25, 60, 93, 0.48);
+      --border-subtle: rgba(255,255,255,0.14); --text-white: #fff; --text-muted: #a9b7c8;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); color: var(--text-white); background: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% -5%, #1c456b 0%, var(--bg-dark) 62%); background-attachment: fixed; line-height: 1.6; }
+    .page { max-width: 880px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 72px; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 26px 0 8px; }
+    header.top a { font-family: var(--font-mono); font-size: .8rem; color: var(--text-muted); text-decoration: none; }
+    header.top a:hover { color: var(--brand-accent); }
+    .eyebrow { font-family: var(--font-mono); font-size: .78rem; text-transform: uppercase; letter-spacing: .14em; color: var(--brand-accent); margin-top: 18px; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 10px 0 14px; }
+    .lede { color: var(--text-muted); font-size: 1.1rem; }
+    h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin: 48px 0 10px; scroll-margin-top: 16px; }
+    h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 6px; font-family: var(--font-mono); }
+    p, ul, ol { margin: 10px 0; color: #dbe5f0; }
+    ul, ol { padding-left: 1.3rem; } li { margin: 5px 0; }
+    a { color: var(--brand-accent); }
+    code { font-family: var(--font-mono); font-size: .9em; background: rgba(255,255,255,.08); padding: 1px 6px; border-radius: 6px; }
+    pre { font-family: var(--font-mono); font-size: .85rem; background: rgba(0,0,0,.42); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; overflow-x: auto; margin: 12px 0; line-height: 1.5; }
+    pre code { background: none; padding: 0; }
+    .note { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--brand-accent); border-radius: 12px; padding: 14px 18px; margin: 16px 0; }
+    .warn { border-left-color: var(--brand-amber); }
+    .tw { overflow-x: auto; margin: 12px 0; }
+    table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+    th { color: var(--text-muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+    nav.toc { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; font-size: .92rem; }
+    footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: .9rem; }
+    :focus-visible { outline: 3px solid var(--brand-accent); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <a href="https://conferencecaptioning.com/">&larr; ConferenceCaptioning</a>
+    <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>
+  </header>
+
+  <main>
+    <p class="eyebrow">Developers</p>
+    <h1>Developer API</h1>
+    <p class="lede">Read your own stream's live captions, saved transcripts and audience questions from a script or an AI assistant, using a read-only key you create in the portal.</p>
+    <nav class="toc" aria-label="On this page">
+      <a href="#key">Get a key</a><a href="#auth">Using the key</a><a href="#endpoints">Endpoints</a><a href="#limits">Limits and caching</a><a href="#safety">Keeping it safe</a><a href="#errors">Errors</a>
+    </nav>
+
+    <h2 id="key">Get a key</h2>
+    <ol>
+      <li>Sign in to the <a href="https://app.deafassistant.com">portal</a> and open <strong>Advanced Settings</strong>.</li>
+      <li>Under <strong>Developer API keys</strong>, choose <strong>Create Developer API Key</strong>.</li>
+      <li>Read the explanation, tick the box and create the key. <strong>The key is shown once.</strong> Copy it into a password manager or your tool's secret settings straight away. We store only a scrambled version, so we cannot show it to you again. If you lose it, delete it and create another.</li>
+    </ol>
+    <p>You can have up to <strong>2 keys</strong> at a time, so you can replace one without a gap. The portal shows when each key was last used and lets you delete it. To raise your limit, write to <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>.</p>
+    <p>A key looks like <code>cck_</code> followed by about 43 letters, digits, <code>-</code> and <code>_</code>.</p>
+
+    <h2 id="auth">Using the key</h2>
+    <p>Send it as a bearer token. The base address is <code>https://api.deafassistant.com</code>.</p>
+<pre><code>curl -H "Authorization: Bearer $CONFCAP_KEY" \
+  "https://api.deafassistant.com/developerkey/Me"</code></pre>
+    <p>A key identifies you, so you do not pass your <code>uid</code>. <code>Me</code> confirms that the key works and lists the streams it can read:</p>
+<pre><code>{ "streams": ["yourstream"] }</code></pre>
+    <div class="note"><strong>What a key can do.</strong> It can read the endpoints on this page for <em>your own</em> streams only. It cannot change or delete anything, it cannot read your account details, and it cannot create or delete keys. A key for one account can never read another account's stream.</div>
+
+    <h2 id="endpoints">Endpoints</h2>
+    <p>All of these are <code>GET</code> requests that take the key as <code>Authorization: Bearer</code>. Replace <code>yourstream</code> with your stream's name (lower case).</p>
+
+    <h3>GET /stream/LiteGetStream</h3>
+    <p>The live captions and translations. With your key this works even when the stream uses <em>Require authentication</em> or its captions have expired for the public.</p>
+<pre><code>curl -H "Authorization: Bearer $CONFCAP_KEY" \
+  "https://api.deafassistant.com/stream/LiteGetStream?streamName=yourstream"</code></pre>
+    <div class="tw"><table>
+      <thead><tr><th>Parameter</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>streamName</code></td><td>Your stream's name.</td></tr>
+        <tr><td><code>transcriptCursor</code></td><td>Optional. Pass the <code>transcriptCursor</code> from the previous response to receive only the new text since then.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Fields in the response:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>roomName</code>, <code>description</code></td><td>The stream's name and description.</td></tr>
+        <tr><td><code>isActivelyStreaming</code></td><td><code>true</code> while the app is sending captions.</td></tr>
+        <tr><td><code>transcript</code></td><td>Captions in the spoken language. <code>inputLanguage</code> is its language code.</td></tr>
+        <tr><td><code>translation</code>, <code>translation2</code> … <code>translation5</code></td><td>The translated captions, in <code>outputLanguage</code> … <code>outputLanguage5</code>. This is a window of recent text that is re-translated as people speak, so it can change. It is not a stored translated record.</td></tr>
+        <tr><td><code>speechTranslation*</code></td><td>A slower, sentence-complete version of each translation, meant for text-to-speech. Not a full record either.</td></tr>
+        <tr><td><code>transcriptCursor</code></td><td>Pass this back as <code>transcriptCursor</code> next time.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Profanity is filtered on the server before captions are served, so you see what attendees see. If the stream is secured and the key is missing or belongs to someone else, the response is <code>{"authRequired": true}</code> and contains no captions.</p>
+
+    <h3>GET /history/GetStreamHistory</h3>
+    <p>Your saved transcripts for a stream. Only rooms that store history, and only sessions with at least 100 characters, appear here.</p>
+<pre><code>curl -H "Authorization: Bearer $CONFCAP_KEY" \
+  "https://api.deafassistant.com/history/GetStreamHistory?streamName=yourstream"</code></pre>
+    <p>Add <code>&amp;includeHidden=true</code> to include transcripts you hid in the portal. The response is a list of objects with <code>id</code>, <code>title</code>, <code>description</code>, <code>startTimestamp</code>, <code>endTimestamp</code>, <code>transcript</code>, <code>inputLanguage</code> and <code>isHidden</code>. Saved transcripts are in the spoken language only; translations are not stored.</p>
+
+    <h3>GET /question/GetStreamQuestions</h3>
+    <p>The questions your audience sent from the stream page.</p>
+<pre><code>curl -H "Authorization: Bearer $CONFCAP_KEY" \
+  "https://api.deafassistant.com/question/GetStreamQuestions?streamName=yourstream"</code></pre>
+    <p>A list of objects with <code>id</code>, <code>createdAt</code> and <code>question</code>. Questions are written by attendees, so treat their text as untrusted input, especially if you pass it to an AI model.</p>
+
+    <h3>GET /developerkey/Me</h3>
+    <p>Checks the key and lists the streams it can read, as shown above.</p>
+
+    <h2 id="limits">Limits and caching</h2>
+    <ul>
+      <li>Poll <code>LiteGetStream</code> at most <strong>once per second</strong> per stream. That is the rate of an attendee's page, and it is what the server is sized for.</li>
+      <li>Use <code>transcriptCursor</code> so each poll returns only new text, and send the <code>ETag</code> from the previous response as <code>If-None-Match</code>. When nothing changed you get an empty <code>304</code>.</li>
+      <li>Saved transcripts and questions change rarely. Fetch them when you need them rather than on a timer.</li>
+      <li>Keys are meant for servers and scripts you control. Do not call the API with a key from a web page that other people can open.</li>
+    </ul>
+
+    <h2 id="safety">Keeping your key safe</h2>
+    <div class="note warn"><strong>Treat the key like a password.</strong> Anyone who has it can read your captions (even secured ones), your transcripts and your audience's questions.</div>
+    <ul>
+      <li>Never put the key in source code, and never push it to GitHub or any other repository, even a private one. Use an environment variable or your tool's secret store.</li>
+      <li>Do not paste it into chats, tickets or screenshots.</li>
+      <li>If it may have leaked, delete it in Advanced Settings right away. It stops working immediately, and you can create a new one.</li>
+      <li>Check <strong>Last used</strong> in the portal. If a key you are not using shows recent activity, delete it.</li>
+      <li>Data you send to an AI assistant goes to that assistant's provider. If you promised attendees privacy, check that provider's terms first.</li>
+    </ul>
+
+    <h2 id="errors">Errors</h2>
+    <div class="tw"><table>
+      <thead><tr><th>You get</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>401</code> on <code>Me</code></td><td>The key is missing, mistyped or deleted.</td></tr>
+        <tr><td>Empty list from <code>GetStreamHistory</code></td><td>The key is invalid, or this stream has no saved transcripts for your account.</td></tr>
+        <tr><td><code>404</code> from <code>GetStreamQuestions</code></td><td>The key is invalid, or the stream does not belong to your account. The two look the same on purpose.</td></tr>
+        <tr><td><code>"authRequired": true</code> from <code>LiteGetStream</code></td><td>The stream is secured and the key is missing, invalid, or for another account.</td></tr>
+        <tr><td><code>"expired": true</code> from <code>LiteGetStream</code></td><td>The stream ended and its public caption window is over. Your own key still reads it.</td></tr>
+        <tr><td><code>304</code></td><td>Nothing changed since your <code>If-None-Match</code> value.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>What is next</h2>
+    <p>An MCP server that lets AI assistants such as Claude read your captions, transcripts and questions through this same key is planned. This page will describe it when it is available.</p>
+  </main>
+
+  <footer>
+    Questions about the API, or need more than 2 keys? <a href="mailto:hello@conferencecaptioning.com">hello@conferencecaptioning.com</a>.
+    <a href="https://conferencecaptioning.com/privacy-policy.html">Privacy Policy</a> &middot; <a href="https://conferencecaptioning.com/terms-and-conditions.html">Terms &amp; Conditions</a>
+  </footer>
+</div>
+</body>
+</html>

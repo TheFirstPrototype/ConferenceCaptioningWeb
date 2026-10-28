@@ -8,6 +8,7 @@ Static site for conferencecaptioning.com (ConferenceCaptioning by BeAware): no b
 - `blog/`: prebuilt static pages, one folder per post (`blog/<slug>/index.html`). Translations live in `blog/{es,fr,it,ko,pt-br}/` with their own slugs. The CSS and JS in `blog/assets/` are hashed build output, so don't hand-edit them.
 - `benchmark/` and `multilingual-translation-benchmark/`: the open benchmark data. The method and scoring script are public, and the OBS article links to `/benchmark/`.
 - `offline-event-translation/` and `conference-captioning-vs-cloud-translation/`: standalone AI-search landing pages (see "Standalone pages").
+- `developers/`: public Developer API docs (read-only developer API keys; keep in step with the ConfCapApi `AGENTS.md` section "Developer API keys"). Linked from the footers of the standalone pages and `sitemap.xml`.
 - `transcript/`: public live-transcript page (see "Public transcript page").
 - `deck/` holds the pitch and investor decks.
 

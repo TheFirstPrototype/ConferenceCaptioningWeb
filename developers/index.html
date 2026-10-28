@@ -175,7 +175,7 @@
     <pre><code>claude mcp add --transport http confcap https://mcp.deafassistant.com/mcp --header "Authorization: Bearer cck_..."</code></pre>
     <p><strong>Claude Desktop:</strong> Settings &rarr; Connectors &rarr; Add &rarr; Add custom connector. Name it anything, enter <code>https://mcp.deafassistant.com/mcp</code> and continue. It will say there is no sign-in; open <em>Request headers</em>, add the header <code>Authorization</code> with the value <code>Bearer </code> followed by your key, and click Add.</p>
     <p><strong>Other assistants:</strong> add a remote MCP server with that URL and the same header. Assistants that only offer an OAuth sign-in cannot send a custom header yet. Optional headers: <code>X-Confcap-Stream</code> (a default stream) and <code>X-Confcap-Auth</code> (a secured stream's code).</p>
-    <p>Tools: list your streams, check a stream's status, read live captions, list and read saved transcripts, and list audience questions. Text from speakers and attendees is passed to the assistant marked as untrusted. Treat the config file that holds your key like a password file.</p>
+    <p>Tools: list your streams, get a session overview (what exists and what to read next), check a stream's status, read live captions, list and read saved transcripts, and list audience questions. Text from speakers and attendees is passed to the assistant marked as untrusted. Treat the config file that holds your key like a password file.</p>
   </main>
 
   <footer>

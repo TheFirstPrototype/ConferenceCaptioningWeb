@@ -38,6 +38,8 @@ mark{background:#fde68a;padding:0 1px;border-radius:3px}
 @keyframes s{to{transform:rotate(360deg)}}
 footer{text-align:center;color:#64748b;font-size:13px;margin-top:32px}
 footer a{color:#2563eb}
+.card .ttl{margin:0 0 2px;font-size:17px}
+.card p.note{margin:0 0 6px;color:#64748b;font-size:14px;font-style:italic}
 </style>
 </head>
 <body>
@@ -75,16 +77,18 @@ footer a{color:#2563eb}
 
   function render(){
     var term=q.value.trim();
-    var list=items.filter(function(i){return !term||(i.transcript||'').toLowerCase().indexOf(term.toLowerCase())>-1});
+    var list=items.filter(function(i){return !term||((i.title||'')+' '+(i.description||'')+' '+(i.transcript||'')).toLowerCase().indexOf(term.toLowerCase())>-1});
     meta.hidden=false;
     meta.textContent=term?list.length+' of '+items.length+' transcripts match "'+term+'"':items.length+' transcript'+(items.length===1?'':'s');
     if(!list.length){box('','No matches','Nothing in this stream\'s history contains "'+term+'".');return}
     var rx=term?new RegExp('('+re(esc(term))+')','gi'):null;
     out.innerHTML=list.map(function(i){
-      var t=esc(i.transcript||''); if(rx)t=t.replace(rx,'<mark>$1</mark>');
+      var hl=function(x){x=esc(x||'');return rx?x.replace(rx,'<mark>$1</mark>'):x};
+      var t=hl(i.transcript);
       var s=parse(i.startTimestamp), e=parse(i.endTimestamp);
       var when=fmt(s); if(s&&e&&e-s>1000)when+=' – '+e.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
-      return '<div class="card"><div class="t"><span>'+esc(when)+'</span>'+(i.inputLanguage?'<span class="lang">'+esc(i.inputLanguage)+'</span>':'')+'</div><p>'+t+'</p></div>';
+      var head=(i.title&&i.title.trim()?'<h3 class="ttl">'+hl(i.title.trim())+'</h3>':'')+(i.description&&i.description.trim()?'<p class="note">'+hl(i.description.trim())+'</p>':'');
+      return '<div class="card">'+head+'<div class="t"><span>'+esc(when)+'</span>'+(i.inputLanguage?'<span class="lang">'+esc(i.inputLanguage)+'</span>':'')+'</div><p>'+t+'</p></div>';
     }).join('');
   }
 
@@ -121,7 +125,7 @@ footer a{color:#2563eb}
   q.addEventListener('input',function(){if(items.length)render()});
   document.getElementById('refresh').addEventListener('click',function(){dl.disabled=false;load()});
   dl.addEventListener('click',function(){
-    var asc=items.slice().reverse().map(function(i){return '['+fmt(parse(i.startTimestamp))+']\n'+(i.transcript||'')}).join('\n\n');
+    var asc=items.slice().reverse().map(function(i){return (i.title&&i.title.trim()?i.title.trim()+'\n':'')+'['+fmt(parse(i.startTimestamp))+']\n'+(i.description&&i.description.trim()?i.description.trim()+'\n':'')+(i.transcript||'')}).join('\n\n');
     var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([asc],{type:'text/plain'}));
     a.download=stream+'-transcript.txt';document.body.appendChild(a);a.click();a.remove();
   });

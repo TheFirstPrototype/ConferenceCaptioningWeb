@@ -53,7 +53,7 @@ Copy the closest existing post (`how-to-add-live-captions-translations-to-obs` i
 - The API only allows `https://conferencecaptioning.com` as a CORS origin, so the page works there and not from `file://` or localhost.
 - Delete endpoints (`HistoryRecordDel`, `HistoryStreamDel`) exist in the portal only. This page can't delete.
 - A request with only the two query parameters returned 200 with no authentication, so anyone with the link can read a stream's history. Treat links as private. The page is `noindex`. Whether the API should require auth is an open question.
-- Features: search with highlighting, refresh, download as .txt.
+- Features: search with highlighting, refresh, download as .txt. Each transcript shows the owner's title and note (`title`, `description` from the API; search and the .txt download include them). Hidden transcripts are not returned by the API, so they never appear here. Still not linked from anywhere.
 
 ## Decks (`deck/`)
 `deck/AGENTS.md` covers how sales agents use the sales deck. This section is for editing the decks.

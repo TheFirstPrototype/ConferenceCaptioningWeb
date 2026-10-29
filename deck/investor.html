@@ -129,6 +129,50 @@
       background: rgba(56, 189, 248, 0.3);
       border-radius: 4px;
     }
+
+    /* Print / black-and-white handout: html.pm is added on print (and by ?print) */
+    @page { size: 13.333in 7.5in; margin: 0; }
+    html.pm, html.pm body { background:#fff !important; color:#111 !important; height:auto !important; width:auto !important; overflow:visible !important; display:block !important; }
+    html.pm header, html.pm footer, html.pm #speakerNotesPanel, html.pm #finalBg { display:none !important; }
+    html.pm main { display:block !important; background:#fff !important; background-image:none !important; padding:0 !important; height:auto !important; overflow:visible !important; }
+    html.pm .slide { display:flex !important; opacity:1 !important; position:relative; width:100% !important; max-width:none !important; height:7.5in !important; margin:0 !important; padding:.4in .7in !important; box-sizing:border-box; overflow:hidden; break-after:page; page-break-after:always; }
+    html.pm .slide:last-of-type { break-after:auto; page-break-after:auto; }
+    html.pm .slide * { color:#111 !important; text-shadow:none !important; box-shadow:none !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; animation:none !important; transition:none !important; background-image:none !important; }
+    html.pm .slide .reveal { opacity:1 !important; transform:none !important; filter:none !important; }
+    html.pm .slide [class*="text-white/"], html.pm .slide .eyebrow { color:#555 !important; }
+    html.pm .slide [class*="bg-"] { background-color:transparent !important; }
+    html.pm .slide .glass-panel, html.pm .slide .glass-card { background-color:#f2f2f2 !important; border:1px solid #bbb; }
+    html.pm .slide .bg-white\/10 { background-color:#ddd !important; }
+    html.pm .slide .bg-cyan-400 { background-color:#222 !important; }
+    html.pm .slide .bg-blue-400 { background-color:#666 !important; }
+    html.pm .slide .bg-emerald-400 { background-color:#aaa !important; }
+    html.pm .slide thead { background-color:#e4e4e4 !important; }
+    html.pm .slide [class*="border"] { border-color:#999 !important; }
+    html.pm .slide [class*="border-2"], html.pm .slide [class*="border-4"] { border-color:#222 !important; }
+    html.pm .slide [class*="border-t-"] { border-top-color:#222 !important; }
+    html.pm .slide [class*="border-l-"] { border-left-color:#222 !important; }
+    html.pm .slide tbody > * { border-color:#ccc !important; }
+    html.pm .slide .cell { background:transparent !important; }
+    html.pm .slide .dot { border:2px solid #111; box-shadow:none !important; }
+    html.pm .slide .dot.g { background-color:#111 !important; }
+    html.pm .slide .dot.y { background-color:#fff !important; background-image:linear-gradient(90deg,#111 50%,#fff 50%) !important; }
+    html.pm .slide .dot.r { background-color:#fff !important; }
+    html.pm .slide .dot[style*="38bdf8"] { background:#222 !important; }
+    html.pm .slide .dot[style*="34d399"] { background:#888 !important; }
+    html.pm .slide .dot[style*="fbbf24"] { background:#ccc !important; }
+    html.pm .slide svg text { fill:#111 !important; }
+    html.pm .slide svg line { stroke:#999 !important; }
+    html.pm .slide svg rect[fill="#38bdf8"] { fill:#222 !important; }
+    html.pm .slide svg rect[fill="#34d399"] { fill:#888 !important; }
+    html.pm .slide svg rect[fill="#fbbf24"] { fill:#ccc !important; stroke:#777; stroke-width:.6; }
+    html.pm .slide svg rect[fill="#ef4444"] { fill:#555 !important; }
+    html.pm .slide img, html.pm .slide video { filter:grayscale(1); }
+    html.pm .slide img[src*="logo-white"], html.pm .slide .logo-chip img { filter:invert(1) grayscale(1) !important; }
+    html.pm .slide .logo-chip { background:#f2f2f2 !important; }
+    html.pm .slide .lang-chip { background:#fff !important; border:1px solid #111 !important; }
+    html.pm .slide iframe { visibility:hidden; }
+    html.pm .slide *:has(> iframe) { background:#e8e8e8 !important; }
+    html.pm .slide *:has(> iframe)::after { content:"Live NASA press conference, run on-device (video in the screen version)"; position:absolute; left:0; right:0; top:45%; text-align:center; color:#555; font-size:1.1rem; }
   </style>
 </head>
 <body class="h-screen w-screen flex flex-col justify-between relative antialiased select-none">
@@ -154,6 +198,7 @@
         <span class="text-white/40 text-xs font-mono">/ 19</span>
       </div>
       <div class="flex items-center gap-1.5 pl-2 border-l border-white/15">
+        <button onclick="window.print()" title="Print / save as PDF (black and white)" class="px-3 py-1 rounded text-xs font-medium bg-brand-surface hover:bg-brand-surface/90 border border-white/10 text-white/80 hover:text-white">Print</button>
         <button onclick="toggleSpeakerNotes()" id="notesBtn" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium bg-brand-surface hover:bg-brand-surface/90 border border-white/10 text-white/80 hover:text-white transition">
           <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
           Notes <kbd class="text-[10px] bg-black/30 px-1 py-0.5 rounded text-white/60">S</kbd>
@@ -791,6 +836,13 @@
       if (d > 50) nextSlide();
       if (d < -50) prevSlide();
     });
+
+    // Black-and-white print layout (see "Print / black-and-white handout" in the CSS)
+    const wantsPrint = /[?&]print\b/.test(location.search);
+    const setPrintMode = on => document.documentElement.classList.toggle('pm', on);
+    window.addEventListener('beforeprint', () => setPrintMode(true));
+    window.addEventListener('afterprint', () => setPrintMode(wantsPrint));
+    setPrintMode(wantsPrint);
 
     createIndicators();
     setupReveal();

@@ -58,7 +58,7 @@
     @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
     .slide.active .bar { transform-box: fill-box; transform-origin: 50% 100%; animation: grow .9s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--k) * 70ms + 500ms); }
     .slide.active .bar-label { animation: rise .8s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--k) * 70ms + 900ms); }
-    .eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.15rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #38bdf8; }
+    .eyebrow { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.5rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #38bdf8; }
     /* Traffic-light ratings */
     .dot { display:inline-block; width:14px; height:14px; border-radius:50%; margin-right:10px; vertical-align:-1px; }
     .dot.g { background:#22c55e; box-shadow:0 0 10px #22c55e88; }
@@ -151,7 +151,7 @@
       <div class="flex items-center gap-2">
         <span class="text-white/60 font-mono text-xs">Slide</span>
         <span id="currentSlideNum" class="font-mono text-cyan-400 font-bold text-sm">1</span>
-        <span class="text-white/40 text-xs font-mono">/ 20</span>
+        <span class="text-white/40 text-xs font-mono">/ 19</span>
       </div>
       <div class="flex items-center gap-1.5 pl-2 border-l border-white/15">
         <button onclick="toggleSpeakerNotes()" id="notesBtn" class="flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium bg-brand-surface hover:bg-brand-surface/90 border border-white/10 text-white/80 hover:text-white transition">
@@ -167,7 +167,7 @@
 
   <main id="deckMain" class="flex-1 w-full deck-container relative flex items-center justify-center p-6 md:p-10 lg:p-12 overflow-hidden">
 
-    <!-- Slide 15 background: english.gif at 2x speed, black tint -->
+    <!-- Final slide background: english.gif at 2x speed, black tint -->
     <div id="finalBg" class="absolute inset-0 hidden" style="z-index:0">
       <img src="smooth-njea.gif" alt="Live event with captions on both stage screens" class="absolute inset-0 w-full h-full object-cover">
       <!-- <video id="finalBgVideo" src="" muted loop playsinline preload="auto" class="w-full h-full object-cover"></video> -->
@@ -184,7 +184,7 @@
       <div class="mt-10 pt-6 border-t border-white/10">
         <p class="text-xl font-semibold text-white tracking-wide">Saamer Mansoor</p>
         <p class="text-sm font-mono text-cyan-400 uppercase tracking-widest mt-1">Founder &amp; CEO</p>
-        <p class="text-base font-mono text-white/80 mt-4">saamer@conferencecaptioning.com &nbsp;&bull;&nbsp; conferencecaptioning.com</p>
+        <p class="text-base font-mono text-white/80 mt-4">saamer@conferencecaptioning.com &nbsp;&bull;&nbsp; conferencecaptioning.com &nbsp;&bull;&nbsp; +1-214-683-9508</p>
       </div>
     </section>
 
@@ -201,19 +201,21 @@
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="3">
       <div>
         <div class="eyebrow mb-2">Real events &middot; Bali, Indonesia</div>
-        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">10,000 people. One English speaker. <span class="text-cyan-300">Four languages.</span></h2>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">10,000 people. One English speaker. <span class="text-cyan-300">Six languages.</span></h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
-        <div class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-cyan-400/25 bg-black min-h-0">
-          <video src="multilingual-bali.mp4" autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover"></video>
+        <div class="lg:col-span-8 relative self-center rounded-2xl overflow-hidden border border-cyan-400/25 bg-black" style="aspect-ratio:1080/528">
+          <video src="multilingual-bali.mp4" autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full"></video>
           <div class="absolute left-4 top-3 text-sm font-bold text-white bg-black/60 px-3 py-1 rounded-full flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>LIVE &middot; 10,000+ attendees</div>
           <span class="lang-chip" style="left:8%;">Mandarin</span>
           <span class="lang-chip" style="left:24%;">Bahasa</span>
           <span class="lang-chip" style="left:78%;">Thai</span>
           <span class="lang-chip" style="left:92.5%;">English</span>
         </div>
-        <div class="lg:col-span-4 flex flex-col justify-center gap-4">
-          <div class="glass-panel rounded-2xl p-5"><div class="text-5xl font-extrabold text-cyan-300 metric-number">4</div><p class="text-xl font-semibold text-white mt-1">languages on screen at the same time</p></div>
+        <div class="lg:col-span-4 flex flex-col justify-center gap-3">
+          <div class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-4"><div class="text-5xl font-extrabold text-cyan-300 metric-number w-20 shrink-0">4</div><p class="text-lg font-semibold text-white leading-snug">languages on screen at the same time</p></div>
+          <div class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-4"><div class="text-5xl font-extrabold text-blue-300 metric-number w-20 shrink-0">6</div><p class="text-lg font-semibold text-white leading-snug">languages on attendees' phones</p></div>
+          <div class="glass-panel rounded-2xl px-5 py-3 flex items-center gap-4"><div class="text-5xl font-extrabold text-emerald-300 metric-number w-20 shrink-0">&lt;1s</div><p class="text-lg font-semibold text-white leading-snug">Under 1 second latency</p></div>
           <blockquote class="glass-panel rounded-2xl p-5 border-l-4 border-l-cyan-400">
             <p class="text-xl font-semibold text-white leading-snug italic">&ldquo;It seems like a no-brainer for every conference to use this technology.&rdquo;</p>
             <footer class="text-sm text-white/70 mt-3">Tom Phillips, Faculty<br>Apple Developer Academy Detroit</footer>
@@ -244,11 +246,8 @@
 
     <!-- 5 PROBLEM -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="5">
-      <div class="p-4 mb-6 rounded-xl bg-red-600 text-white text-center shadow-lg shadow-red-900/40">
-        <p class="text-2xl font-extrabold tracking-wide">TODAY'S STATUS QUO: most events skip it.</p>
-      </div>
       <div>
-        <div class="eyebrow text-lg mb-2">The core problem</div>
+        <div class="eyebrow mb-2">The core problem</div>
         <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">Live events leave people out.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
@@ -261,28 +260,29 @@
           <p class="text-2xl font-semibold text-white mt-2">US residents speak a language other than English at home</p>
         </div>
       </div>
+      <div class="p-4 rounded-xl bg-red-600 text-white text-center shadow-lg shadow-red-900/40">
+        <p class="text-2xl font-extrabold tracking-wide">TODAY'S STATUS QUO: most events skip accessibility and inclusion because of cost.</p>
+      </div>
     </section>
 
     <!-- 6 WHY EXISTING OPTIONS FAIL -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="6">
       <div>
-        <div class="eyebrow text-lg mb-2">Why it's still unsolved</div>
+        <div class="eyebrow mb-2">Why it's still unsolved</div>
         <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">Both options break at the event.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-auto">
         <div class="glass-panel rounded-2xl p-8 border-t-4 border-cyan-400">
           <h3 class="text-3xl font-bold text-white mb-5">Human captioners</h3>
           <ul class="space-y-4 text-white text-2xl">
-            <li><span class="text-red-500 font-bold mr-3">✕</span>Costly</li>
-            <li><span class="text-red-500 font-bold mr-3">✕</span>Booked weeks ahead</li>
-            <li><span class="text-red-500 font-bold mr-3">✕</span>No backup</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Costly, booked weeks ahead</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>One language, no backup</li>
           </ul>
         </div>
         <div class="glass-panel rounded-2xl p-8 border-t-4 border-blue-400">
           <h3 class="text-3xl font-bold text-white mb-5">Cloud AI</h3>
           <ul class="space-y-4 text-white text-2xl">
-            <li><span class="text-red-500 font-bold mr-3">✕</span>$2,500&ndash;$5,000 internet line</li>
-            <li><span class="text-red-500 font-bold mr-3">✕</span>Dies when Wi-Fi dies</li>
+            <li><span class="text-red-500 font-bold mr-3">✕</span>Needs a $2,500&ndash;$5,000 internet line, dies when Wi-Fi dies</li>
             <li><span class="text-red-500 font-bold mr-3">✕</span>Audio leaves the room</li>
           </ul>
         </div>
@@ -292,14 +292,13 @@
     <!-- 7 VALUE PROPOSITION -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="7" data-deep>
       <div>
-        <div class="eyebrow text-lg mb-2">Our value proposition</div>
+        <div class="eyebrow mb-2">Our value proposition</div>
         <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">We fix each one.</h2>
       </div>
-      <div class="grid grid-cols-1 gap-4 my-auto">
-        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Costly, booked ahead</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Software. $150/hr. Book today.</div></div>
-        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">$2,500+ internet line</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Works with no internet</div></div>
-        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">One language</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>70+ languages at once</div></div>
-        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">No backup</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Backup takes over in 0.5s</div></div>
+      <div class="grid grid-cols-1 gap-5 my-auto">
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Costly, booked weeks ahead</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Software. $150/hr. Book today.</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">One language, no backup</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>65+ languages available, with redundant failover in 0.5s</div></div>
+        <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Needs an internet line, dies when Wi-Fi dies</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Works on-site</div></div>
         <div class="glass-panel rounded-2xl p-5 grid grid-cols-12 items-center gap-4"><div class="col-span-5 text-2xl text-white/60 line-through decoration-red-500 decoration-2">Audio sent to the cloud</div><div class="col-span-1 text-cyan-400 text-3xl text-center">&rarr;</div><div class="col-span-6 text-2xl font-bold text-white"><span class="text-emerald-400 mr-2">✓</span>Audio never leaves the room</div></div>
       </div>
     </section>
@@ -307,7 +306,7 @@
     <!-- 8 PRODUCT + OUTPUT -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="8">
       <div>
-        <div class="eyebrow text-lg mb-2">The product</div>
+        <div class="eyebrow mb-2">The product</div>
         <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">One tap to start. <span class="text-cyan-300">Captions everywhere.</span></h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-3 flex-1 min-h-0">
@@ -330,7 +329,7 @@
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="9">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <div class="eyebrow text-lg mb-2">How it works</div>
+          <div class="eyebrow mb-2">How it works</div>
           <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">All AI runs on <span class="text-cyan-300">one device in the room.</span></h2>
         </div>
         <div class="shrink-0 px-4 py-2 rounded-full border-2 border-amber-400 text-amber-300 font-bold tracking-wide text-sm">PATENT PENDING</div>
@@ -345,11 +344,11 @@
         <div class="col-span-1 text-center text-cyan-400 text-4xl">&rarr;</div>
         <div class="col-span-5 rounded-2xl p-4 border-2 border-dashed border-cyan-400 bg-cyan-400/5">
           <div class="flex items-center justify-between mb-3">
-            <div class="text-base font-bold text-cyan-300 uppercase tracking-wider">On-device &middot; Mac or iPad</div>
+            <div class="text-base font-bold text-cyan-300 uppercase tracking-wider">On-site device &middot; 💻</div>
             <div class="text-sm font-bold text-emerald-300">No internet</div>
           </div>
           <div class="grid grid-cols-3 gap-2 text-center">
-            <div class="rounded-xl bg-cyan-400/15 border border-cyan-400/40 p-3 text-left"><div class="text-2xl font-extrabold text-white text-center">1</div><div class="text-base font-semibold text-white text-center mb-1">Speech to text</div><ul class="text-xs text-white/80 space-y-0.5"><li>&bull; Runs on the NPU</li><li>&bull; Learns event's context</li><li>&bull; Punctuations!</li></ul></div>
+            <div class="rounded-xl bg-cyan-400/15 border border-cyan-400/40 p-3 text-left"><div class="text-2xl font-extrabold text-white text-center">1</div><div class="text-base font-semibold text-white text-center mb-1">Speech to captions</div><ul class="text-xs text-white/80 space-y-0.5"><li>&bull; Runs on the NPU</li><li>&bull; Learns event's context</li><li>&bull; Punctuations!</li></ul></div>
             <div class="rounded-xl bg-white/10 p-3 flex flex-col justify-center"><div class="text-2xl font-extrabold text-white">2</div><div class="text-base font-semibold text-white">Translate</div></div>
             <div class="rounded-xl bg-white/10 p-3 flex flex-col justify-center"><div class="text-2xl font-extrabold text-white">3</div><div class="text-base font-semibold text-white">Send</div></div>
           </div>
@@ -361,21 +360,15 @@
           <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: English</div>
           <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: Español</div>
           <div class="glass-card rounded-xl px-3 py-2 text-white font-semibold">📱 Phone: 中文</div>
-          <div class="text-center text-sm text-cyan-300 font-semibold">Each person picks 1 of 70+ languages</div>
+          <div class="text-center text-sm text-cyan-300 font-semibold">Each person picks 1 of 65+ languages</div>
         </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-amber-400"><div class="text-xl font-extrabold text-white">Patent-pending pipeline</div><div class="text-sm text-white/70">our technical moat</div></div>
-        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-emerald-400"><div class="text-xl font-extrabold text-white">Backup device in 0.5s</div><div class="text-sm text-white/70">a second device takes over automatically</div></div>
-        <div class="glass-panel rounded-xl p-4 text-center border-t-2 border-cyan-400"><div class="text-xl font-extrabold text-white">No data center</div><div class="text-sm text-white/70">audio never leaves the room</div></div>
       </div>
     </section>
 
     <!-- 10 PROOF -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="10">
       <div>
-        <div class="eyebrow text-lg mb-2">Proof</div>
+        <div class="eyebrow mb-2">Proof</div>
         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white">Tested in public. Numbers published.</h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
@@ -386,8 +379,8 @@
         <div class="lg:col-span-5 grid grid-cols-2 gap-4 content-center">
           <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-cyan-300 metric-number">97.2%</div><div class="text-sm font-mono uppercase text-white/70 mt-1">words correct</div></div>
           <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-cyan-300 metric-number">&lt;1s</div><div class="text-sm font-mono uppercase text-white/70 mt-1">speech to translation on screen</div></div>
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">0.5s</div><div class="text-sm font-mono uppercase text-white/70 mt-1">backup takes over</div></div>
-          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">70+</div><div class="text-sm font-mono uppercase text-white/70 mt-1">languages</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">0.5s</div><div class="text-sm font-mono uppercase text-white/70 mt-1">failover activates</div></div>
+          <div class="glass-panel rounded-2xl p-5 text-center"><div class="text-5xl font-extrabold text-emerald-300 metric-number">65+</div><div class="text-sm font-mono uppercase text-white/70 mt-1">languages available</div></div>
         </div>
       </div>
     </section>
@@ -395,7 +388,7 @@
     <!-- 11 TRACTION -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="11">
       <div>
-        <div class="eyebrow text-lg mb-2">Traction</div>
+        <div class="eyebrow mb-2">Traction</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Paying customers in six countries. <span class="text-cyan-300">No sales team.</span></h2>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -416,7 +409,7 @@
     <!-- 12 MARKET -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="12">
       <div>
-        <div class="eyebrow text-lg mb-2">Market opportunity</div>
+        <div class="eyebrow mb-2">Market opportunity</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Every event with a stage and a screen.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
@@ -438,34 +431,10 @@
       </div>
     </section>
 
-    <!-- 13 COMPETITION -->
+    <!-- 13 BUSINESS MODEL -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="13">
-      <div class="flex items-end justify-between gap-4">
-        <div>
-          <div class="eyebrow text-lg mb-2">Competition</div>
-          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Built for the live room.</h2>
-        </div>
-        <div class="flex items-center gap-4 text-sm text-white/80 shrink-0"><span><i class="dot g"></i>Good</span><span><i class="dot y"></i>Okay</span><span><i class="dot r"></i>Bad</span></div>
-      </div>
-      <div class="glass-panel rounded-2xl overflow-hidden my-auto border border-white/10">
-        <table class="w-full text-left text-xl">
-          <thead><tr class="bg-black/50 border-b border-white/10 text-white/70 font-mono text-sm uppercase">
-            <th class="py-3 px-5"></th><th class="py-3 px-5 text-cyan-300 font-bold">ConferenceCaptioning</th><th class="py-3 px-5">Human captioners</th><th class="py-3 px-5">Cloud AI</th></tr></thead>
-          <tbody class="divide-y divide-white/10 font-semibold">
-            <tr><td class="py-4 px-5 text-white">Works with no internet</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell y"><i class="dot y"></i>Depends</td><td class="cell r"><i class="dot r"></i>No</td></tr>
-            <tr><td class="py-4 px-5 text-white">Languages at once</td><td class="cell g"><i class="dot g"></i>70+</td><td class="cell r"><i class="dot r"></i>1</td><td class="cell g"><i class="dot g"></i>Many</td></tr>
-            <tr><td class="py-4 px-5 text-white">Backup if it fails</td><td class="cell g"><i class="dot g"></i>0.5s</td><td class="cell r"><i class="dot r"></i>Rare</td><td class="cell y"><i class="dot y"></i>Varies</td></tr>
-            <tr><td class="py-4 px-5 text-white">Audio stays in the room</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell r"><i class="dot r"></i>No</td></tr>
-            <tr><td class="py-4 px-5 text-white">Cost per event</td><td class="cell g"><i class="dot g"></i>Low</td><td class="cell r"><i class="dot r"></i>High</td><td class="cell y"><i class="dot y"></i>Medium</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- 14 BUSINESS MODEL -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="14">
       <div>
-        <div class="eyebrow text-lg mb-2">Business model</div>
+        <div class="eyebrow mb-2">Business model</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Events bring us in. Subscriptions keep us.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
@@ -479,10 +448,35 @@
       </div>
     </section>
 
+    <!-- 14 COMPETITION -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="14">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <div class="eyebrow mb-2">Competition</div>
+          <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Built for the live room. <span class="text-cyan-300">Built to scale.</span></h2>
+        </div>
+        <div class="flex items-center gap-4 text-sm text-white/80 shrink-0"><span><i class="dot g"></i>Good</span><span><i class="dot y"></i>Okay</span><span><i class="dot r"></i>Bad</span></div>
+      </div>
+      <div class="glass-panel rounded-2xl overflow-hidden my-auto border border-white/10">
+        <table class="w-full text-left text-xl">
+          <thead><tr class="bg-black/50 border-b border-white/10 text-white/70 font-mono text-sm uppercase">
+            <th class="py-3 px-5"></th><th class="py-3 px-5 text-cyan-300 font-bold">ConferenceCaptioning</th><th class="py-3 px-5">Human captioners</th><th class="py-3 px-5">Cloud AI</th></tr></thead>
+          <tbody class="divide-y divide-white/10 font-semibold">
+            <tr><td class="py-3 px-5 text-white">Works on-site, no internet line</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell y"><i class="dot y"></i>Depends</td><td class="cell r"><i class="dot r"></i>No</td></tr>
+            <tr><td class="py-3 px-5 text-white">Languages at once</td><td class="cell g"><i class="dot g"></i>65+</td><td class="cell r"><i class="dot r"></i>1</td><td class="cell g"><i class="dot g"></i>Many</td></tr>
+            <tr><td class="py-3 px-5 text-white">Automatic failover</td><td class="cell g"><i class="dot g"></i>0.5s</td><td class="cell r"><i class="dot r"></i>Rare</td><td class="cell y"><i class="dot y"></i>Varies</td></tr>
+            <tr><td class="py-3 px-5 text-white">Audio stays in the room</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell g"><i class="dot g"></i>Yes</td><td class="cell r"><i class="dot r"></i>No</td></tr>
+            <tr><td class="py-3 px-5 text-white">Scales to many events at once</td><td class="cell g"><i class="dot g"></i>Unlimited</td><td class="cell r"><i class="dot r"></i>1 captioner per room</td><td class="cell y"><i class="dot y"></i>Cost grows with use</td></tr>
+            <tr><td class="py-3 px-5 text-white">Cost per event</td><td class="cell g"><i class="dot g"></i>Low</td><td class="cell r"><i class="dot r"></i>High</td><td class="cell y"><i class="dot y"></i>Medium</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- 15 GO TO MARKET -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="15">
       <div>
-        <div class="eyebrow text-lg mb-2">How we sell</div>
+        <div class="eyebrow mb-2">How we sell</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Two in five demos become customers.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
@@ -499,7 +493,7 @@
     <!-- 16 FINANCIAL CHART -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="16">
       <div>
-        <div class="eyebrow text-lg mb-2">Financial projections</div>
+        <div class="eyebrow mb-2">Financial projections</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">$57K to <span class="text-cyan-300">$5M</span> in five years.</h2>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-3 flex-1 min-h-0">
@@ -516,26 +510,34 @@
       <p class="text-sm text-white/50">Projections: 2026 is a full-year estimate. $30K annual revenue is where we are today.</p>
     </section>
 
-    <!-- 17 FINANCIAL TABLE + PATH -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="17">
+    <!-- 17 PATH + ASK -->
+    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4 gap-3" data-slide="17">
       <div>
-        <div class="eyebrow text-lg mb-2">What the $1.25M unlocks</div>
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">The path to <span class="text-cyan-300">$1.1M</span> in 2028.</h2>
+        <div class="eyebrow mb-2">The ask &middot; $750K</div>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">The path to <span class="text-cyan-300">$1.1M in revenue</span> in 2028.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-stretch">
-        <div class="glass-card rounded-xl p-2 text-center border-t-2 border-cyan-400"><div class="text-xs font-mono text-cyan-300 uppercase font-bold">2027</div><div class="text-base font-bold text-white leading-tight">$1.25M financing closes</div></div>
+        <div class="glass-card rounded-xl p-2 text-center border-t-2 border-cyan-400"><div class="text-xs font-mono text-cyan-300 uppercase font-bold">2027</div><div class="text-base font-bold text-white leading-tight">$750K financing closes</div></div>
         <div class="glass-card rounded-xl p-2 text-center border-t-2 border-blue-400"><div class="text-xs font-mono text-blue-300 uppercase font-bold">Hire</div><div class="text-base font-bold text-white leading-tight">Sales + engineering</div></div>
         <div class="glass-card rounded-xl p-2 text-center border-t-2 border-blue-400"><div class="text-xs font-mono text-blue-300 uppercase font-bold">Expand</div><div class="text-base font-bold text-white leading-tight">Enterprise + AV channel</div></div>
         <div class="glass-card rounded-xl p-2 text-center border-t-2 border-emerald-400"><div class="text-xs font-mono text-emerald-300 uppercase font-bold">Grow</div><div class="text-base font-bold text-white leading-tight">Upsell clients, reseller &amp; referral program, licenses up to $10K</div></div>
         <div class="glass-card rounded-xl p-2 text-center border-2 border-emerald-400 bg-emerald-400/10"><div class="text-xs font-mono text-emerald-300 uppercase font-bold">2028</div><div class="text-xl font-extrabold text-white leading-tight">$1.1M revenue</div></div>
       </div>
-      <div class="glass-panel rounded-2xl overflow-hidden"><table class="w-full text-sm"><thead><tr class="text-white/60 font-mono text-sm uppercase border-b border-white/10"><th class="py-1.5 px-4 text-left">Year</th><th class="py-1.5 px-4 text-right ">2026</th><th class="py-1.5 px-4 text-right ">2027</th><th class="py-1.5 px-4 text-right text-cyan-300">2028</th><th class="py-1.5 px-4 text-right ">2029</th><th class="py-1.5 px-4 text-right ">2030</th></tr></thead><tbody class="divide-y divide-white/5 font-semibold"><tr><td class="py-1 px-4 text-white/80">Sales ($)</td><td class="py-1 px-4 text-right text-white">56,720</td><td class="py-1 px-4 text-right text-white">245,786</td><td class="py-1 px-4 text-right text-white">1,106,040</td><td class="py-1 px-4 text-right text-white">2,406,743</td><td class="py-1 px-4 text-right text-white">4,993,990</td></tr><tr><td class="py-1 px-4 text-white/80">Gross profit ($)</td><td class="py-1 px-4 text-right text-white">12,500</td><td class="py-1 px-4 text-right text-white">98,314</td><td class="py-1 px-4 text-right text-white">464,546</td><td class="py-1 px-4 text-right text-white">1,058,967</td><td class="py-1 px-4 text-right text-white">2,247,294</td></tr><tr><td class="py-1 px-4 text-white/80">Gross margin</td><td class="py-1 px-4 text-right text-white/80">22%</td><td class="py-1 px-4 text-right text-white/80">40%</td><td class="py-1 px-4 text-right text-white/80">42%</td><td class="py-1 px-4 text-right text-white/80">44%</td><td class="py-1 px-4 text-right text-white/80">45%</td></tr><tr><td class="py-1 px-4 text-white/80">Total OpEx ($)</td><td class="py-1 px-4 text-right text-white/80">30,608</td><td class="py-1 px-4 text-right text-white/80">121,974</td><td class="py-1 px-4 text-right text-white/80">457,356</td><td class="py-1 px-4 text-right text-white/80">811,017</td><td class="py-1 px-4 text-right text-white/80">1,343,859</td></tr><tr><td class="py-1 px-4 text-white/80">Income before tax ($)</td><td class="py-1 px-4 text-right text-red-400">(18,108)</td><td class="py-1 px-4 text-right text-red-400">(23,660)</td><td class="py-1 px-4 text-right text-emerald-300">7,180</td><td class="py-1 px-4 text-right text-emerald-300">247,950</td><td class="py-1 px-4 text-right text-emerald-300">903,435</td></tr><tr><td class="py-1 px-4 text-white/80">Pre-tax margin</td><td class="py-1 px-4 text-right text-red-400">-32%</td><td class="py-1 px-4 text-right text-red-400">-10%</td><td class="py-1 px-4 text-right text-emerald-300">1%</td><td class="py-1 px-4 text-right text-emerald-300">10%</td><td class="py-1 px-4 text-right text-emerald-300">18%</td></tr><tr><td class="py-1 px-4 text-white/80">Sales &divide; OpEx</td><td class="py-1 px-4 text-right text-white/80">1.85</td><td class="py-1 px-4 text-right text-white/80">2.01</td><td class="py-1 px-4 text-right text-white/80">2.42</td><td class="py-1 px-4 text-right text-white/80">2.97</td><td class="py-1 px-4 text-right text-white/80">3.72</td></tr></tbody></table></div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
+        <div class="md:col-span-5 glass-panel rounded-2xl p-5 border-2 border-cyan-400 flex flex-col justify-center gap-3">
+          <div class="text-center"><div class="text-sm font-mono text-cyan-300 uppercase font-bold tracking-wider">The ask &middot; Seed round</div><div class="text-6xl font-black text-white metric-number">$750K</div><p class="text-lg text-white/80">$30K &rarr; $500K ARR within 18 months of closing</p><p class="text-xs text-white/60">ARR = annual recurring revenue: subscriptions and repeat contracts</p></div>
+          <div><div class="flex justify-between text-base text-white font-semibold"><span>Sales &amp; marketing</span><span class="text-cyan-300">50%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-cyan-400 rounded" style="width:50%"></div></div></div>
+          <div><div class="flex justify-between text-base text-white font-semibold"><span>Product</span><span class="text-blue-300">25%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-blue-400 rounded" style="width:25%"></div></div></div>
+          <div><div class="flex justify-between text-base text-white font-semibold"><span>Operations &amp; compliance</span><span class="text-emerald-300">25%</span></div><div class="h-2 bg-white/10 rounded mt-1"><div class="h-2 bg-emerald-400 rounded" style="width:25%"></div></div></div>
+        </div>
+        <div class="md:col-span-7 glass-panel rounded-2xl overflow-hidden self-center"><table class="w-full text-base"><thead><tr class="text-white/60 font-mono text-sm uppercase border-b border-white/10"><th class="py-1.5 px-4 text-left">Year</th><th class="py-1.5 px-4 text-right ">2026</th><th class="py-1.5 px-4 text-right ">2027</th><th class="py-1.5 px-4 text-right text-cyan-300">2028</th><th class="py-1.5 px-4 text-right ">2029</th><th class="py-1.5 px-4 text-right ">2030</th></tr></thead><tbody class="divide-y divide-white/5 font-semibold"><tr><td class="py-1.5 px-4 text-white/80">Sales ($)</td><td class="py-1.5 px-4 text-right text-white">56,720</td><td class="py-1.5 px-4 text-right text-white">245,786</td><td class="py-1.5 px-4 text-right text-white">1,106,040</td><td class="py-1.5 px-4 text-right text-white">2,406,743</td><td class="py-1.5 px-4 text-right text-white">4,993,990</td></tr><tr><td class="py-1.5 px-4 text-white/80">Gross profit ($)</td><td class="py-1.5 px-4 text-right text-white">12,500</td><td class="py-1.5 px-4 text-right text-white">98,314</td><td class="py-1.5 px-4 text-right text-white">464,546</td><td class="py-1.5 px-4 text-right text-white">1,058,967</td><td class="py-1.5 px-4 text-right text-white">2,247,294</td></tr><tr><td class="py-1.5 px-4 text-white/80">Gross margin</td><td class="py-1.5 px-4 text-right text-white/80">22%</td><td class="py-1.5 px-4 text-right text-white/80">40%</td><td class="py-1.5 px-4 text-right text-white/80">42%</td><td class="py-1.5 px-4 text-right text-white/80">44%</td><td class="py-1.5 px-4 text-right text-white/80">45%</td></tr><tr><td class="py-1.5 px-4 text-white/80">Income before tax ($)</td><td class="py-1.5 px-4 text-right text-red-400">(18,108)</td><td class="py-1.5 px-4 text-right text-red-400">(23,660)</td><td class="py-1.5 px-4 text-right text-emerald-300">7,180</td><td class="py-1.5 px-4 text-right text-emerald-300">247,950</td><td class="py-1.5 px-4 text-right text-emerald-300">903,435</td></tr></tbody></table></div>
+      </div>
     </section>
 
     <!-- 18 TEAM -->
     <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4 gap-4" data-slide="18" data-deep>
       <div>
-        <div class="eyebrow text-lg mb-2">The team</div>
+        <div class="eyebrow mb-2">The team</div>
         <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Founders who scaled <span class="text-cyan-300">$0 to $2M</span> together.</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto">
@@ -555,29 +557,8 @@
       </div>
     </section>
 
-    <!-- 19 ASK -->
-    <section class="slide flex-col justify-between w-full max-w-6xl mx-auto h-full py-4" data-slide="19">
-      <div>
-        <div class="eyebrow text-lg mb-2">The ask</div>
-        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">$1.25M to reach $500K in yearly revenue within 18 months of closing.</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-auto items-stretch">
-        <div class="md:col-span-5 glass-panel rounded-2xl p-7 border-2 border-cyan-400 text-center flex flex-col justify-center">
-          <div class="text-sm font-mono text-cyan-300 uppercase font-bold tracking-wider mb-2">Seed round</div>
-          <div class="text-7xl font-black text-white metric-number mb-2">$1.25M</div>
-          <p class="text-xl text-white/80">$30K &rarr; $500K ARR</p>
-          <p class="text-sm text-white/60 mt-1">ARR = annual recurring revenue: subscriptions and repeat contracts</p>
-        </div>
-        <div class="md:col-span-7 glass-panel rounded-2xl p-7 border border-white/10 flex flex-col justify-center gap-5">
-          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Sales &amp; marketing</span><span class="text-cyan-300">50%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-cyan-400 rounded" style="width:50%"></div></div></div>
-          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Product</span><span class="text-blue-300">25%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-blue-400 rounded" style="width:25%"></div></div></div>
-          <div><div class="flex justify-between text-xl text-white font-semibold"><span>Operations &amp; compliance</span><span class="text-emerald-300">25%</span></div><div class="h-2.5 bg-white/10 rounded mt-1"><div class="h-2.5 bg-emerald-400 rounded" style="width:25%"></div></div><p class="text-sm text-white/60 mt-1">What large buyers require before they sign</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 20 CLOSE -->
-    <section class="slide flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full" data-slide="20">
+    <!-- 19 CLOSE -->
+    <section class="slide flex-col justify-center items-center text-center w-full max-w-5xl mx-auto h-full" data-slide="19">
       <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning" class="h-14 mx-auto mb-8">
       <blockquote class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">Everyone deserves to understand the room they're in.</blockquote>
       <p class="text-2xl text-cyan-200/90 font-light max-w-2xl mx-auto mb-8">With your support, we'll make that true.</p>
@@ -622,7 +603,7 @@
   </aside>
 
   <script>
-    const totalSlides = 20;
+    const totalSlides = 19;
     let currentSlide = 1;
     let notesOpen = false;
     let timerRunning = true;
@@ -631,7 +612,7 @@
     // Section backgrounds (images from the site, darkened for legibility)
     const overlay = 'linear-gradient(270deg, rgba(0,0,0,.12), rgba(0,0,0,.92))';
     const bg = n => `${overlay}, url('https://conferencecaptioning.com/images/full-width-images/section-bg-${n}.jpg')`;
-    const slideBg = { 1: bg(22), 2: bg(18), 5: bg(15), 12: bg(18), 19: bg(22) };
+    const slideBg = { 1: bg(22), 2: bg(18), 5: bg(15), 12: bg(18) };
 
     // Speaker notes: about 10 minutes total (sum of target times)
     const speakerNotes = {
@@ -642,25 +623,25 @@
         <p class="mt-2">"Have you ever been to an event and couldn't hear the speaker? Or couldn't understand their language? Or just nodded along and pretended you followed?"</p>
         <p class="mt-2">"Millions of people do that at every event. We solve that."</p>` },
       3: { title: "Slide 3: Real events (Bali)", time: "40 seconds", notes: `
-        <p>"This is Bali, Indonesia. Ten thousand people from around the world. One speaker, speaking in English. The screens beside him show Mandarin, Bahasa, Thai and English, all at the same time."</p>
+        <p>"This is Bali, Indonesia. Ten thousand people from around the world. One speaker, speaking in English. The screens beside him show Mandarin, Bahasa, Thai and English, all at the same time. Attendees can also read on their phones in six languages, with under a second of latency."</p>
         <p class="mt-2">"Tom Phillips, faculty at Apple Developer Academy Detroit, told us it's a no-brainer for every conference."</p>
         <p class="mt-2 text-white/50 text-xs italic">Check the language labels on the screens (left to right: Mandarin, Bahasa, Thai, English) before presenting. Optional: add one real attendee story if you have a name and permission.</p>` },
       4: { title: "Slide 4: QR code", time: "25 seconds", notes: `
         <p>"For attendees, it's one QR code. No app, no headset, any phone. They pick their language and read along."</p>` },
       5: { title: "Slide 5: The core problem", time: "30 seconds", notes: `
-        <p>"Today's status quo: most events skip it. In the US alone, 37 million adults have trouble hearing, and 68 million people speak a language other than English at home. They're in every audience."</p>
+        <p>"Today's status quo: most events skip accessibility and inclusion because of cost. In the US alone, 37 million adults have trouble hearing, and 68 million people speak a language other than English at home. They're in every audience."</p>
         <p class="mt-2 text-white/50 text-xs italic">68M is the Census (ACS 2023) count of people who speak a language other than English at home; the Census doesn't track "first language". 37M is from NIDCD/CDC. Verify both before presenting.</p>` },
       6: { title: "Slide 6: Why existing options fail", time: "25 seconds", notes: `
-        <p>"There are two options. Human captioners are costly, booked weeks ahead, and have no backup. Cloud AI needs a dedicated internet line, two and a half to five thousand dollars, and when the Wi-Fi dies, the captions die. Your audio also leaves the room."</p>` },
+        <p>"There are two options, and each has two problems. Human captioners are costly and booked weeks ahead, and they cover one language with no backup. Cloud AI needs a dedicated internet line, two and a half to five thousand dollars, and when the Wi-Fi dies, the captions die. Your audio also leaves the room."</p>` },
       7: { title: "Slide 7: Value proposition", time: "35 seconds", notes: `
-        <p>"We fix each one. Software at $150 an hour, bookable today. Works with no internet. 70-plus languages at once. If a device fails, a backup takes over in half a second. And audio never leaves the room."</p>
-        <p class="mt-2 text-white/50 text-xs italic">"On-device" means the AI runs on a Mac or iPad in the room, not in a data center.</p>` },
+        <p>"We fix each one. Software at $150 an hour, bookable today. Sixty-five-plus languages available, with redundant failover that activates in half a second if a device fails. It works on-site, with no internet line to buy. And audio never leaves the room."</p>
+        <p class="mt-2 text-white/50 text-xs italic">"On-site device" means the AI runs on a Mac, iPad or iPhone in the room, not in a data center.</p>` },
       8: { title: "Slide 8: Product & output", time: "30 seconds", notes: `
         <p>"Here's the product. The organizer taps Start. Captions appear on the stage, this is the NJEA Convention. And every attendee's phone shows it in the language they choose."</p>` },
       9: { title: "Slide 9: How it works", time: "50 seconds", notes: `
-        <p>"Here's how it works. Audio comes from the sound board into one Mac or iPad in the room. Everything happens on that device. Speech to text runs on the device's neural processor, the NPU, tuned to your event's context and terms, and it adds punctuation as it goes. Then it translates and sends. No internet. Under one second."</p>
-        <p class="mt-2">"It goes to the venue screens and to every phone, and each person picks one of 70-plus languages."</p>
-        <p class="mt-2">"This pipeline is patent pending. That's our technical moat. If a device fails, a second device takes over automatically in half a second."</p>
+        <p>"Here's how it works. Audio comes from the sound board into one on-site device in the room, like a Mac or iPad. Everything happens on that device. Speech to captions runs on the device's neural processor, the NPU, tuned to your event's context and terms, and it adds punctuation as it goes. Then it translates and sends. No internet. Under one second."</p>
+        <p class="mt-2">"It goes to the venue screens and to every phone, and each person picks one of 65-plus languages."</p>
+        <p class="mt-2">"This pipeline is patent pending. That's our technical moat. If a device fails, failover activates automatically in half a second."</p>
         <p class="mt-2 text-white/50 text-xs italic">Confirm "patent pending" status. If you want to name the specific speech models or methods, add them to step 1.</p>` },
       10: { title: "Slide 10: Proof", time: "30 seconds", notes: `
         <p>"Customers trust us because our testing is public. This is a live NASA press conference, run on-device: 97.2% of words correct, and from speech to translation on screen in under one second."</p>` },
@@ -671,26 +652,26 @@
         <p>"Two forces drive demand: laws that require accessibility, and audiences that are more global every year. Our market is every event with a stage and a screen."</p>
         <p class="mt-2">"We start with conferences and summits, then move to universities, government and employers, then classrooms, places of worship and civic meetings. Same product, more rooms."</p>
         <p class="mt-2 text-white/50 text-xs italic">No dollar market size is on this slide yet. Add a sourced bottom-up number if you have one.</p>` },
-      13: { title: "Slide 13: Competition", time: "25 seconds", notes: `
-        <p>"Green is good, yellow is okay, red is bad. Human captioners can't do many languages and rarely have a backup. Cloud AI needs internet and sends your audio out. We're the only one that's green across the board."</p>` },
-      14: { title: "Slide 14: Business model", time: "30 seconds", notes: `
+      13: { title: "Slide 13: Business model", time: "30 seconds", notes: `
         <p>"Events are $150 an hour. Unlimited is $400 a month on an annual plan. Non-profits get discounts based on need."</p>
         <p class="mt-2">"The AI itself is cheap to run, because it's on the customer's device. But we do pay for certified captioners and our support crew. People are our main cost, and that's what we're building around."</p>` },
+      14: { title: "Slide 14: Competition", time: "30 seconds", notes: `
+        <p>"Green is good, yellow is okay, red is bad. Human captioners can't do many languages and rarely have a backup. Cloud AI needs internet and sends your audio out. And scale is where we pull away: each additional event runs on the customer's own device, so we can run many events at once without hiring a captioner per room or paying a cloud bill per minute. We're the only one that's green across the board."</p>
+        <p class="mt-2 text-white/50 text-xs italic">The scalability row compares architectures only; we haven't measured a concurrent-event ceiling. Confirm before claiming "unlimited".</p>` },
       15: { title: "Slide 15: How we sell", time: "25 seconds", notes: `
         <p>"Two in five demos become customers. AV companies add us to their checklist and upsell us to every client they have, so one partner brings repeat events with different organizers. We also show up in Google AI search recommendations for captioning in-person conferences."</p>` },
       16: { title: "Slide 16: Financial projections", time: "30 seconds", notes: `
         <p>"Here's the five-year picture. Sales grow from about $57,000 this year to $5 million in 2030. We're first profitable in 2028, and gross margin climbs from 22% to 45% as we scale. That margin reflects that we pay for certified captioners and our support crew."</p>
         <p class="mt-2 text-white/50 text-xs italic">These are projections. Today's revenue is $30K annual recurring.</p>` },
-      17: { title: "Slide 17: The path to 2028", time: "35 seconds", notes: `
-        <p>"Here's what the money does. In 2027 the $1.25 million closes. We hire sales and engineering, expand into enterprise and the AV channel, and that brings more customers through AV partners and our reseller and referral program, plus upsells that grow existing clients into larger licenses, up to $10,000 each. That gets us to $1.1 million of revenue in 2028."</p>
-        <p class="mt-2 text-white/50 text-xs italic">The full table is on screen if an investor asks.</p>` },
+      17: { title: "Slide 17: The path to 2028 and the ask", time: "60 seconds", notes: `
+        <p>"We're raising $750,000. In 2027 the financing closes. We hire sales and engineering, expand into enterprise and the AV channel, and that brings more customers through AV partners and our reseller and referral program, plus upsells that grow existing clients into larger licenses, up to $10,000 each. That gets us to $1.1 million of revenue in 2028."</p>
+        <p class="mt-2">"The goal is to go from $30,000 to half a million in yearly recurring revenue within eighteen months of closing. Half the money goes to sales, a quarter to product, and the rest to meet what big buyers require."</p>
+        <p class="mt-2 text-white/50 text-xs italic">The $500K in 18 months goal and the 50/25/25 split were sized for $1.25M. Re-check them against $750K, and the $1.1M in 2028 timeline, before presenting.</p>` },
       18: { title: "Slide 18: Team", time: "40 seconds", notes: `
         <p>"Two founders. I built the engine, and before this I was CTO at TonDone. Chris Cotter is our chief revenue officer. He was the first go-to-market hire at three startups, took Newcode from $3 million to $10 million in ARR in six months, and scaled TonDone with me from zero to $2 million."</p>
         <p class="mt-2">"The playbook he used selling AI infrastructure to law firms is the one we need for event organizers, production companies and venues."</p>
         <p class="mt-2 text-white/50 text-xs italic">Every number here is founder-stated; confirm each before presenting. Our own revenue is shown as $30K to match the rest of the deck.</p>` },
-      19: { title: "Slide 19: The ask", time: "40 seconds", notes: `
-        <p>"We want to go from $30,000 to half a million in yearly recurring revenue within eighteen months of closing. That's why we're raising $1.25 million. Half for sales. A quarter for product. The rest to meet what big buyers require."</p>` },
-      20: { title: "Slide 20: Close", time: "15 seconds", notes: `
+      19: { title: "Slide 19: Close", time: "15 seconds", notes: `
         <p>"Everyone deserves to understand the room they're in. With your support, we're going to make that true. Thank you."</p>
         <p class="mt-2 text-white/50 text-xs italic">Leave this slide up during Q&amp;A.</p>` }
     };

@@ -13,18 +13,18 @@
       as="image"
       href="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
     />
-    <title>Ask Your AI Assistant About Your Event (ConferenceCaptioning MCP)</title>
+    <title>Ask Your AI Assistant About Your Event (ConferenceCaptioning)</title>
     <meta
       name="description"
-      content="Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install."
+      content="Turn your captions into minutes, action items and sorted audience questions. Your AI assistant reads your event through a read-only ConferenceCaptioning connection. Nothing to install."
     />
     <meta
       property="og:title"
-      content="Ask Your AI Assistant About Your Event (ConferenceCaptioning MCP)"
+      content="Ask Your AI Assistant About Your Event (ConferenceCaptioning)"
     />
     <meta
       property="og:description"
-      content="Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install."
+      content="Turn your captions into minutes, action items and sorted audience questions. Your AI assistant reads your event through a read-only ConferenceCaptioning connection. Nothing to install."
     />
     <meta
       property="og:image"
@@ -50,8 +50,8 @@
   "@graph": [
     {
       "@type": "Article",
-      "headline": "Ask your AI assistant about your event: the ConferenceCaptioning MCP server",
-      "description": "Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install.",
+      "headline": "Ask your AI assistant about your event: minutes, action items and answers",
+      "description": "Turn your captions into minutes, action items and sorted audience questions. Your AI assistant reads your event through a read-only ConferenceCaptioning connection. Nothing to install.",
       "image": "https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/og-image.png",
       "author": {
         "@type": "Person",
@@ -64,6 +64,14 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does this add to live captions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Live captions help people in the room. This lets you reuse the words afterwards. Your AI assistant can write minutes, pull out action items, rank audience questions, check names against your glossary and summarise in another language. It is read-only, and captions are machine-generated, so check names and numbers before you publish anything."
+          }
+        },
         {
           "@type": "Question",
           "name": "What is the ConferenceCaptioning MCP server?",
@@ -331,7 +339,7 @@
           <h1
             class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-slate-900"
           >
-            Ask your AI assistant about your event: the ConferenceCaptioning MCP server
+            Ask your AI assistant about your event: minutes, action items and answers
           </h1>
           <div
             class="text-slate-500 flex items-center justify-center gap-4 font-medium text-sm"
@@ -349,41 +357,72 @@
           class="prose prose-lg prose-slate max-w-none prose-h1:text-4xl prose-h1:font-bold prose-h1:tracking-tight prose-h1:text-slate-900 prose-h2:text-2xl prose-h2:font-bold prose-h2:tracking-tight prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-slate-900 prose-p:text-slate-600 prose-a:text-[#193C5D] hover:prose-a:text-[#112940] prose-img:rounded-xl prose-img:border prose-img:border-slate-200"
         >
           <p>
-            <strong>The ConferenceCaptioning MCP server lets an AI assistant
-            such as Claude read your live captions, your saved transcripts and
-            your audience questions.</strong> You can then ask it for meeting
-            minutes, action items, a ranked list of audience questions, or a
-            quick catch-up on what was just said, and with the help of other connectors,
-            you can even automate sending emails based on the contents of the event. It is hosted for you at
-            <em>https://mcp.deafassistant.com/mcp</em>, it is read-only, and
-            nothing needs to be installed. You connect it with a developer API
-            key from your portal.
+            <strong>The captions on your screens are only the start.</strong>
+            With ConferenceCaptioning, the words from your event can also go to
+            your AI assistant, such as Claude. Then you can simply ask for the
+            minutes, the action items, the audience questions that matter most,
+            or a catch-up on what you just missed. Pair it with another
+            connector and the follow-up can go further, such as drafting the
+            recap email. It is hosted for you, read-only, and nothing needs to
+            be installed.
           </p>
-          <h2>What the assistant can and cannot do</h2>
-          <p>
-            MCP (the Model Context Protocol) is the standard way for an AI
-            assistant to use outside tools. This server gives it ten tools,
-            all of which only read:
-          </p>
+          <h2>What changes after your event</h2>
           <ul>
-            <li><em>get_session_overview</em>: <strong>start here</strong>. It says what exists for a stream (live or probably stopped, how much live text is held, whether transcripts were saved, how many questions, whether there is a glossary) and what to read next.</li>
-            <li><em>list_my_streams</em>: the streams your key can read.</li>
-            <li><em>get_stream_status</em>: whether a stream is live, its languages, and whether it can be read.</li>
-            <li><em>get_live_captions</em>: the newest caption text, in the spoken language or one of the stream's translations.</li>
-            <li><em>get_stream_context</em>: the stream's design and its glossary (the names and terms you expect).</li>
-            <li><em>list_saved_transcripts</em> and <em>get_saved_transcript</em>: your saved transcripts, with title, note and times, and the text of one at a time.</li>
-            <li><em>list_questions</em>: the questions your audience sent from the stream page.</li>
-            <li><em>get_audience_summary</em>: how many times the stream's attendee page was opened, with peak times, top cities, referrers and devices. It counts page loads, not people or time spent watching.</li>
-            <li><em>get_help_links</em>: links to our how-to guides, for when you ask the assistant how to set something up.</li>
+            <li><strong>Minutes without re-listening.</strong> Ask for minutes, decisions, action items with owners, or a few quotes for the recap email, straight from the saved transcript.</li>
+            <li><strong>Audience questions, sorted for you.</strong> Group them by topic, merge duplicates, rank them and draft an answer for each, when a Q&amp;A had more questions than time.</li>
+            <li><strong>Catch up while it is still happening.</strong> Step out of the room and ask what was said in the last ten minutes, with names and decisions called out.</li>
+            <li><strong>Names handled with care.</strong> Your glossary of names and terms helps the captions, and the assistant can check a transcript against it before you quote anyone.</li>
+            <li><strong>Follow-up in the language people need.</strong> Ask for a summary in another language for the attendees who read along in it.</li>
+            <li><strong>A sense of turnout.</strong> Ask how many times your attendee page was opened, and when it peaked. It counts page loads, not people or time spent watching.</li>
+          </ul>
+          <h2>Why this is a reason to choose ConferenceCaptioning</h2>
+          <ul>
+            <li><strong>Your captions keep working after the event.</strong> The same words your attendees read on the screens and on their phones become something you can search, summarise and reuse, instead of disappearing when the session ends.</li>
+            <li><strong>You pick the assistant.</strong> It works with Claude today, and with other assistants that accept a custom header.</li>
+            <li><strong>Nothing to install or host.</strong> We run the connection. You create a key and paste an address.</li>
+            <li><strong>It cannot change anything.</strong> It is read-only, so you can try it without worrying about your stream or your settings. You can delete the key and cut off access at any time.</li>
           </ul>
           <p>
-            It cannot start or stop a stream, change your settings, edit a
-            transcript or delete anything. The tool descriptions and the
-            built-in prompts (meeting minutes, triage questions, catch me up,
-            translate a summary) also tell the assistant to say what it cannot
-            see, instead of guessing.
+            Questions about whether this fits your events, or about needing more
+            than 2 keys? <a href="#cta">Tell us about your event</a> and we will help.
           </p>
-          <h2>Set it up in three steps</h2>
+          <h2>Five things to ask</h2>
+          <p>
+            The examples below use a <strong>made-up event</strong> and made-up
+            people. They show the kind of answer to expect. They are not real
+            output from a real session.
+          </p>
+          <h3>1. Write minutes from a saved transcript</h3>
+          <blockquote>
+            <p>Write minutes for the Opening Session transcript. Use our glossary to fix names.</p>
+          </blockquote>
+          <p>The assistant finds the transcript, reads it (paging through long ones), checks your glossary and writes the minutes.</p>
+          <p><em>Example (made-up event):</em> "Minutes, Riverbend Community Summit, Opening Session. Decisions: volunteer sign-up moves to the new form. Open items: the venue map needs a second accessible entrance. Note: machine-captioned, so check names."</p>
+          <h3>2. Pull out action items and quotes</h3>
+          <blockquote>
+            <p>List every action item with the person who took it, and pull three quotes I could use in the recap email.</p>
+          </blockquote>
+          <p>You get action items with owners where the speaker named one, plus short quotes. Ask it to mark any quote it is unsure of, since captions are machine-generated.</p>
+          <p><em>Example (made-up event):</em> "Action: Jordan sends the final schedule to volunteers by Friday. Quote: 'Nobody should have to ask for captions twice.'"</p>
+          <h3>3. Triage audience questions</h3>
+          <blockquote>
+            <p>Group the audience questions by topic, merge duplicates, rank the topics by how many people asked, and draft a one-line answer for each.</p>
+          </blockquote>
+          <p>Useful when a Q&amp;A has more questions than the host has time for. Add <em>since 2:00 pm</em> to look only at newer questions.</p>
+          <p><em>Example (made-up event):</em> "Topic 1, parking and access (5 questions). Draft answer: accessible parking is next to the east entrance. Topic 2, session recordings (3 questions). Draft answer: recordings will be shared after the event."</p>
+          <h3>4. Check names against your glossary</h3>
+          <blockquote>
+            <p>Compare the names and terms in the Opening Session transcript with our glossary, and list any that look mis-heard.</p>
+          </blockquote>
+          <p>Captions are machine-generated, so unusual names can come out wrong. The assistant flags likely mix-ups before you quote anyone. A good glossary makes the captions better as well.</p>
+          <p><em>Example (made-up event):</em> "The transcript has 'Priya Nye' three times. The glossary has 'Priya Nair'. Suggested fix: Priya Nair."</p>
+          <h3>5. Catch me up, before or during the event</h3>
+          <blockquote>
+            <p>Catch me up on the last 10 minutes of the live stream. Give me three bullets, then list any names, numbers and decisions.</p>
+          </blockquote>
+          <p>If the stream has gone quiet for several minutes, the assistant is told it has probably stopped, so it does not describe old text as current.</p>
+          <p><em>Example (made-up event):</em> "Three bullets: the keynote ended, the panel on community access started, and the host announced a 15-minute break. Names: Dana Whitfield (host). Decision: the afternoon workshops start at 1:30."</p>
+          <h2>Connect it in three steps</h2>
           <h3>Step 1: Create a developer API key</h3>
           <ol>
             <li>Sign in to the ConferenceCaptioning portal and open <strong>Advanced Settings</strong>.</li>
@@ -421,69 +460,7 @@
             stream."</em> If your key owns more than one stream, tell the
             assistant which one to use.
           </p>
-          <hr />
-          <h2>Five prompts that work</h2>
-          <p>
-            The examples below use a <strong>made-up event</strong> and made-up
-            people. They show the kind of answer to expect. They are not real
-            output from a real session.
-          </p>
-          <h3>1. Write minutes from a saved transcript</h3>
-          <blockquote>
-            <p>Write minutes for the Opening Session transcript. Use our glossary to fix names.</p>
-          </blockquote>
-          <p>
-            The assistant starts with <em>get_session_overview</em>, finds
-            the transcript with <em>list_saved_transcripts</em>, reads it
-            with <em>get_saved_transcript</em> (paging through long ones),
-            checks the glossary with <em>get_stream_context</em>, and writes
-            the minutes.
-          </p>
-          <p><em>Example (made-up event):</em> "Minutes, Riverbend Community Summit, Opening Session. Decisions: volunteer sign-up moves to the new form. Open items: the venue map needs a second accessible entrance. Note: machine-captioned, so check names."</p>
-          <h3>2. Pull out action items and quotes</h3>
-          <blockquote>
-            <p>List every action item with the person who took it, and pull three quotes I could use in the recap email.</p>
-          </blockquote>
-          <p>
-            It reads the same saved transcript and returns action items with
-            owners where the speaker named one, plus short quotes. Ask it to
-            mark any quote it is unsure of, since captions are machine-generated.
-          </p>
-          <p><em>Example (made-up event):</em> "Action: Jordan sends the final schedule to volunteers by Friday. Quote: 'Nobody should have to ask for captions twice.'"</p>
-          <h3>3. Triage audience questions</h3>
-          <blockquote>
-            <p>Group the audience questions by topic, merge duplicates, rank the topics by how many people asked, and draft a one-line answer for each.</p>
-          </blockquote>
-          <p>
-            It uses <em>list_questions</em> and does the sorting for you,
-            which is useful when a Q&amp;A has more questions than the host has
-            time for. You can add <em>since 2:00 pm</em> to look only at newer
-            questions.
-          </p>
-          <p><em>Example (made-up event):</em> "Topic 1, parking and access (5 questions). Draft answer: accessible parking is next to the east entrance. Topic 2, session recordings (3 questions). Draft answer: recordings will be shared after the event."</p>
-          <h3>4. Check names against your glossary</h3>
-          <blockquote>
-            <p>Compare the names and terms in the Opening Session transcript with our glossary, and list any that look mis-heard.</p>
-          </blockquote>
-          <p>
-            Captions are machine-generated, so unusual names can come out
-            wrong. The assistant reads your stream's glossary with
-            <em>get_stream_context</em> and flags likely mix-ups before you
-            quote anyone. A good glossary makes the captions better as well.
-          </p>
-          <p><em>Example (made-up event):</em> "The transcript has 'Priya Nye' three times. The glossary has 'Priya Nair'. Suggested fix: Priya Nair."</p>
-          <h3>5. Catch me up, before or during the event</h3>
-          <blockquote>
-            <p>Catch me up on the last 10 minutes of the live stream. Give me three bullets, then list any names, numbers and decisions.</p>
-          </blockquote>
-          <p>
-            It reads the newest live captions with <em>get_live_captions</em>
-            and summarises them. If the stream has gone quiet for several
-            minutes, the assistant is told it has probably stopped, so it does
-            not describe old text as current.
-          </p>
-          <p><em>Example (made-up event):</em> "Three bullets: the keynote ended, the panel on community access started, and the host announced a 15-minute break. Names: Dana Whitfield (host). Decision: the afternoon workshops start at 1:30."</p>
-          <h2>How it is kept safe</h2>
+          <h2>You stay in control</h2>
           <ul>
             <li><strong>Read-only.</strong> The server only reads. It has no way to write or delete, and the developer API key is read-only on our side as well.</li>
             <li><strong>Your key is yours to revoke.</strong> You can have up to 2 keys, the portal shows when each was last used, and deleting one stops it at once. We store only a hashed version of the key, so we cannot show it to you again.</li>
@@ -506,9 +483,31 @@
             <li><strong>Captions are machine-generated.</strong> Names can be mis-heard. Your stream's glossary helps, and the assistant should say so when it quotes someone.</li>
             <li><strong>No OAuth sign-in yet.</strong> Assistants that only offer OAuth cannot connect. Those that accept a custom header can.</li>
           </ul>
-          <h2>For developers</h2>
+          <h2>Limits to know about</h2>
+          <ul>
+            <li><strong>The live feed is a window.</strong> It holds a limited amount of recent text, not a whole long session. A finished session can be read in full only if a transcript was saved.</li>
+            <li><strong>Saved transcripts need a signed-in account.</strong> They are kept for streams registered to a signed-in account, unless you turned on "Disable storing transcript to my account". Very short sessions are not kept.</li>
+            <li><strong>Translations are not stored.</strong> Live translations are a window of recent text that is re-translated as people speak. Saved transcripts are in the spoken language only, so ask the assistant to translate them.</li>
+            <li><strong>Captions are machine-generated.</strong> Names can be mis-heard. Your stream's glossary helps, and the assistant should say so when it quotes someone.</li>
+            <li><strong>No OAuth sign-in yet.</strong> Assistants that only offer OAuth cannot connect. Those that accept a custom header can.</li>
+          </ul>
+          <h2>For developers and IT</h2>
           <p>
-            The same key works with the read-only REST API, so a script can read
+            Under the hood this is an MCP (Model Context Protocol) server with ten read-only tools:
+          </p>
+          <ul>
+            <li><em>get_session_overview</em>: <strong>start here</strong>. It says what exists for a stream (live or probably stopped, how much live text is held, whether transcripts were saved, how many questions, whether there is a glossary) and what to read next.</li>
+            <li><em>list_my_streams</em>: the streams your key can read.</li>
+            <li><em>get_stream_status</em>: whether a stream is live, its languages, and whether it can be read.</li>
+            <li><em>get_live_captions</em>: the newest caption text, in the spoken language or one of the stream's translations.</li>
+            <li><em>get_stream_context</em>: the stream's design and its glossary (the names and terms you expect).</li>
+            <li><em>list_saved_transcripts</em> and <em>get_saved_transcript</em>: your saved transcripts, with title, note and times, and the text of one at a time.</li>
+            <li><em>list_questions</em>: the questions your audience sent from the stream page.</li>
+            <li><em>get_audience_summary</em>: how many times the stream's attendee page was opened, with peak times, top cities, referrers and devices. It counts page loads, not people or time spent watching.</li>
+            <li><em>get_help_links</em>: links to our how-to guides, for when you ask the assistant how to set something up.</li>
+          </ul>
+          <p>
+            It cannot start or stop a stream, change your settings, edit a transcript or delete anything. The same key works with the read-only REST API, so a script can read
             captions, saved transcripts and questions without an assistant. The
             endpoints, limits and error codes are on the
             <a href="/developers/">Developer API page</a>. The MCP server's
@@ -521,6 +520,8 @@
             <em>npx mcp-remote https://mcp.deafassistant.com/mcp --header "Authorization: Bearer cck_..."</em>.
           </p>
           <h2>Frequently asked questions</h2>
+          <h3>What does this add to live captions?</h3>
+          <p>Live captions help people in the room. This lets you reuse the words afterwards. Your AI assistant can write minutes, pull out action items, rank audience questions, check names against your glossary and summarise in another language. It is read-only, and captions are machine-generated, so check names and numbers before you publish anything.</p>
           <h3>What is the ConferenceCaptioning MCP server?</h3>
           <p>It is a hosted, read-only connection that lets an AI assistant such as Claude read your stream&#x27;s live captions, your saved transcripts and your audience questions. You connect it with a developer API key you create in the portal. Nothing is installed.</p>
           <h3>Do I need to install anything?</h3>
@@ -538,8 +539,8 @@
           <h3>How do I stop an assistant from reading my events?</h3>
           <p>Delete the developer API key in Advanced Settings in the portal. It stops working immediately, and you can create another. You can also remove the connector from your assistant.</p>
         </div>
-        <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
-          <h3 class="text-2xl font-bold mb-3">Want to try it on your next event?</h3>
+        <div id="cta" class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
+          <h3 class="text-2xl font-bold mb-3">Want your next event to keep paying off after it ends?</h3>
           <p class="text-slate-200 mb-6 max-w-2xl">Create a read-only developer key, connect your assistant, and ask it about your event. Questions about setup, or need more than 2 keys? Tell us about your event and we will help.</p>
           <div class="flex flex-wrap gap-4">
             <button onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#193C5D] font-bold hover:bg-slate-100 transition-colors">Ask a question</button>

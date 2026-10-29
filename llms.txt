@@ -51,6 +51,7 @@ Built by the team behind the award-winning BeAware Deaf Assistant app. Founder: 
 - [Build a local translation server on a Mac mini](https://conferencecaptioning.com/blog/how-to-build-a-local-translation-server-on-mac-mini/)
 - [Chrome extension with on-device AI](https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/)
 - [Set a static local IP on a Mac for AV networks](https://conferencecaptioning.com/blog/how-to-set-a-static-local-ip-address-on-mac-av/)
+- [Ask your AI assistant about your event: the ConferenceCaptioning MCP server](https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/)
 
 ## For AI agents and developers
 - [Developer API and MCP server](https://conferencecaptioning.com/developers/): Event organizers can create a read-only developer API key (created in the account portal under Advanced Settings, up to 2 per account) and let an AI assistant read their live captions, saved transcripts and audience questions.

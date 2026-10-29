@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      as="image"
+      href="https://conferencecaptioning.com/images/logo-white.svg"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
+    />
+    <title>Ask Your AI Assistant About Your Event (ConferenceCaptioning MCP)</title>
+    <meta
+      name="description"
+      content="Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install."
+    />
+    <meta
+      property="og:title"
+      content="Ask Your AI Assistant About Your Event (ConferenceCaptioning MCP)"
+    />
+    <meta
+      property="og:description"
+      content="Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install."
+    />
+    <meta
+      property="og:image"
+      content="https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/og-image.png"
+    />
+    <meta
+      property="og:url"
+      content="https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/"
+    />
+    <meta property="og:type" content="article" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/"
+    />
+    <link
+      rel="stylesheet"
+      href="https://conferencecaptioning.com/blog/assets/index-Ub5kCNo1.css"
+    />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Ask your AI assistant about your event: the ConferenceCaptioning MCP server",
+      "description": "Let Claude and other AI assistants read your live captions, saved transcripts and audience questions through a read-only ConferenceCaptioning MCP server. Nothing to install.",
+      "image": "https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/og-image.png",
+      "author": {
+        "@type": "Person",
+        "name": "Saamer Mansoor"
+      },
+      "datePublished": "2026-10-28",
+      "dateModified": "2026-10-28",
+      "mainEntityOfPage": "https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the ConferenceCaptioning MCP server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a hosted, read-only connection that lets an AI assistant such as Claude read your stream's live captions, your saved transcripts and your audience questions. You connect it with a developer API key you create in the portal. Nothing is installed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to install anything?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The server is hosted at https://mcp.deafassistant.com/mcp. You add that address to your AI assistant, along with your developer API key as an Authorization header."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can the AI assistant start or stop my stream, or change anything?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The server is read-only. It has no tool that starts or stops a stream, edits a transcript, or deletes anything, and the developer API key is read-only too."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which AI assistants can connect?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Claude Desktop (tested) and Claude Code. Any other assistant that supports remote MCP servers with a custom header can connect with the same address and key. Assistants that only offer an OAuth sign-in cannot connect yet, because the server does not use OAuth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does my caption text go?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whatever the assistant reads is sent to the AI provider you chose to connect, under that provider's terms. That is your choice as the organizer. If you promised attendees that captions stay private, check the provider's terms first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can the assistant read a whole finished session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only if a transcript was saved. The live feed holds a limited window of recent text. Saved transcripts exist for streams registered to a signed-in account that have not turned off \"Disable storing transcript to my account\". The assistant is told what exists and says so when it cannot see something."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it read my saved transcripts in another language?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Saved transcripts are stored in the spoken language. Ask the assistant to translate or summarise them in the language you need. Captions are machine-generated, so check names and numbers before you publish anything."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I stop an assistant from reading my events?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Delete the developer API key in Advanced Settings in the portal. It stops working immediately, and you can create another. You can also remove the connector from your assistant."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+    <script
+      defer=""
+      type="text/javascript"
+      src="https://conferencecaptioning.com/js/analyticsLite.js?v=20261019b"
+    ></script>
+    <link rel="canonical" href="https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/" />
+    <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col"
+  >
+    <header class="bg-[#193C5D] border-b border-[#112940]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center">
+            <a
+              href="https://conferencecaptioning.com"
+              class="flex items-center gap-3"
+              ><img
+                src="https://conferencecaptioning.com/images/logo-white.svg"
+                alt="Conference Captioning"
+                class="h-9 w-auto"
+              /><span class="hidden text-white font-bold text-xl tracking-tight"
+                >Conference Captioning</span
+              ></a
+            >
+          </div>
+          <nav class="hidden md:flex space-x-8 items-center">
+            <a
+              href="https://conferencecaptioning.com"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Home</a
+            ><a
+              href="https://conferencecaptioning.com#about"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >About</a
+            ><a
+              href="https://conferencecaptioning.com#features"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Features</a
+            ><a
+              href="https://conferencecaptioning.com#pricing"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Pricing</a
+            ><a
+              href="https://conferencecaptioning.com#contact"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Contact</a
+            ><a
+              href="https://conferencecaptioning.com/blog"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Blog</a
+            >
+            <div class="relative group">
+              <button
+                class="text-white hover:text-indigo-200 text-sm font-medium transition-colors flex items-center gap-1 py-4"
+              >
+                Solutions<svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-lg py-2 hidden group-hover:block z-50 border border-slate-100"
+              >
+                <a
+                  href="https://conferencecaptioning.com/av-production.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >AV Engineers &amp; Broadcasting</a
+                ><a
+                  href="https://conferencecaptioning.com/event-organizers.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >Event Planners &amp; Organizers</a
+                ><a
+                  href="https://conferencecaptioning.com/church-live-translation-transcription.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >Churches &amp; Chapels</a
+                >
+              </div>
+            </div>
+            <div class="relative group">
+              <button
+                class="text-white hover:text-indigo-200 text-sm font-medium transition-colors flex items-center gap-1.5 py-4"
+              >
+                <svg
+                  class="w-4 h-4 opacity-80"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  ></path></svg
+                >English<svg
+                  class="w-4 h-4 opacity-80"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full right-0 w-48 bg-white shadow-xl rounded-lg py-2 hidden group-hover:block z-50 max-h-96 overflow-y-auto border border-slate-100"
+              >
+                <a
+                  href="https://conferencecaptioning.com/blog/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >English</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/es/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Español</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/fr/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Français</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/pt-br/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Português (Brasil)</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/it/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Italiano</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/ko/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >한국어</a
+                >
+              </div>
+            </div>
+            <a
+              href="https://app.conferencecaptioning.com"
+              class="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-full text-[#193C5D] bg-white hover:bg-slate-100 transition-colors shadow-sm"
+              ><svg
+                class="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                ></path></svg
+              >Try Now</a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="max-w-4xl w-full mx-auto px-4 py-12 flex-1">
+      <article>
+        <header class="mb-12 text-center max-w-3xl mx-auto">
+          <div class="mb-6">
+            <a
+              href="/blog/category/technology/"
+              class="inline-block text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-4 py-1.5 rounded-full hover:bg-[#193C5D]/20 transition-colors"
+              >Technology</a
+            >
+          </div>
+          <h1
+            class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-slate-900"
+          >
+            Ask your AI assistant about your event: the ConferenceCaptioning MCP server
+          </h1>
+          <div
+            class="text-slate-500 flex items-center justify-center gap-4 font-medium text-sm"
+          >
+            <a href="https://linkedin.com/in/saamer"
+              ><img
+                class="rounded"
+                src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
+                alt="Saamer&#x27;s face" /></a
+            ><span>Saamer Mansoor</span><span>•</span
+            ><time>October 28, 2026</time>
+          </div>
+        </header>
+        <div
+          class="prose prose-lg prose-slate max-w-none prose-h1:text-4xl prose-h1:font-bold prose-h1:tracking-tight prose-h1:text-slate-900 prose-h2:text-2xl prose-h2:font-bold prose-h2:tracking-tight prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-slate-900 prose-p:text-slate-600 prose-a:text-[#193C5D] hover:prose-a:text-[#112940] prose-img:rounded-xl prose-img:border prose-img:border-slate-200"
+        >
+          <p>
+            <strong>The ConferenceCaptioning MCP server lets an AI assistant
+            such as Claude read your live captions, your saved transcripts and
+            your audience questions.</strong> You can then ask it for meeting
+            minutes, action items, a ranked list of audience questions, or a
+            quick catch-up on what was just said. It is hosted for you at
+            <em>https://mcp.deafassistant.com/mcp</em>, it is read-only, and
+            nothing needs to be installed. You connect it with a developer API
+            key from your portal.
+          </p>
+          <h2>What the assistant can and cannot do</h2>
+          <p>
+            MCP (the Model Context Protocol) is the standard way for an AI
+            assistant to use outside tools. This server gives it ten tools,
+            all of which only read:
+          </p>
+          <ul>
+            <li><em>get_session_overview</em>: <strong>start here</strong>. It says what exists for a stream (live or probably stopped, how much live text is held, whether transcripts were saved, how many questions, whether there is a glossary) and what to read next.</li>
+            <li><em>list_my_streams</em>: the streams your key can read.</li>
+            <li><em>get_stream_status</em>: whether a stream is live, its languages, and whether it can be read.</li>
+            <li><em>get_live_captions</em>: the newest caption text, in the spoken language or one of the stream's translations.</li>
+            <li><em>get_stream_context</em>: the stream's design and its glossary (the names and terms you expect).</li>
+            <li><em>list_saved_transcripts</em> and <em>get_saved_transcript</em>: your saved transcripts, with title, note and times, and the text of one at a time.</li>
+            <li><em>list_questions</em>: the questions your audience sent from the stream page.</li>
+            <li><em>get_audience_summary</em>: how many times the stream's attendee page was opened, with peak times, top cities, referrers and devices. It counts page loads, not people or time spent watching.</li>
+            <li><em>get_help_links</em>: links to our how-to guides, for when you ask the assistant how to set something up.</li>
+          </ul>
+          <p>
+            It cannot start or stop a stream, change your settings, edit a
+            transcript or delete anything. The tool descriptions and the
+            built-in prompts (meeting minutes, triage questions, catch me up,
+            translate a summary) also tell the assistant to say what it cannot
+            see, instead of guessing.
+          </p>
+          <h2>Set it up in three steps</h2>
+          <h3>Step 1: Create a developer API key</h3>
+          <ol>
+            <li>Sign in to the ConferenceCaptioning portal and open <strong>Advanced Settings</strong>.</li>
+            <li>Under <strong>Developer API keys</strong>, choose <strong>Create Developer API Key</strong>, read the explanation, tick the box and create the key.</li>
+            <li>Copy the key. <strong>It is shown once.</strong> The dialog has a copy button next to the Claude Desktop value (it already starts with the word <em>Bearer</em>), and one for the Claude Code command. The key itself starts with <em>cck_</em>. It is read-only, you can have up to 2 keys, and you can delete one at any time.</li>
+          </ol>
+          <figure class="my-6">
+            <img src="steps-1-3-create-key-and-add-connector.jpg" alt="Three screenshots: the portal Advanced Settings page with the Create Developer API Key button, the key dialog with the copy button for the Claude connector value, and Claude Desktop's Add custom connector window with the server address filled in" />
+            <figcaption class="text-sm text-slate-500 mt-2">Steps 1 to 3 in the pictures: create the key, copy the connector value, then open Add custom connector in Claude Desktop. (The key is blurred.)</figcaption>
+          </figure>
+          <h3>Step 2: Add the connector in your assistant</h3>
+          <p><strong>Claude Desktop</strong> (tested):</p>
+          <ol>
+            <li>Open <strong>Settings</strong>, then <strong>Connectors</strong>, then <strong>Add</strong>, then <strong>Add custom connector</strong>.</li>
+            <li>Name it <em>ConferenceCaptioning</em>, enter the address <em>https://mcp.deafassistant.com/mcp</em>, and choose <strong>Continue</strong>. It will say there is no sign-in. That is expected, because this server does not use OAuth.</li>
+            <li>On the sign-in screen, leave <strong>No sign-in</strong> selected. Under <strong>Request headers</strong>, choose <em>authorization</em> as the name and paste the value you copied, which reads <em>Bearer cck_...</em>.</li>
+            <li>Choose <strong>Add</strong>.</li>
+          </ol>
+          <figure class="my-6">
+            <img src="steps-4-6-authenticate-and-ask.jpg" alt="Three screenshots: Claude Desktop's Authentication section with the authorization request header, the connector's list of read-only tools, and a new chat asking what the connector can do" />
+            <figcaption class="text-sm text-slate-500 mt-2">Steps 4 to 6 in the pictures: paste the value into the authorization header, check the tool list, then ask a question in a new chat. (The answer to the second question is hidden.)</figcaption>
+          </figure>
+          <p><strong>Claude Code:</strong> run this once in a terminal, before you start Claude Code (if it is already open, run <em>/mcp</em> afterwards and reconnect):</p>
+          <pre><code>claude mcp add --transport http confcap https://mcp.deafassistant.com/mcp --header "Authorization: Bearer cck_..."</code></pre>
+          <p>
+            The portal's key dialog shows both setups with your key already
+            filled in. <strong>Other assistants:</strong> add a remote MCP
+            server with the same address and the same header. Assistants that
+            only offer an OAuth sign-in cannot connect yet.
+          </p>
+          <h3>Step 3: Check that it works</h3>
+          <p>
+            Start a chat and ask: <em>"What can the ConferenceCaptioning
+            connector do?"</em> Then try <em>"Give me an overview of my
+            stream."</em> If your key owns more than one stream, tell the
+            assistant which one to use.
+          </p>
+          <hr />
+          <h2>Five prompts that work</h2>
+          <p>
+            The examples below use a <strong>made-up event</strong> and made-up
+            people. They show the kind of answer to expect. They are not real
+            output from a real session.
+          </p>
+          <h3>1. Write minutes from a saved transcript</h3>
+          <blockquote>
+            <p>Write minutes for the Opening Session transcript. Use our glossary to fix names.</p>
+          </blockquote>
+          <p>
+            The assistant starts with <em>get_session_overview</em>, finds
+            the transcript with <em>list_saved_transcripts</em>, reads it
+            with <em>get_saved_transcript</em> (paging through long ones),
+            checks the glossary with <em>get_stream_context</em>, and writes
+            the minutes.
+          </p>
+          <p><em>Example (made-up event):</em> "Minutes, Riverbend Community Summit, Opening Session. Decisions: volunteer sign-up moves to the new form. Open items: the venue map needs a second accessible entrance. Note: machine-captioned, so check names."</p>
+          <h3>2. Pull out action items and quotes</h3>
+          <blockquote>
+            <p>List every action item with the person who took it, and pull three quotes I could use in the recap email.</p>
+          </blockquote>
+          <p>
+            It reads the same saved transcript and returns action items with
+            owners where the speaker named one, plus short quotes. Ask it to
+            mark any quote it is unsure of, since captions are machine-generated.
+          </p>
+          <p><em>Example (made-up event):</em> "Action: Jordan sends the final schedule to volunteers by Friday. Quote: 'Nobody should have to ask for captions twice.'"</p>
+          <h3>3. Triage audience questions</h3>
+          <blockquote>
+            <p>Group the audience questions by topic, merge duplicates, rank the topics by how many people asked, and draft a one-line answer for each.</p>
+          </blockquote>
+          <p>
+            It uses <em>list_questions</em> and does the sorting for you,
+            which is useful when a Q&amp;A has more questions than the host has
+            time for. You can add <em>since 2:00 pm</em> to look only at newer
+            questions.
+          </p>
+          <p><em>Example (made-up event):</em> "Topic 1, parking and access (5 questions). Draft answer: accessible parking is next to the east entrance. Topic 2, session recordings (3 questions). Draft answer: recordings will be shared after the event."</p>
+          <h3>4. Check names against your glossary</h3>
+          <blockquote>
+            <p>Compare the names and terms in the Opening Session transcript with our glossary, and list any that look mis-heard.</p>
+          </blockquote>
+          <p>
+            Captions are machine-generated, so unusual names can come out
+            wrong. The assistant reads your stream's glossary with
+            <em>get_stream_context</em> and flags likely mix-ups before you
+            quote anyone. A good glossary makes the captions better as well.
+          </p>
+          <p><em>Example (made-up event):</em> "The transcript has 'Priya Nye' three times. The glossary has 'Priya Nair'. Suggested fix: Priya Nair."</p>
+          <h3>5. Catch me up, before or during the event</h3>
+          <blockquote>
+            <p>Catch me up on the last 10 minutes of the live stream. Give me three bullets, then list any names, numbers and decisions.</p>
+          </blockquote>
+          <p>
+            It reads the newest live captions with <em>get_live_captions</em>
+            and summarises them. If the stream has gone quiet for several
+            minutes, the assistant is told it has probably stopped, so it does
+            not describe old text as current.
+          </p>
+          <p><em>Example (made-up event):</em> "Three bullets: the keynote ended, the panel on community access started, and the host announced a 15-minute break. Names: Dana Whitfield (host). Decision: the afternoon workshops start at 1:30."</p>
+          <h2>How it is kept safe</h2>
+          <ul>
+            <li><strong>Read-only.</strong> The server only reads. It has no way to write or delete, and the developer API key is read-only on our side as well.</li>
+            <li><strong>Your key is yours to revoke.</strong> You can have up to 2 keys, the portal shows when each was last used, and deleting one stops it at once. We store only a hashed version of the key, so we cannot show it to you again.</li>
+            <li><strong>Other people's words are marked as data.</strong> Text from speakers and attendees is passed to the assistant inside a block marked as untrusted, with a note that it is data and not instructions. That helps protect against someone speaking or typing a question that tries to give the assistant orders.</li>
+            <li><strong>The key stays in the connection.</strong> It is sent as a header, never typed into a tool, and it is stripped from error messages.</li>
+          </ul>
+          <p>
+            <strong>Where your text goes.</strong> Whatever the assistant reads
+            is sent to the AI provider you chose to connect, under that
+            provider's terms. That is your decision as the organizer. If you
+            promised attendees that captions stay private, check the provider's
+            terms before you connect. Treat the configuration file or connector
+            that holds your key like a password file.
+          </p>
+          <h2>Limits to know about</h2>
+          <ul>
+            <li><strong>The live feed is a window.</strong> It holds a limited amount of recent text, not a whole long session. A finished session can be read in full only if a transcript was saved.</li>
+            <li><strong>Saved transcripts need a signed-in account.</strong> They are kept for streams registered to a signed-in account, unless you turned on "Disable storing transcript to my account". Very short sessions are not kept.</li>
+            <li><strong>Translations are not stored.</strong> Live translations are a window of recent text that is re-translated as people speak. Saved transcripts are in the spoken language only, so ask the assistant to translate them.</li>
+            <li><strong>Captions are machine-generated.</strong> Names can be mis-heard. Your stream's glossary helps, and the assistant should say so when it quotes someone.</li>
+            <li><strong>No OAuth sign-in yet.</strong> Assistants that only offer OAuth cannot connect. Those that accept a custom header can.</li>
+          </ul>
+          <h2>For developers</h2>
+          <p>
+            The same key works with the read-only REST API, so a script can read
+            captions, saved transcripts and questions without an assistant. The
+            endpoints, limits and error codes are on the
+            <a href="/developers/">Developer API page</a>. The MCP server's
+            source is open under the MIT licence at
+            <a href="https://github.com/TheFirstPrototype/ConfCapMcp">github.com/TheFirstPrototype/ConfCapMcp</a>,
+            and it is listed in the official MCP Registry as
+            <em>io.github.TheFirstPrototype/confcap</em>
+            (<a href="https://registry.modelcontextprotocol.io/v0/servers?search=confcap">registry entry</a>).
+            A client that only speaks stdio can bridge to the hosted server with
+            <em>npx mcp-remote https://mcp.deafassistant.com/mcp --header "Authorization: Bearer cck_..."</em>.
+          </p>
+          <h2>Frequently asked questions</h2>
+          <h3>What is the ConferenceCaptioning MCP server?</h3>
+          <p>It is a hosted, read-only connection that lets an AI assistant such as Claude read your stream&#x27;s live captions, your saved transcripts and your audience questions. You connect it with a developer API key you create in the portal. Nothing is installed.</p>
+          <h3>Do I need to install anything?</h3>
+          <p>No. The server is hosted at https://mcp.deafassistant.com/mcp. You add that address to your AI assistant, along with your developer API key as an Authorization header.</p>
+          <h3>Can the AI assistant start or stop my stream, or change anything?</h3>
+          <p>No. The server is read-only. It has no tool that starts or stops a stream, edits a transcript, or deletes anything, and the developer API key is read-only too.</p>
+          <h3>Which AI assistants can connect?</h3>
+          <p>Claude Desktop (tested) and Claude Code. Any other assistant that supports remote MCP servers with a custom header can connect with the same address and key. Assistants that only offer an OAuth sign-in cannot connect yet, because the server does not use OAuth.</p>
+          <h3>Where does my caption text go?</h3>
+          <p>Whatever the assistant reads is sent to the AI provider you chose to connect, under that provider&#x27;s terms. That is your choice as the organizer. If you promised attendees that captions stay private, check the provider&#x27;s terms first.</p>
+          <h3>Can the assistant read a whole finished session?</h3>
+          <p>Only if a transcript was saved. The live feed holds a limited window of recent text. Saved transcripts exist for streams registered to a signed-in account that have not turned off &quot;Disable storing transcript to my account&quot;. The assistant is told what exists and says so when it cannot see something.</p>
+          <h3>Can it read my saved transcripts in another language?</h3>
+          <p>Saved transcripts are stored in the spoken language. Ask the assistant to translate or summarise them in the language you need. Captions are machine-generated, so check names and numbers before you publish anything.</p>
+          <h3>How do I stop an assistant from reading my events?</h3>
+          <p>Delete the developer API key in Advanced Settings in the portal. It stops working immediately, and you can create another. You can also remove the connector from your assistant.</p>
+        </div>
+        <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
+          <h3 class="text-2xl font-bold mb-3">Want to try it on your next event?</h3>
+          <p class="text-slate-200 mb-6 max-w-2xl">Create a read-only developer key, connect your assistant, and ask it about your event. Questions about setup, or need more than 2 keys? Tell us about your event and we will help.</p>
+          <div class="flex flex-wrap gap-4">
+            <button onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#193C5D] font-bold hover:bg-slate-100 transition-colors">Ask a question</button>
+            <a href="/developers/" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">Developer API docs &rarr;</a><a href="https://app.conferencecaptioning.com" data-cta="blog-start-free" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">Start free &rarr;</a>
+          </div>
+        </div>
+        <div class="mt-24 pt-12 border-t border-slate-200">
+          <h2 class="text-2xl font-bold mb-8 text-slate-900 tracking-tight">
+            Related Articles
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a
+              href="/blog/how-to-control-live-captions-with-stream-deck-bitfocus-companion/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Technology</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                Control Live Captions with an Elgato Stream Deck (Bitfocus Companion, No Internet)
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                Start, stop, show and hide live captions and translations from an Elgato Stream Deck using the free Bitfocus Companion module.
+              </p></a
+            ><a
+              href="/offline-event-translation/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Guide</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                Live Captions and Translation at Events, Without Venue Internet
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                How to run on-device live captions and translation in a room with unreliable Wi-Fi: screens first, a backup device, and a pre-event checklist.
+              </p></a
+            >
+          </div>
+        </div>
+      </article>
+    </main>
+    <footer class="bg-slate-900 border-t border-slate-800 mt-20 pt-16 pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div class="col-span-1 md:col-span-1">
+            <a
+              href="https://conferencecaptioning.com"
+              class="inline-block mb-6 flex items-center gap-2"
+              ><img
+                src="https://conferencecaptioning.com/images/logo-white.svg"
+                alt="Conference Captioning"
+                class="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              /><span class="hidden text-white font-bold tracking-tight"
+                >Conference Captioning</span
+              ></a
+            >
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+              The world&#x27;s fastest and most reliable on-device event
+              translation and captioning system for AV professionals.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://vimeo.com/950840441"
+                title="Vimeo"
+                target="_blank"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Vimeo profile</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.466-2.24 1.399L.637 7.728c1.586-1.306 3.172-2.705 4.758-4.198 1.96-1.866 3.266-2.752 3.918-2.659 1.493.186 2.333 1.586 2.52 4.198.28 4.292.56 6.531.84 6.718.466.466 1.166.046 2.099-1.26 1.026-1.492 1.633-2.659 1.82-3.498.28-1.306-.234-1.959-1.54-1.959-.56 0-1.073.14-1.54.42 1.026-3.359 3.032-4.992 6.018-4.898 2.332.093 3.359 1.492 3.08 4.198l-.187.374z"
+                  ></path></svg></a
+              ><a
+                href="https://twitter.com/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Twitter</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                  ></path></svg></a
+              ><a
+                href="https://facebook.com/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Facebook</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                    clip-rule="evenodd"
+                  ></path></svg></a
+              ><a
+                href="https://linkedin.com/showcase/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">LinkedIn</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                    clip-rule="evenodd"
+                  ></path></svg></a
+              ><a
+                href="https://github.com/TheFirstPrototype"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">GitHub</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                    clip-rule="evenodd"
+                  ></path></svg
+              ></a>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Solutions
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/av-production.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >AV Engineers &amp; Broadcasting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/event-organizers.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Event Planners &amp; Organizers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/church-live-translation-transcription.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Churches &amp; Chapels</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Evaluations &amp; Compliance
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/ada-compliance-certification.pdf"
+                  target="_blank"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >ADA Compliance Certification</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/arabic.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Arabic Accuracy Evaluation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/japanese.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Japanese Accuracy Evaluation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/italian.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Italian Accuracy Evaluation</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Company
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com#about"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com#contact"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@conferencecaptioning.com"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >hello@conferencecaptioning.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="text-slate-500 text-sm">
+            <a
+              href="https://deafassistant.com"
+              target="_blank"
+              class="hover:text-slate-300"
+              >© ConferenceCaptioning 2026</a
+            >.
+          </div>
+          <div class="text-slate-400 text-sm font-medium">
+            Made with love for the a11y community.
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
+      <!--Start of Tawk.to Script-->
+    <script defer type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67291e984304e3196add0224/1ibs9v0u1';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+  <script src="https://conferencecaptioning.com/blog/assets/mobile-nav.js"></script>
+  </body>
+</html>

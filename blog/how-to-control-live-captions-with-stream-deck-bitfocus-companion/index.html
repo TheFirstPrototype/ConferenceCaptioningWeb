@@ -13,18 +13,18 @@
       as="image"
       href="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
     />
-    <title>Control Live Captions with an Elgato Stream Deck (Bitfocus Companion, No Internet)</title>
+    <title>Control Event Live Captions &amp; Translations with Bitfocus Companion &amp; Elgato Stream Deck</title>
     <meta
       name="description"
-      content="Start, stop, show and hide live captions and translations from an Elgato Stream Deck using the free Bitfocus Companion module. Runs on your local network with no internet."
+      content="Start, stop, show and hide live captions and translations, and switch languages, from a Stream Deck using the free Bitfocus Companion module. Runs on your local network, no internet needed."
     />
     <meta
       property="og:title"
-      content="Control Live Captions with an Elgato Stream Deck (Bitfocus Companion, No Internet)"
+      content="Control Event Live Captions &amp; Translations with Bitfocus Companion &amp; Elgato Stream Deck"
     />
     <meta
       property="og:description"
-      content="Start, stop, show and hide live captions and translations from an Elgato Stream Deck using the free Bitfocus Companion module. Runs on your local network with no internet."
+      content="Start, stop, show and hide live captions and translations, and switch languages, from a Stream Deck using the free Bitfocus Companion module. Runs on your local network, no internet needed."
     />
     <meta
       property="og:image"
@@ -50,15 +50,15 @@
   "@graph": [
     {
       "@type": "Article",
-      "headline": "Control Live Captions with an Elgato Stream Deck (Bitfocus Companion, No Internet)",
-      "description": "Start, stop, show and hide live captions and translations from an Elgato Stream Deck using the free Bitfocus Companion module. Runs on your local network with no internet.",
+      "headline": "Control Event Live Captions & Translations with Bitfocus Companion & Elgato Stream Deck",
+      "description": "Start, stop, show and hide live captions and translations, and switch languages, from a Stream Deck using the free Bitfocus Companion module. Runs on your local network, no internet needed.",
       "image": "https://i.vimeocdn.com/video/1992328315-6f97c61fc1ef5effa98990dc6b3e2425c1d16ee5e034320165d51d36d6766a36-d_1280x720?region=us",
       "author": {
         "@type": "Person",
         "name": "Saamer Mansoor"
       },
       "datePublished": "2026-08-03",
-      "dateModified": "2026-08-03",
+      "dateModified": "2026-10-30",
       "mainEntityOfPage": "https://conferencecaptioning.com/blog/how-to-control-live-captions-with-stream-deck-bitfocus-companion/"
     },
     {
@@ -104,6 +104,22 @@
                       "acceptedAnswer": {
                               "@type": "Answer",
                               "text": "Yes. Open http://{device IP}:8080/control.html in any browser on the same network to start, stop, show and hide captions."
+                      }
+              },
+              {
+                      "@type": "Question",
+                      "name": "How do I add live captions to Bitfocus Companion?",
+                      "acceptedAnswer": {
+                              "@type": "Answer",
+                              "text": "Add the BeAware: ConferenceCaptioning connection in Companion's Connections page, enter your stream name and the captioning device's http:// local address, then drag the ConferenceCaptioning presets onto buttons. You can test them from Companion's Web Buttons page at http://127.0.0.1:8000/tablet before connecting a Stream Deck."
+                      }
+              },
+              {
+                      "@type": "Question",
+                      "name": "Can an AV company add live captions to a client's show without extra staff?",
+                      "acceptedAnswer": {
+                              "@type": "Answer",
+                              "text": "Yes. The captions run on a Mac, iPad or iPhone, and the show's existing operator can start, stop, show, hide and change languages from a few labeled Stream Deck or Companion buttons, so no extra person is needed in the booth."
                       }
               }
       ]
@@ -309,7 +325,7 @@
           <h1
             class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-slate-900"
           >
-            Control Live Captions with an Elgato Stream Deck (Bitfocus Companion, No Internet)
+            Control Event Live Captions &amp; Translations with Bitfocus Companion &amp; Elgato Stream Deck
           </h1>
           <div
             class="text-slate-500 flex items-center justify-center gap-4 font-medium text-sm"
@@ -320,7 +336,7 @@
                 src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
                 alt="Saamer&#x27;s face" /></a
             ><span>Saamer Mansoor</span><span>•</span
-            ><time>August 3, 2026</time>
+            ><time>August 3, 2026</time><span>•</span><span>Updated <time datetime="2026-10-30">October 30, 2026</time></span>
           </div>
         </header>
         <div
@@ -534,6 +550,10 @@
           <p>Companion supports the Elgato Stream Deck family, and also other control surfaces such as the Companion web interface and Loupedeck. Any surface Companion supports can control ConferenceCaptioning.</p>
           <h3>Can I control captions without a Stream Deck?</h3>
           <p>Yes. Open http://{device IP}:8080/control.html in any browser on the same network to start, stop, show and hide captions.</p>
+          <h3>How do I add live captions to Bitfocus Companion?</h3>
+          <p>Add the BeAware: ConferenceCaptioning connection in Companion&#39;s Connections page, enter your stream name and the captioning device&#39;s http:// local address, then drag the ConferenceCaptioning presets onto buttons. You can test them from Companion&#39;s Web Buttons page at http://127.0.0.1:8000/tablet before connecting a Stream Deck.</p>
+          <h3>Can an AV company add live captions to a client's show without extra staff?</h3>
+          <p>Yes. The captions run on a Mac, iPad or iPhone, and the show&#39;s existing operator can start, stop, show, hide and change languages from a few labeled Stream Deck or Companion buttons, so no extra person is needed in the booth.</p>
         </div>
         <p class="mt-12 text-slate-700"><strong>How accurate and how fast are the captions?</strong> We measure them in the open, on a real NASA news conference, and publish the method, the data and the scoring script. Read the <a href="https://conferencecaptioning.com/benchmark/" class="text-[#193C5D] font-semibold underline">live captioning accuracy and delay benchmark</a>.</p>
         <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">

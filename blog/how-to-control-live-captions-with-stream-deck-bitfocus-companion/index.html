@@ -348,12 +348,78 @@
           </div>
           <h2>Why put captions on a Stream Deck?</h2>
           <p>
-            During a live show, the AV operator is already busy. A physical
-            button to hide captions during a video, switch the audience to
-            another language, or restart captions after a break is faster than
-            walking to the captioning device. Companion is free, open source,
-            and made for exactly this kind of control, and ConferenceCaptioning
-            has a ready-made module for it.
+            Captions are only worth paying for if they are on screen at the
+            right moment, in the right language, every time. During a live
+            show the AV operator is already busy, and walking to the captioning
+            device mid-show is a risk you don&#39;t need. A physical button
+            turns captions into one more cue on the board you already run.
+          </p>
+          <ul>
+            <li>
+              <strong>Captions that behave like part of the show.</strong> Hide
+              captions for a video or a musical number, then bring them back
+              with one press. Nobody on stage or in the booth has to touch the
+              captioning device.
+            </li>
+            <li>
+              <strong>Any operator can run it.</strong> Labeled buttons for
+              start, stop, show, hide and language mean a volunteer or a
+              freelance tech can run captions after a two-minute walkthrough.
+              You don&#39;t need to train people on the app.
+            </li>
+            <li>
+              <strong>Fast language changes.</strong> When a new audience
+              arrives or a session switches language, it is one button instead
+              of a menu hunt.
+            </li>
+            <li>
+              <strong>Nothing new to buy if you already own a Stream Deck.</strong>
+              Companion is free and open source, and the ConferenceCaptioning
+              module is free too.
+            </li>
+            <li>
+              <strong>It keeps working when the Wi-Fi doesn&#39;t.</strong> The
+              buttons talk to the captioning device over your local network, so
+              a venue internet outage doesn&#39;t take your controls down.
+            </li>
+          </ul>
+          <h3>Selling captions to a client? This makes the offer easier</h3>
+          <p>
+            For AV companies and event producers, accessibility often comes up
+            as &ldquo;can we add captions?&rdquo; and stalls on &ldquo;who is going
+            to run them?&rdquo; A Stream Deck page answers that. Captions become
+            a line on your cue sheet and a few labeled buttons on gear your crew
+            already knows, not a separate system to staff. You can add them to
+            a client&#39;s show without adding a person to the booth.
+          </p>
+          <h2>How it connects to your Elgato Stream Deck</h2>
+          <p>
+            Elgato doesn&#39;t make a ConferenceCaptioning plugin. Instead,
+            Bitfocus Companion sits in the middle, and it takes about two
+            minutes to set up:
+          </p>
+          <ol>
+            <li>
+              <strong>The captioning device</strong> (Mac, iPad or iPhone) runs
+              the captions and the translations on-device, and serves them on
+              your local network.
+            </li>
+            <li>
+              <strong>Companion</strong> runs on a computer on that same
+              network, such as the show laptop or a small always-on machine.
+              The ConferenceCaptioning module tells it how to talk to the
+              device.
+            </li>
+            <li>
+              <strong>Your Stream Deck</strong> plugs into the computer running
+              Companion and shows the buttons you place on a page. Pressing one
+              sends the command to the captioning device.
+            </li>
+          </ol>
+          <p>
+            Because Companion works with other control surfaces too, you can
+            keep a second set of the same buttons on a tablet or in a browser
+            as a spare. The steps below show the full setup.
           </p>
           <h3>What you need</h3>
           <ul>
@@ -361,35 +427,69 @@
             <li>An Elgato Stream Deck (or another surface Companion supports).</li>
             <li><a href="https://bitfocus.io/companion">Bitfocus Companion</a>, running on a computer on the same local network.</li>
           </ul>
-          <h3>Step 1: Create a stream and activate the app</h3>
+          <h3>Before you start: create a stream and activate the app</h3>
           <ol>
             <li>Create a customized stream in the ConferenceCaptioning customer portal.</li>
             <li>Activate your account in the ConferenceCaptioning app on your iPhone, iPad or Mac, and start streaming.</li>
           </ol>
-          <h3>Step 2: Add the module in Companion</h3>
-          <ol>
-            <li>Open Companion and go to <strong>Connections</strong>.</li>
-            <li>Search for <strong>BeAware: ConferenceCaptioning</strong> and click <strong>Add</strong>.</li>
-            <li>
-              Enter your stream name and your captioning device&#39;s local
-              address. Open the app and copy both from there, and include the
-              <em>http://</em> prefix, for example <em>http://192.168.0.100:8080</em>.
-            </li>
-          </ol>
-          <h3>Step 3: Put the actions on Stream Deck buttons</h3>
+          <h3>Step 1: Launch Bitfocus Companion</h3>
+          <p>Open Companion on a computer on the same local network and click <strong>Launch GUI</strong>.</p>
+          <h3>Step 2: Search for and add the connection</h3>
+          <p>Go to <strong>Connections</strong>, search for <strong>ConferenceCaptioning</strong> (listed as <strong>BeAware: ConferenceCaptioning</strong>) and click <strong>Add</strong>.</p>
+          <h3>Step 3: Enable the connection and set the stream name and address</h3>
           <p>
-            In Companion&#39;s <strong>Buttons</strong> page, add the module&#39;s
-            actions to buttons. The module covers these controls:
+            Activate the connection, then enter your stream name and your
+            captioning device&#39;s local address. Open the app and copy both
+            from the stream page, and include the <em>http://</em> prefix, for
+            example <em>http://192.168.0.100:8080</em>. Click <strong>Save</strong>.
+          </p>
+          <figure>
+            <img
+              src="Companion1-3.jpg"
+              alt="Bitfocus Companion steps 1 to 3: launch the GUI, search for and add the ConferenceCaptioning connection, then set the stream name and local address and save"
+              width="1280"
+              height="832"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Steps 1 to 3: launch Companion, add the ConferenceCaptioning connection, then set the stream name and local address.</figcaption>
+          </figure>
+          <h3>Step 4: Drag and drop buttons from the Presets</h3>
+          <p>
+            In Companion&#39;s <strong>Buttons</strong> page, open the
+            <strong>Presets</strong> tab and drag the ConferenceCaptioning
+            presets you want onto your button grid. The module covers these
+            controls:
           </p>
           <ul>
             <li><strong>Start and stop</strong> captions.</li>
             <li><strong>Show and hide</strong> captions on screen.</li>
             <li><strong>Language</strong> and live translation selection.</li>
           </ul>
+          <h3>Step 5: Edit any button</h3>
           <p>
-            Companion shows the same buttons on your connected Stream Deck, so
-            anything you place on a page appears on the hardware right away.
+            Select a button to change its label and how it looks on your
+            Stream Deck. Companion shows the same buttons on your connected
+            Stream Deck, so anything you place on a page appears on the
+            hardware right away.
           </p>
+          <h3>Step 6: Test it with Web Buttons</h3>
+          <p>
+            Companion generates a <strong>Web Buttons</strong> page you can
+            use to test without hardware. On the computer running Companion,
+            open <em>http://127.0.0.1:8000/tablet</em> and click the buttons.
+          </p>
+          <figure>
+            <img
+              src="Companion4-6.jpg"
+              alt="Bitfocus Companion steps 4 to 6: drag presets onto the button grid, edit a button, then test with the Web Buttons page"
+              width="1280"
+              height="832"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Steps 4 to 6: drag presets onto buttons, edit them, then test with Web Buttons.</figcaption>
+          </figure>
           <h3>A simple button layout to start with</h3>
           <ul>
             <li>One button to <strong>start</strong> captions and one to <strong>stop</strong> them.</li>

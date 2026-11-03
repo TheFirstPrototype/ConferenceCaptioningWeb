@@ -9,46 +9,38 @@
       href="https://conferencecaptioning.com/images/logo-white.svg"
     />
     <title>News &amp; Updates | ConferenceCaptioning Blog</title>
-    <meta
-      name="description"
-      content="Product news and updates from ConferenceCaptioning, the live captioning and real-time translation platform for conferences, events, and churches."
-    />
-    <meta
-      property="og:title"
-      content="News &amp; Updates | ConferenceCaptioning Blog"
-    />
-    <meta
-      property="og:description"
-      content="Product news and updates from ConferenceCaptioning, the live captioning and real-time translation platform for conferences, events, and churches."
-    />
+    <meta name="description" content="Product news and updates from ConferenceCaptioning, the live captioning and real-time translation platform for conferences, events, and churches." />
+    <meta property="og:title" content="News &amp; Updates | ConferenceCaptioning Blog" />
+    <meta property="og:description" content="Product news and updates from ConferenceCaptioning, the live captioning and real-time translation platform for conferences, events, and churches." />
     <meta property="og:image" content="" />
-    <meta
-      property="og:url"
-      content="https://conferencecaptioning.com/blog/category/general/"
-    />
+    <meta property="og:url" content="https://conferencecaptioning.com/blog/category/general/" />
     <meta property="og:type" content="article" />
     <link
       rel="stylesheet"
-      href="https://conferencecaptioning.com/blog/assets/index-BTlxkPqu.css"
+      href="https://conferencecaptioning.com/blog/assets/index-Ub5kCNo1.css"
     />
-    <script
-      defer=""
-      type="text/javascript"
-      src="https://conferencecaptioning.com/js/jquery.min.js"
-    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
     <script
       defer=""
       type="text/javascript"
       src="https://conferencecaptioning.com/js/analyticsLite.js?v=20261019b"
     ></script>
-    <link
-      rel="canonical"
-      href="https://conferencecaptioning.com/blog/category/general/"
-    />
-    <script
-      defer
-      src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"
-    ></script>
+    <link rel="canonical" href="https://conferencecaptioning.com/blog/category/general/" />
+    <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
   </head>
   <body
     class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col"
@@ -177,17 +169,17 @@
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
                   >Français</a
                 ><a
-                  href="https://conferencecaptioning.com/blog/pt/"
+                  href="https://conferencecaptioning.com/blog/pt-br/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Português</a
+                  >Português (Brasil)</a
                 ><a
-                  href="https://conferencecaptioning.com/blog/de/"
+                  href="https://conferencecaptioning.com/blog/it/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >Deutsch</a
+                  >Italiano</a
                 ><a
-                  href="https://conferencecaptioning.com/blog/ja/"
+                  href="https://conferencecaptioning.com/blog/ko/"
                   class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
-                  >日本語</a
+                  >한국어</a
                 >
               </div>
             </div>
@@ -215,31 +207,36 @@
     <div
       class="relative bg-slate-900 text-white border-b border-slate-800 overflow-hidden"
     >
-      <div id="hero-slider" class="absolute inset-0 z-0 bg-slate-900">
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-40"
-          style="
-            background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-22.jpg&quot;);
-          "
-        ></div>
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-0"
-          style="
-            background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-18.jpg&quot;);
-          "
-        ></div>
-        <div
-          class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out opacity-0"
-          style="
-            background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-15.jpg&quot;);
-          "
-        ></div>
+      <div class="absolute inset-0 z-0 bg-slate-900">
+        <div class="owl-carousel hero-carousel h-full w-full">
+          <div
+            class="h-full w-full bg-cover bg-center bg-no-repeat opacity-40"
+            style="
+              min-height: 50vh;
+              background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-22.jpg&quot;);
+            "
+          ></div>
+          <div
+            class="h-full w-full bg-cover bg-center bg-no-repeat opacity-40"
+            style="
+              min-height: 50vh;
+              background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-18.jpg&quot;);
+            "
+          ></div>
+          <div
+            class="h-full w-full bg-cover bg-center bg-no-repeat opacity-40"
+            style="
+              min-height: 50vh;
+              background-image: url(&quot;https://conferencecaptioning.com/images/full-width-images/section-bg-15.jpg&quot;);
+            "
+          ></div>
+        </div>
       </div>
       <div
         class="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent z-10"
       ></div>
       <div
-        class="relative max-w-5xl mx-auto px-4 py-24 sm:py-32 flex items-center min-h-[50vh] z-20"
+        class="relative max-w-5xl mx-auto px-4 py-24 sm:py-32 flex items-center min-h-[50vh] z-20 pointer-events-none"
       >
         <div class="home-content text-left max-w-3xl">
           <h1
@@ -283,240 +280,41 @@
         >
           <a
             href="/blog/introducing-the-conferencecaptioning-partner-program/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >November 2, 2026</time
-              >
+            class="flex flex-col flex-1 outline-none"
+            ><div class="h-48 w-full bg-slate-100 relative overflow-hidden">
+              <img
+                class="lazy absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                data-original="https://conferencecaptioning.com/blog/introducing-the-conferencecaptioning-partner-program/share-image.png"
+                alt="Introducing the ConferenceCaptioning Partner Program: Earn When You Refer Events"
+              />
             </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              Introducing the ConferenceCaptioning Partner Program: Earn When You Refer Events
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Earn 5% to 15% commission, or account credits for non-profits, when you refer events to ConferenceCaptioning. How the program works, what customers get, and how to apply.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
+            <div class="p-8 flex flex-col flex-1">
+              <div class="flex items-center gap-3 mb-4">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
+                  >General</span
+                ><time
+                  class="text-xs text-slate-500 font-bold uppercase tracking-wider"
+                  >November 2, 2026</time
+                >
+              </div>
+              <h2
+                class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
               >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/how-to-set-a-static-local-ip-address-on-mac-av/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >June 21, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              How to Set a Static Local IP Address on Mac for AV Production
-              Networks
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Lock down your AV network by assigning a static local IP address
-                to your Mac, crucial for Dante, NDI, and local API servers.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/zero-downtime-live-captions-hot-failover-redundancy/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >June 21, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              Zero-Downtime Live Captions: How to Setup Hot-Failover Redundancy
-              for Live Events
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Ensure your captions never go down during critical live
-                broadcasts with our robust hot-failover redundancy architecture.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/how-to-add-live-captions-translations-to-propresenter/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >April 19, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              How to Add Live Captions &amp; Translations to ProPresenter
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                A step-by-step guide to integrating live, real-time AI captions
-                directly into your ProPresenter workflow for immersive event
-                experiences.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/conference-captioning-chrome-extension-on-device-ai/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >April 9, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              Conference Captioning Chrome Extension (On-Device AI for Events)
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Process your event audio completely offline with our new
-                on-device AI Chrome Extension.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/how-to-build-a-local-translation-server-on-mac-mini/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >April 4, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              How to Build a Local Translation Server on Mac Mini | Real-Time
-              On-Device AI
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Everything you need to know about setting up a dedicated Mac
-                Mini to act as your local, zero-latency event translation
-                server.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
-            </div></a
-          >
-        </div>
-        <div
-          class="bg-white rounded-3xl border border-slate-200 overflow-hidden hover:border-[#193C5D]/30 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col group"
-        >
-          <a
-            href="/blog/live-captions-translations-for-any-slide-deck-presentation/"
-            class="p-8 flex flex-col flex-1 outline-none"
-            ><div class="flex items-center gap-3 mb-4">
-              <span
-                class="text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-3 py-1 rounded-full"
-                >General</span
-              ><time
-                class="text-xs text-slate-500 font-bold uppercase tracking-wider"
-                >March 14, 2026</time
-              >
-            </div>
-            <h2
-              class="text-2xl font-bold mb-4 tracking-tight text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
-            >
-              Live Captions &amp; Translations For Any Slide Deck Presentation
-            </h2>
-            <div class="mb-6">
-              <p class="text-slate-600 line-clamp-3 leading-relaxed">
-                Learn how to easily layer live captions and instant translations
-                over any Keynote, PowerPoint, or Google Slides presentation.
-              </p>
-            </div>
-            <div class="mt-auto pt-6 border-t border-slate-100">
-              <span
-                class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
-                >Read Article</span
-              >
+                Introducing the ConferenceCaptioning Partner Program: Earn When You Refer Events
+              </h2>
+              <div class="mb-6">
+                <p class="text-slate-600 line-clamp-3 leading-relaxed">
+                  Earn 5% to 15% commission, or account credits for non-profits, when you refer events to ConferenceCaptioning. How the program works, what customers get, and how to apply.
+                </p>
+              </div>
+              <div class="mt-auto pt-6 border-t border-slate-100">
+                <span
+                  class="inline-flex items-center justify-center px-8 py-3 bg-slate-50 text-[#193C5D] text-sm font-bold rounded-full group-hover:bg-[#193C5D] group-hover:text-white transition-all w-full sm:w-auto"
+                  >Read Article</span
+                >
+              </div>
             </div></a
           >
         </div>
@@ -709,6 +507,35 @@
         </div>
       </div>
     </footer>
-    <script src="https://conferencecaptioning.com/blog/assets/mobile-nav.js"></script>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
+  <script src="https://conferencecaptioning.com/blog/assets/mobile-nav.js"></script>
   </body>
 </html>

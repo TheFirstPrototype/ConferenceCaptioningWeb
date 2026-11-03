@@ -147,6 +147,23 @@
     .cards h3 { font-size: 1.1rem; margin-bottom: 6px; } .cards p { color: var(--text-muted); font-size: .92rem; }
     .cards .go { display: inline-block; margin-top: 10px; font-family: var(--font-mono); font-size: .78rem; color: var(--brand-accent); }
     .pill { display: inline-block; font-family: var(--font-mono); font-size: .7rem; padding: 2px 9px; border-radius: 999px; border: 1px solid rgba(255,255,255,.25); color: #e2e8f0; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 4px; }
+    .hero-cta .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: .95rem; text-decoration: none; cursor: pointer; border: 1px solid rgba(255,255,255,.4); color: #fff; background: transparent; font-family: inherit; }
+    .hero-cta .btn:hover { background: rgba(255,255,255,.1); }
+    .hero-cta .btn.primary { background: #fff; color: var(--brand-navy); border-color: #fff; }
+    .hero-cta .btn.primary:hover { background: #e2e8f0; }
+    .video-wrap video { width: 100%; max-width: 900px; border-radius: 14px; border: 1px solid var(--border-subtle); background: #000; display: block; }
+    .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 18px; max-width: 900px; }
+    .shots figure { margin: 0; }
+    .shots img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border-subtle); display: block; }
+    .shots figcaption { color: var(--text-muted); font-size: .85rem; margin-top: 6px; }
+    .example table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    .example th, .example td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-subtle); }
+    .example th { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); font-weight: 600; }
+    .example td.n { text-align: right; white-space: nowrap; color: #fff; }
+    .example th.n { text-align: right; }
+    .two-col { columns: 2 340px; column-gap: 40px; }
+    .two-col li { break-inside: avoid; margin-bottom: 10px; }
 </style>
   <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
   <script defer src="https://conferencecaptioning.com/js/referral.js"></script>
@@ -161,7 +178,7 @@
       <a href="https://conferencecaptioning.com/av-production.html">AV Engineers</a>
       <a href="https://conferencecaptioning.com/event-organizers.html">Event Planners</a>
       <a href="https://conferencecaptioning.com/partners/" class="current">Partners</a>
-      <a href="https://app.conferencecaptioning.com" class="nav-cta" data-cta="partners-nav-start-free">Start free</a>
+      <a href="https://app.conferencecaptioning.com/#/referrals" class="nav-cta" data-cta="partners-nav-apply">Become a partner</a>
     </nav>
   </header>
 
@@ -169,6 +186,7 @@
   <h1>Recommend captions. <span>Get rewarded.</span></h1>
   <p class="lede">You already know which events need live captions and translation. Refer them and earn a commission when they sign.</p>
   <div class="chips"><span class="chip">Manual approval</span><span class="chip">180-day attribution</span><span class="chip">15% to 20%</span><span class="chip">+10% for 24 months</span></div>
+  <div class="hero-cta"><a class="btn primary" href="https://app.conferencecaptioning.com/#/referrals" data-cta="partners-hero-apply-event-organizers">Apply to become a partner</a><a class="btn" href="https://conferencecaptioning.com/blog/introducing-the-conferencecaptioning-partner-program/" data-cta="partners-hero-announcement-event-organizers">Read the announcement</a></div>
 <section id="how"><h2 id="how-heading">How it works</h2><ol class="steps"><li><b>Apply.</b> Tell us about your company and how you would introduce ConferenceCaptioning to customers.</li><li><b>Get approved.</b> We review every application and then send your unique link and partner code.</li><li><b>Share it.</b> Send customers your link, or have them enter your code at sign-up or on a demo call.</li><li><b>Get paid.</b> When a referred customer signs and pays, you earn commission on their first event or first year, then 10% of what they pay for the next 24 months.</li></ol></section><section id="why"><h2 id="why-heading">Why it works for you</h2><div class="cols"><div class="glass"><h3>Easy to recommend</h3><p>Captions and translation run on a device in the room, so the organizer you refer does not need to buy a dedicated event internet line.</p></div><div class="glass"><h3>A real accessibility need</h3><p>Live captions help attendees who are deaf or hard of hearing and attendees who speak another language.</p></div><div class="glass"><h3>Customers get a discount</h3><p>Everyone you refer gets 10% off their first event or first year.</p></div></div></section>
   <section id="commission">
     <h2 id="commission-heading">What you earn</h2>

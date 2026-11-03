@@ -184,6 +184,11 @@
     .vcard a.dl { color: var(--brand-accent); font-weight: 600; text-decoration: none; }
     .vcard a.dl:hover { text-decoration: underline; }
     .dont li, .more li { margin-bottom: 6px; }
+    .vh { font-size: 1.05rem; margin: 26px 0 10px; }
+    .vcard.vert video { aspect-ratio: 9 / 16; max-height: 560px; width: auto; max-width: 100%; margin: 0 auto; object-fit: contain; }
+    .vs { margin-top: 8px; border-top: 1px solid var(--border-subtle); padding-top: 8px; }
+    .vs summary { cursor: pointer; color: #fff; font-size: .9rem; }
+    .vs .tpl { margin-top: 8px; font-size: .9rem; }
 </style>
   <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
   <script defer src="https://conferencecaptioning.com/js/jquery.min.js"></script>
@@ -327,33 +332,80 @@ Disclosure: we are a ConferenceCaptioning partner and earn a commission if you s
 
   <section id="videos" class="kit-h">
     <h2 id="videos-heading">Videos you can use</h2>
-    <p class="sub">Silent screen recordings you can put in your own content and talk over. If you add a voiceover, add captions too. Dashboard clips use sample data, labelled on screen.</p>
+    <p class="sub">Silent clips you can put in your own content and talk over. Each has a suggested voiceover timed to its length. Say it your way, and add captions if you add a voiceover. Dashboard clips use sample data, labelled on screen.</p>
+    <div class="glass" style="max-width:900px;margin-bottom:8px">
+      <p class="sub" style="margin-bottom:6px"><b style="color:#fff">Disclosure goes in the video itself.</b> Say it, or show it on screen:</p>
+      <p class="sub" style="margin-bottom:0">&ldquo;I&rsquo;m a ConferenceCaptioning partner and earn a commission if you sign up through my link.&rdquo;</p>
+    </div>
+    <h3 class="vh">For talking to customers</h3>
     <div class="vgrid">
     <div class="vcard">
-      <video controls preload="none" playsinline poster="video/explainer-28s-no-voiceover.jpg" width="1440" height="810"><source src="video/explainer-28s-no-voiceover.mp4" type="video/mp4"></video>
+      <video controls preload="none" playsinline poster="video/bali-stage-screens.jpg"><source src="video/bali-stage-screens.mp4" type="video/mp4"></video>
+      <h3>Captions on the screens in the room</h3>
+      <p>A summit stage in Bali with more than 10,000 attendees, with live captions and translation on the room&rsquo;s screens. 5.7 seconds, 1080p. (3.5 MB, no audio)</p>
+      <a class="dl" href="video/bali-stage-screens.mp4" download data-cta="kit-download-bali-stage-screens">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the 6-second clip</summary>
+        <div class="tpl" id="v-bali-a" data-tpl="Live captions and translation, on the screens in the room, in several languages at once."></div>
+        <button class="copy" type="button" data-copy="v-bali-a">Copy</button>
+      </details>
+      <details class="vs"><summary>Suggested voiceover, for the clip played twice (11 seconds)</summary>
+        <div class="tpl" id="v-bali-b" data-tpl="At a summit in Bali with more than 10,000 attendees, the room&#x27;s screens showed live captions and translation in several languages at once."></div>
+        <button class="copy" type="button" data-copy="v-bali-b">Copy</button>
+      </details>
+    </div>
+    <div class="vcard vert">
+      <video controls preload="none" playsinline poster="video/attendee-phone-vertical.jpg"><source src="video/attendee-phone-vertical.mp4" type="video/mp4"></video>
+      <h3>An attendee reading on their own phone</h3>
+      <p>An attendee at a live event reading the captions on their phone after scanning a QR code. Vertical, for reels and shorts. The phone shows our earlier BeAware name. (3.1 MB, no audio)</p>
+      <a class="dl" href="video/attendee-phone-vertical.mp4" download data-cta="kit-download-attendee-phone-vertical">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the 12-second clip</summary>
+        <div class="tpl" id="v-att" data-tpl="Attendees don&#x27;t download an app. They scan a QR code, and the captions appear on their own phone, in the language they choose. This is a live event."></div>
+        <button class="copy" type="button" data-copy="v-att">Copy</button>
+      </details>
+    </div>
+    </div>
+    <h3 class="vh">About the Partner Program</h3>
+    <div class="vgrid">
+    <div class="vcard">
+      <video controls preload="none" playsinline poster="video/explainer-28s-no-voiceover.jpg"><source src="video/explainer-28s-no-voiceover.mp4" type="video/mp4"></video>
       <h3>28-second explainer</h3>
-      <p>Title, the partner page, the application and a dashboard. Add your own voiceover. (1.4 MB, no audio)</p>
+      <p>Title, the partner page, the application and a dashboard. For telling peers about the program. (1.4 MB, no audio)</p>
       <a class="dl" href="video/explainer-28s-no-voiceover.mp4" download data-cta="kit-download-explainer-28s-no-voiceover">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the 28 seconds</summary>
+        <div class="tpl" id="v-exp" data-tpl="If you work in AV or events, ConferenceCaptioning has a partner program worth a look. Apply in the portal, and they review every application by hand. Once approved, you get a link, a code, and a dashboard showing every account you referred and what you earned. You earn fifteen to twenty percent on the first year, plus ten percent on repeat business for 24 months. Details at conferencecaptioning dot com slash partners."></div>
+        <button class="copy" type="button" data-copy="v-exp">Copy</button>
+      </details>
     </div>
     <div class="vcard">
-      <video controls preload="none" playsinline poster="video/apply-in-the-portal.jpg" width="1440" height="810"><source src="video/apply-in-the-portal.mp4" type="video/mp4"></video>
+      <video controls preload="none" playsinline poster="video/apply-in-the-portal.jpg"><source src="video/apply-in-the-portal.mp4" type="video/mp4"></video>
       <h3>Applying in the portal</h3>
       <p>Filling in the short application, then &ldquo;Application received&rdquo;. (0.1 MB, no audio)</p>
       <a class="dl" href="video/apply-in-the-portal.mp4" download data-cta="kit-download-apply-in-the-portal">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the clip</summary>
+        <div class="tpl" id="v-apply" data-tpl="To join, sign in to the portal and open Referrals. Fill in the short application, and it&#x27;s reviewed by hand."></div>
+        <button class="copy" type="button" data-copy="v-apply">Copy</button>
+      </details>
     </div>
     <div class="vcard">
-      <video controls preload="none" playsinline poster="video/partner-dashboard-sample-data.jpg" width="1440" height="810"><source src="video/partner-dashboard-sample-data.mp4" type="video/mp4"></video>
+      <video controls preload="none" playsinline poster="video/partner-dashboard-sample-data.jpg"><source src="video/partner-dashboard-sample-data.mp4" type="video/mp4"></video>
       <h3>The partner dashboard</h3>
       <p>Link, visits, accounts created, status and earnings. Sample data. (0.3 MB, no audio)</p>
       <a class="dl" href="video/partner-dashboard-sample-data.mp4" download data-cta="kit-download-partner-dashboard-sample-data">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the clip</summary>
+        <div class="tpl" id="v-dash" data-tpl="Once approved, your dashboard shows your link, your visits, every account you referred, and what you earned."></div>
+        <button class="copy" type="button" data-copy="v-dash">Copy</button>
+      </details>
     </div>
     <div class="vcard">
-      <video controls preload="none" playsinline poster="video/partner-program-page.jpg" width="1440" height="810"><source src="video/partner-program-page.mp4" type="video/mp4"></video>
+      <video controls preload="none" playsinline poster="video/partner-program-page.jpg"><source src="video/partner-program-page.mp4" type="video/mp4"></video>
       <h3>The Partner Program page</h3>
       <p>Scrolling from the top to the commission tiers. (0.9 MB, no audio)</p>
       <a class="dl" href="video/partner-program-page.mp4" download data-cta="kit-download-partner-program-page">Download</a>
+      <details class="vs"><summary>Suggested voiceover, fits the clip</summary>
+        <div class="tpl" id="v-page" data-tpl="Silver earns fifteen percent, Gold twenty, and Platinum is negotiable with scale. Then ten percent on repeat business for 24 months."></div>
+        <button class="copy" type="button" data-copy="v-page">Copy</button>
+      </details>
     </div>
-
     </div>
     <p class="sub" style="margin-top:16px">Want to see one finished? <a href="https://conferencecaptioning.com/blog/introducing-the-conferencecaptioning-partner-program/" style="color:var(--brand-accent)">The announcement</a> has the 28-second video with voiceover and captions.</p>
   </section>

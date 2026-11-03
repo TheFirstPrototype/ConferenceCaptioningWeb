@@ -157,17 +157,19 @@
     .shots figure { margin: 0; }
     .shots img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border-subtle); display: block; }
     .shots figcaption { color: var(--text-muted); font-size: .85rem; margin-top: 6px; }
-    .example table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-    .example th, .example td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-subtle); }
+    .example table { width: 100%; min-width: 0; border-collapse: collapse; font-size: .95rem; }
+    .example th, .example td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-subtle); white-space: normal; }
     .example th { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); font-weight: 600; }
     .example td.n { text-align: right; white-space: nowrap; color: #fff; }
     .example th.n { text-align: right; }
     .example .scroll { overflow-x: auto; }
-    @media (max-width: 640px) { .example th, .example td { padding: 8px 6px; font-size: .85rem; } .example td.n { white-space: normal; } }
+    @media (max-width: 640px) { .example th, .example td { padding: 8px 6px; font-size: .85rem; } .example td.n { white-space: normal; } .example table { table-layout: fixed; } .example th, .example td { word-break: break-word; overflow-wrap: anywhere; } }
     .two-col { columns: 2 340px; column-gap: 40px; }
     .two-col li { break-inside: avoid; margin-bottom: 10px; }
 </style>
   <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
+  <script defer src="https://conferencecaptioning.com/js/jquery.min.js"></script>
+  <script defer src="https://conferencecaptioning.com/js/analyticsLite.js?v=20261019b"></script>
   <script defer src="https://conferencecaptioning.com/js/referral.js"></script>
 <script type="application/ld+json">
 {
@@ -276,7 +278,7 @@
   </section>
 
   <section id="paths"><h2 id="paths-heading">Choose your path</h2><div class="cards">
-<a class="glass" href="https://conferencecaptioning.com/partners/av-production/" data-cta="partners-card-av"><span class="pill">Cash commission</span><h3 style="margin-top:10px">AV &amp; event production companies</h3><p>Add captions to your AV checklist and earn on every client you bring.</p><span class="go">See the AV partner page &rarr;</span></a>
+<a class="glass" href="https://conferencecaptioning.com/partners/av-production/" data-cta="partners-card-av"><span class="pill">Cash commission</span><h3 style="margin-top:10px">AV companies, integrators &amp; production teams</h3><p>Add captions to your packages and earn again on every renewal.</p><span class="go">See the AV partner page &rarr;</span></a>
 <a class="glass" href="https://conferencecaptioning.com/partners/event-organizers/" data-cta="partners-card-organizers"><span class="pill">Cash commission</span><h3 style="margin-top:10px">Event organizers</h3><p>Recommend us to peers, associations and the events you work with.</p><span class="go">See the organizer page &rarr;</span></a>
 <a class="glass" href="https://conferencecaptioning.com/partners/nonprofits/" data-cta="partners-card-nonprofit"><span class="pill">Credits or a donation</span><h3 style="margin-top:10px">Non-profit organizations</h3><p>Earn account credits or a donation to your organization.</p><span class="go">See the non-profit page &rarr;</span></a>
 </div></section>

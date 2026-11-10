@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      as="image"
+      href="https://conferencecaptioning.com/images/logo-white.svg"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
+    />
+    <title>Add Live Translated Audio to Wireless Conference Headsets (No Internet Required)</title>
+    <meta
+      name="description"
+      content="Turn a Mac into a translation channel for wireless-headset systems: the app listens, translates, and speaks in a matching male or female voice, about 1 second after each sentence ends."
+    />
+    <meta
+      property="og:title"
+      content="Add Live Translated Audio to Wireless Conference Headsets (No Internet Required)"
+    />
+    <meta
+      property="og:description"
+      content="Turn a Mac into a translation channel for wireless-headset systems: the app listens, translates, and speaks in a matching male or female voice, about 1 second after each sentence ends."
+    />
+    <meta
+      property="og:image"
+      content="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/share-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="og:url"
+      content="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/"
+    />
+    <meta property="og:type" content="article" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/"
+    />
+    <link
+      rel="stylesheet"
+      href="https://conferencecaptioning.com/blog/assets/index-Ub5kCNo1.css"
+    />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Add Live Translated Audio to Wireless Conference Headsets (No Internet Required)",
+      "description": "Turn a Mac into a translation channel for wireless-headset systems: the app listens, translates, and speaks in a matching male or female voice, about 1 second after each sentence ends.",
+      "image": "https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/share-image.png",
+      "author": {
+        "@type": "Person",
+        "name": "Saamer Mansoor"
+      },
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "mainEntityOfPage": "https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Live-translated audio on wireless conference headsets: a one-minute demo",
+      "description": "A narrator introduces live-translated audio. A woman and then a man speak English; the app translates and speaks French on a second headset channel, in a female and then a male voice. Demo with synthetic voices.",
+      "thumbnailUrl": "https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/video-poster.jpg",
+      "uploadDate": "2026-11-07T00:00:00+00:00",
+      "duration": "PT59S",
+      "contentUrl": "https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/live-translated-audio-headsets.mp4",
+      "transcript": "Narrator: Introducing live-translated audio, for wireless conference headsets. One speaker. Every language. On the headsets your attendees already wear. Watch. Channel one carries the speaker, in English. Channel two carries the translation, in French. Channel 1, a woman speaking English: Good morning everyone, and welcome to the conference. Channel 2, the app, in a female voice, in French: Bonjour à tous et bienvenue à la conférence. Narrator: A woman is speaking, so the translation is read in a female voice. Channel 1, a man speaking English: Thank you, Claire. Channel 2, in a male voice, in French: Merci, Claire. Narrator: Now a man is speaking, so the voice switches to a male one. You choose the gender, the voice and the accent your listeners hear. Or turn on automatic gender detection, for when two people share the stage. The numbers. The translated voice starts about one second after each sentence ends. The right voice was chosen ninety-six times out of a hundred, tested on sixty-six real speakers, one at a time. More than fifty languages, and no internet needed in the hall. Live-translated audio. Add translated channels to your headset system. conferencecaptioning.com"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this work with silent seminar and wireless conference headsets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, in principle. The app produces audio from a computer, and any wireless-headset system with a spare audio input on its transmitter can carry it as a channel of its own. Attendees switch channels on the headset as they always do. We have not tested every brand of transmitter, so test your own chain with the tone buttons before the event."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need internet in the hall?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Download the translation languages and install the voices once at the hotel, and everything else runs on the device. The interpreter page works over your local network. The computer needs internet only for that one-time setup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long after a sentence ends does the translated voice start?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "About one second after a sentence ends in Rapid mode, when the voice is free: roughly 0.6 seconds for the speech recognizer to decide the sentence is finished, 0.2 seconds for the app to translate it and hand it over, and 0.1 seconds for the voice to start. On our demo script the voice was called 1.1 seconds after the end of a sentence on average. Mix mode, which we measured earlier, took about 2.8 seconds. If the speaker talks faster than the voice can read, the voice falls behind: it then speaks a little faster and skips ahead rather than drifting further."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many languages can I send at once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One language per interpreter page, because a web page cannot choose which audio output it plays through. For several languages, use one computer per language, each wired to its own transmitter channel. Routing several browsers on one computer to different audio devices with a sound-routing tool may work, but we have not tested it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the automatic male and female voice work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The app measures the pitch of the microphone audio, which tells it whether the speaker sounds male or female, and the interpreter page reads each sentence in the male or female voice you chose. It is a hint, not a fact: in our tests on 66 real speakers it was right about 96% of the time for one speaker at a time, and 81% to 84% of sentences got the right voice when people took turns every few seconds. When it is unsure it keeps the voice used last, so the voice does not flip back and forth while one person talks. No audio is stored."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+    <script
+      defer=""
+      type="text/javascript"
+      src="https://conferencecaptioning.com/js/analyticsLite.js?v=20261019b"
+    ></script>
+    <link rel="canonical" href="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/" />
+    <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col"
+  >
+    <header class="bg-[#193C5D] border-b border-[#112940]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex-shrink-0 flex items-center">
+            <a
+              href="https://conferencecaptioning.com"
+              class="flex items-center gap-3"
+              ><img
+                src="https://conferencecaptioning.com/images/logo-white.svg"
+                alt="Conference Captioning"
+                class="h-9 w-auto"
+              /><span class="hidden text-white font-bold text-xl tracking-tight"
+                >Conference Captioning</span
+              ></a
+            >
+          </div>
+          <nav class="hidden md:flex space-x-8 items-center">
+            <a
+              href="https://conferencecaptioning.com"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Home</a
+            ><a
+              href="https://conferencecaptioning.com#about"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >About</a
+            ><a
+              href="https://conferencecaptioning.com#features"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Features</a
+            ><a
+              href="https://conferencecaptioning.com#pricing"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Pricing</a
+            ><a
+              href="https://conferencecaptioning.com#contact"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Contact</a
+            ><a
+              href="https://conferencecaptioning.com/blog"
+              class="text-white hover:text-indigo-200 text-sm font-medium transition-colors"
+              >Blog</a
+            >
+            <div class="relative group">
+              <button
+                class="text-white hover:text-indigo-200 text-sm font-medium transition-colors flex items-center gap-1 py-4"
+              >
+                Solutions<svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 w-64 bg-white shadow-xl rounded-lg py-2 hidden group-hover:block z-50 border border-slate-100"
+              >
+                <a
+                  href="https://conferencecaptioning.com/av-production.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >AV Engineers &amp; Broadcasting</a
+                ><a
+                  href="https://conferencecaptioning.com/event-organizers.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >Event Planners &amp; Organizers</a
+                ><a
+                  href="https://conferencecaptioning.com/church-live-translation-transcription.html"
+                  class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D] font-medium"
+                  >Churches &amp; Chapels</a
+                >
+              </div>
+            </div>
+            <div class="relative group">
+              <button
+                class="text-white hover:text-indigo-200 text-sm font-medium transition-colors flex items-center gap-1.5 py-4"
+              >
+                <svg
+                  class="w-4 h-4 opacity-80"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  ></path></svg
+                >English<svg
+                  class="w-4 h-4 opacity-80"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full right-0 w-48 bg-white shadow-xl rounded-lg py-2 hidden group-hover:block z-50 max-h-96 overflow-y-auto border border-slate-100"
+              >
+                <a
+                  href="https://conferencecaptioning.com/blog/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >English</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/es/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Español</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/fr/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Français</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/pt-br/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Português (Brasil)</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/it/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >Italiano</a
+                ><a
+                  href="https://conferencecaptioning.com/blog/ko/"
+                  class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#193C5D]"
+                  >한국어</a
+                >
+              </div>
+            </div>
+            <a
+              href="https://app.conferencecaptioning.com"
+              class="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-bold rounded-full text-[#193C5D] bg-white hover:bg-slate-100 transition-colors shadow-sm"
+              ><svg
+                class="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                ></path></svg
+              >Try Now</a
+            >
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="max-w-4xl w-full mx-auto px-4 py-12 flex-1">
+      <article>
+        <header class="mb-12 text-center max-w-3xl mx-auto">
+          <div class="mb-6">
+            <a
+              href="/blog/category/technology/"
+              class="inline-block text-xs font-bold uppercase tracking-wider text-[#193C5D] bg-[#193C5D]/10 px-4 py-1.5 rounded-full hover:bg-[#193C5D]/20 transition-colors"
+              >Technology</a
+            >
+          </div>
+          <h1
+            class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-slate-900"
+          >
+            Add Live Translated Audio to Wireless Conference Headsets (No Internet Required)
+          </h1>
+          <div
+            class="text-slate-500 flex items-center justify-center gap-4 font-medium text-sm"
+          >
+            <a href="https://linkedin.com/in/saamer"
+              ><img
+                class="rounded"
+                src="https://tawk.link/thumb/a/67291e7ad268731aabd54e22/profile/tAvMaSyHIX.png?width=30&amp;height=30"
+                alt="Saamer&#x27;s face" /></a
+            ><span>Saamer Mansoor</span><span>•</span
+            ><time>November 7, 2026</time>
+          </div>
+        </header>
+        <div
+          class="prose prose-lg prose-slate max-w-none prose-h1:text-4xl prose-h1:font-bold prose-h1:tracking-tight prose-h1:text-slate-900 prose-h2:text-2xl prose-h2:font-bold prose-h2:tracking-tight prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-slate-900 prose-p:text-slate-600 prose-a:text-[#193C5D] hover:prose-a:text-[#112940] prose-img:rounded-xl prose-img:border prose-img:border-slate-200"
+        >
+          <p>
+            <strong>To add live translated audio to wireless conference headsets:</strong>
+            start ConferenceCaptioning on a Mac, open the <strong>interpreter page</strong>,
+            choose a language and a voice, and send the computer&#39;s audio output to a spare
+            channel on your headset transmitter. Attendees switch to that channel on their
+            headset and hear the translation about one second after each sentence ends (Rapid mode). Everything
+            runs on the device, so you need no internet in the hall and no interpreter booth.
+          </p>
+          <video controls preload="metadata" playsinline poster="video-poster.jpg" style="width:100%; border-radius:0.75rem; margin: 2rem 0;" width="1920" height="1080">
+            <source src="live-translated-audio-headsets.mp4" type="video/mp4" />
+            <track kind="captions" src="live-translated-audio-headsets.vtt" srclang="en" label="English" default />
+          </video>
+          <p><em>A one-minute demo with synthetic voices. English comes out of the left ear (channel 1, from the mixer) and the translated French out of the right ear (channel 2, from the app). Words appear on screen shortly after they are spoken, and each French word shortly after its English word. The French is the app&#39;s real translation; the screenshot is the real interpreter page.</em></p>
+          <details><summary>Video transcript</summary><p>Narrator: Introducing live-translated audio, for wireless conference headsets. One speaker. Every language. On the headsets your attendees already wear. Watch. Channel one carries the speaker, in English. Channel two carries the translation, in French. Channel 1, a woman speaking English: Good morning everyone, and welcome to the conference. Channel 2, the app, in a female voice, in French: Bonjour à tous et bienvenue à la conférence. Narrator: A woman is speaking, so the translation is read in a female voice. Channel 1, a man speaking English: Thank you, Claire. Channel 2, in a male voice, in French: Merci, Claire. Narrator: Now a man is speaking, so the voice switches to a male one. You choose the gender, the voice and the accent your listeners hear. Or turn on automatic gender detection, for when two people share the stage. The numbers. The translated voice starts about one second after each sentence ends. The right voice was chosen ninety-six times out of a hundred, tested on sixty-six real speakers, one at a time. More than fifty languages, and no internet needed in the hall. Live-translated audio. Add translated channels to your headset system. conferencecaptioning.com</p></details>
+
+          <h2>Why add translation channels to wireless headsets?</h2>
+          <p>
+            Silent-seminar-style headset systems already solve the hard part of listening in
+            a busy hall: every attendee wears a headset and picks their own channel, and the
+            systems on the market offer many of them. For example, the makers of the
+            conference headsets at <a href="https://www.silentseminars.com/conference-headsets" rel="noopener">Silent Seminars</a>
+            describe 10 and 45 channel systems with programmable, lockable channels. What each
+            extra channel needs is an audio source in another language. Booking human
+            interpreters for every language and every session is expensive, and often not
+            possible. ConferenceCaptioning turns a computer into that source: it listens to
+            the room, translates, and speaks the translation, on a channel of its own.
+          </p>
+          <h2>What you get</h2>
+          <ul>
+            <li><strong>The translation read aloud</strong>, sentence by sentence, with a voice you choose, including the Premium voices that ship with macOS.</li>
+            <li><strong>Your choice of voice:</strong> pick the gender, the voice and the accent your listeners hear for each language, or turn on <strong>automatic gender detection</strong> so the voice follows who is speaking when two people share the stage.</li>
+            <li><strong>Test tones</strong> for the left, right and both sides, and a &quot;speak sample&quot; button, so your AV team can check every cable and channel before doors open.</li>
+            <li><strong>Setup instructions on the page itself</strong> for Dante Virtual Soundcard, USB interfaces and a second computer.</li>
+            <li><strong>No internet in the hall.</strong> The page, the translation and the voices all run on your side of the room.</li>
+            <li><strong>On-screen captions at the same time.</strong> The same app shows live captions and translations on your screens, which headsets cannot do for attendees who are deaf or hard of hearing.</li>
+          </ul>
+          <h2>How it works</h2>
+          <p>
+            A microphone or the mixer feeds the app. The app captions the speech, translates
+            each finished sentence, and the interpreter page reads the translation aloud
+            through the computer&#39;s sound output. That output goes to your transmitter, which
+            sends it to the headsets as one channel. The page runs in a web browser on the
+            computer next to the transmitter (or on any computer on the same network), and the
+            app serves it at <em>http://{device IP}:8080/interpreter.html</em>.
+          </p>
+          <h2>Set it up in six steps</h2>
+          <h3>Step 1: Prepare, once, with internet</h3>
+          <ol>
+            <li>Install the app and download the translation languages you will use.</li>
+            <li>Install a good voice for each language: on a Mac, <strong>System Settings &gt; Accessibility &gt; Spoken Content &gt; System Voice &gt; Manage Voices</strong>, and download a <strong>Premium</strong> or Enhanced voice.</li>
+            <li>After installing a voice, <strong>fully quit your browser (Cmd+Q) and reopen it</strong>. Browsers only list new voices after a restart. Online-only voices will not work in a hall with no internet, so the page never picks them on its own.</li>
+          </ol>
+          <h3>Step 2: Start captioning</h3>
+          <p>Connect your audio source (mixer, audio interface, Dante or a microphone), choose the speaking language and the language to translate to, and start captioning in Rapid or Mix.</p>
+          <h3>Step 3: Open the interpreter page</h3>
+          <ol>
+            <li>In the app, tap the <strong>Local pages</strong> button (the network icon) and open the <strong>interpreter</strong> card, or open <em>http://{device IP}:8080/interpreter.html</em> in a browser.</li>
+            <li>Choose the language, pick a voice, and press <strong>Start speaking</strong>. Browsers require one click before they play sound.</li>
+          </ol>
+          <h3>Step 4: Send the audio to a channel of its own</h3>
+          <p>The page speaks through the <strong>computer&#39;s current sound output</strong>, and a web page cannot choose the output or a single channel by itself, so you do the routing:</p>
+          <ul>
+            <li><strong>Dante Virtual Soundcard:</strong> set the output to Dante Virtual Soundcard and subscribe only TX channel 2 to the transmitter&#39;s channel 2 input. English stays on channel 1 from the mixer.</li>
+            <li><strong>USB interface or headphone jack:</strong> use a stereo-to-two-mono splitter and connect only the right leg to the transmitter&#39;s channel 2 input.</li>
+            <li><strong>Another computer on the same network:</strong> open the same address on it and wire its output the same way. This is also how you add a second language.</li>
+          </ul>
+          <h3>Step 5: Test the whole chain</h3>
+          <p>Press <strong>Tone: left</strong>, <strong>Tone: right</strong> and <strong>Tone: both</strong>, and <strong>Speak sample with this voice</strong>, then listen on a headset tuned to the channel. Do this before the event, with the transmitter powered and the headsets in range.</p>
+          <h3>Step 6: Turn on &quot;Match the speaker&quot; (optional)</h3>
+          <p>Tick <strong>Match the speaker</strong>, then choose a male voice and a female voice for the language. Each sentence is now read in the voice for whoever was speaking when it was said. The page shows what it hears, for example <em>Speaker sounds female (about 243 Hz)</em>. Leave &quot;keep the voice used last&quot; ticked: it stops the voice changing when the app is not sure.</p>
+          <hr />
+          <h2>Choose the voice, or let the app match the speaker</h2>
+          <p>
+            For each language you choose the gender, the voice and the accent your listeners
+            hear, for example a British or a Canadian French voice. If one person speaks, that is
+            all you need. If two people share the stage, turn on automatic gender detection and give the
+            page a male and a female voice.
+          </p>
+          <p>
+            Hearing a translation in a voice that matches the person on stage makes a
+            conversation easier to follow, especially in a panel or a Q&amp;A. The app measures
+            the pitch of the microphone audio, which separates most male voices (typically about
+            85 to 155 Hz) from most female voices (about 165 to 255 Hz), and the interpreter page
+            picks the voice you chose for that sound. Nothing is shown to the audience, no audio
+            is stored, and you can switch it off.
+          </p>
+          <p>
+            It is a hint, not a fact. Pitch alone cannot separate every voice: a low-pitched
+            woman or a high-pitched man sits in a zone where the app says &quot;not sure&quot; and keeps the
+            voice it used last. Please read the numbers below before you rely on it for an
+            event with many speakers.
+          </p>
+          <h2>How fast is it, step by step?</h2>
+          <p>
+            After a speaker finishes a sentence, the translated voice starts about <strong>one second</strong> later in Rapid mode.
+            This is where that second goes, measured on a Mac with the demo script:
+          </p>
+          <table>
+            <thead><tr><th>Step</th><th>Time</th></tr></thead>
+            <tbody>
+              <tr><td>The speech recognizer decides the sentence is finished</td><td>about 0.6 s (0.3 to 1.0 s)</td></tr>
+              <tr><td>The app notices, translates (0.03 s) and hands the text to the voice page</td><td>about 0.2 s</td></tr>
+              <tr><td>The voice starts speaking</td><td>about 0.1 s</td></tr>
+              <tr><td><strong>Total when the voice is free</strong></td><td><strong>about 0.9 s</strong></td></tr>
+            </tbody>
+          </table>
+          <p>
+            The biggest piece is the recognizer, which waits for a short pause before it will call a sentence final.
+            We used to wait for the <em>next</em> sentence to start before speaking, which added about two seconds; the app now speaks a sentence as soon as the
+            recognizer finalizes it. A sentence only waits longer when the voice is still reading the one before it, which happened to about a third of the sentences
+            in our demo script and added about a second each.
+          </p>
+          <h2>How good is it?</h2>
+          <p>We measured the whole chain on a short demo script (a host and a speaker taking turns), and measured the voice matching separately on real recorded speech. These are our numbers, with what they do and do not show:</p>
+          <table>
+            <thead><tr><th>What we measured</th><th>Result</th><th>What to know</th></tr></thead>
+            <tbody>
+              <tr><td>Delay: end of a sentence to the translated voice being called (Rapid)</td><td>1.1 seconds on average. Typically 0.9 to 1.3 s, 95% under 2.1 s. Plus about 0.1 s for the voice itself to start.</td><td>French, one Mac, the 11-line demo script, synthetic voices. Before our November 2026 speed-up the same test gave 3.3 s. Mix, measured earlier, gave 2.8 s.</td></tr>
+              <tr><td>Delay: end of a sentence to the first sound, voice free (Rapid)</td><td>About 0.9 seconds.</td><td>0.6 s recognizer + 0.2 s app + 0.1 s voice start-up. Measured in pieces on the same Mac; the pieces add up to about the total.</td></tr>
+              <tr><td>Translation of the demo script</td><td>11 of 11 lines with no meaning errors. Similarity to a human-written translation: 79 and 83 out of 100 for the two translation modes.</td><td>Checked by hand against a reference. We reworded one line that machine translation gets wrong (see the note below).</td></tr>
+              <tr><td>Male or female voice chosen correctly, demo script</td><td>12 of 12 sentences with Mix, 12 of 14 with Rapid.</td><td>Two clearly different voices. Real speakers vary more.</td></tr>
+              <tr><td>Voice chosen correctly, 66 real speakers</td><td>96% of the voice decisions were right, one speaker at a time. The voice changed in the middle of one person&#39;s speech in 1% of recordings.</td><td>Read audiobook speech in quiet rooms, tuned on other speakers. Not yet tested in real conference rooms.</td></tr>
+              <tr><td>Voice chosen correctly, people taking turns every few seconds</td><td>81% to 84% of sentences got the right voice.</td><td>The first sentence after a change is the one most likely to keep the previous voice.</td></tr>
+            </tbody>
+          </table>
+          <p>
+            Speech recognition accuracy depends on the speaker, the microphone and the room, so
+            we do not quote one number for this setup. Our open measurements of the captions
+            themselves are in the <a href="https://conferencecaptioning.com/benchmark/">live captioning benchmark</a>.
+          </p>
+          <h2>What to know before the event</h2>
+          <ul>
+            <li><strong>It is machine translation.</strong> It is very good on everyday conference language, but idioms can come out wrong: in our own tests &quot;Exactly right&quot; was translated as the French for &quot;exactly to the right&quot;. Run your key phrases through it first, and keep human interpreters for legal, medical or other high-stakes sessions.</li>
+            <li><strong>Fast talkers.</strong> A voice cannot read faster than people comfortably listen. If the speaker talks continuously and quickly, the translation falls behind. In one 16-minute test with continuous speech, half of the sentences waited more than 4.6 seconds because earlier sentences were still being read. The page then speaks up to 30% faster and skips ahead past about 300 characters to catch up. For a fast speaker, ask them to leave short pauses.</li>
+            <li><strong>One language per page.</strong> A web page cannot choose where its sound goes, so each language needs its own computer, or a browser routed to its own audio device.</li>
+            <li><strong>Overlapping speakers</strong> are not handled: when two people talk at once the voice choice is a guess.</li>
+            <li><strong>Your headset system is your own.</strong> We have not tested every brand of transmitter. Anything that takes an audio input and sends it to a channel should work, and the tone buttons tell you quickly.</li>
+          </ul>
+          <hr />
+          <h3>Pro Tips</h3>
+          <ol>
+            <li><strong>Keep the computer awake</strong> (System Settings &gt; Lock Screen, or run <em>caffeinate</em> in Terminal) and keep the interpreter tab open and in front of nothing that mutes it.</li>
+            <li><strong>Keep the address from changing:</strong> give the computer a static IP so the page address works from one event to the next. <a href="/blog/how-to-set-a-static-local-ip-address-on-mac-av/">Here&#39;s how on a Mac</a>.</li>
+            <li><strong>Speed:</strong> if sentences pile up, the page speaks a little faster and skips ahead past about 300 characters, so the headsets stay close to live.</li>
+            <li><strong>Mission-critical show?</strong> Add a backup device with <a href="/blog/zero-downtime-live-captions-hot-failover-redundancy/">hot-failover redundancy</a>.</li>
+            <li><strong>Put captions on the screens too.</strong> Headsets help people who hear; screens help everyone, including deaf and hard-of-hearing attendees.</li>
+          </ol>
+          <h2>Frequently asked questions</h2>
+          <h3>Does this work with silent seminar and wireless conference headsets?</h3>
+          <p>Yes, in principle. The app produces audio from a computer, and any wireless-headset system with a spare audio input on its transmitter can carry it as a channel of its own. Attendees switch channels on the headset as they always do. We have not tested every brand of transmitter, so test your own chain with the tone buttons before the event.</p>
+          <h3>Do I need internet in the hall?</h3>
+          <p>No. Download the translation languages and install the voices once at the hotel, and everything else runs on the device. The interpreter page works over your local network. The computer needs internet only for that one-time setup.</p>
+          <h3>How long after a sentence ends does the translated voice start?</h3>
+          <p>About one second after a sentence ends in Rapid mode, when the voice is free: roughly 0.6 seconds for the speech recognizer to decide the sentence is finished, 0.2 seconds for the app to translate it and hand it over, and 0.1 seconds for the voice to start. On our demo script the voice was called 1.1 seconds after the end of a sentence on average. Mix mode, which we measured earlier, took about 2.8 seconds. If the speaker talks faster than the voice can read, the voice falls behind: it then speaks a little faster and skips ahead rather than drifting further.</p>
+          <h3>How many languages can I send at once?</h3>
+          <p>One language per interpreter page, because a web page cannot choose which audio output it plays through. For several languages, use one computer per language, each wired to its own transmitter channel. Routing several browsers on one computer to different audio devices with a sound-routing tool may work, but we have not tested it.</p>
+          <h3>How does the automatic male and female voice work?</h3>
+          <p>The app measures the pitch of the microphone audio, which tells it whether the speaker sounds male or female, and the interpreter page reads each sentence in the male or female voice you chose. It is a hint, not a fact: in our tests on 66 real speakers it was right about 96% of the time for one speaker at a time, and 81% to 84% of sentences got the right voice when people took turns every few seconds. When it is unsure it keeps the voice used last, so the voice does not flip back and forth while one person talks. No audio is stored.</p>
+          </div>
+        <p class="mt-12 text-slate-700"><strong>How accurate and how fast are the captions that feed the translation?</strong> We measure them in the open, on a real NASA news conference, and publish the method, the data and the scoring script. Read the <a href="https://conferencecaptioning.com/benchmark/" class="text-[#193C5D] font-semibold underline">live captioning accuracy and delay benchmark</a>.</p>
+        <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
+          <h3 class="text-2xl font-bold mb-3">Planning translation channels for your headsets?</h3>
+          <p class="text-slate-200 mb-6 max-w-2xl">Tell us about your headset system, your languages and your room, and we will help you plan the audio routing and test the chain before the event.</p>
+          <div class="flex flex-wrap gap-4">
+            <button onclick="if(window.Tawk_API &amp;&amp; Tawk_API.maximize){Tawk_API.maximize();}" class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#193C5D] font-bold hover:bg-slate-100 transition-colors">Ask a technical question</button>
+            <a href="https://conferencecaptioning.com/av-production.html" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">See full AV specs &rarr;</a><a href="https://app.conferencecaptioning.com" data-cta="blog-start-free" class="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/40 text-white font-bold hover:bg-white/10 transition-colors">Start free &rarr;</a>
+          </div>
+        </div>
+        <div class="mt-24 pt-12 border-t border-slate-200">
+          <h2 class="text-2xl font-bold mb-8 text-slate-900 tracking-tight">
+            Related Articles
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <a
+              href="/offline-event-translation/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Guide</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                Live Captions and Translation at Events, Without Venue Internet
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                How to run on-device live captions and translation in a room with unreliable Wi-Fi: screens first, a backup device, and a pre-event checklist.
+              </p></a
+            ><a
+              href="/blog/how-to-set-a-static-local-ip-address-on-mac-av/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Technology</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                How to Set a Static Local IP Address on a Mac for AV
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                Keep the address of your captioning device from changing, so links and overlays keep working from one event to the next.
+              </p></a
+            >
+          </div>
+        </div>
+      </article>
+    </main>
+    <footer class="bg-slate-900 border-t border-slate-800 mt-20 pt-16 pb-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div class="col-span-1 md:col-span-1">
+            <a
+              href="https://conferencecaptioning.com"
+              class="inline-block mb-6 flex items-center gap-2"
+              ><img
+                src="https://conferencecaptioning.com/images/logo-white.svg"
+                alt="Conference Captioning"
+                class="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              /><span class="hidden text-white font-bold tracking-tight"
+                >Conference Captioning</span
+              ></a
+            >
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+              The world&#x27;s fastest and most reliable on-device event
+              translation and captioning system for AV professionals.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://vimeo.com/950840441"
+                title="Vimeo"
+                target="_blank"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Vimeo profile</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22.396 7.164c-.093 2.026-1.507 4.8-4.245 8.32C15.323 19.16 12.93 21 10.97 21c-1.214 0-2.24-1.12-3.08-3.36-.56-2.052-1.119-4.1-1.68-6.15-.653-2.332-1.306-3.498-1.959-3.498-.186 0-.933.466-2.24 1.399L.637 7.728c1.586-1.306 3.172-2.705 4.758-4.198 1.96-1.866 3.266-2.752 3.918-2.659 1.493.186 2.333 1.586 2.52 4.198.28 4.292.56 6.531.84 6.718.466.466 1.166.046 2.099-1.26 1.026-1.492 1.633-2.659 1.82-3.498.28-1.306-.234-1.959-1.54-1.959-.56 0-1.073.14-1.54.42 1.026-3.359 3.032-4.992 6.018-4.898 2.332.093 3.359 1.492 3.08 4.198l-.187.374z"
+                  ></path></svg></a
+              ><a
+                href="https://twitter.com/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Twitter</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                  ></path></svg></a
+              ><a
+                href="https://facebook.com/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">Facebook</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                    clip-rule="evenodd"
+                  ></path></svg></a
+              ><a
+                href="https://linkedin.com/showcase/BeAware4Deaf"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">LinkedIn</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                    clip-rule="evenodd"
+                  ></path></svg></a
+              ><a
+                href="https://github.com/TheFirstPrototype"
+                class="text-slate-500 hover:text-white transition-colors"
+                ><span class="sr-only">GitHub</span
+                ><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                    clip-rule="evenodd"
+                  ></path></svg
+              ></a>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Solutions
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/av-production.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >AV Engineers &amp; Broadcasting</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/event-organizers.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Event Planners &amp; Organizers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/church-live-translation-transcription.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Churches &amp; Chapels</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Evaluations &amp; Compliance
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/ada-compliance-certification.pdf"
+                  target="_blank"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >ADA Compliance Certification</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/arabic.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Arabic Accuracy Evaluation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/japanese.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Japanese Accuracy Evaluation</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com/italian.html"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Italian Accuracy Evaluation</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-span-1">
+            <h3
+              class="text-slate-200 font-semibold mb-4 uppercase tracking-wider text-xs"
+            >
+              Company
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://conferencecaptioning.com#about"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://conferencecaptioning.com#contact"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@conferencecaptioning.com"
+                  class="text-slate-400 hover:text-white transition-colors text-sm"
+                  >hello@conferencecaptioning.com</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="text-slate-500 text-sm">
+            <a
+              href="https://deafassistant.com"
+              target="_blank"
+              class="hover:text-slate-300"
+              >© ConferenceCaptioning 2026</a
+            >.
+          </div>
+          <div class="text-slate-400 text-sm font-medium">
+            Made with love for the a11y community.
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        function initInteractive() {
+          if (
+            window.jQuery &&
+            window.jQuery.fn.owlCarousel &&
+            window.jQuery.fn.lazyload
+          ) {
+            window.jQuery("img.lazy").lazyload({ effect: "fadeIn" });
+            window.jQuery(".hero-carousel").owlCarousel({
+              items: 1,
+              loop: true,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              animateOut: "fadeOut",
+              animateIn: "fadeIn",
+              mouseDrag: false,
+              touchDrag: false,
+              dots: false,
+              nav: false,
+              lazyLoad: true,
+            });
+          } else {
+            setTimeout(initInteractive, 100);
+          }
+        }
+        initInteractive();
+      })();
+    </script>
+      <!--Start of Tawk.to Script-->
+    <script defer type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67291e984304e3196add0224/1ibs9v0u1';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+  <script src="https://conferencecaptioning.com/blog/assets/mobile-nav.js"></script>
+  </body>
+</html>

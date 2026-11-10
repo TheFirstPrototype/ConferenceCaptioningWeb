@@ -1,50 +1,74 @@
 WEBVTT
 
 1
-00:00:00.300 --> 00:00:07.754
-[Narrator] Introducing live-translated audio, for wireless conference headsets. One speaker. Every language. On the headsets your attendees already wear.
+00:00:00.250 --> 00:00:02.900
+[Narrator] You have built a big stage.
 
 2
-00:00:08.104 --> 00:00:13.041
-[Narrator] Watch. Channel one carries the speaker, in English. Channel two carries the translation, in French.
+00:00:03.200 --> 00:00:05.200
+[Narrator] And invited a global audience.
 
 3
-00:00:13.541 --> 00:00:16.358
-[Channel 1, a woman speaking English] Good morning everyone, and welcome to the conference.
+00:00:05.700 --> 00:00:07.700
+[Narrator] But you have just one speaker.
 
 4
-00:00:17.558 --> 00:00:19.792
-[Channel 2, translated in a female voice] Bonjour à tous et bienvenue à la conférence.
+00:00:08.500 --> 00:00:18.400
+[Narrator] Introducing! Live translated audio! For wireless conference headsets! Every language! Right on the headsets your attendees already wear!
 
 5
-00:00:20.192 --> 00:00:23.569
-[Narrator] A woman is speaking, so the translation is read in a female voice.
+00:00:19.300 --> 00:00:31.300
+[Narrator] Think about it, organizers: every single attendee hears the room in their own language! And AV teams? It runs right through your mixer, and uses the headsets you already own!
 
 6
-00:00:24.169 --> 00:00:25.358
-[Channel 1, a man speaking English] Thank you, Claire.
+00:00:32.150 --> 00:00:44.600
+[Narrator] The signal path? It is incredibly simple! Your mixer feeds a Mac running the app. Then the app sends those perfectly translated streams into separate channels, using your wireless headset transmitters!
 
 7
-00:00:26.258 --> 00:00:26.969
-[Channel 2, translated in a male voice] Merci, Claire.
+00:00:45.550 --> 00:00:55.300
+[Narrator] Just watch! Channel one carries the speaker in English. And now, thanks to ConferenceCaptioning, channel two carries the live translation in French!
 
 8
-00:00:27.369 --> 00:00:36.929
-[Narrator] Now a man is speaking, so the voice switches to a male one. You choose the gender, the voice and the accent your listeners hear. Or turn on automatic gender detection, for when two people share the stage.
+00:00:55.950 --> 00:00:59.259
+[Channel 1, a woman speaking English] Good morning, everyone, and welcome to the conference.
 
 9
-00:00:37.729 --> 00:00:42.046
-[Narrator] The numbers. The translated voice starts about one second after each sentence ends.
+00:01:00.359 --> 00:01:02.593
+[Channel 2, translated in a female voice] Bonjour à tous et bienvenue à la conférence.
 
 10
-00:00:42.346 --> 00:00:48.176
-[Narrator] The right voice was chosen ninety-six times out of a hundred, tested on sixty-six real speakers, one at a time.
+00:01:03.193 --> 00:01:08.893
+[Narrator] Now, a man is speaking, so the dubbed French voice instantly switches to a male voice.
 
 11
-00:00:48.476 --> 00:00:51.303
-[Narrator] More than fifty languages, and no internet needed in the hall.
+00:01:09.563 --> 00:01:10.424
+[Channel 1, a man speaking English] Thank you, Claire.
 
 12
-00:00:52.003 --> 00:00:57.522
-[Narrator] Live-translated audio. Add translated channels to your headset system. conferencecaptioning.com
+00:01:11.524 --> 00:01:12.235
+[Channel 2, translated in a male voice] Merci, Claire.
+
+13
+00:01:13.235 --> 00:01:21.935
+[Narrator] Amazing! You can even choose the language, the voice, and the accent! Or simply turn on automatic detection for two people on stage!
+
+14
+00:01:22.735 --> 00:01:30.435
+[Narrator] Look at the numbers! The translated voice starts just one second after each phrase or sentence ends, thanks to on-device AI!
+
+15
+00:01:31.035 --> 00:01:39.835
+[Narrator] With more than 50 languages and accents to choose from, zero internet needed in the hall, and unmatched reliability thanks to automatic failover!
+
+16
+00:01:40.535 --> 00:01:45.835
+[Narrator] So no hefty conference internet line fees, and no unpopular data centers used for AI!
+
+17
+00:01:46.535 --> 00:01:52.735
+[Narrator] Setting up your headset system was the hardest part. Now, you can make it even more incredibly useful!
+
+18
+00:01:53.535 --> 00:01:57.435
+[Narrator] Go ahead! Visit conferencecaptioning.com for a free demo today!
 

@@ -106,7 +106,7 @@
           "name": "How many languages can I send at once?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "One language per interpreter page, because a web page cannot choose which audio output it plays through. For several languages, use one computer per language, each wired to its own transmitter channel. Routing several browsers on one computer to different audio devices with a sound-routing tool may work, but we have not tested it."
+            "text": "One language per interpreter page, but you can open the page several times on the same Mac: each browser tab takes one language and sends it to its own sound output (Sound output on the page), so one computer can feed more than two channels. Use Chrome, open the page as http://localhost:8080/interpreter.html on the Mac running the app, and press Show device names once per tab. We tried two tabs at once with real voices (French to the headphones, Arabic to the Mac speakers); we have not yet tested it with Dante or a USB interface on a transmitter, or measured how many languages a Mac can run at once. Another computer per language still works too."
           }
         },
         {
@@ -138,7 +138,7 @@
           "name": "Which languages are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "More than 50 languages and accents to choose from. For each language you choose the voice and the accent your listeners hear. Each interpreter page sends one language, so use one computer per language when you need several at once."
+            "text": "More than 50 languages and accents to choose from. For each language you choose the voice and the accent your listeners hear. Each interpreter page speaks one language, so open it once per language (one tab each, or one computer each) when you need several at once."
           }
         },
         {
@@ -411,7 +411,7 @@
           <ul>
             <li><strong>Simple signal path.</strong> The mixer (or a microphone) feeds the Mac, the Mac&#39;s sound output goes to one spare channel on the transmitter, and the English stays on channel 1 straight from the mixer. The routing steps are below.</li>
             <li><strong>Test before doors open.</strong> Test tones for left, right and both, and a speak-sample button, let you check every cable and channel with a headset in hand.</li>
-            <li><strong>Plan the extras.</strong> Give the Mac a static IP, keep it awake, use one computer per language, and add a backup device for mission-critical shows (see the Pro Tips).</li>
+            <li><strong>Plan the extras.</strong> Give the Mac a static IP, keep it awake, open one interpreter tab per language (each on its own sound output), and add a backup device for mission-critical shows (see the Pro Tips).</li>
             <li><strong>No cloud dependency.</strong> Translation and voices run on your side of the room, so a venue Wi-Fi problem does not take the translated channel down.</li>
           </ul>
 
@@ -461,12 +461,14 @@
             <li>Choose the language, pick a voice, and press <strong>Start speaking</strong>. Browsers require one click before they play sound.</li>
           </ol>
           <h3>Step 4: Send the audio to a channel of its own</h3>
-          <p>The page speaks through the <strong>computer&#39;s current sound output</strong>, and a web page cannot choose the output or a single channel by itself, so you do the routing:</p>
+          <p>By default the page speaks through the <strong>computer&#39;s current sound output</strong>. To send it to a specific device instead, open the page in Chrome as <em>http://localhost:8080/interpreter.html</em> on the Mac running the app, press <strong>Show device names</strong> (Chrome asks for the microphone once only to reveal the names; nothing is recorded) and pick a device under <strong>Sound output</strong>. The app then renders each sentence with the same voice and the page plays it on that device. Then route that device to the transmitter:</p>
           <ul>
             <li><strong>Dante Virtual Soundcard:</strong> set the output to Dante Virtual Soundcard and subscribe only TX channel 2 to the transmitter&#39;s channel 2 input. English stays on channel 1 from the mixer.</li>
             <li><strong>USB interface or headphone jack:</strong> use a stereo-to-two-mono splitter and connect only the right leg to the transmitter&#39;s channel 2 input.</li>
-            <li><strong>Another computer on the same network:</strong> open the same address on it and wire its output the same way. This is also how you add a second language.</li>
+            <li><strong>Another computer on the same network:</strong> open the same address on it and wire its output the same way. This is another way to add a language.</li>
           </ul>
+          <h3>More than one language from one computer</h3>
+          <p>When the app is translating into several languages, the page lists them under <strong>Language to speak</strong> and explains this: one page speaks one language. Press <strong>Open &hellip; in a new tab</strong> to open another tab for the next language (the link carries <em>?slot=1</em> for the second language, and <em>&amp;out=Headphones</em> picks an output by name), choose that tab&#39;s <strong>Sound output</strong>, and repeat for each language. Every tab keeps its own language and output, so one Mac can feed several transmitter channels, not just two. In our test, one tab spoke French on the headphones and another Arabic on the Mac speakers at the same time. We have not measured CPU or memory with many tabs running, so check a full set-up before the event.</p>
           <h3>Step 5: Test the whole chain</h3>
           <p>Press <strong>Tone: left</strong>, <strong>Tone: right</strong> and <strong>Tone: both</strong>, and <strong>Speak sample with this voice</strong>, then listen on a headset tuned to the channel. Do this before the event, with the transmitter powered and the headsets in range.</p>
           <h3>Step 6: Turn on &quot;Match the speaker&quot; (optional)</h3>
@@ -535,7 +537,7 @@
           <ul>
             <li><strong>It is machine translation.</strong> It is very good on everyday conference language, but idioms can come out wrong: in our own tests &quot;Exactly right&quot; was translated as the French for &quot;exactly to the right&quot;. Run your key phrases through it first, and keep human interpreters for legal, medical or other high-stakes sessions.</li>
             <li><strong>Fast talkers.</strong> A voice cannot read faster than people comfortably listen. If the speaker talks continuously and quickly, the translation falls behind. In one 16-minute test with continuous speech, half of the sentences waited more than 4.6 seconds because earlier sentences were still being read. The page then speaks up to 30% faster to catch up. For a fast speaker, ask them to leave short pauses.</li>
-            <li><strong>One language per page.</strong> A web page cannot choose where its sound goes, so each language needs its own computer, or a browser routed to its own audio device.</li>
+            <li><strong>One language per page.</strong> Open the page once per language; each tab can send its sound to its own output device (Chrome, opened as localhost on the Mac running the app). Several languages from one Mac are tested with two tabs; larger set-ups and Dante or USB hardware are not yet tested.</li>
             <li><strong>Overlapping speakers</strong> are not handled: when two people talk at once the voice choice is a guess.</li>
             <li><strong>Your headset system is your own.</strong> We have not tested every brand of transmitter. Anything that takes an audio input and sends it to a channel should work, and the tone buttons tell you quickly.</li>
           </ul>
@@ -556,7 +558,7 @@
           <h3>How long after a sentence ends does the translated voice start?</h3>
           <p>About one second after a sentence ends in Rapid mode, when the voice is free: roughly 0.6 seconds for the speech recognizer to decide the sentence is finished, 0.2 seconds for the app to translate it and hand it over, and 0.1 seconds for the voice to start. On our demo script the voice was called 1.1 seconds after the end of a sentence on average. Mix mode, which we measured earlier, took about 2.8 seconds. If the speaker talks faster than the voice can read, the voice falls behind: it then speaks a little faster and skips ahead rather than drifting further.</p>
           <h3>How many languages can I send at once?</h3>
-          <p>One language per interpreter page, because a web page cannot choose which audio output it plays through. For several languages, use one computer per language, each wired to its own transmitter channel. Routing several browsers on one computer to different audio devices with a sound-routing tool may work, but we have not tested it.</p>
+          <p>One language per interpreter page, but you can open the page several times on the same Mac: each browser tab takes one language and sends it to its own sound output (Sound output on the page), so one computer can feed more than two channels. Use Chrome, open the page as http://localhost:8080/interpreter.html on the Mac running the app, and press Show device names once per tab. We tried two tabs at once with real voices (French to the headphones, Arabic to the Mac speakers); we have not yet tested it with Dante or a USB interface on a transmitter, or measured how many languages a Mac can run at once. Another computer per language still works too.</p>
           <h3>How does the automatic male and female voice work?</h3>
           <p>The app measures the pitch of the microphone audio, which tells it whether the speaker sounds male or female, and the interpreter page reads each sentence in the male or female voice you chose. It is a hint, not a fact: in our tests on 66 real speakers it was right about 96% of the time for one speaker at a time, and 81% to 84% of sentences got the right voice when people took turns every few seconds. When it is unsure it keeps the voice used last, so the voice does not flip back and forth while one person talks. No audio is stored.</p>
           <h3>What equipment do I need to add translated audio to a headset system?</h3>
@@ -564,7 +566,7 @@
           <h3>Is this a replacement for human interpreters?</h3>
           <p>It is machine translation. It is very good on everyday conference language, but idioms can come out wrong, so keep human interpreters for legal, medical or other high-stakes sessions. For most sessions it lets you offer more languages than you could staff with interpreters.</p>
           <h3>Which languages are supported?</h3>
-          <p>More than 50 languages and accents to choose from. For each language you choose the voice and the accent your listeners hear. Each interpreter page sends one language, so use one computer per language when you need several at once.</p>
+          <p>More than 50 languages and accents to choose from. For each language you choose the voice and the accent your listeners hear. Each interpreter page speaks one language, so open it once per language (one tab each, or one computer each) when you need several at once.</p>
           <h3>What if the computer fails during the event?</h3>
           <p>ConferenceCaptioning supports hot failover to a backup device for mission-critical shows (see our zero-downtime guide). Whatever your setup, keep a spare computer on the same network and test the switch with your own transmitter before doors open.</p>
           </div>

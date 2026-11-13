@@ -1026,13 +1026,13 @@
 
       /* Bottom bar with big centered CTAs and small side logo strip
          no longer fits on one line */
-      .slide[data-slide="10"] > div[style*="justify-content: space-between"] {
+      .slide[data-slide="11"] > div[style*="justify-content: space-between"] {
         flex-direction: column;
         align-items: flex-start !important;
         gap: 20px;
       }
 
-      .slide[data-slide="10"] > div[style*="justify-content: space-between"] > div[style*="max-width: 45%"] {
+      .slide[data-slide="11"] > div[style*="justify-content: space-between"] > div[style*="max-width: 45%"] {
         max-width: 100% !important;
       }
 
@@ -1522,7 +1522,7 @@
 
         <div class="glass-card">
           <h3 class="card-title">🔒 Privacy-First AI</h3>
-          <p class="card-text">On-device AI processing ensures sensitive executive keynotes and proprietary data never leave the room.</p>
+          <p class="card-text">On-device AI processing keeps sensitive keynotes in the room. Optional closed sessions (sign-in or secure link) and a switch to not store transcripts give you control of who sees what.</p>
         </div>
 
         <div class="glass-card">
@@ -1605,9 +1605,59 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 9: AV BUSINESS OPPORTUNITY
+         SLIDE 9: LIVE-TRANSLATED AUDIO FOR WIRELESS HEADSETS
          ========================================== -->
     <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="header-content">
+          <div class="slide-eyebrow">New · Translated Audio</div>
+          <h2 class="slide-title">Every language, in the headsets your attendees already wear.</h2>
+          <p class="slide-subtitle">A Mac listens to the mixer feed, translates, and speaks each language on a channel of its own, so no extra interpreters or booths.</p>
+        </div>
+        <div class="slide-logo-badge">
+          <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="biz-diagram">
+        <div style="text-align:center;"><span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">STAGE</span><br/><strong>MIXER FEED</strong></div>
+        <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
+        <div style="background: rgba(56, 189, 248, 0.15); padding: 6px 16px; border-radius: 8px; border: 1px solid var(--brand-accent); text-align:center;"><span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">ON-DEVICE, NO INTERNET</span><br/><strong>ConferenceCaptioning</strong></div>
+        <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
+        <div style="text-align:center;"><span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">ONE CHANNEL PER LANGUAGE</span><br/><strong>HEADSET TRANSMITTER</strong></div>
+        <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
+        <div style="text-align:center;"><span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">ATTENDEES</span><br/><strong>SWITCH CHANNEL</strong></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw;">
+        <div class="glass-card" style="border-left: 3px solid #38bdf8;">
+          <h3 class="card-title">⏱️ About 1 second</h3>
+          <p class="card-text">From the end of a sentence to the translated voice starting: 1.1 s on average, within 2 s for 95% of sentences (Rapid mode, French demo).</p>
+        </div>
+        <div class="glass-card" style="border-left: 3px solid #34d399;">
+          <h3 class="card-title">🌍 5 languages, 1 Mac</h3>
+          <p class="card-text">Five languages on five sound outputs at once, every sentence on time in our test. Open one page per language; each picks its own output.</p>
+        </div>
+        <div class="glass-card" style="border-left: 3px solid #f59e0b;">
+          <h3 class="card-title">🎙️ Matches the speaker</h3>
+          <p class="card-text">Optional male or female voice per speaker: right 96% of the time on 66 speakers, one at a time. Nothing to configure per person.</p>
+        </div>
+        <div class="glass-card" style="border-left: 3px solid #a78bfa;">
+          <h3 class="card-title">📡 Works offline</h3>
+          <p class="card-text">Translation and voices run on your Mac, so a venue Wi-Fi problem does not take the channel down. Attendees install nothing.</p>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center; margin-top:1.6vh;">
+        <video controls muted playsinline preload="metadata" poster="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/video-poster.jpg" src="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/live-translated-audio-headsets.mp4" aria-label="Demo: a woman and then a man speak English; the app speaks the French translation on a second headset channel" style="height:36vh; max-width:100%; aspect-ratio:16/9; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background:#000;"></video>
+      </div>
+      <div class="bottom-statement">
+        <span><strong>Interpreters for every language are expensive, and often not possible. Add languages to any session.</strong></span>
+        <span><a href="https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/" target="_blank" rel="noopener" style="color: var(--brand-accent);">Setup guide and demo video &rarr;</a></span>
+      </div>
+    </section>
+
+        <!-- ==========================================
+         SLIDE 10: AV BUSINESS OPPORTUNITY
+         ========================================== -->
+    <section class="slide" data-slide="10">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">AV Commercial Opportunity</div>
@@ -1657,7 +1707,7 @@
             ✓ Accessibility Compliance
           </div>
           <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.85rem; text-align: center;">
-            ✓ Inclusive Tech Package
+            ✓ Translated Headset Audio
           </div>
         </div>
       </div>
@@ -1679,9 +1729,9 @@
     </section>
 
     <!-- ==========================================
-         SLIDE 10: CALL TO ACTION (With section-bg-15.jpg)
+         SLIDE 11: CALL TO ACTION (With section-bg-15.jpg)
          ========================================== -->
-    <section class="slide slide-bg-15" data-slide="10">
+    <section class="slide slide-bg-15" data-slide="11">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">Next Steps</div>
@@ -1755,7 +1805,7 @@
          ========================================== -->
     <div class="deck-hud" id="deckHud">
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);" id="slideCounter">01 / 10</span>
+        <span style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);" id="slideCounter">01 / 11</span>
       </div>
 
       <div class="hud-controls">

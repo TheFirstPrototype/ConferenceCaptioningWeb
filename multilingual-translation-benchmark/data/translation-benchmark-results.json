@@ -1386,5 +1386,7 @@
    "browser_cpu_pct_of_one_core": 36.79358974358974,
    "runs": 3
   }
- ]
+ ],
+ "recognizer_delay_s": 0.5,
+ "e2e_run_seconds": 60
 }

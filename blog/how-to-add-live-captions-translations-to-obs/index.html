@@ -129,7 +129,7 @@
     <script
       defer=""
       type="text/javascript"
-      src="https://conferencecaptioning.com/js/analyticsLite.js"
+      src="https://conferencecaptioning.com/js/analyticsLite.js?v=20261019b"
     ></script>
     <link rel="canonical" href="https://conferencecaptioning.com/blog/how-to-add-live-captions-translations-to-obs/" />
     <script defer src="https://conferencecaptioning.com/js/siteTracking.js?v=20260930"></script>
@@ -418,7 +418,7 @@
             <li>
               Or start, stop, show, and hide captions from an
               <strong>Elgato Stream Deck</strong> or <strong>Bitfocus
-              Companion</strong>, or from any browser at
+              Companion</strong> (<a href="/blog/how-to-control-live-captions-with-stream-deck-bitfocus-companion/">setup guide</a>), or from any browser at
               <em>http://{device IP}:8080/control.html</em>, without touching
               the captioning device.
             </li>
@@ -467,6 +467,7 @@
           <h3>Should I use a transparent background or a chroma key?</h3>
           <p>Both work. The transparent background drops straight onto your video with no extra setup. Many AV engineers prefer a green chroma key background with OBS&#x27;s Chroma Key filter, because it behaves predictably across switchers and outputs.</p>
         </div>
+        <p class="mt-12 text-slate-700"><strong>How accurate and how fast are the captions?</strong> We measure them in the open, on a real NASA news conference, and publish the method, the data and the scoring script. Read the <a href="https://conferencecaptioning.com/benchmark/" class="text-[#193C5D] font-semibold underline">live captioning accuracy and delay benchmark</a>.</p>
         <div class="mt-16 p-8 rounded-2xl bg-[#193C5D] text-white">
           <h3 class="text-2xl font-bold mb-3">Running OBS at a venue with unreliable Wi-Fi?</h3>
           <p class="text-slate-200 mb-6 max-w-2xl">ConferenceCaptioning runs entirely on-device, so captions and translations keep flowing into OBS even if the venue internet goes down mid-show. Tell us about your switcher and outputs and we'll help you plan the setup.</p>
@@ -513,6 +514,26 @@
               </h3>
               <p class="text-slate-600 text-sm line-clamp-2">
                 Ensure your captions never go down during critical live broadcasts with our robust hot-failover redundancy architecture.
+              </p></a
+            >
+          <a
+              href="/offline-event-translation/"
+              class="group flex flex-col gap-3 p-6 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-slate-100"
+              ><div class="flex items-center gap-2 mb-1">
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-[#193C5D]"
+                  >Guide</span
+                >
+              </div>
+              <h3
+                class="font-bold text-lg text-slate-900 group-hover:text-[#193C5D] transition-colors leading-snug"
+              >
+                Live Captions and Translation at Events, Without Venue Internet
+              </h3>
+              <p class="text-slate-600 text-sm line-clamp-2">
+                How to run on-device live captions and translation in a room
+                with unreliable Wi-Fi: screens first, a backup device, and a
+                pre-event checklist.
               </p></a
             >
           </div>
@@ -748,5 +769,6 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+  <script src="https://conferencecaptioning.com/blog/assets/mobile-nav.js"></script>
   </body>
 </html>

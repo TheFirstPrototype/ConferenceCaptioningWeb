@@ -175,6 +175,11 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://conferencecaptioning.com/blog/live-translated-audio-for-wireless-conference-headsets/</loc>
+    <lastmod>2026-11-10T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://conferencecaptioning.com/blog/conference-captioning-chrome-extension-on-device-ai/</loc>
     <lastmod>2026-09-28T00:00:00+00:00</lastmod>
     <priority>0.80</priority>
@@ -202,6 +207,11 @@
   <url>
     <loc>https://conferencecaptioning.com/blog/worlds-fastest-event-translations/</loc>
     <lastmod>2026-09-10T04:35:03+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/blog/introducing-the-conferencecaptioning-partner-program/</loc>
+    <lastmod>2026-11-02T00:00:00+00:00</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -369,6 +379,11 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://conferencecaptioning.com/shareables/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://conferencecaptioning.com/caption-url-generator.html</loc>
     <lastmod>2026-09-28T00:00:00+00:00</lastmod>
     <priority>0.70</priority>
@@ -397,5 +412,60 @@
     <loc>https://conferencecaptioning.com/blog/how-to-add-live-captions-translations-to-obs/</loc>
     <lastmod>2026-09-29T00:00:00+00:00</lastmod>
     <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/blog/how-to-control-live-captions-with-stream-deck-bitfocus-companion/</loc>
+    <lastmod>2026-10-30T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/blog/ask-your-ai-assistant-about-your-event-mcp-server/</loc>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/benchmark/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/multilingual-translation-benchmark/</loc>
+    <lastmod>2026-10-05T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/developers/</loc>
+    <lastmod>2026-10-28T00:00:00+00:00</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/partners/</loc>
+    <lastmod>2026-11-02T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/partners/av-production/</loc>
+    <lastmod>2026-11-02T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/partners/event-organizers/</loc>
+    <lastmod>2026-11-02T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/partners/nonprofits/</loc>
+    <lastmod>2026-11-02T00:00:00+00:00</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/offline-event-translation/</loc>
+    <lastmod>2026-10-12T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://conferencecaptioning.com/conference-captioning-vs-cloud-translation/</loc>
+    <lastmod>2026-10-12T00:00:00+00:00</lastmod>
+    <priority>0.80</priority>
   </url>
 </urlset>

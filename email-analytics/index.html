@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Email Analytics | ConferenceCaptioning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' } } } } }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-600 text-white p-2 rounded-lg"><i data-lucide="mail-check" class="w-6 h-6"></i></div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900">Email Analytics</h1>
+                    <p class="text-xs text-gray-500">Opens and clicks for emails sent from hello@conferencecaptioning.com</p>
+                </div>
+            </div>
+            <div id="toolbar" class="hidden items-center space-x-3">
+                <select id="range" class="border border-gray-300 rounded-md text-xs py-1.5 px-2 bg-white" aria-label="Date range">
+                    <option value="7">Last 7 days</option>
+                    <option value="30" selected>Last 30 days</option>
+                    <option value="90">Last 90 days</option>
+                    <option value="365">Last year</option>
+                </select>
+                <button id="refresh" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 mr-1.5"></i> Refresh
+                </button>
+                <button id="signout" class="text-xs text-gray-500 underline">Sign out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-8">
+
+        <!-- Sign in -->
+        <section id="login" class="hidden max-w-sm mx-auto bg-white rounded-2xl shadow p-6 space-y-4">
+            <h2 class="text-lg font-semibold">Sign in</h2>
+            <p class="text-sm text-gray-600">This page is for the ConferenceCaptioning administrator.</p>
+            <form id="login-form" class="space-y-3">
+                <label class="block text-sm font-medium">Email <input id="email" type="email" required autocomplete="username" class="mt-1 w-full border border-gray-300 rounded-lg py-2 px-3"></label>
+                <label class="block text-sm font-medium">Password <input id="password" type="password" required autocomplete="current-password" class="mt-1 w-full border border-gray-300 rounded-lg py-2 px-3"></label>
+                <button class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg py-2">Sign in</button>
+            </form>
+            <button id="google" class="w-full border border-gray-300 rounded-lg py-2 text-sm font-medium hover:bg-gray-50">Sign in with Google</button>
+            <p id="login-error" class="text-sm text-red-700" role="alert"></p>
+        </section>
+
+        <p id="status" class="text-sm text-gray-600">Checking your sign-in...</p>
+
+        <div id="dashboard" class="hidden space-y-8">
+            <p id="problem" class="hidden bg-red-50 text-red-800 rounded-xl p-3 text-sm" role="alert"></p>
+
+            <!-- Cards -->
+            <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Totals">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Emails sent</div>
+                    <div id="c-sent" class="text-3xl font-bold mt-1">–</div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Opened (estimate)</div>
+                    <div id="c-opened" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-opened-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Opened by a person (likely)</div>
+                    <div id="c-human" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-human-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Clicked a link</div>
+                    <div id="c-clicked" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-clicked-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+            </section>
+
+            <!-- Chart -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h2 class="font-semibold mb-3">Sent, opens and clicks per day</h2>
+                <div class="relative h-72"><canvas id="chart" aria-label="Line chart of emails sent, opens and clicks per day" role="img"></canvas></div>
+            </section>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <h2 class="font-semibold mb-3">By template</h2>
+                    <table class="w-full text-sm"><thead><tr class="text-left text-gray-500"><th class="py-1 font-normal">Template</th><th class="font-normal text-right">Sent</th><th class="font-normal text-right">Opened</th><th class="font-normal text-right">Clicked</th></tr></thead><tbody id="by-template"></tbody></table>
+                </section>
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <h2 class="font-semibold mb-3">Top links clicked</h2>
+                    <table class="w-full text-sm"><thead><tr class="text-left text-gray-500"><th class="py-1 font-normal">Link</th><th class="font-normal text-right">Clicks</th><th class="font-normal text-right">People</th></tr></thead><tbody id="top-links"></tbody></table>
+                </section>
+            </div>
+
+            <!-- Messages -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h2 class="font-semibold mb-3">Every email <span class="text-xs font-normal text-gray-500">(select a row to see its opens and clicks)</span></h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead><tr class="text-left text-gray-500"><th class="py-1 font-normal">To</th><th class="font-normal">Subject</th><th class="font-normal">Sent</th><th class="font-normal">First open</th><th class="font-normal text-right">Opens</th><th class="font-normal text-right">Clicks</th></tr></thead>
+                        <tbody id="messages"></tbody>
+                    </table>
+                </div>
+                <p id="no-messages" class="hidden text-sm text-gray-500 py-4">No emails sent in this period.</p>
+            </section>
+
+            <p class="text-xs text-gray-500 max-w-3xl">
+                <strong>How accurate are opens?</strong> An open is counted when the email's tiny tracking picture is loaded. Gmail, Yahoo and Apple Mail often load it for the reader
+                in advance, and some readers block pictures, so opens are an estimate. "Opened by a person" leaves out the opens we can recognise as a mail provider's image proxy
+                (marked * below), but Apple Mail's privacy feature cannot be told apart. Clicks are reliable.
+            </p>
+        </div>
+    </main>
+
+<script>
+(function () {
+    const API = 'https://api.deafassistant.com';
+    firebase.initializeApp({
+        apiKey: 'AIzaSyCsl1BRFkZNJRnIjeyUAR1l0VRSmgccyzM',
+        authDomain: 'beawareconfcapportal.firebaseapp.com',
+        projectId: 'beawareconfcapportal',
+    });
+    const auth = firebase.auth();
+    const $ = (id) => document.getElementById(id);
+    let chart = null;
+
+    // Everything from the API is untrusted text (addresses, subjects, user agents, URLs): it only ever goes in through textContent.
+    function el(tag, text, cls) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; }
+    function cell(text, cls) { return el('td', text, 'py-1.5 ' + (cls || '')); }
+    function when(iso) { return iso ? new Date(iso).toLocaleString() : ''; }
+    function pct(n) { return n + '%'; }
+
+    async function api(path) {
+        const user = auth.currentUser;
+        if (!user) throw new Error('signed out');
+        const res = await fetch(API + path, { headers: { Authorization: 'Bearer ' + await user.getIdToken() } });
+        if (res.status === 403) { const e = new Error('admins only'); e.denied = true; throw e; }
+        if (!res.ok) throw new Error('The server answered ' + res.status);
+        return res.json();
+    }
+
+    function show(which) {
+        $('login').classList.toggle('hidden', which !== 'login');
+        $('dashboard').classList.toggle('hidden', which !== 'dashboard');
+        $('toolbar').classList.toggle('hidden', which !== 'dashboard');
+        $('toolbar').classList.toggle('flex', which === 'dashboard');
+        $('status').classList.toggle('hidden', which !== 'checking' && which !== 'denied');
+        $('status').textContent = which === 'denied' ? 'This page is for the ConferenceCaptioning administrator.' : 'Checking your sign-in...';
+    }
+
+    async function load() {
+        const days = $('range').value;
+        $('problem').classList.add('hidden');
+        try {
+            const [summary, messages] = await Promise.all([api('/emailtracker/summary?days=' + days), api('/emailtracker/messages?days=' + days)]);
+            show('dashboard');
+            render(summary, messages);
+        } catch (e) {
+            if (e.denied) { show('denied'); return; }
+            show('dashboard');
+            $('problem').textContent = 'Could not load the analytics. ' + e.message;
+            $('problem').classList.remove('hidden');
+        }
+    }
+
+    function emptyRow(tbody, text) {
+        const tr = el('tr'); const td = el('td', text, 'py-2 text-gray-500'); td.colSpan = 4; tr.append(td); tbody.append(tr);
+    }
+
+    function render(s, messages) {
+        $('c-sent').textContent = s.sent;
+        $('c-opened').textContent = s.opened;
+        $('c-opened-sub').textContent = pct(s.openRate) + ' of sent';
+        $('c-human').textContent = s.openedHuman;
+        $('c-human-sub').textContent = pct(s.humanOpenRate) + ' of sent';
+        $('c-clicked').textContent = s.clicked;
+        $('c-clicked-sub').textContent = pct(s.clickRate) + ' of sent';
+
+        const labels = s.perDay.map((d) => d.date);
+        const data = (key) => s.perDay.map((d) => d[key]);
+        if (chart) chart.destroy();
+        chart = new Chart($('chart'), {
+            type: 'line',
+            data: { labels, datasets: [
+                { label: 'Sent', data: data('sent'), borderColor: '#64748b', backgroundColor: '#64748b', tension: 0.3 },
+                { label: 'Opens', data: data('opens'), borderColor: '#2563eb', backgroundColor: '#2563eb', tension: 0.3 },
+                { label: 'Clicks', data: data('clicks'), borderColor: '#059669', backgroundColor: '#059669', tension: 0.3 },
+            ] },
+            options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+        });
+
+        const tpl = $('by-template'); tpl.replaceChildren();
+        s.byTemplate.forEach((t) => { const tr = el('tr', undefined, 'border-t border-gray-100'); tr.append(cell(t.template), cell(t.sent, 'text-right'), cell(t.opened, 'text-right'), cell(t.clicked, 'text-right')); tpl.append(tr); });
+        if (!s.byTemplate.length) emptyRow(tpl, 'Nothing sent yet');
+
+        const links = $('top-links'); links.replaceChildren();
+        s.topLinks.forEach((l) => { const tr = el('tr', undefined, 'border-t border-gray-100'); tr.append(cell(l.url, 'break-all pr-2'), cell(l.clicks, 'text-right'), cell(l.people, 'text-right')); links.append(tr); });
+        if (!s.topLinks.length) emptyRow(links, 'No clicks yet');
+
+        const body = $('messages'); body.replaceChildren();
+        $('no-messages').classList.toggle('hidden', messages.length > 0);
+        messages.forEach((m) => {
+            const tr = el('tr', undefined, 'border-t border-gray-100 cursor-pointer hover:bg-gray-50');
+            tr.tabIndex = 0;
+            const subj = cell(m.subject, 'pr-2');
+            if (m.status === 'failed') subj.append(el('span', ' FAILED', 'text-xs font-bold text-red-700'));
+            const opens = m.tracked ? (m.opens + (m.opens > 0 && m.humanOpens === 0 ? '*' : '')) : '–';
+            tr.append(cell(m.to, 'pr-2'), subj, cell(when(m.sentAt), 'pr-2 whitespace-nowrap'), cell(when(m.firstOpen), 'pr-2 whitespace-nowrap'), cell(opens, 'text-right'), cell(m.tracked ? m.clicks : '–', 'text-right'));
+            const toggle = () => timeline(tr, m.id);
+            tr.addEventListener('click', toggle);
+            tr.addEventListener('keydown', (e) => { if (e.key === 'Enter') toggle(); });
+            body.append(tr);
+        });
+    }
+
+    async function timeline(row, id) {
+        const next = row.nextElementSibling;
+        if (next && next.dataset.timeline === id) { next.remove(); return; }
+        const tr = el('tr'); tr.dataset.timeline = id;
+        const td = el('td', 'Loading...', 'bg-gray-50 px-3 py-2 text-xs text-gray-600'); td.colSpan = 6; tr.append(td);
+        row.after(tr);
+        try {
+            const events = await api('/emailtracker/events?id=' + encodeURIComponent(id));
+            td.replaceChildren();
+            if (!events.length) td.textContent = 'No opens or clicks yet.';
+            events.forEach((e) => {
+                const line = e.type === 'click' ? 'Clicked ' + e.url : 'Opened' + (e.proxy ? ' (mail provider image proxy, may not be a person)' : '');
+                td.append(el('div', when(e.at) + ' · ' + line));
+            });
+        } catch (err) { td.textContent = 'Could not load the timeline.'; }
+    }
+
+    $('range').addEventListener('change', load);
+    $('refresh').addEventListener('click', load);
+    $('signout').addEventListener('click', () => auth.signOut());
+    $('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault(); $('login-error').textContent = '';
+        try { await auth.signInWithEmailAndPassword($('email').value, $('password').value); }
+        catch (err) { $('login-error').textContent = 'Could not sign in. Check your email and password.'; }
+    });
+    $('google').addEventListener('click', async () => {
+        $('login-error').textContent = '';
+        try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+        catch (err) { $('login-error').textContent = 'Google sign-in did not finish.'; }
+    });
+    auth.onAuthStateChanged((user) => { if (user) load(); else show('login'); });
+    show('checking');
+    lucide.createIcons();
+})();
+</script>
+</body>
+</html>

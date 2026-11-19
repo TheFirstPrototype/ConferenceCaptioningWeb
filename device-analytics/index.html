@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Device Analytics | ConferenceCaptioning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' } } } } }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-600 text-white p-2 rounded-lg"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-900">Device Analytics</h1>
+                    <p class="text-xs text-gray-500">Health of the hardware receivers that report through the app (no captions, no audio)</p>
+                </div>
+            </div>
+            <div id="toolbar" class="hidden items-center space-x-3">
+                <select id="range" class="border border-gray-300 rounded-md text-xs py-1.5 px-2 bg-white" aria-label="Date range">
+                    <option value="1">Last day</option>
+                    <option value="7" selected>Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                </select>
+                <button id="refresh" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 mr-1.5"></i> Refresh
+                </button>
+                <button id="signout" class="text-xs text-gray-500 underline">Sign out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow space-y-8">
+
+        <!-- Sign in -->
+        <section id="login" class="hidden max-w-sm mx-auto bg-white rounded-2xl shadow p-6 space-y-4">
+            <h2 class="text-lg font-semibold">Sign in</h2>
+            <p class="text-sm text-gray-600">This page is for the ConferenceCaptioning administrator.</p>
+            <form id="login-form" class="space-y-3">
+                <label class="block text-sm font-medium">Email <input id="email" type="email" required autocomplete="username" class="mt-1 w-full border border-gray-300 rounded-lg py-2 px-3"></label>
+                <label class="block text-sm font-medium">Password <input id="password" type="password" required autocomplete="current-password" class="mt-1 w-full border border-gray-300 rounded-lg py-2 px-3"></label>
+                <button class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-lg py-2">Sign in</button>
+            </form>
+            <button id="google" class="w-full border border-gray-300 rounded-lg py-2 text-sm font-medium hover:bg-gray-50">Sign in with Google</button>
+            <p id="login-error" class="text-sm text-red-700" role="alert"></p>
+        </section>
+
+        <p id="status" class="text-sm text-gray-600">Checking your sign-in...</p>
+
+        <div id="dashboard" class="hidden space-y-8">
+            <p id="problem" class="hidden bg-red-50 text-red-800 rounded-xl p-3 text-sm" role="alert"></p>
+
+            <section class="grid grid-cols-2 lg:grid-cols-6 gap-4" aria-label="Totals">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Receivers seen</div>
+                    <div id="c-devices" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-devices-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Online now</div>
+                    <div id="c-online" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-online-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Weak Wi-Fi signal</div>
+                    <div id="c-weak" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-weak-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Restarts</div>
+                    <div id="c-restarts" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-restarts-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Crashed or reset by watchdog</div>
+                    <div id="c-crashed" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-crashed-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div class="text-xs uppercase font-semibold tracking-wider text-gray-500">Low memory</div>
+                    <div id="c-memory" class="text-3xl font-bold mt-1">–</div>
+                    <div id="c-memory-sub" class="text-xs text-gray-500 mt-1"></div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h2 class="font-semibold mb-3">Receivers reporting and restarts per day</h2>
+                <div class="relative h-72"><canvas id="chart" aria-label="Chart of receivers reporting and restarts per day" role="img"></canvas></div>
+            </section>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <h2 class="font-semibold mb-3">By firmware version</h2>
+                    <table class="w-full text-sm"><thead><tr class="text-left text-gray-500"><th class="py-1 font-normal">Firmware</th><th class="font-normal text-right">Receivers</th></tr></thead><tbody id="by-fw"></tbody></table>
+                </section>
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <h2 class="font-semibold mb-3">By output</h2>
+                    <table class="w-full text-sm"><thead><tr class="text-left text-gray-500"><th class="py-1 font-normal">Output</th><th class="font-normal text-right">Receivers</th></tr></thead><tbody id="by-output"></tbody></table>
+                </section>
+            </div>
+
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h2 class="font-semibold mb-3">Every receiver <span class="text-xs font-normal text-gray-500">(select a row to see its recent log)</span></h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead><tr class="text-left text-gray-500"><th class="py-1 font-normal"></th><th class="font-normal">Receiver</th><th class="font-normal">Install</th><th class="font-normal">Firmware</th><th class="font-normal">Output</th><th class="font-normal text-right">Signal</th><th class="font-normal text-right">Channel</th><th class="font-normal text-right">Up</th><th class="font-normal text-right">Restarts</th><th class="font-normal">Last restart</th><th class="font-normal text-right">Free memory</th><th class="font-normal">Last seen</th></tr></thead>
+                        <tbody id="devices"></tbody>
+                    </table>
+                </div>
+                <p id="no-devices" class="hidden text-sm text-gray-500 py-4">No receivers have reported in this period. In the app: Local pages, Audio channels for receivers, "Share receiver health".</p>
+            </section>
+
+            <p class="text-xs text-gray-500 max-w-3xl">
+                <strong>What is collected.</strong> Only if the app's owner switches on "Share receiver health": a random install id, the receiver's id, firmware, Wi-Fi signal, channel, restart count and reason,
+                free memory and its recent log lines, with network names, addresses and headphone names removed by the app. No captions, no audio, no account. History is sampled every 5 minutes and kept 30 days.
+                "Online" means it reported in the last 3 minutes. A receiver counts as restarted when its own restart counter goes up between two samples.
+            </p>
+        </div>
+    </main>
+
+<script>
+(function () {
+    const API = 'https://bckp.conferencecaptioning.com';
+    firebase.initializeApp({
+        apiKey: 'AIzaSyCsl1BRFkZNJRnIjeyUAR1l0VRSmgccyzM',
+        authDomain: 'beawareconfcapportal.firebaseapp.com',
+        projectId: 'beawareconfcapportal',
+    });
+    const auth = firebase.auth();
+    const $ = (id) => document.getElementById(id);
+    let chart = null, timer = null;
+
+    // Everything from the API is untrusted text (names, firmware, log lines): it only ever goes in through textContent.
+    function el(tag, text, cls) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; }
+    function cell(text, cls) { return el('td', text, 'py-1.5 pr-2 ' + (cls || '')); }
+    function when(iso) { return iso ? new Date(iso).toLocaleString() : ''; }
+    function up(s) { return s >= 3600 ? Math.floor(s / 3600) + ' h ' + Math.floor(s / 60) % 60 + ' min' : Math.floor(s / 60) + ' min'; }
+
+    async function api(path, method) {
+        const user = auth.currentUser;
+        if (!user) throw new Error('signed out');
+        const res = await fetch(API + path, { method: method || 'GET', headers: { Authorization: 'Bearer ' + await user.getIdToken() } });
+        if (res.status === 403) { const e = new Error('admins only'); e.denied = true; throw e; }
+        if (!res.ok) throw new Error('The server answered ' + res.status);
+        return res.json();
+    }
+
+    function show(which) {
+        $('login').classList.toggle('hidden', which !== 'login');
+        $('dashboard').classList.toggle('hidden', which !== 'dashboard');
+        $('toolbar').classList.toggle('hidden', which !== 'dashboard');
+        $('toolbar').classList.toggle('flex', which === 'dashboard');
+        $('status').classList.toggle('hidden', which !== 'checking' && which !== 'denied');
+        $('status').textContent = which === 'denied' ? 'This page is for the ConferenceCaptioning administrator.' : 'Checking your sign-in...';
+    }
+
+    async function load() {
+        const days = $('range').value;
+        $('problem').classList.add('hidden');
+        try {
+            const [summary, list] = await Promise.all([api('/device/summary?days=' + days), api('/device/list?days=' + days)]);
+            show('dashboard');
+            render(summary, list);
+        } catch (e) {
+            if (e.denied) { show('denied'); return; }
+            show('dashboard');
+            $('problem').textContent = 'Could not load the analytics. ' + e.message;
+            $('problem').classList.remove('hidden');
+        }
+    }
+
+    function emptyRow(tbody, text, span) { const tr = el('tr'); const td = el('td', text, 'py-2 text-gray-500'); td.colSpan = span || 2; tr.append(td); tbody.append(tr); }
+
+    function render(s, list) {
+        $('c-devices').textContent = s.devices; $('c-devices-sub').textContent = s.installs + ' app install' + (s.installs === 1 ? '' : 's');
+        $('c-online').textContent = s.onlineNow; $('c-online-sub').textContent = 'reported in the last 3 minutes';
+        $('c-weak').textContent = s.weakSignal; $('c-weak-sub').textContent = s.avgRssi ? 'average ' + s.avgRssi + ' dBm (weak: below -75)' : '';
+        $('c-restarts').textContent = s.restarts; $('c-restarts-sub').textContent = 'counted between samples';
+        $('c-crashed').textContent = s.crashed; $('c-crashed-sub').textContent = 'last restart was a crash, watchdog or brownout';
+        $('c-memory').textContent = s.lowMemory; $('c-memory-sub').textContent = 'online with under 30 kB free';
+
+        if (chart) chart.destroy();
+        chart = new Chart($('chart'), {
+            type: 'line',
+            data: { labels: s.perDay.map((d) => d.date), datasets: [
+                { label: 'Receivers reporting', data: s.perDay.map((d) => d.active), borderColor: '#2563eb', backgroundColor: '#2563eb', tension: 0.3 },
+                { label: 'Restarts', data: s.perDay.map((d) => d.restarts), borderColor: '#dc2626', backgroundColor: '#dc2626', tension: 0.3 },
+            ] },
+            options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+        });
+
+        const fw = $('by-fw'); fw.replaceChildren();
+        s.byFirmware.forEach((f) => { const tr = el('tr', undefined, 'border-t border-gray-100'); tr.append(cell(f.firmware), cell(f.devices, 'text-right')); fw.append(tr); });
+        if (!s.byFirmware.length) emptyRow(fw, 'Nothing yet');
+        const out = $('by-output'); out.replaceChildren();
+        s.byOutput.forEach((f) => { const tr = el('tr', undefined, 'border-t border-gray-100'); tr.append(cell(f.output), cell(f.devices, 'text-right')); out.append(tr); });
+        if (!s.byOutput.length) emptyRow(out, 'Nothing yet');
+
+        const body = $('devices'); body.replaceChildren();
+        $('no-devices').classList.toggle('hidden', list.length > 0);
+        list.forEach((d) => {
+            const tr = el('tr', undefined, 'border-t border-gray-100 cursor-pointer hover:bg-gray-50');
+            tr.tabIndex = 0;
+            const dot = el('span', '●', d.online ? 'text-green-600' : 'text-gray-400'); dot.title = d.online ? 'online' : 'offline';
+            const dotCell = cell('', ''); dotCell.append(dot);
+            const weak = d.rssi && d.rssi < -75;
+            tr.append(dotCell, cell(d.name || d.id.slice(-6), 'font-medium'), cell(d.install, 'font-mono text-xs'), cell(d.fw), cell(d.output || 'wired'),
+                cell(d.rssi ? d.rssi + ' dBm' : '–', 'text-right ' + (weak ? 'text-red-700 font-semibold' : '')), cell(d.channel || '–', 'text-right'), cell(up(d.uptime), 'text-right whitespace-nowrap'),
+                cell(d.restarts, 'text-right'), cell(d.reset || ''), cell(Math.round(d.heap / 1000) + ' kB', 'text-right ' + (d.heap && d.heap < 30000 ? 'text-red-700 font-semibold' : '')), cell(when(d.lastSeen), 'whitespace-nowrap'));
+            const toggle = () => logs(tr, d.id);
+            tr.addEventListener('click', toggle);
+            tr.addEventListener('keydown', (e) => { if (e.key === 'Enter') toggle(); });
+            body.append(tr);
+        });
+    }
+
+    async function logs(row, id) {
+        const next = row.nextElementSibling;
+        if (next && next.dataset.logs === id) { next.remove(); return; }
+        const tr = el('tr'); tr.dataset.logs = id;
+        const td = el('td', 'Loading...', 'bg-gray-50 px-3 py-2 text-xs text-gray-600'); td.colSpan = 12; tr.append(td);
+        row.after(tr);
+        try {
+            const r = await api('/device/logs?id=' + encodeURIComponent(id));
+            td.replaceChildren();
+            const pre = el('pre', r.lines.length ? r.lines.join('\n') : 'No log lines yet.', 'font-mono text-xs whitespace-pre-wrap max-h-64 overflow-y-auto');
+            td.append(pre);
+        } catch (err) { td.textContent = 'Could not load the log.'; }
+    }
+
+    $('range').addEventListener('change', load);
+    $('refresh').addEventListener('click', load);
+    $('signout').addEventListener('click', () => auth.signOut());
+    $('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault(); $('login-error').textContent = '';
+        try { await auth.signInWithEmailAndPassword($('email').value, $('password').value); }
+        catch (err) { $('login-error').textContent = 'Could not sign in. Check your email and password.'; }
+    });
+    $('google').addEventListener('click', async () => {
+        $('login-error').textContent = '';
+        try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+        catch (err) { $('login-error').textContent = 'Google sign-in did not finish.'; }
+    });
+    auth.onAuthStateChanged((user) => { clearInterval(timer); if (user) { load(); timer = setInterval(load, 60000); } else show('login'); });
+    show('checking');
+    lucide.createIcons();
+})();
+</script>
+</body>
+</html>

@@ -1366,7 +1366,7 @@
     <!-- ==========================================
          SLIDE 5: BUILT FOR AV (With Failover + english.gif)
          ========================================== -->
-    <section class="slide" data-slide="5">
+    <section class="slide" data-slide="5" data-aud="av">
       <div class="slide-header">
         <div class="header-content">
           <div class="slide-eyebrow">AV Production Integration</div>
@@ -1436,6 +1436,62 @@
       <div class="bottom-statement">
         <span><strong>You control the audio. We handle the accessibility layer.</strong></span>
         <span>Compatible with Blackmagic ATEM, Roland, Tricaster, Dante & NDI</span>
+      </div>
+    </section>
+
+    <section class="slide" data-slide="5" data-aud="org">
+      <div class="slide-header">
+        <div class="header-content">
+          <div class="slide-eyebrow">Show Day for Organizers</div>
+          <h2 class="slide-title">Nothing new to build on show day.</h2>
+          <p class="slide-subtitle">Your AV team plugs us into the audio they already run. You choose the languages and where captions appear.</p>
+        </div>
+        <div class="slide-logo-badge">
+          <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <div class="signal-flow">
+        <div class="signal-node"><span>YOUR AV TEAM</span><strong>Sends the room audio</strong></div>
+        <span style="color: var(--brand-accent);">➔</span>
+        <div class="signal-node highlight-node"><span>ACCESSIBILITY LAYER</span><strong>ConferenceCaptioning (Local Device)</strong></div>
+        <span style="color: var(--brand-accent);">➔</span>
+        <div class="signal-node"><span>ROOM</span><strong>Captions on your screens</strong></div>
+        <span style="color: var(--brand-accent);">➔</span>
+        <div class="signal-node"><span>ATTENDEES</span><strong>Read in their language</strong></div>
+      </div>
+
+      <div class="av-slide-layout">
+        <div class="grid-2x2">
+          <div class="glass-card">
+            <h3 class="card-title">🖥️ Captions on your room screens</h3>
+            <p class="card-text">Captions and translations show on the screens already in the room, directly or through your video switcher. Nobody needs a phone or an app.</p>
+          </div>
+          <div class="glass-card" style="border-left: 3px solid var(--brand-accent);">
+            <h3 class="card-title">🔄 A backup takes over</h3>
+            <p class="card-text">A backup Mac or iPad takes over in as little as 0.5 seconds (about 2 seconds at the default setting) if the main device fails.</p>
+          </div>
+          <div class="glass-card">
+            <h3 class="card-title">🛡️ The AI needs no internet</h3>
+            <p class="card-text">Transcription and translation run on a device in the room, so your venue's Wi-Fi is not a single point of failure, and the audio stays in the room.</p>
+          </div>
+          <div class="glass-card">
+            <h3 class="card-title">📱 Phones are optional</h3>
+            <p class="card-text">Attendees who prefer their own phone scan a QR code and pick a language. Phones join the event's local network, so plan for a router.</p>
+          </div>
+        </div>
+
+        <div class="media-box" style="height: 38vh;">
+          <div class="media-overlay-badge">
+            <span class="live-indicator"></span> NJEA CONVENTION · AUGUST 2026
+          </div>
+          <img src="english.gif" alt="NJEA Convention offline live captioning video switcher overlay" onerror="this.parentNode.innerHTML='<div style=\'padding:30px;text-align:center;color:#fff;\'><strong>NJEA Convention (August 2026)</strong></div>'">
+        </div>
+      </div>
+
+      <div class="bottom-statement">
+        <span><strong>You choose the languages. We handle the technology.</strong></span>
+        <span>Works with the audio and screens your AV team already uses</span>
       </div>
     </section>
 
@@ -1660,9 +1716,9 @@
     <section class="slide" data-slide="10">
       <div class="slide-header">
         <div class="header-content">
-          <div class="slide-eyebrow">AV Commercial Opportunity</div>
-          <h2 class="slide-title">Turn accessibility into a service you can sell.</h2>
-          <p class="slide-subtitle">Add ConferenceCaptioning to your existing production quotes with zero extra crew overhead.</p>
+          <div class="slide-eyebrow"><span data-aud="av">AV Commercial Opportunity</span><span data-aud="org">Event Organizer Partner Program</span></div>
+          <h2 class="slide-title"><span data-aud="av">Turn accessibility into a service you can sell.</span><span data-aud="org">Recommend accessibility. Get rewarded for it.</span></h2>
+          <p class="slide-subtitle"><span data-aud="av">You own the client relationship. We handle the captions and translation.</span><span data-aud="org">Make your own events accessible, and earn when peers and associations you recommend sign up.</span></p>
         </div>
         <div class="slide-logo-badge">
           <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo" onerror="this.style.display='none'">
@@ -1672,7 +1728,7 @@
       <div class="biz-diagram">
         <div style="text-align:center;">
           <span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">YOU</span><br/>
-          <strong>AV COMPANY</strong>
+          <strong data-aud="av">AV COMPANY</strong><strong data-aud="org">EVENT ORGANIZER</strong>
         </div>
         <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
         <div style="background: rgba(56, 189, 248, 0.15); padding: 6px 16px; border-radius: 8px; border: 1px solid var(--brand-accent); text-align:center;">
@@ -1682,7 +1738,7 @@
         <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
         <div style="text-align:center;">
           <span style="color: var(--brand-accent); font-size: 0.72rem; font-family: var(--font-mono);">CLIENT</span><br/>
-          <strong>EVENT ORGANIZER</strong>
+          <strong data-aud="av">EVENT ORGANIZER</strong><strong data-aud="org">PEERS &amp; ASSOCIATIONS</strong>
         </div>
         <div style="font-size: 1.4rem; color: var(--brand-accent);">➔</div>
         <div style="text-align:center;">
@@ -1692,9 +1748,9 @@
       </div>
 
       <div class="glass-card" style="border-left: 4px solid var(--brand-accent);">
-        <h3 class="card-title">💼 New High-Margin Revenue Opportunity</h3>
+        <h3 class="card-title">💼 <span data-aud="av">New High-Margin Revenue Opportunity</span><span data-aud="org">What your events get</span></h3>
         <p class="card-text" style="font-size: 1rem; margin-bottom: 1.2vh;">
-          Offer turnkey accessibility and translation packages right on your AV bid:
+          <span data-aud="av">Offer turnkey accessibility and translation packages right on your AV bid:</span><span data-aud="org">Live captions and translation for your own events, set up by your AV team:</span>
         </p>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw;">
           <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.85rem; text-align: center;">
@@ -1713,19 +1769,19 @@
       </div>
 
       <div class="glass-card" style="margin-top: 1.4vh;">
-        <h3 class="card-title">🤝 Partner Program: earn on every client you bring</h3>
+        <h3 class="card-title">🤝 Partner Program: <span data-aud="av">earn on every client you bring</span><span data-aud="org">earn when you refer events</span></h3>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1vw; font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">
           <div><strong style="color:#fff;">15% to 20% commission</strong><br>Silver (1-2 signed customers a year) earns 15%, Gold (3-5) earns 20%. Platinum (6+) is negotiable. Paid in cash on what the client actually paid for their first event or year.</div>
-          <div><strong style="color:#fff;">Then 10% on repeat business</strong><br>Keep earning 10% of what each client pays for the next 24 months. Recurring revenue from every renewal and repeat event.</div>
-          <div><strong style="color:#fff;">Your clients save too</strong><br>Referred customers get 10% off their first event or year, so recommending us is an easy yes.</div>
+          <div><strong style="color:#fff;">Then 10% on repeat business</strong><br>Keep earning 10% of what each client pays for the next 24 months. <span data-aud="av">Recurring revenue from every renewal and repeat event.</span><span data-aud="org">Recurring income from every renewal and repeat event.</span></div>
+          <div><strong style="color:#fff;"><span data-aud="av">Your clients save too</span><span data-aud="org">The people you refer save too</span></strong><br>Referred customers get 10% off their first event or year, so recommending us is an easy yes.<span data-aud="org"> Non-profits can take account credits or a donation instead of cash.</span></div>
           <div><strong style="color:#fff;">Kit and dashboard</strong><br>Ready-to-use texts, a QR code and video clips, plus a portal dashboard of every account you referred and what you earned.</div>
         </div>
         <p style="font-size: 0.78rem; color: var(--text-muted, #94a3b8); margin-top: 1vh;">Credit lasts 180 days from your link, or your code on a demo call. New customers only. Every application is reviewed by hand, and we make every payout ourselves.</p>
       </div>
 
       <div class="bottom-statement">
-        <span><strong>You already own the event production relationship. We make accessibility easier to deliver.</strong></span>
-        <span>Apply: <a href="https://conferencecaptioning.com/partners/av-production/" style="color: var(--brand-accent);">conferencecaptioning.com/partners/av-production</a></span>
+        <span data-aud="av"><strong>Add it to your next bid and earn on every client you bring.</strong></span><span data-aud="org"><strong>You know the events and the people who run them. We make accessibility easy to deliver.</strong></span>
+        <span data-aud="av">Apply: <a href="https://conferencecaptioning.com/partners/av-production/" style="color: var(--brand-accent);">conferencecaptioning.com/partners/av-production</a></span><span data-aud="org">Apply: <a href="https://conferencecaptioning.com/partners/event-organizers/" style="color: var(--brand-accent);">conferencecaptioning.com/partners/event-organizers</a></span>
       </div>
     </section>
 
@@ -1737,7 +1793,7 @@
         <div class="header-content">
           <div class="slide-eyebrow">Next Steps</div>
           <h2 class="slide-title">Let's make your next event accessible.</h2>
-          <p class="slide-subtitle">Ready to deploy in four simple steps on your next production.</p>
+          <p class="slide-subtitle"><span data-aud="av">You own the client relationship. We make the accessibility part easy to deliver, in four simple steps.</span><span data-aud="org">Ready to deploy in four simple steps at your next event.</span></p>
         </div>
         <div class="slide-logo-badge">
           <img src="https://conferencecaptioning.com/images/logo-white.svg" alt="ConferenceCaptioning Logo" onerror="this.style.display='none'">
@@ -1831,6 +1887,11 @@
   <script>
     (function () {
       'use strict';
+
+      // Audience switch: ?audience=organizer shows the event-organizer variants; default is AV.
+      const audParam = (new URLSearchParams(window.location.search).get('audience') || '').toLowerCase();
+      const aud = ['organizer', 'organiser', 'organizers', 'org'].includes(audParam) ? 'org' : 'av';
+      document.querySelectorAll('[data-aud]').forEach((el) => { if (el.dataset.aud !== aud) el.remove(); });
 
       let currentSlideIndex = 0;
       const slides = document.querySelectorAll('.slide');

@@ -1,0 +1,9 @@
+{
+  "version": "0.5.1",
+  "size": 1264112,
+  "sha256": "9e4825620bf2b7b3748ff95c01d46048e16f7389ee095905ab87058550f3a95a",
+  "signature": "MEQCIGf5BrMZdJ29pQlBOaDvTLrOQP0w/ak2lhBluz4VxAaIAiBTS37lHwcglxDCj40Z0DYchlNbq2iILNsvvyOajP6zvA==",
+  "url": "https://conferencecaptioning.com/firmware/0.5.1/firmware.bin",
+  "notes": "Adds a [stats] diagnostics line every minute (heap, longest loop pause, restarts) and the same numbers in the heartbeat",
+  "released": "2026-11-20"
+}

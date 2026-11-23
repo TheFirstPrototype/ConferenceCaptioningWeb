@@ -1,0 +1,38 @@
+[
+ {
+  "id": 1,
+  "start": 0.6,
+  "text": "Every organizer knows this moment.",
+  "dur": 1.92
+ },
+ {
+  "id": 2,
+  "start": 6.6,
+  "text": "What if your captions and translations never needed the internet?",
+  "dur": 3.27
+ },
+ {
+  "id": 3,
+  "start": 14.6,
+  "text": "ConferenceCaptioning runs its A.I. on a device in the room. No data center, and your audio stays on site.",
+  "dur": 6.13
+ },
+ {
+  "id": 4,
+  "start": 28.6,
+  "text": "Put captions and translations under your slides, like live T.V., in more than fifty languages.",
+  "dur": 5.64
+ },
+ {
+  "id": 5,
+  "start": 42.6,
+  "text": "Send translated audio to headsets in about a second, and plug into the A.V. tools you already use.",
+  "dur": 5.72
+ },
+ {
+  "id": 6,
+  "start": 52.6,
+  "text": "Visit our booth, and let's brainstorm what offline A.I. can do for your next event.",
+  "dur": 4.41
+ }
+]

@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>AES ad draft</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0B1F3A}
+body{font-family:"Inter","Helvetica Neue",Arial,sans-serif;color:#fff;position:relative}
+.sc{position:absolute;inset:0;opacity:0}
+.logo{position:absolute;left:70px;top:50px;width:300px;opacity:0}
+.title{position:absolute;left:0;right:0;text-align:center;font-weight:800;letter-spacing:-2px;line-height:1.08}
+.g{color:#2FD18C}.r{color:#ff6b6b}
+.cap{position:absolute;left:0;right:0;bottom:0;height:150px;background:#000;display:flex;align-items:center;justify-content:center;text-align:center;font-size:50px;font-weight:700;padding:0 120px;opacity:0}
+.stage{position:absolute;left:260px;top:170px;width:1400px;height:700px;border-radius:14px;background:#142b52;border:6px solid #2f4d7e;overflow:hidden}
+.bar{position:absolute;left:0;right:0;bottom:0;height:120px;background:#000;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;text-align:center;padding:0 60px}
+.l1{position:absolute;left:70px;top:70px;width:520px;height:26px;border-radius:13px;background:#7fa3d6}
+.l2{position:absolute;left:70px;top:125px;width:340px;height:18px;border-radius:9px;background:#4d73a8}
+.l3{position:absolute;left:70px;top:170px;width:420px;height:18px;border-radius:9px;background:#3a5a8a}
+.chip{position:absolute;background:#162f55;border:3px solid #3a5a8a;border-radius:44px;padding:18px 36px;font-size:44px;font-weight:700;white-space:nowrap}
+.box{position:absolute;border-radius:24px;background:#162f55;border:4px solid #3a5a8a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700}
+.arrow{position:absolute;height:8px;background:#2FD18C;border-radius:4px}
+.qr{width:100%;height:100%;display:block}
+</style></head><body>
+<img class="logo" id="logo" src="https://conferencecaptioning.com/images/logo-white.svg">
+<!-- S1 -->
+<div class="sc" id="s1"><div class="stage"><div class="l1"></div><div class="l2"></div><div class="l3"></div><div class="bar" id="s1cap"></div>
+ <div id="spin" style="position:absolute;right:50px;top:40px;background:#000;border:3px solid #ff6b6b;border-radius:40px;padding:14px 30px;font-size:36px;font-weight:700;opacity:0">⟳ Reconnecting…</div></div>
+ <div class="title r" id="s1t" style="top:50px;font-size:76px;opacity:0;z-index:2">Wi-Fi down. Captions gone.</div></div>
+<!-- S2 -->
+<div class="sc" id="s2"><img id="bali" src="bali.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><div style="position:absolute;inset:0;background:rgba(5,12,28,.62)"></div>
+ <div class="title" id="s2t" style="top:360px;font-size:120px;opacity:0">What if your captions<br>never needed <span class="g">Wi-Fi?</span></div></div>
+<!-- S3 -->
+<div class="sc" id="s3"><div class="title" style="top:90px;font-size:84px">On-device AI. <span class="g">Audio stays in the room.</span></div>
+ <div class="box" id="d1" style="left:140px;top:440px;width:420px;height:300px;font-size:44px;opacity:0">🎤<br>Audio in the room</div>
+ <div class="arrow" id="a1" style="left:580px;top:586px;width:0"></div>
+ <div class="box" id="d2" style="left:760px;top:400px;width:520px;height:380px;font-size:46px;border-color:#2FD18C;opacity:0">💻 📱<br>Mac · iPad · iPhone<br><span class="g" style="font-size:40px">The AI runs here</span></div>
+ <div class="arrow" id="a2" style="left:1300px;top:586px;width:0"></div>
+ <div class="box" id="d3" style="left:1480px;top:440px;width:300px;height:300px;font-size:44px;opacity:0">📺<br>Room screens</div>
+ <div class="chip" id="cl" style="left:700px;top:820px;font-size:44px;color:#ff9b9b;border-color:#ff6b6b;opacity:0">☁ No data center · ✕ No internet needed for AI</div></div>
+<!-- S4 -->
+<div class="sc" id="s4"><div class="title" style="top:60px;font-size:84px">Under your slides. <span class="g">50+ languages.</span></div>
+ <div class="stage" style="top:230px;height:640px"><div class="l1"></div><div class="l2"></div><div class="l3"></div><div class="bar" id="s4cap"></div></div>
+ <div class="chip" id="s4lang" style="left:1300px;top:250px;opacity:0"></div></div>
+<!-- S5 -->
+<div class="sc" id="s5"><div class="title" style="top:90px;font-size:84px">Translated audio to headsets <span class="g">in about a second</span></div>
+ <div class="box" style="left:300px;top:340px;width:1320px;height:260px;font-size:72px;opacity:1"><div id="en">Thank you, Claire.</div><div id="fr" class="g" style="opacity:0">Merci, Claire.</div></div>
+ <div class="chip" id="t1" style="left:150px;top:760px;opacity:0">Headsets</div><div class="chip" id="t2" style="left:550px;top:760px;opacity:0">OBS</div>
+ <div class="chip" id="t3" style="left:820px;top:760px;opacity:0">Bitfocus Companion</div><div class="chip" id="t4" style="left:1390px;top:760px;opacity:0">Stream Deck</div></div>
+<!-- S6 -->
+<div class="sc" id="s6"><img src="https://conferencecaptioning.com/images/logo-white.svg" style="position:absolute;left:660px;top:50px;width:600px">
+ <div class="title" style="top:190px;font-size:100px">Brainstorm your next event <span class="g">with us.</span></div>
+ <div style="position:absolute;left:270px;top:470px;width:360px;height:360px;background:#fff;border-radius:20px;padding:30px"><svg class="qr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges" class="segno"><path class="qrline" stroke="#000" d="M0 0.5h7m1 0h1m1 0h1m3 0h1m2 0h2m3 0h2m1 0h1m4 0h7m-37 1h1m5 0h1m1 0h1m2 0h1m6 0h1m1 0h6m2 0h1m1 0h1m5 0h1m-37 1h1m1 0h3m1 0h1m3 0h2m4 0h1m1 0h2m2 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h3m2 0h1m1 0h5m3 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m3 0h2m1 0h2m3 0h3m3 0h1m1 0h3m1 0h1m1 0h3m1 0h1m-37 1h1m5 0h1m3 0h1m1 0h1m1 0h2m1 0h4m3 0h1m1 0h1m3 0h1m5 0h1m-37 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-29 1h2m1 0h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-29 1h1m1 0h2m1 0h3m1 0h1m5 0h1m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h2m-33 1h1m2 0h4m1 0h4m2 0h1m4 0h1m2 0h1m1 0h2m4 0h2m-33 1h2m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m4 0h1m1 0h2m1 0h2m3 0h1m-27 1h4m2 0h2m1 0h1m1 0h1m1 0h1m3 0h3m2 0h3m1 0h2m-34 1h3m2 0h2m1 0h1m1 0h2m1 0h4m1 0h1m2 0h1m1 0h4m1 0h2m1 0h5m-36 1h2m1 0h1m4 0h1m4 0h8m2 0h1m1 0h8m2 0h1m-37 1h2m1 0h4m1 0h2m1 0h3m5 0h2m3 0h3m1 0h2m2 0h1m1 0h1m-35 1h2m1 0h3m2 0h2m2 0h1m2 0h2m3 0h3m1 0h1m1 0h1m4 0h2m2 0h2m-35 1h2m2 0h2m3 0h1m1 0h2m2 0h1m1 0h3m3 0h1m3 0h1m1 0h1m1 0h2m-35 1h2m2 0h2m2 0h1m1 0h5m3 0h1m1 0h2m1 0h5m2 0h2m2 0h3m-37 1h2m1 0h1m2 0h1m1 0h5m7 0h1m1 0h1m3 0h2m1 0h1m5 0h2m-37 1h1m1 0h2m1 0h1m3 0h2m2 0h5m5 0h2m3 0h1m1 0h1m1 0h2m1 0h1m-36 1h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h3m1 0h1m4 0h1m2 0h1m1 0h2m3 0h1m-34 1h1m3 0h1m1 0h2m5 0h5m2 0h1m4 0h1m4 0h1m-34 1h2m2 0h3m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m3 0h2m4 0h1m1 0h2m-31 1h1m1 0h1m1 0h1m1 0h1m1 0h2m3 0h2m1 0h1m2 0h1m3 0h2m3 0h1m2 0h5m-31 1h2m3 0h3m2 0h1m2 0h1m2 0h1m1 0h4m1 0h4m1 0h1m1 0h1m-36 1h5m1 0h5m1 0h2m4 0h1m2 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h2m-36 1h2m1 0h3m1 0h2m1 0h1m1 0h2m3 0h2m1 0h1m2 0h1m4 0h7m-36 1h1m1 0h3m6 0h2m1 0h2m4 0h3m3 0h2m7 0h1m-33 1h1m2 0h1m2 0h1m2 0h1m4 0h2m1 0h2m2 0h2m1 0h10m-29 1h3m1 0h1m1 0h2m2 0h1m1 0h1m1 0h3m3 0h1m3 0h1m1 0h1m1 0h1m-37 1h7m1 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m-37 1h1m5 0h1m1 0h1m5 0h2m1 0h4m2 0h1m3 0h2m3 0h1m2 0h2m-37 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h1m2 0h1m1 0h1m3 0h2m1 0h6m-34 1h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h3m1 0h2m2 0h1m2 0h5m1 0h2m2 0h1m-37 1h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h2m2 0h1m2 0h4m1 0h2m1 0h2m1 0h3m-35 1h1m5 0h1m2 0h1m1 0h1m3 0h1m2 0h2m2 0h5m2 0h1m1 0h2m1 0h1m-35 1h7m1 0h3m1 0h2m2 0h2m1 0h1m2 0h2m1 0h2m5 0h1m1 0h3"/></svg>
+</div>
+ <div style="position:absolute;left:690px;top:480px;font-size:60px;font-weight:800;line-height:1.3">Visit our booth<br><span style="font-size:48px;font-weight:600;color:#cfe0f5">Scan to book a 15-minute brainstorm</span><br><span class="g" style="font-size:52px">conferencecaptioning.com</span><br><span style="font-size:40px;font-weight:600;color:#cfe0f5">AES USA · Alexandria, VA · Dec 4</span></div></div>
+<div class="cap" id="cap"></div>
+<script>
+const CAPS=[{"s": 0.6, "e": 2.82, "t": "Every organizer knows this moment."}, {"s": 6.6, "e": 10.17, "t": "What if your captions and translations never needed the internet?"}, {"s": 14.6, "e": 21.03, "t": "ConferenceCaptioning runs its AI on a device in the room. No data center, and your audio stays on site."}, {"s": 28.6, "e": 34.54, "t": "Put captions and translations under your slides, like live TV, in more than fifty languages."}, {"s": 42.6, "e": 48.62, "t": "Send translated audio to headsets in about a second, and plug into the AV tools you already use."}, {"s": 52.6, "e": 57.31, "t": "Visit our booth, and let's brainstorm what offline AI can do for your next event."}];
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const fade=(t,a,b,c,d)=>cl((t-a)/(b-a))*cl((d-t)/(d-c));
+const $=id=>document.getElementById(id);
+const SC=[[0,6],[6,14],[14,28],[28,42],[42,52],[52,60]];
+const LANG=[["English","Welcome to the conference."],["Español","Bienvenidos a la conferencia."],["中文","欢迎来到大会。"],["Bahasa","Selamat datang di konferensi."]];
+window.render=function(t){
+ SC.forEach((r,i)=>{ $("s"+(i+1)).style.opacity=fade(t,r[0],r[0]+0.5,r[1]-0.5,r[1]) ; if(i==0&&t<0.5)$("s1").style.opacity=1;});
+ $("logo").style.opacity=0;
+ // S1
+ const w="…and that is why accessibility matters most when".split(" ");const n=Math.floor(cl((t-0.2)/1.8)*w.length);
+ $("s1cap").textContent=w.slice(0,n).join(" ");
+ $("spin").style.opacity=t>2.4?1:0;$("s1t").style.opacity=cl((t-3.2)/0.5);
+ // S2
+ $("bali").style.transform="scale("+(1+0.07*cl((t-6)/8))+")";$("s2t").style.opacity=cl((t-6.8)/0.6);
+ // S3
+ [["d1",15],["a1",17],["d2",18],["a2",21],["d3",22],["cl",24.5]].forEach(([id,at])=>{const e=$(id);const p=cl((t-at)/0.6);if(id[0]=="a")e.style.width=(p*140)+"px";else e.style.opacity=p;});
+ // S4
+ const k=Math.min(3,Math.floor((t-29.5)/3));const L=LANG[Math.max(0,k)];
+ $("s4cap").textContent=t>29.5?L[1]:"";$("s4lang").textContent=L[0];$("s4lang").style.opacity=t>29.5?1:0;
+ // S5
+ $("fr").style.opacity=cl((t-44.5)/0.5);
+ [["t1",46],["t2",47],["t3",48],["t4",49]].forEach(([id,at])=>$(id).style.opacity=cl((t-at)/0.4));
+ // captions
+ const c=CAPS.find(x=>t>=x.s&&t<=x.e);$("cap").textContent=c?c.t:"";$("cap").style.opacity=c?1:0;
+};
+render(0);
+</script></body></html>

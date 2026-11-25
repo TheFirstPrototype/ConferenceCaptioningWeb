@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Conference Captioning - Arabic ASR Evaluation</title>
+  <title>Arabic Live Captions for the Classroom: Evidence Review | Conference Captioning</title>
 
-  <meta
-    name="description"
-    content="Evaluation of Conference Captioning's real-time Arabic live captions against YouTube's automatic Arabic captions, using a fast-paced speech sample."
-  />
+  <meta name="description" content="Evidence review for educators: how Conference Captioning's Extreme Arabic engine performs on a 13-minute colloquial Arabic talk and on 100 real recordings, compared with YouTube's automatic captions and the previous engine, including where it fails." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -239,7 +236,24 @@
       font-size:15px;
     }
 
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-size:16px}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+    th{color:var(--muted);font-weight:700;font-size:14px}
+    .tbl-wrap{overflow-x:auto}
+    .good{color:#8de3a8;font-weight:700}.bad{color:#ffb4a8;font-weight:700}
+    .row3{margin-top:18px}.row3 .transcript-box{margin-bottom:14px}
+    .tag{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+    .bars{margin-top:24px}
+    .bar-row{display:grid;grid-template-columns:230px 1fr 70px;gap:14px;align-items:center;margin:14px 0}
+    .bar-track{background:rgba(255,255,255,0.08);border-radius:999px;height:22px;overflow:hidden}
+    .bar-fill{height:100%;border-radius:999px;background:rgba(255,255,255,0.35)}
+    .bar-fill.best{background:var(--accent)}
+    .bar-val{font-weight:800;font-size:20px;text-align:right}
+    .note{font-size:15px;color:var(--muted)}
+    .badge{display:inline-block;background:var(--accent);color:#102b45;font-weight:800;font-size:12px;padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
     @media(max-width:900px){
+      .bar-row{grid-template-columns:1fr 60px}
+      .bar-track{grid-column:1 / -1;order:3}
 
       h1{
         font-size:44px;
@@ -301,19 +315,19 @@
       >
 
       <div class="eyebrow">
-        Arabic Live Captioning Evaluation
+        Evidence review for educators and accessibility staff
       </div>
 
       <h1>
-        Real-Time Arabic Captioning That Preserves Meaning, Context, and Accessibility
+        Arabic Live Captions for the Classroom: What the Evidence Shows
       </h1>
 
       <p class="lead">
-        Conference Captioning was evaluated against YouTube's automatic Arabic
-        caption generation using a fast-paced motivational Arabic speech sample.
-        The results demonstrate strong semantic preservation and highly readable
-        live captions suitable for conferences, accessibility, multilingual events,
-        and live audience engagement. We used our latest AI model for this comparison
+        We tested our new <strong>Extreme</strong> Arabic engine on a 13-minute talk of fast,
+        colloquial Arabic with English mixed in, and on 100 recordings with known transcripts.
+        This page shows what it gets right, where it is better than YouTube's captions and our
+        previous engine, where it still fails, and what we would check before relying on it for
+        Arabic-speaking students.
       </p>
 
       <div class="cta-row">
@@ -340,158 +354,153 @@
 
     <div class="container">
 
+      <h2 style="font-size:42px;margin:0 0 8px;">Summary for decision makers</h2>
       <div class="grid">
-
         <div class="card">
-          <div class="metric">Around 92%</div>
-          <h3>Semantic Accuracy</h3>
-          <p class="muted">
-            The transcription preserved the overall meaning,
-            emotional tone, and motivational structure of the speaker,
-            despite rapid colloquial Arabic delivery.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="metric">Real-Time</div>
-          <h3>Live Accessibility</h3>
-          <p class="muted">
-            Unlike post-processed systems, Conference Captioning performs
-            live caption generation with low latency for conferences,
-            presentations, and multilingual events.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="metric">Arabic Dialects</div>
-          <h3>Dialect Handling</h3>
-          <p class="muted">
-            The engine successfully retained contextual understanding
-            in colloquial Arabic speech where many transcription systems
-            struggle due to dialect variability.
-          </p>
-        </div>
-
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="grid">
-
-        <div class="card">
-
-          <h3>Evaluation Methodology</h3>
-
-          <p class="muted">
-            The evaluation compared:
-          </p>
-
+          <h3>Where it is strong</h3>
           <ul>
-            <li>Conference Captioning live transcription output</li>
-            <li>YouTube auto-generated Arabic captions</li>
-            <li>Semantic continuity across long speech sequences</li>
-            <li>Readability for accessibility use cases</li>
-            <li>Preservation of motivational cadence and meaning</li>
+            <li>4.2% word error rate on 100 real Egyptian-Arabic recordings (previous engine: 19.6%).</li>
+            <li>On a 13-minute colloquial talk it agrees with YouTube's post-processed captions to within 14% of words, and with our previous engine only to within 32%.</li>
+            <li>It keeps English terms in English letters ("screen time", "every single day"), which both comparison systems garbled.</li>
+            <li>It adds punctuation, which makes live captions easier to read.</li>
+            <li>Runs on the device: no internet and no audio sent to a cloud.</li>
           </ul>
-
-          <div class="pill-row">
-            <div class="pill">Live ASR</div>
-            <div class="pill">Arabic Speech</div>
-            <div class="pill">Dialectal Arabic</div>
-            <div class="pill">Accessibility Focused</div>
-            <div class="pill">Semantic Preservation</div>
-          </div>
-
         </div>
-
         <div class="card">
-
-          <h3>Source Audio</h3>
-
-          <p class="muted">
-            The transcription sample originated from the following Arabic
-            motivational speech video on YouTube:
-          </p>
-
-          <p>
-            <a
-              class="youtube-link"
-              href="https://www.youtube.com/watch?v=fVZAN1wokdc"
-              target="_blank"
-            >
-              https://www.youtube.com/watch?v=fVZAN1wokdc
-            </a>
-          </p>
-
-          <p class="muted">
-            This audio contains fast-paced colloquial Arabic with emotional
-            delivery and motivational speech patterns, making it a challenging
-            benchmark for live automatic speech recognition systems.
-          </p>
-
+          <h3>What to know before relying on it</h3>
+          <ul>
+            <li>Captions appear a few seconds after the speaker pauses, not word by word.</li>
+            <li>Mac only, with the app language set to Arabic.</li>
+            <li>In one stretch of heavy English it failed (repeated a word); we have since added a guard against that.</li>
+            <li>Not yet tested in a real classroom: room echo, distant microphones, several speakers.</li>
+            <li>No speaker labels. A teacher should expect occasional errors on names and technical terms.</li>
+          </ul>
         </div>
-
       </div>
 
       <div class="divider"></div>
 
-      <h2 style="font-size:42px;margin-bottom:24px;">
-        Transcript Comparison
-      </h2>
-
-      <div class="comparison">
-
-        <div class="transcript-box">
-
-          <h4>Conference Captioning</h4>
-
-          <div class="arabic">
-           النجاح مش سهل شباب النجاح مش سهل لو نجح سهل كان العالم. كله ناجحة بدك تتعب وتشتغل على عقلك تتعب وتشتغل على جسمك تتعب وتشتغل على عملك تتعب وتشتغل عرفتك مع الله تتعب وتشتغل بكل شيء في تعب بس تعب جميل تعب عارف إنك ما قدرت تقوم بس مبسوط هذا التعب؟ واللي، بيجيب هيك هذا التعب اللي بحكي عنه وممكن تمر في مراحل تعيط وتتعب وإنسان أنت في مشاعر بس أنت عارف وين رايح لما. بدك الاشي كأنه حياتك معتمدة عليه هتحصل على هذا الاشي رغما عن أنف أي حد في العالم أول طريقة إنك تكون أفضل نسخة من نفسك إنك تتحدى النسخة السابقة من نفسك في كل يوم والهدف بتاعك يكون أقوى وتحدي أكبر من أي هدف، أنت حطيته وأطلب من نفسك أكثر دائما أطلب من نفسك أكثر دائما تضغط نفسك؟ تأخذ أكثر تحط أهداف عادية هتاخد العادي بتحط
-          </div>
-
+      <h2 style="font-size:42px;margin:0 0 8px;">Test 1: 100 recordings with known transcripts</h2>
+      <p class="muted">Word error rate (WER) against the correct transcript. Lower is better.</p>
+      <div class="card">
+        <div class="bars">
+          <div class="bar-row"><div><strong>Extreme</strong><span class="badge">NEW</span></div><div class="bar-track"><div class="bar-fill best" style="width:4.2%"></div></div><div class="bar-val">4.2%</div></div>
+          <div class="bar-row"><div><strong>Enhanced</strong> (now a larger model)</div><div class="bar-track"><div class="bar-fill" style="width:11.6%"></div></div><div class="bar-val">11.6%</div></div>
+          <div class="bar-row"><div>Previous Arabic engine (system dictation)</div><div class="bar-track"><div class="bar-fill" style="width:19.6%"></div></div><div class="bar-val">19.6%</div></div>
+          <div class="bar-row"><div>Previous Enhanced</div><div class="bar-track"><div class="bar-fill" style="width:28.2%"></div></div><div class="bar-val">28.2%</div></div>
         </div>
-
-        <div class="transcript-box">
-
-          <h4>YouTube Post-Processed Auto-Captions</h4>
-
-          <div class="arabic">
-            النجاح مش سهل شباب النجاح مش سهل لو النجاح سهل كان العالم كلها ناجحه بدك تتعب وتشتغل على عقلك تتعب وتشتغل على جسمك تتعب وتشتغل على عملك تتعب وتشتغل علاقتك مع الله تتعب وتشتغل بكل شي في تعب بس تعب جميل تعب اللي عارف انك ما قادر تقوم بس مبسوط هذا التعب هو اللي بيجيب هيك هذا التعب اللي بحكي عنه وممكن تمر في مراحل تعيط وتتعب وانسان انت في مشاعر بس بس انت عارف وين رايح لما بدك الشيء كانه حياتك معتمده عليه حتحصل على هذا الشيء رغما عن انف اي حد في العالم اول طريقه انك تكون افضل نسخه من نفسك انك تتحدى النسخه السابقه من نفسك في كل يوم والهدف تاعك يكون اقوى وتحد اكبر من اي هدف انت حطيته امبارح واطلب من نفسك اكثر دائما اطلب من نفسك اك دائما اضغط نفسك لتاخذ اكثر لما تحط اهداف عاديه حتاخذ العادي بتحط
-          </div>
-        </div>
-
+        <p class="note">Bars share one scale (100% = every word wrong). 100 clips of read Egyptian Arabic from the public FLEURS dataset, the same clips for every engine. Scoring ignores spelling variants that do not change the word (hamza and alef forms, ta marbuta, diacritics, punctuation). Read, clean speech is the easy case: expect higher error rates in a lively room.</p>
       </div>
 
-      <div style="margin-top:50px;" class="card">
+      <div class="divider"></div>
 
-        <h3>Key Findings</h3>
+      <h2 style="font-size:42px;margin:0 0 8px;">Test 2: a 13-minute colloquial talk</h2>
+      <p class="muted">A fast, emotional motivational talk in Levantine and Egyptian-flavoured Arabic with many English words, the kind of speech that is hard for captioning. <a class="youtube-link" href="https://www.youtube.com/watch?v=fVZAN1wokdc" target="_blank" rel="noopener">Original video</a>.</p>
+      <div class="card">
+        <p><strong>Method.</strong> We cut the audio at pauses into 43 segments (13.5 minutes in total) and ran the same segments through Extreme and the previous engine. We took YouTube's automatic Arabic captions for the same video, which YouTube produces after the fact with more context than a live system has.</p>
+        <p><strong>Important limit.</strong> There is no human-made reference transcript for this talk, so these numbers are <em>disagreement</em> between systems, not accuracy. Where a system disagrees with the others we looked at the actual words, shown below. A native-speaker review of the full transcript is the next step.</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>Differences between systems (percent of words)</th><th>vs Extreme</th></tr>
+          <tr><td>YouTube automatic captions</td><td>13.6%</td></tr>
+          <tr><td>Previous Arabic engine</td><td>32.2%</td></tr>
+        </table></div>
+        <p class="note">Extreme and YouTube mostly differ in spelling and dialect forms (<span class="arabic" style="font-size:inherit;display:inline">الشيء / الاشي</span>, <span class="arabic" style="font-size:inherit;display:inline">بيجيب / بجيب</span>), which do not change the meaning. The previous engine differs in real words.</p>
+      </div>
 
+      <h3 style="font-size:30px;margin:36px 0 4px;">Where Extreme is better</h3>
+
+      <div class="card row3">
+        <h3>1. English mixed into Arabic</h3>
+        <p class="muted">Teachers and speakers code-switch constantly. The speaker says "every single day, every single week, every single month".</p>
+        <div class="transcript-box"><span class="tag good">Extreme</span><div class="arabic">روتين <bdi dir="ltr">every single day every single week every single month</bdi></div></div>
+        <div class="transcript-box"><span class="tag">YouTube</span><div class="arabic">افري سنجل دا افري سينل ويك افري سينل</div></div>
+        <div class="transcript-box"><span class="tag">Previous engine</span><div style="direction:ltr;text-align:left;font-size:18px">(the whole phrase is missing)</div></div>
+      </div>
+
+      <div class="card row3">
+        <h3>2. English phrases and numbers</h3>
+        <p class="muted">The speaker says "three, four hours, two hours and a half a day".</p>
+        <div class="transcript-box"><span class="tag good">Extreme</span><div class="arabic">مرات <bdi dir="ltr">3 4 hours 2 hours and a half a day</bdi></div></div>
+        <div class="transcript-box"><span class="tag">YouTube</span><div class="arabic">مرات 3 ف اورز ت اورز انف اداي</div></div>
+        <div class="transcript-box"><span class="tag">Previous engine</span><div class="arabic">مرات Three Four over Zen</div></div>
+      </div>
+
+      <div class="card row3">
+        <h3>3. A sentence whose meaning depends on one word</h3>
+        <p class="muted">The speaker compares the body to a ship that smoking slowly punctures: "…but eventually the boat will sink".</p>
+        <div class="transcript-box"><span class="tag good">Extreme</span><div class="arabic">عم بتدخن عم بتخزق السفينة شوي شوي خزوق صغيرة كل يوم ما بتبين ولكن ايفينشلي البوت حيغرق</div></div>
+        <div class="transcript-box"><span class="tag">YouTube</span><div class="arabic">عم بتدخن عم بتزق السفينه شوي شوي خزوق صغيره كل يوم ما بتبين ولكن حرق</div></div>
+        <div class="transcript-box"><span class="tag">Previous engine</span><div class="arabic">عم بتخنئ عم بتخس السفينة شوي شوي خزوق صغيرة كل يوم ما بتبين ولكن <bdi dir="ltr">Event</bdi> البوت حي غرب</div></div>
+        <p class="note">Only Extreme keeps the point of the sentence (the boat will sink). YouTube ends with a single unrelated word and the previous engine turns "smoking" into a non-word.</p>
+      </div>
+
+      <div class="card row3">
+        <h3>4. Ordinary words in fast speech</h3>
+        <p class="muted">"…your relationship with God" (<span class="arabic" style="font-size:inherit;display:inline">علاقتك مع الله</span>), from the first sentence of the talk:</p>
+        <div class="transcript-box"><span class="tag good">Extreme</span><div class="arabic">وتشتغل على علاقتك مع الله</div></div>
+        <div class="transcript-box"><span class="tag bad">Previous engine</span><div class="arabic">وتشتغل عرفتك مع الله</div></div>
+        <p class="note">The previous engine heard "عرفتك" ("your knowing"), a different word. In a lecture, an error like this changes what a student reads.</p>
+      </div>
+
+      <div class="card row3">
+        <h3>5. Loanwords and clean-up in one passage</h3>
+        <div class="transcript-box"><span class="tag good">Extreme</span><div class="arabic">لازم كلنا نعرف انه في غيرنا عم بيعطوا 100% فنحن لازم نعطي 150</div></div>
+        <div class="transcript-box"><span class="tag">Previous engine</span><div class="arabic">لازم كلنا نعرف إنه في غير نعم بي يعطوا 100% واحنا لازم نعطيه 100</div></div>
+        <p class="note">The previous engine split "عم بيعطوا" into non-words and read 150 as 100. Extreme (like YouTube) got the number right.</p>
+      </div>
+
+      <h3 style="font-size:30px;margin:36px 0 4px;">Where it still fails</h3>
+
+      <div class="card row3">
+        <h3>Repetition loop on heavy English (found in this test)</h3>
+        <p class="muted">In one 17-second stretch where the speaker switches into English phrases, Extreme wrote one word, "ستاندرد" (standard), 33 times in a row. The other systems also struggled there (YouTube produced unrelated words, the previous engine produced English-looking nonsense), but a repeating word is the more disruptive error on a screen.</p>
+        <p><strong>What we did:</strong> the app now cuts any word repeated more than three times in a row. This is a safety net against this one failure type, not a fix for the underlying difficulty with fast English inside Arabic.</p>
+      </div>
+
+      <div class="card row3">
+        <h3>Smaller issues</h3>
         <ul>
-          <li>
-            Conference Captioning maintained strong sentence continuity
-            across long speech segments.
-          </li>
-
-          <li>
-            The engine preserved repetition structures and motivational rhythm,
-            critical for audience comprehension.
-          </li>
-
-          <li>
-            Most differences were minor dialect substitutions,
-            phonetic variations, or morphology differences.
-          </li>
-
-          <li>
-            The system retained high readability even during rapid speech.
-          </li>
-
-          <li>
-            Semantic understanding remained substantially intact throughout
-            the evaluated transcript.
-          </li>
+          <li>English words are sometimes written in English letters and sometimes in Arabic letters ("اتس فيري ديفيكالت") within the same talk.</li>
+          <li>Rare words and some proper names are wrong (for example "ات توبل" for a short English phrase).</li>
+          <li>A segment of background noise at the end of the talk produced the stray word "ضوضاء" (noise).</li>
+          <li>A few sentences end early or late at segment boundaries, because the engine reads each phrase after a pause.</li>
         </ul>
+      </div>
 
+      <div class="divider"></div>
+
+      <h2 style="font-size:42px;margin:0 0 8px;">Is it suitable for Arabic-speaking students?</h2>
+      <div class="card">
+        <table>
+          <tr><th>Question</th><th>Answer from our tests</th></tr>
+          <tr><td>Is accuracy high enough to follow a lecture?</td><td>On clean speech, yes (4.2% word error rate). On fast, informal talk the text matched YouTube's after-the-fact captions closely, and kept the meaning of the passages we examined. Not yet verified in a real classroom.</td></tr>
+          <tr><td>Are captions live?</td><td>Yes, but phrase by phrase, a few seconds after the speaker pauses. A Release build transcribes a 12-second phrase in about half a second; most of the wait is for the pause.</td></tr>
+          <tr><td>Does it handle teachers who mix Arabic and English?</td><td>Better than the comparison systems in our test, but heavy stretches of English remain the weakest point.</td></tr>
+          <tr><td>Which Arabic?</td><td>Tested on Egyptian speech (recordings) and Levantine-flavoured colloquial speech (talk). Gulf, Maghrebi and Sudanese Arabic are untested. Modern Standard Arabic lectures are not yet measured separately.</td></tr>
+          <tr><td>Privacy?</td><td>Recognition runs on the device. No audio is sent for transcription.</td></tr>
+          <tr><td>Equipment?</td><td>A recent Apple-silicon Mac, a one-time model download of about 1.5 GB, and a close microphone.</td></tr>
+          <tr><td>What is not provided?</td><td>Speaker labels, a human proofreader, and any guarantee for legal or exam accommodations.</td></tr>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3>Our recommendation for a pilot</h3>
+        <ol>
+          <li>Run Extreme in two or three real classes with a lapel or desk microphone close to the teacher.</li>
+          <li>Ask two Arabic-speaking students to mark errors that changed the meaning, and compare with the engine you use today.</li>
+          <li>Keep a person ready to correct names and technical terms, especially in lessons with a lot of English.</li>
+          <li>Treat live captions as an aid for understanding, and use the saved transcript with human review where accuracy is formally required.</li>
+        </ol>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3>What these tests do not show</h3>
+        <ul class="muted">
+          <li>No human reference transcript for the 13-minute talk; its figures are agreement between systems.</li>
+          <li>One speaker, one talk and one dataset. Different voices, dialects and rooms can change the results.</li>
+          <li>Word error rate counts every wrong, missing or extra word; it is not the same as how much meaning a student gets.</li>
+          <li>We have not tested a noisy classroom, several speakers, or a distant microphone.</li>
+        </ul>
       </div>
 
     </div>
